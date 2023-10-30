@@ -4,5 +4,6 @@
 > DO NOT REMOVE .vscode
 
 ## TODO
-Create and include makefile
+* Create and include makefile
+* Switch CMake for makefile
 
