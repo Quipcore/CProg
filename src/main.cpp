@@ -1,8 +1,8 @@
 #define SDL_MAIN_HANDLED
 
 #include <iostream>
-//#include <SDL2/SDL.h>
-#include "../include/SDL2/SDL.h"
+#include <SDL2/SDL.h>
+#include "Constants.h"
 
 int main(int argc, char* argv[])
 {
