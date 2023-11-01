@@ -10,7 +10,7 @@ include_directories(${INCLUDE_DIR})
 
 link_directories(${SDL2_LIB_DIR})
 
-add_executable(${PROJECT_NAME} src/main.cpp src/test.cpp src/test.h)
+add_executable(${PROJECT_NAME} src/main.cpp)
 
 include_directories(src)
 add_subdirectory(src)

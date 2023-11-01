@@ -1,5 +1,4 @@
 #define SDL_MAIN_HANDLED
-
 #include <string>
 #include <iostream>
 #include <SDL2/SDL.h>
@@ -50,7 +49,10 @@ int main(int argc, char* argv[] ) {
 
         SDL_RenderPresent(renderer);
 
+
+
     }
+
 
 
     std::string greetings = "Hello";
