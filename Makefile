@@ -2,14 +2,17 @@ SRC_DIR = src
 OBJ_NAME = play
 BUILD_DIR = build/debug
 
+PATH_TO_COMPILER = C:/msys64/mingw64
+
 CC = g++
 COMPILER_FLAGS = -std=c++17 -Wall -O0 -g
 
-SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)
+#From https://stackoverflow.com/a/12959764
+RECURSIVE_WILDCARD = $(wildcard $1$2) $(foreach d,$(wildcard $1*),$(call RECURSIVE_WILDCARD,$d/,$2))
+SRC_FILES = $(call RECURSIVE_WILDCARD,$(SRC_DIR)/,*.cpp)
 
-#Link and include SDL libraries
-INCLUDE_PATHS = -Iinclude -LC:/msys64/mingw64/include/
-LIBRARY_PATHS = -Llib -LC:/msys64/mingw64/lib
+INCLUDE_PATHS = -Iinclude -I$(PATH_TO_COMPILER)/include
+LIBRARY_PATHS = -Llib -L$(PATH_TO_COMPILER)/lib
 LINKER_FLAGS = -lSDL2 -lSDL2main -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 
 
