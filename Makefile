@@ -6,10 +6,12 @@ CC = g++
 COMPILER_FLAGS = -std=c++17 -Wall -O0 -g
 
 SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)
-INCLUDE_PATHS = -I ./include
-LIBRARY_PATHS =  -L./lib
 
-LINKER_FLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
+#Link and include SDL libraries
+INCLUDE_PATHS = -Iinclude -LC:/msys64/mingw64/include/
+LIBRARY_PATHS = -Llib -LC:/msys64/mingw64/lib
+LINKER_FLAGS = -lSDL2 -lSDL2main -lSDL2_image -lSDL2_ttf -lSDL2_mixer
+
 
 #if user is on windows, use powershell needs to copy resources to build directory
 RESOURCE_COPY =
