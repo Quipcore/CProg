@@ -1,10 +1,15 @@
 #ifndef CPROG_PROJECT_SQUARE_H
 #define CPROG_PROJECT_SQUARE_H
 
+#include "GameObject.h"
+
 namespace Scripts {
-    class Square {
+    class Square : public GameObject {
     public:
-        static void draw();
+        Square() : GameObject(){};
+        void update() override;
+    private:
+        int size = 1;
     };
 }
 

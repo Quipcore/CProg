@@ -15,7 +15,6 @@ INCLUDE_PATHS = -Iinclude -I$(PATH_TO_COMPILER)/include
 LIBRARY_PATHS = -Llib -L$(PATH_TO_COMPILER)/lib
 LINKER_FLAGS = -lSDL2 -lSDL2main -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 
-
 #if user is on windows, use powershell needs to copy resources to build directory
 RESOURCE_COPY =
 ifeq ($(OS),Windows_NT)
@@ -28,3 +27,6 @@ all:
 
 run: all
 	./$(BUILD_DIR)/$(OBJ_NAME).exe
+
+
+.PHONY: all run

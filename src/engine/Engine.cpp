@@ -8,34 +8,47 @@
 #include <string>
 #include "Constants.h" //gResPath-contains the path to your resources.
 
-#include "engine/raycaster/Raycaster.h"
-
-
-// Alla dessa SDL inkluderingsfiler används inte i detta testprogram.
-// Bifogas endast för test av SDL installation!
-
-/*  PATH TO YOUR RESOURCE FOLDER 'resources'
-*   'gResPath' is a global constant defined in "Constants.h",
-*   representing the relative path to your resource folders as a string,
-*   i.e. ' const std::string gResPath = "../../resources/" '
-*   Use it through its namespace, 'constants::gResPath'.
-*
-*   Change to your own path if you choose a different approach!
-*   Absolut Path(Second choice)
-*   gResPath = "/Users/kjellna/dev/cpp/sdl2_second/resources/";
-*
-*   If you need to copy your 'resources' folder into directory
-*   '/build/debug/', in that case change gResPath="./resources/"
-*/
 
 //#define FPS 60
 
-int Engine::Engine::run() {
+int Springhawk::Engine::run(int screenWidth, int screenHeight, std::vector<GameObject *> &gameObjects) {
 
-    Raycaster raycaster;
-    raycaster.print();
+    if(init()){
+        throw std::runtime_error("Failed to initialize!");
+    }
 
+    SDL_Window* window = SDL_CreateWindow("Window", 100, 100, 800, 600, 0);
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 
+    std::vector<SDL_Texture*> textures = loadTextures(renderer);
+
+    keepOpen(renderer, textures, gameObjects);
+
+    quit(window, renderer, textures);
+
+    return EXIT_SUCCESS;
+}
+
+// Städa innan programmet avslutas!
+void Springhawk::Engine::quit(SDL_Window *window, SDL_Renderer *renderer,std::vector<SDL_Texture*> &textures) {
+    for(SDL_Texture* texture : textures){
+        SDL_DestroyTexture(texture);
+    }
+
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+
+    TTF_Quit();
+    SDL_Quit();
+}
+
+void Springhawk::Engine::render(SDL_Renderer *renderer, std::vector<SDL_Texture*> &textures) {
+    SDL_RenderClear(renderer);
+    SDL_RenderCopy(renderer, textures[0], NULL, NULL);
+    SDL_RenderPresent(renderer);
+}
+
+bool Springhawk::Engine::init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
         std::cout << "Error SDL2 Initialization : " << SDL_GetError();
@@ -47,40 +60,45 @@ int Engine::Engine::run() {
         std::cout << "Error SDL_ttf Initialization : " << SDL_GetError();
         return EXIT_FAILURE;
     }
+    return EXIT_SUCCESS;
+}
 
-    SDL_Window* window 		= SDL_CreateWindow("Window", 100, 100, 800, 600, 0);
-    SDL_Renderer* renderer 	= SDL_CreateRenderer(window, -1, 0);
+std::vector<SDL_Texture*> Springhawk::Engine::loadTextures(SDL_Renderer* pRenderer) {
+    std::vector<SDL_Texture*> textures;
 
     SDL_Surface* bg_sur = IMG_Load( (constants::gResPath + "images/bg.jpg").c_str() );
-
-    SDL_Texture* bg_tex = SDL_CreateTextureFromSurface(renderer, bg_sur);
+    SDL_Texture* bg_tex = SDL_CreateTextureFromSurface(pRenderer, bg_sur);
     SDL_FreeSurface(bg_sur);
 
-    std::cout << "End Program using the application\'s windows menu \"quit\" or just close the window!" << std::endl;
+    textures.push_back(bg_tex);
+    return textures;
+}
 
-    // Loop till dess att programmet avslutas!
+// Loop till dess att programmet avslutas!
+void Springhawk::Engine::keepOpen(SDL_Renderer *pRenderer, std::vector<SDL_Texture *> &textures,
+                                  std::vector<GameObject *> gameObjects) {
+
+    std::vector<GameObject*> gameObject = getGameObjects();
+
     bool running = true;
     while (running) {
         SDL_Event e;
+
         if (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
                 running = false;
             }
         }
 
-        SDL_RenderClear(renderer);
-        SDL_RenderCopy(renderer, bg_tex, NULL, NULL);
-        SDL_RenderPresent(renderer);
+        for(GameObject* gameObject : gameObjects){
+            gameObject->update();
+        }
+
+        render(pRenderer, textures);
     }
+}
 
-    // Städa innan programmet avslutas!
-
-    SDL_DestroyTexture(bg_tex);
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-
-    TTF_Quit();
-    SDL_Quit();
-
-    return EXIT_SUCCESS;
+std::vector<GameObject*> Springhawk::Engine::getGameObjects() {
+    std::vector<GameObject*> gameObjects;
+    return gameObjects;
 }
