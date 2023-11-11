@@ -4,10 +4,9 @@
 
 #ifndef CPROG_PROJECT_GAMEOBJECT_H
 #define CPROG_PROJECT_GAMEOBJECT_H
-struct position{
-    int x = 0;
-    int y = 0;
-};
+
+#include "springhawk/Color.h"
+#include "springhawk/Vector2.h"
 
 class GameObject {
 public:
@@ -15,9 +14,13 @@ public:
     ~GameObject() = default;
 
     virtual void update();
+    virtual Color getColor();
+
+    Vector2 getPosition();
 
 protected:
-    position position;
+    Vector2 position;
+    Color color;
 };
 
 

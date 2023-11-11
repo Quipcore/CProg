@@ -1,5 +1,5 @@
-#include "engine/Engine.h"
-#include "engine/Input.h"
+#include "springhawk/Engine.h"
+#include "springhawk/Input.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -9,17 +9,22 @@
 #include <iostream>
 #include <string>
 #include "Constants.h" //gResPath-contains the path to your resources.
+#include "chrono"
+#include "thread"
 
-
-//#define FPS 60
+int Springhawk::Engine::SCREEN_WIDTH = 640;
+int Springhawk::Engine::SCREEN_HEIGHT = 400;
 
 int Springhawk::Engine::run(int screenWidth, int screenHeight, std::vector<GameObject *> &gameObjects) {
+
+    SCREEN_WIDTH = screenWidth;
+    SCREEN_HEIGHT = screenHeight;
 
     if(init()){
         throw std::runtime_error("Failed to initialize!");
     }
 
-    SDL_Window* window = SDL_CreateWindow("Window", 100, 100, 800, 600, 0);
+    SDL_Window* window = SDL_CreateWindow("Window", 100, 100, screenWidth, screenHeight, 0);
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 
     std::vector<SDL_Texture*> textures = loadTextures(renderer);
@@ -46,7 +51,7 @@ void Springhawk::Engine::quit(SDL_Window *window, SDL_Renderer *renderer,std::ve
 
 void Springhawk::Engine::render(SDL_Renderer *renderer, std::vector<SDL_Texture*> &textures) {
     SDL_RenderClear(renderer);
-    SDL_RenderCopy(renderer, textures[0], NULL, NULL);
+    SDL_RenderCopy(renderer, textures[0], nullptr, nullptr);
     SDL_RenderPresent(renderer);
 }
 
@@ -77,29 +82,53 @@ std::vector<SDL_Texture*> Springhawk::Engine::loadTextures(SDL_Renderer* pRender
 }
 
 // Loop till dess att programmet avslutas!
-void Springhawk::Engine::keepOpen(SDL_Renderer *pRenderer, std::vector<SDL_Texture *> &textures,std::vector<GameObject *> gameObjects) {
-    bool running = true;
-    while (running) {
+void Springhawk::Engine::keepOpen(SDL_Renderer *pRenderer, std::vector<SDL_Texture*> &textures,std::vector<GameObject*> &gameObjects) {
+    while (true) {
         SDL_Event e;
-
         if (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
                 return;
             }
 
-            if(e.type == SDL_KEYDOWN){
-                std::cout<< "SDL: " << e.key.keysym.sym << std::endl;
-                Input::setKeyCode(e.key.keysym.sym);
-            }
-
+            handleEvent(&e);
         }
 
-        for(GameObject* gameObject : gameObjects){
+        for(const auto& gameObject : gameObjects){
             gameObject->update();
         }
 
 
-        Input::setKeyCode(null);
-        render(pRenderer, textures);
+        Input::setKeyCode(0);
+        draw(pRenderer, gameObjects);
     }
+}
+
+void Springhawk::Engine::draw(SDL_Renderer* pRenderer, std::vector<GameObject*>& gameObjects){
+    //Clear screen
+    SDL_SetRenderDrawColor( pRenderer, 0, 0, 0, 0 );
+    SDL_RenderClear( pRenderer );
+
+    for(const auto& gameObject : gameObjects){
+        Color color = gameObject->getColor();
+        Vector2 position = gameObject->getPosition();
+        SDL_Rect rect = {position.x, -position.y, 10,10};
+
+        SDL_SetRenderDrawColor(pRenderer, color.r,color.g,color.b,color.a);
+        SDL_RenderDrawRect(pRenderer,&rect);
+
+//        SDL_Rect fillRect = { SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4, SCREEN_WIDTH /10, SCREEN_HEIGHT / 10 };
+//        SDL_SetRenderDrawColor( pRenderer, 0xFF, 0x00, 0x00, 0xFF );
+//        SDL_RenderFillRect( pRenderer, &fillRect );
+    }
+    SDL_RenderPresent(pRenderer);
+}
+
+void Springhawk::Engine::handleEvent(SDL_Event *event){
+    if(event->type == SDL_KEYDOWN){
+        Input::setKeyCode(event->key.keysym.sym);
+    }
+}
+
+void Springhawk::Engine::sleep(int duration_ms){
+    std::this_thread::sleep_for(std::chrono::milliseconds(duration_ms));
 }

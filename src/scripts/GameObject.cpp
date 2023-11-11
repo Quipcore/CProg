@@ -9,3 +9,11 @@ void GameObject::update() {
 
 }
 
+Color GameObject::getColor() {
+    return color;
+}
+
+Vector2 GameObject::getPosition() {
+    return position;
+}
+
