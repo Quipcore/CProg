@@ -21,8 +21,6 @@ namespace Springhawk {
         static void render(SDL_Renderer *renderer, std::vector<SDL_Texture *> &textures);
 
         static void quit(SDL_Window *window, SDL_Renderer *renderer, std::vector<SDL_Texture*> &textures);
-
-        static std::vector<GameObject*> getGameObjects();
     };
 }
 

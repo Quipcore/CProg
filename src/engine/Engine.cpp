@@ -1,4 +1,6 @@
 #include "engine/Engine.h"
+#include "engine/Input.h"
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
@@ -75,30 +77,29 @@ std::vector<SDL_Texture*> Springhawk::Engine::loadTextures(SDL_Renderer* pRender
 }
 
 // Loop till dess att programmet avslutas!
-void Springhawk::Engine::keepOpen(SDL_Renderer *pRenderer, std::vector<SDL_Texture *> &textures,
-                                  std::vector<GameObject *> gameObjects) {
-
-    std::vector<GameObject*> gameObject = getGameObjects();
-
+void Springhawk::Engine::keepOpen(SDL_Renderer *pRenderer, std::vector<SDL_Texture *> &textures,std::vector<GameObject *> gameObjects) {
     bool running = true;
     while (running) {
         SDL_Event e;
 
         if (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
-                running = false;
+                return;
             }
+
+            if(e.type == SDL_KEYDOWN){
+                std::cout<< "SDL: " << e.key.keysym.sym << std::endl;
+                Input::setKeyCode(e.key.keysym.sym);
+            }
+
         }
 
         for(GameObject* gameObject : gameObjects){
             gameObject->update();
         }
 
+
+        Input::setKeyCode(null);
         render(pRenderer, textures);
     }
-}
-
-std::vector<GameObject*> Springhawk::Engine::getGameObjects() {
-    std::vector<GameObject*> gameObjects;
-    return gameObjects;
 }

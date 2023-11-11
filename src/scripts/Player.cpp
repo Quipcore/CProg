@@ -3,10 +3,10 @@
 //
 
 #include "scripts/Player.h"
+#include "engine/Input.h"
 #include "iostream"
 
 
 void Player::update(){
-
-    std::cout << position.x++ << std::endl;
+    std::cout << "Player: "<< Input::getKeyCode() << std::endl;
 }
