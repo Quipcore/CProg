@@ -13,8 +13,12 @@ Color GameObject::getColor() {
     return color;
 }
 
-Vector2 GameObject::getPosition() {
+Vector2 GameObject::getPosition() const{
     return position;
+}
+
+float GameObject::getAngle() const{
+    return angle;
 }
 
 Tag GameObject::getTag() {

@@ -38,6 +38,23 @@ void Player::input() {
         position += Vector2{0,velocity} * Time::getDeltaTime();
         std::cout << "W" << std::endl;
     }
+
+    if(Input::bufferContains(E)){
+        angle += 1 * Time::getDeltaTime();
+    }
+
+    if(Input::bufferContains(Q)){
+        angle -= 1 * Time::getDeltaTime();
+
+    }
+
+    if(Input::bufferContains(NUM_PLUS)){
+        lineCount++;
+    }
+
+    if(Input::bufferContains(NUM_MINUS)){
+        lineCount--;
+    }
 }
 
 Color Player::getColor() {
@@ -46,5 +63,9 @@ Color Player::getColor() {
 
 Tag Player::getTag() {
     return tag;
+}
+
+int Player::getLineCount() {
+    return lineCount;
 }
 

@@ -14,10 +14,13 @@ public:
     Color getColor() override;
     Tag getTag() override;
 
+    int getLineCount();
+
 private:
     void input();
     const float velocity = 100;
     const Tag tag = Tag::Player;
+    int lineCount = 1;
 };
 
 

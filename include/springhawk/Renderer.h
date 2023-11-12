@@ -8,6 +8,7 @@
 #include <SDL2/SDL.h>
 #include <vector>
 #include "scripts/GameObject.h"
+#include "scripts/Player.h"
 
 class Renderer {
 public:
@@ -23,6 +24,9 @@ private:
     static int SCREEN_HEIGHT;
 
     static void drawObjects(SDL_Renderer *pRenderer, std::vector<GameObject *> &vector);
+
+    static void drawPlayer(SDL_Renderer *pRenderer,class Player *const &player);
+    static Vector2 findEndPosition(Vector2 &position, Vector2 &direction, float maxDistance);
 };
 
 

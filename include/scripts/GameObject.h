@@ -25,11 +25,13 @@ public:
     virtual Tag getTag();
 
 
-    Vector2 getPosition();
+    float getAngle() const;
+    Vector2 getPosition() const;
 
 protected:
     const Tag tag = Tag::Object;
     Vector2 position;
+    float angle = 0;
     Color color;
 };
 
