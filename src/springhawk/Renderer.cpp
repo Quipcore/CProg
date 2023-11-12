@@ -2,6 +2,7 @@
 // Created by felix on 2023-11-12.
 //
 
+#include <iostream>
 #include "springhawk/Renderer.h"
 #include "Math.h"
 
@@ -16,6 +17,17 @@ int Renderer::map[mapWidth][mapHeight] = {
         {1, 0, 0, 0, 0, 1, 0, 1},
         {1, 0, 0, 0, 0, 0, 0, 1},
         {1, 1, 1, 1, 1, 1, 1, 1}
+};
+
+int Renderer::flatMap[mapWidth*mapHeight] ={
+        1,1,1,1,1,1,1,1,
+        1,0,1,0,0,0,0,1,
+        1,0,1,0,0,0,0,1,
+        1,0,0,0,0,0,0,1,
+        1,0,0,0,0,0,0,1,
+        1,0,0,0,0,1,0,1,
+        1,0,0,0,0,0,0,1,
+        1,1,1,1,1,1,1,1
 };
 
 void Renderer::render(SDL_Renderer *pRenderer, std::vector<GameObject *> &gameObjects, int width, int height) {
@@ -60,33 +72,19 @@ void Renderer::drawPlayer(SDL_Renderer *pRenderer, class Player *const &player) 
     SDL_SetRenderDrawColor(pRenderer, color.r, color.g, color.b, color.a);
     SDL_RenderFillRect(pRenderer, &rect);
 
-    //Draw player raycast
-    const float startScale = 1;
-    const float lineThickness = 1;
-    const float fov = M_PI / 2;
 
-    float lineLength = 100;
-
-    int lineCount = player->getLineCount();
-
-    int lineStartX = (int) position.getX();
-    int lineStartY = (int) -position.getY();
-
-    for (int i = 0; i < lineCount; i++) {
-
-        // - fov/2 to center the raycast, i goes from 0 to lineCount, i min is -fov/2 and i max is fov/2
-        float angle = (fov / lineCount) * i - fov / 2 + player->getAngle();
-        Vector2 direction = {cos(angle), sin(angle)};
-        Vector2 endPosition = findEndPosition(position,direction,lineLength);
-
-        SDL_RenderSetScale(pRenderer, lineThickness, lineThickness);
-        int lineEndX = (int) endPosition.getX();
-        int lineEndY = (int) -endPosition.getY();
-        SDL_RenderDrawLine(pRenderer, lineStartX, lineStartY, lineEndX, lineEndY);
-        SDL_RenderSetScale(pRenderer, startScale, startScale);
-    }
+    //Draw player direction
+    Vector2 direction = {cos(player->getAngle()), sin(player->getAngle())};
+    Vector2 endPosition = findEndPosition(position, direction, 100);
+    SDL_SetRenderDrawColor(pRenderer, 0xff, 0xff, 0xff, 0xff);
+    SDL_RenderDrawLine(pRenderer, (int) position.getX(), (int) -position.getY(), (int) endPosition.getX(),
+                       (int) -endPosition.getY());
 }
 
 Vector2 Renderer::findEndPosition(Vector2 &position, Vector2 &direction, float maxDistance) {
     return position + direction * maxDistance;
+}
+
+bool Renderer::isPositionValid(Vector2 vector2) {
+    return true;
 }

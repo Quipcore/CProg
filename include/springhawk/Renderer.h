@@ -19,6 +19,7 @@ private:
     static const int mapWidth = 8;
     static const int mapHeight = 8;
     static int map[mapWidth][mapHeight];
+    static int flatMap[mapWidth*mapHeight];
 
     static int SCREEN_WIDTH;
     static int SCREEN_HEIGHT;
@@ -27,6 +28,8 @@ private:
 
     static void drawPlayer(SDL_Renderer *pRenderer,class Player *const &player);
     static Vector2 findEndPosition(Vector2 &position, Vector2 &direction, float maxDistance);
+
+    static bool isPositionValid(Vector2 vector2);
 };
 
 

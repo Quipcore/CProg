@@ -31,3 +31,8 @@ Vector2::Vector2() {
     x = 0;
     y = 0;
 }
+
+std::ostream &operator<<(std::ostream &os, const Vector2 &dt) {
+    os << "{x: " << dt.x << ", y: " << dt.y << "}";
+    return os;
+}
