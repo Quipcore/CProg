@@ -4,9 +4,10 @@
 #include <vector>
 #include "SDL2/SDL.h"
 #include "scripts/GameObject.h"
+#include "springhawk/Time.h"
 
 namespace Springhawk {
-    class Engine {
+    class Engine: Time{
     public:
         static int run(int screenWidth, int screenHeight, std::vector<GameObject *> &gameObjects);
     private:

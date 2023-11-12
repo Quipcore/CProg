@@ -25,7 +25,7 @@ std::array<std::array<int,5>,5> map = {
 int main( int argc, char* args[] )
 {
     std::vector<GameObject*> gameObjects = {
-            new Player()
+            new class Player()
     };
     return Springhawk::Engine::run(SCREEN_WIDTH, SCREEN_HEIGHT, gameObjects);
 }

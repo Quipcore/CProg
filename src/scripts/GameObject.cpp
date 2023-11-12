@@ -17,3 +17,7 @@ Vector2 GameObject::getPosition() {
     return position;
 }
 
+Tag GameObject::getTag() {
+    return tag;
+}
+

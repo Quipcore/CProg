@@ -3,19 +3,36 @@
 //
 
 #include "springhawk/Input.h"
+#include <algorithm>
 
-Key::Keycodes Input::key = Key::null;
-std::map<SDL_KeyCode, Key::Keycodes> Input::keyMap = {
-        {SDLK_a, Key::A},
-        {SDLK_d, Key::D},
-        {SDLK_s, Key::S},
-        {SDLK_w, Key::W}
+
+std::vector<Keycode> Input::buffer;
+std::map<SDL_KeyCode, Keycode> Input::keyMap = {
+        {SDLK_a, A},
+        {SDLK_d, D},
+        {SDLK_s, S},
+        {SDLK_w, W}
+};
+std::map<Keycode, SDL_Scancode > Input::keyMap2 = {
+        {A, SDL_SCANCODE_A},
+        {D, SDL_SCANCODE_D},
+        {S, SDL_SCANCODE_S},
+        {W, SDL_SCANCODE_W}
 };
 
-void Input::setKeyCode(int keyCode){
-    key = keyMap[SDL_KeyCode(keyCode)];
-}
 
-Key::Keycodes Input::getKeyCode(){
-    return key;
+bool Input::bufferContains(Keycode keycode) {
+
+//    return std::any_of(buffer.begin(), buffer.end(), [keycode](Keycode key) {
+//        return key == keycode;
+//    });
+//    for(Keycode key : buffer){
+//        if(key == keycode) {
+//            return true;
+//        }
+//    }
+//    return false;
+
+    const Uint8* currentKeyState = SDL_GetKeyboardState(nullptr);
+    return currentKeyState[keyMap2[keycode]];
 }

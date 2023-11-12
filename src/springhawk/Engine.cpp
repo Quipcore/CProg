@@ -1,5 +1,7 @@
 #include "springhawk/Engine.h"
 #include "springhawk/Input.h"
+#include "springhawk/Time.h"
+#include "springhawk/Renderer.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -11,6 +13,7 @@
 #include "Constants.h" //gResPath-contains the path to your resources.
 #include "chrono"
 #include "thread"
+
 
 int Springhawk::Engine::SCREEN_WIDTH = 640;
 int Springhawk::Engine::SCREEN_HEIGHT = 400;
@@ -83,6 +86,7 @@ std::vector<SDL_Texture*> Springhawk::Engine::loadTextures(SDL_Renderer* pRender
 
 // Loop till dess att programmet avslutas!
 void Springhawk::Engine::keepOpen(SDL_Renderer *pRenderer, std::vector<SDL_Texture*> &textures,std::vector<GameObject*> &gameObjects) {
+    Uint64 startTime = SDL_GetTicks();
     while (true) {
         SDL_Event e;
         if (SDL_PollEvent(&e)) {
@@ -97,35 +101,32 @@ void Springhawk::Engine::keepOpen(SDL_Renderer *pRenderer, std::vector<SDL_Textu
             gameObject->update();
         }
 
-
-        Input::setKeyCode(0);
         draw(pRenderer, gameObjects);
+
+        float deltaTime = (SDL_GetTicks64() - startTime) / 1000.0f;
+
+        //Needs to be looked at, dont know if this is the best way to do it. Should probably not use inheritance.
+        //Works for now.
+        Time::setDeltaTime(deltaTime);
+
+        startTime = SDL_GetTicks();
     }
 }
 
 void Springhawk::Engine::draw(SDL_Renderer* pRenderer, std::vector<GameObject*>& gameObjects){
     //Clear screen
-    SDL_SetRenderDrawColor( pRenderer, 0, 0, 0, 0 );
+    Color backgroundColor = {120,104,103,255};
+    SDL_SetRenderDrawColor( pRenderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a );
     SDL_RenderClear( pRenderer );
-
-    for(const auto& gameObject : gameObjects){
-        Color color = gameObject->getColor();
-        Vector2 position = gameObject->getPosition();
-        SDL_Rect rect = {position.x, -position.y, 10,10};
-
-        SDL_SetRenderDrawColor(pRenderer, color.r,color.g,color.b,color.a);
-        SDL_RenderDrawRect(pRenderer,&rect);
-
-//        SDL_Rect fillRect = { SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4, SCREEN_WIDTH /10, SCREEN_HEIGHT / 10 };
-//        SDL_SetRenderDrawColor( pRenderer, 0xFF, 0x00, 0x00, 0xFF );
-//        SDL_RenderFillRect( pRenderer, &fillRect );
-    }
+    Renderer::render(pRenderer, gameObjects,SCREEN_WIDTH,SCREEN_HEIGHT);
     SDL_RenderPresent(pRenderer);
 }
 
 void Springhawk::Engine::handleEvent(SDL_Event *event){
-    if(event->type == SDL_KEYDOWN){
-        Input::setKeyCode(event->key.keysym.sym);
+    switch (event->type) {
+        case SDL_KEYDOWN:
+        case SDL_KEYUP:
+            break;
     }
 }
 

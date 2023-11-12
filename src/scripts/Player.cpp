@@ -4,6 +4,7 @@
 
 #include "scripts/Player.h"
 #include "springhawk/Input.h"
+#include "springhawk/Time.h"
 #include "iostream"
 
 
@@ -13,30 +14,37 @@ Player::Player() {
 }
 
 void Player::update(){
+
     input();
 }
 
 void Player::input() {
-    Key::Keycodes input = Input::getKeyCode();
-    if(input == Key::A){
-        position.x -= velocity;
+    if(Input::bufferContains(A)){
+        position -= Vector2{velocity,0} * Time::getDeltaTime();
         std::cout << "A" << std::endl;
     }
-    else if(input == Key::D){
-        position.x += velocity;
+
+    if(Input::bufferContains(D)){
+        position += Vector2{velocity,0} * Time::getDeltaTime();
         std::cout << "D" << std::endl;
     }
-    else if(input == Key::S){
-        position.y -= velocity;
+
+    if(Input::bufferContains(S)){
+        position -= Vector2{0,velocity} * Time::getDeltaTime();
         std::cout << "S" << std::endl;
     }
-    else if(input == Key::W){
-        position.y += velocity;
+
+    if(Input::bufferContains(W)){
+        position += Vector2{0,velocity} * Time::getDeltaTime();
         std::cout << "W" << std::endl;
     }
 }
 
 Color Player::getColor() {
     return color;
+}
+
+Tag Player::getTag() {
+    return tag;
 }
 

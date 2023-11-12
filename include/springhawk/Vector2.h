@@ -5,9 +5,19 @@
 #ifndef CPROG_PROJECT_VECTOR2_H
 #define CPROG_PROJECT_VECTOR2_H
 
-struct Vector2{
-    int x = 0;
-    int y = 0;
+class Vector2{
+public:
+    Vector2(float x, float y);
+    Vector2();
+    Vector2 operator+(const Vector2& rhs) const;
+    Vector2 operator*(const float& rhs) const;
+    Vector2 operator+=(const Vector2& rhs);
+    Vector2 operator-=(const Vector2& rhs);
+    float getX() const {return x;}
+    float getY() const {return y;}
+private:
+    float y;
+    float x;
 };
 
 #endif //CPROG_PROJECT_VECTOR2_H

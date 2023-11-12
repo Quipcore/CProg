@@ -5,7 +5,6 @@
 #ifndef CPROG_PROJECT_PLAYER_H
 #define CPROG_PROJECT_PLAYER_H
 #include "GameObject.h"
-#include "springhawk/Key.h"
 #include "springhawk/Color.h"
 
 class Player : public GameObject{
@@ -13,9 +12,12 @@ public:
     Player();
     void update() override;
     Color getColor() override;
+    Tag getTag() override;
+
 private:
     void input();
-    const int velocity = 10;
+    const float velocity = 100;
+    const Tag tag = Tag::Player;
 };
 
 

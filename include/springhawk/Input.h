@@ -5,17 +5,27 @@
 #ifndef CPROG_PROJECT_INPUT_H
 #define CPROG_PROJECT_INPUT_H
 
+#include <map>
+#include <vector>
+
 #include "SDL2/SDL.h"
-#include "map"
-#include "Key.h"
+
+
+enum Keycode{
+    A,
+    D,
+    S,
+    W
+};
 
 class Input{
 public:
-    static void setKeyCode(int keyCode);
-    static Key::Keycodes getKeyCode();
+    static bool bufferContains(Keycode);
+
 private:
-    static Key::Keycodes key;
-    static std::map<SDL_KeyCode , Key::Keycodes> keyMap;
+    static std::map<SDL_KeyCode , Keycode> keyMap;
+    static std::vector<Keycode> buffer; //All key pressed down this frame
+    static std::map<Keycode, SDL_Scancode> keyMap2;
 };
 
 #endif //CPROG_PROJECT_INPUT_H
