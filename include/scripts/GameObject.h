@@ -19,11 +19,13 @@ public:
 
     double getAngle() const;
     Vector2 getPosition() const;
-
+    void setPosition(Vector2 position);
 protected:
     Vector2 position;
     Color color;
     double angle = 0;
+
+
 };
 
 

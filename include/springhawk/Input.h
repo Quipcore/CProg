@@ -13,7 +13,7 @@
 
 enum Keycode{
     A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,
-    SPACE,ENTER,ESCAPE,
+    SPACE,ENTER,ESCAPE,TAB,
     NUM_PLUS,NUM_MINUS
 };
 

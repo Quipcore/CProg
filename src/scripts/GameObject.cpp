@@ -21,3 +21,7 @@ double GameObject::getAngle() const{
     return angle;
 }
 
+void GameObject::setPosition(Vector2 position) {
+    this->position = position;
+}
+

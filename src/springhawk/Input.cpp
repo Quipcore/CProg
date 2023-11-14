@@ -39,6 +39,7 @@ std::map<Keycode, SDL_Scancode> Input::keyMap = {
         {SPACE, SDL_SCANCODE_SPACE},
         {ENTER, SDL_SCANCODE_RETURN},
         {ESCAPE, SDL_SCANCODE_ESCAPE},
+        {TAB, SDL_SCANCODE_TAB},
         {NUM_PLUS, SDL_SCANCODE_KP_PLUS},
         {NUM_MINUS, SDL_SCANCODE_KP_MINUS}
 };

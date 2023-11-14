@@ -12,7 +12,7 @@
 
 Player::Player() {
     color = {0,0xcf,0x50,0xff};
-    position = {100,-100}; //Quick fix. Game object should not need to tell the renderer to spawn in negative space
+    position = {100,-100}; //Quick fix. Game object should not need to tell the engine to spawn in negative space
 }
 
 void Player::update(){
@@ -24,23 +24,23 @@ void Player::input() {
     if(Input::bufferContains(A)){
         //position -= Vector2{static_cast<float>(velocity*sin(angle)),static_cast<float>(velocity* cos(angle))} * Time::getDeltaTime();
         position +=Vector2{static_cast<float>(velocity* cos(angle + M_PI/2)),static_cast<float>(velocity*sin(angle + M_PI/2))} * Time::getDeltaTime();
-        std::cout << "A" << std::endl;
+        //std::cout << "A" << std::endl;
     }
 
     if(Input::bufferContains(D)){
         position -= Vector2{static_cast<float>(velocity* cos(angle + M_PI/2)),static_cast<float>(velocity*sin(angle + M_PI/2))} * Time::getDeltaTime();
         //position += Vector2{static_cast<float>(velocity*sin(angle)),static_cast<float>(velocity* cos(angle))} * Time::getDeltaTime();
-        std::cout << "D" << std::endl;
+        //std::cout << "D" << std::endl;
     }
 
     if(Input::bufferContains(S)){
         position -=Vector2{static_cast<float>(velocity* cos(angle)),static_cast<float>(velocity*sin(angle))} * Time::getDeltaTime();
-        std::cout << "S" << std::endl;
+        //std::cout << "S" << std::endl;
     }
 
     if(Input::bufferContains(W)){
         position += Vector2{static_cast<float>(velocity* cos(angle)),static_cast<float>(velocity*sin(angle))} * Time::getDeltaTime();
-        std::cout << "W" << std::endl;
+        //std::cout << "W" << std::endl;
     }
 
     if(Input::bufferContains(E)){
@@ -56,8 +56,8 @@ void Player::input() {
     }
 
     if(Input::bufferContains(NUM_MINUS)){
-        if(--lineCount < 0){
-            lineCount = 0;
+        if(--lineCount < 5){
+            lineCount = 5;
         }
     }
 }

@@ -28,6 +28,8 @@ namespace Springhawk {
 
         static void quit(SDL_Window *window, SDL_Renderer *renderer);
         static void quit(SDL_Window *window, SDL_Renderer *renderer, std::vector<SDL_Texture *> &textures);
+
+        static bool isOutOfBounds(Vector2 vector2, std::vector<std::vector<int>> vector1);
     };
 }
 

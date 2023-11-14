@@ -85,6 +85,8 @@ void Springhawk::Engine::playScene(Scene *scene, SDL_Renderer *renderer) {
 void Springhawk::Engine::keepOpen(SDL_Renderer *pRenderer, std::vector<GameObject *> gameObjects, Player *pPlayer,
                                   std::vector<std::vector<int>> map) {
     Uint64 startTime = SDL_GetTicks();
+
+    Vector2 lastValidPlayerPosition = pPlayer->getPosition(); //Assuming the player spawns i valid space
     while (true) {
         SDL_Event e;
         if (SDL_PollEvent(&e)) {
@@ -97,8 +99,15 @@ void Springhawk::Engine::keepOpen(SDL_Renderer *pRenderer, std::vector<GameObjec
 
         for(const auto& gameObject : gameObjects){
             gameObject->update();
+            if(isOutOfBounds(gameObject->getPosition(), map)){
+
+            }
         }
         pPlayer->update();
+        if(isOutOfBounds(pPlayer->getPosition(), map)){
+            pPlayer->setPosition(lastValidPlayerPosition);
+        }
+        lastValidPlayerPosition = pPlayer->getPosition();
 
         draw(pRenderer, gameObjects, pPlayer, map);
 
@@ -140,6 +149,22 @@ void Springhawk::Engine::draw(SDL_Renderer *pRenderer, std::vector<GameObject *>
     SDL_RenderClear( pRenderer );
     Springhawk::Renderer::render(pRenderer, gameObjects,pPlayer, map, SCREEN_WIDTH,SCREEN_HEIGHT);
     SDL_RenderPresent(pRenderer);
+}
+
+bool Springhawk::Engine::isOutOfBounds(Vector2 objectPosition, std::vector<std::vector<int>> map) {
+
+    if(objectPosition.getX() < 0 || objectPosition.getX() > SCREEN_WIDTH){
+        return true;
+    }
+    if(objectPosition.getY() > 0 || objectPosition.getY() < -SCREEN_HEIGHT){
+        return true;
+    }
+
+    int mapWidth = map.size();
+    int mapHeight = map[0].size();
+    int currentXCell = static_cast<int>(objectPosition.getX() * mapWidth / SCREEN_WIDTH);
+    int currentYCell = static_cast<int>(objectPosition.getY() * mapHeight / SCREEN_HEIGHT);
+    return map[-currentYCell][currentXCell] != 0;
 }
 
 
