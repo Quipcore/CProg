@@ -4,12 +4,12 @@
 
 #include "springhawk/Time.h"
 
-float Time::deltaTime = 0;
+double Time::deltaTime = 0;
 
-float Time::getDeltaTime() {
+double Time::getDeltaTime() {
     return deltaTime;
 }
 
-void Time::setDeltaTime(float dt) {
+void Time::setDeltaTime(double dt) {
     deltaTime = dt;
 }

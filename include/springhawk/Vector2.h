@@ -9,19 +9,23 @@
 
 class Vector2{
 public:
-    Vector2(float x, float y);
+    Vector2(double x, double y);
     Vector2();
     Vector2 operator+(const Vector2& rhs) const;
-    Vector2 operator*(const float& rhs) const;
+    Vector2 operator*(const double& rhs) const;
     Vector2 operator+=(const Vector2& rhs);
     Vector2 operator-=(const Vector2& rhs);
     friend std::ostream& operator<<(std::ostream& os, const Vector2& dt);
+    Vector2& operator=(const Vector2& rhs);
 
-    float getX() const {return x;}
-    float getY() const {return y;}
+    double getX() const {return x;}
+    double getY() const {return y;}
+
+    double magnitude() const;
+
 private:
-    float y;
-    float x;
+    double y;
+    double x;
 };
 
 #endif //CPROG_PROJECT_VECTOR2_H

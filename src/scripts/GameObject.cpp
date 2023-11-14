@@ -17,11 +17,7 @@ Vector2 GameObject::getPosition() const{
     return position;
 }
 
-float GameObject::getAngle() const{
+double GameObject::getAngle() const{
     return angle;
-}
-
-Tag GameObject::getTag() {
-    return tag;
 }
 

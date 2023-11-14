@@ -7,7 +7,8 @@
 
 
 const Uint8* Input::currentKeyState = SDL_GetKeyboardState(nullptr);
-std::vector<Keycode> Input::buffer;
+
+//Mostly likely a better way to do this mapping.
 std::map<Keycode, SDL_Scancode> Input::keyMap = {
         {A, SDL_SCANCODE_A},
         {B, SDL_SCANCODE_B},

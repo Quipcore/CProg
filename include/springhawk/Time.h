@@ -8,13 +8,13 @@
 class Time {
 
 protected:
-    static void setDeltaTime(float dt);
+    static void setDeltaTime(double dt);
 
 public:
     friend class Engine;
-    static float getDeltaTime();
+    static double getDeltaTime();
 private:
-    static float deltaTime;
+    static double deltaTime;
 };
 
 

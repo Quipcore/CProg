@@ -5,27 +5,29 @@
 #include "SDL2/SDL.h"
 #include "scripts/GameObject.h"
 #include "springhawk/Time.h"
+#include "springhawk/Scene.h"
 
 namespace Springhawk {
     class Engine: Time{
     public:
-        static int run(int screenWidth, int screenHeight, std::vector<GameObject *> &gameObjects);
+        static int run(std::vector<Scene*> scenes);
     private:
+        static const int SCREEN_WIDTH;
+        static const int SCREEN_HEIGHT;
 
         static bool init();
-
-
         static std::vector<SDL_Texture*> loadTextures(SDL_Renderer *pRenderer);
-
-        static void keepOpen(SDL_Renderer*, std::vector<SDL_Texture *>&, std::vector<GameObject *>&);
         static void handleEvent(SDL_Event*);
-        static void render(SDL_Renderer *renderer, std::vector<SDL_Texture *> &textures);
-        static void draw(SDL_Renderer *pRenderer, std::vector<GameObject*>& gameObjects);
         static void sleep(int);
-        static void quit(SDL_Window *window, SDL_Renderer *renderer, std::vector<SDL_Texture*> &textures);
 
-        static int SCREEN_WIDTH;
-        static int SCREEN_HEIGHT;
+        static void playScene(Scene *scene, SDL_Renderer *renderer);
+        static void keepOpen(SDL_Renderer *pRenderer, std::vector<GameObject *> vector1, Player *pPlayer,
+                             std::vector<std::vector<int>> vector2);
+        static void draw(SDL_Renderer *pRenderer, std::vector<GameObject *> vector1, Player *pPlayer,
+                         std::vector<std::vector<int>> vector2);
+
+        static void quit(SDL_Window *window, SDL_Renderer *renderer);
+        static void quit(SDL_Window *window, SDL_Renderer *renderer, std::vector<SDL_Texture *> &textures);
     };
 }
 

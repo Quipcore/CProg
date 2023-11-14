@@ -15,30 +15,26 @@
 #include "thread"
 
 
-int Springhawk::Engine::SCREEN_WIDTH = 640;
-int Springhawk::Engine::SCREEN_HEIGHT = 400;
+//Screen dimension constants
+const int Springhawk::Engine::SCREEN_WIDTH = 640;
+const int Springhawk::Engine::SCREEN_HEIGHT = 400;
 
-int Springhawk::Engine::run(int screenWidth, int screenHeight, std::vector<GameObject *> &gameObjects) {
 
-    SCREEN_WIDTH = screenWidth;
-    SCREEN_HEIGHT = screenHeight;
+int Springhawk::Engine::run(std::vector<Scene *> scenes) {
 
     if(init()){
         throw std::runtime_error("Failed to initialize!");
     }
 
-    SDL_Window* window = SDL_CreateWindow("Window", 100, 100, screenWidth, screenHeight, 0);
+    SDL_Window* window = SDL_CreateWindow("Window", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 
-    std::vector<SDL_Texture*> textures = loadTextures(renderer);
+    playScene(scenes[0],renderer);
+    quit(window, renderer);
 
-    keepOpen(renderer, textures, gameObjects);
-
-    quit(window, renderer, textures);
 
     return EXIT_SUCCESS;
 }
-
 // Städa innan programmet avslutas!
 void Springhawk::Engine::quit(SDL_Window *window, SDL_Renderer *renderer,std::vector<SDL_Texture*> &textures) {
     for(SDL_Texture* texture : textures){
@@ -50,12 +46,6 @@ void Springhawk::Engine::quit(SDL_Window *window, SDL_Renderer *renderer,std::ve
 
     TTF_Quit();
     SDL_Quit();
-}
-
-void Springhawk::Engine::render(SDL_Renderer *renderer, std::vector<SDL_Texture*> &textures) {
-    SDL_RenderClear(renderer);
-    SDL_RenderCopy(renderer, textures[0], nullptr, nullptr);
-    SDL_RenderPresent(renderer);
 }
 
 bool Springhawk::Engine::init() {
@@ -84,8 +74,16 @@ std::vector<SDL_Texture*> Springhawk::Engine::loadTextures(SDL_Renderer* pRender
     return textures;
 }
 
-// Loop till dess att programmet avslutas!
-void Springhawk::Engine::keepOpen(SDL_Renderer *pRenderer, std::vector<SDL_Texture*> &textures,std::vector<GameObject*> &gameObjects) {
+
+void Springhawk::Engine::playScene(Scene *scene, SDL_Renderer *renderer) {
+    std::vector<GameObject*> gameObjects = scene->getGameObjects();
+    Player* player = scene->getPlayer();
+    std::vector<std::vector<int>> map = scene->getMap();
+    keepOpen(renderer, gameObjects, player, map);
+}
+
+void Springhawk::Engine::keepOpen(SDL_Renderer *pRenderer, std::vector<GameObject *> gameObjects, Player *pPlayer,
+                                  std::vector<std::vector<int>> map) {
     Uint64 startTime = SDL_GetTicks();
     while (true) {
         SDL_Event e;
@@ -100,8 +98,9 @@ void Springhawk::Engine::keepOpen(SDL_Renderer *pRenderer, std::vector<SDL_Textu
         for(const auto& gameObject : gameObjects){
             gameObject->update();
         }
+        pPlayer->update();
 
-        draw(pRenderer, gameObjects);
+        draw(pRenderer, gameObjects, pPlayer, map);
 
         float deltaTime = (SDL_GetTicks64() - startTime) / 1000.0f;
 
@@ -111,15 +110,7 @@ void Springhawk::Engine::keepOpen(SDL_Renderer *pRenderer, std::vector<SDL_Textu
 
         startTime = SDL_GetTicks();
     }
-}
 
-void Springhawk::Engine::draw(SDL_Renderer* pRenderer, std::vector<GameObject*>& gameObjects){
-    //Clear screen
-    Color backgroundColor = {120,104,103,255};
-    SDL_SetRenderDrawColor( pRenderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a );
-    SDL_RenderClear( pRenderer );
-    Renderer::render(pRenderer, gameObjects,SCREEN_WIDTH,SCREEN_HEIGHT);
-    SDL_RenderPresent(pRenderer);
 }
 
 void Springhawk::Engine::handleEvent(SDL_Event *event){
@@ -133,3 +124,22 @@ void Springhawk::Engine::handleEvent(SDL_Event *event){
 void Springhawk::Engine::sleep(int duration_ms){
     std::this_thread::sleep_for(std::chrono::milliseconds(duration_ms));
 }
+
+void Springhawk::Engine::quit(SDL_Window *window, SDL_Renderer *renderer) {
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+
+    TTF_Quit();
+    SDL_Quit();
+}
+
+void Springhawk::Engine::draw(SDL_Renderer *pRenderer, std::vector<GameObject *> gameObjects, Player *pPlayer,
+                              std::vector<std::vector<int>> map) {
+    Color backgroundColor = {120,104,103,255};
+    SDL_SetRenderDrawColor( pRenderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a );
+    SDL_RenderClear( pRenderer );
+    Springhawk::Renderer::render(pRenderer, gameObjects,pPlayer, map, SCREEN_WIDTH,SCREEN_HEIGHT);
+    SDL_RenderPresent(pRenderer);
+}
+
+

@@ -8,13 +8,6 @@
 #include "springhawk/Color.h"
 #include "springhawk/Vector2.h"
 
-enum Tag{
-    Player,
-    Enemy,
-    Bullet,
-    Object
-};
-
 class GameObject {
 public:
     GameObject() = default;
@@ -22,17 +15,15 @@ public:
 
     virtual void update();
     virtual Color getColor();
-    virtual Tag getTag();
 
 
-    float getAngle() const;
+    double getAngle() const;
     Vector2 getPosition() const;
 
 protected:
-    const Tag tag = Tag::Object;
     Vector2 position;
-    float angle = 0;
     Color color;
+    double angle = 0;
 };
 
 
