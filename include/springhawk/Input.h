@@ -22,7 +22,6 @@ public:
     static bool bufferContains(Keycode);
 
 private:
-    static std::vector<Keycode> buffer; //All key pressed down this frame
     static std::map<Keycode, SDL_Scancode> keyMap;
     static const Uint8* currentKeyState;
 };
