@@ -18,7 +18,7 @@ public:
 private:
     void input();
     const double velocity = 100;
-    int lineCount = 50;
+    int lineCount = 250;
 };
 
 

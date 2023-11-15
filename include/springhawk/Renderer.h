@@ -34,6 +34,7 @@ namespace Springhawk {
         static Vector2 findEndPosition(Vector2 &position, Vector2 &direction, double maxDistance);
         static bool isPositionValid(Vector2 vector2);
         static void drawRays(SDL_Renderer *pRenderer, class Player *pPlayer);
+        static void setRenderDrawColor(SDL_Renderer *pRenderer,int wallValue);
         static Vector2 getIntersectionPoint(Vector2 &position, double angle);
 
         static Vector2 findMapPoint(Vector2 vector2);

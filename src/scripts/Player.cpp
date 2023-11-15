@@ -12,7 +12,7 @@
 
 Player::Player() {
     color = {0,0xcf,0x50,0xff};
-    position = {100,-100}; //Quick fix. Game object should not need to tell the engine to spawn in negative space
+    position = {500,-500}; // fix. Game object should not need to tell the engine to spawn in negative space
 }
 
 void Player::update(){

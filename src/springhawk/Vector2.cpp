@@ -49,5 +49,5 @@ std::ostream &operator<<(std::ostream &os, const Vector2 &dt) {
 }
 
 double Vector2::magnitude() const {
-    return std::sqrt(x*x + y*y);
+    return std::sqrt((x*x) + (y*y));
 }

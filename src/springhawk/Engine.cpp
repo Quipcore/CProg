@@ -16,8 +16,8 @@
 
 
 //Screen dimension constants
-const int Springhawk::Engine::SCREEN_WIDTH = 640;
-const int Springhawk::Engine::SCREEN_HEIGHT = 400;
+const int Springhawk::Engine::SCREEN_WIDTH = 1500;
+const int Springhawk::Engine::SCREEN_HEIGHT = 680;
 
 
 int Springhawk::Engine::run(std::vector<Scene *> scenes) {

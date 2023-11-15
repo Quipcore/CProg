@@ -33,20 +33,36 @@ void Springhawk::Renderer::drawMap(SDL_Renderer *pRenderer) {
     int x, y, xo, yo;
     for (y = 0; y < mapHeight; y++) {
         for (x = 0; x < mapWidth; x++) {
-            if (map[y][x] == 1) {
-                SDL_SetRenderDrawColor(pRenderer, 0xff, 0xff, 0xff, 0xff);
-            }
-            else if(map[y][x] == 2){
-                SDL_SetRenderDrawColor(pRenderer, 0x00, 0xff, 0x00, 0xff);
-            }
-            else {
-                SDL_SetRenderDrawColor(pRenderer, 0x00, 0x00, 0x00, 0xff);
-            }
+            setRenderDrawColor(pRenderer,map[y][x]);
+
             xo = x * w;
             yo = y * h;
             SDL_Rect rect = {xo, yo, w - 1, h - 1};
             SDL_RenderFillRect(pRenderer, &rect);
         }
+    }
+}
+
+void Springhawk::Renderer::setRenderDrawColor(SDL_Renderer *pRenderer,int wallValue){
+    switch(wallValue){
+        case 1:
+            SDL_SetRenderDrawColor(pRenderer, 0xff, 0xff, 0xff, 0xff);
+            break;
+        case 2:
+            SDL_SetRenderDrawColor(pRenderer, 0x00, 0xff, 0x00, 0xff);
+            break;
+        case 3:
+            SDL_SetRenderDrawColor(pRenderer,0x00,0x00,0xff,0xff);
+            break;
+        case 4:
+            SDL_SetRenderDrawColor(pRenderer,0xff,0xff,0x00,0xff);
+            break;
+        case 5:
+            SDL_SetRenderDrawColor(pRenderer,0xff,0x00,0xff,0xff);
+            break;
+        default:
+            SDL_SetRenderDrawColor(pRenderer, 0x00, 0x00, 0x00, 0xff);
+            break;
     }
 }
 
@@ -70,46 +86,37 @@ void Springhawk::Renderer::drawPlayer(SDL_Renderer *pRenderer, Player *const &pl
 void Springhawk::Renderer::drawRays(SDL_Renderer *pRenderer, Player *pPlayer) {
     const int radius = 200;
     const int lineCount = pPlayer->getLineCount();
-    const int sliceWidth = SCREEN_WIDTH / lineCount;
-    const double fov = M_PI / 2;
-    const Color rayColor = {0xff, 0, 0, 0xff};
+    const double sliceWidth = SCREEN_WIDTH / lineCount;
+    const double fov = M_PI/2;
     const double playerAngle = pPlayer->getAngle();
+    const double wallScale = SCREEN_HEIGHT/16;
+    const Color rayColor = {0xff, 0, 0, 0xff};
+
     Vector2 playerPosition = pPlayer->getPosition();
     int playerX = (int) playerPosition.getX();
     int playerY = (int) -playerPosition.getY();
 
     SDL_SetRenderDrawColor(pRenderer, rayColor.r, rayColor.g, rayColor.b, rayColor.a);
+    for(int i = 0; i <= lineCount; i++){
 
-    for (int i = -lineCount / 2; i <= lineCount / 2; i++) {
-        double angle = fov * (double) i / (double) lineCount + playerAngle;
-
-        // Adjusted the direction calculation
+        double angle = (fov * i / lineCount) + playerAngle;
         Vector2 direction = {cos(angle), sin(angle)};
         Vector2 endPosition = findEndPosition(playerPosition, direction, radius);
 
         Vector2 mapPos = findMapPoint(endPosition);
         int mapPointX = (int) mapPos.getX();
         int mapPointY = (int) mapPos.getY();
+        setRenderDrawColor(pRenderer, map[mapPointY][mapPointX]);
 
-        if(map[mapPointY][mapPointX] == 1){
-            SDL_SetRenderDrawColor(pRenderer, 0xff, 0, 0, 0xff);
+        double rayMag = (pPlayer->getPosition() - endPosition).magnitude();
+        double lineDistance = (rayMag)* 0.5; //Causes div by zero if cos(angle) instead of .5
+        double wallHeight = SCREEN_HEIGHT * wallScale / lineDistance;
+        if(wallHeight > SCREEN_HEIGHT){
+            wallHeight = SCREEN_HEIGHT;
         }
-        if(map[mapPointY][mapPointX] == 2){
-            SDL_SetRenderDrawColor(pRenderer, 0, 0xff, 0, 0xff);
+        if(i == 0){
+            std::cout << rayMag << " " << lineDistance <<" "<< wallHeight << std::endl;
         }
-
-
-        double ca = cos(playerAngle - angle);
-        double lineDistance = (pPlayer->getPosition() - endPosition).magnitude() * ca;
-        //lineDistance = endPosition.magnitude();
-
-        double lineHeight = SCREEN_HEIGHT / lineDistance;
-        double const lineScalingConst = SCREEN_HEIGHT/8;
-        lineHeight *= lineScalingConst;
-        if(lineHeight > SCREEN_HEIGHT){
-            lineHeight = SCREEN_HEIGHT;
-        }
-
 
         bool render2D = Input::bufferContains(Keycode::TAB);
         if(render2D){
@@ -117,9 +124,9 @@ void Springhawk::Renderer::drawRays(SDL_Renderer *pRenderer, Player *pPlayer) {
             SDL_SetRenderDrawColor(pRenderer, rayColor.r, rayColor.g, rayColor.b, rayColor.a);
             SDL_RenderDrawLine(pRenderer, playerX, playerY, (int) endPosition.getX(), (int) -endPosition.getY());
         }else{
-            int rectX = (i + lineCount / 2) * sliceWidth;
-            int rectY = (SCREEN_HEIGHT - lineHeight) / 2;
-            SDL_Rect rect = {rectX,rectY,sliceWidth,(int)lineHeight};
+            int rectX = (lineCount-i) * sliceWidth;
+            int rectY = (SCREEN_HEIGHT - wallHeight) / 2;
+            SDL_Rect rect = {rectX,rectY,(int)sliceWidth,(int)wallHeight};
 
             SDL_RenderFillRect(pRenderer, &rect);
         }
@@ -133,9 +140,6 @@ void Springhawk::Renderer::drawRays(SDL_Renderer *pRenderer, Player *pPlayer) {
  * 3. return the point of intersection
  */
 Vector2 Springhawk::Renderer::findEndPosition(Vector2 &position, Vector2 &direction, double maxDistance) {
-
-    //std::cout << "Direction: " << direction << std::endl;
-
     double stepSize = 1;
     Vector2 endPosition = position;
     while(isPositionValid(endPosition)){
