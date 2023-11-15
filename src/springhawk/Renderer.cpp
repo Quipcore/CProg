@@ -99,12 +99,13 @@ void Springhawk::Renderer::drawRays(SDL_Renderer *pRenderer, Player *pPlayer) {
         }
 
 
-        double ca = 1;
-        double lineDistance = endPosition.magnitude() * ca;
+        double ca = cos(playerAngle - angle);
+        double lineDistance = (pPlayer->getPosition() - endPosition).magnitude() * ca;
         //lineDistance = endPosition.magnitude();
 
         double lineHeight = SCREEN_HEIGHT / lineDistance;
-        lineHeight *= SCREEN_HEIGHT;
+        double const lineScalingConst = SCREEN_HEIGHT/8;
+        lineHeight *= lineScalingConst;
         if(lineHeight > SCREEN_HEIGHT){
             lineHeight = SCREEN_HEIGHT;
         }
