@@ -7,9 +7,11 @@
 
 #include <SDL2/SDL.h>
 #include <vector>
-#include "../../scripts/GameObject.h"
-#include "../../scripts/Player.h"
-#include "springhawk/Renderer.h"
+#include "scripts/GameObject.h"
+#include "scripts/Player.h"
+#include "springhawk/renderers/Renderer.h"
+#include "springhawk/Map.h"
+#include "springhawk/Scene.h"
 
 namespace Springhawk {
 
@@ -23,7 +25,7 @@ namespace Springhawk {
     private:
         static const int mapWidth = 8;
         static const int mapHeight = 8;
-        static int map[mapWidth][mapHeight];
+        static int tileMap[mapWidth][mapHeight];
 
         static int SCREEN_WIDTH;
         static int SCREEN_HEIGHT;
@@ -38,6 +40,12 @@ namespace Springhawk {
         static Vector2 getIntersectionPoint(Vector2 &position, double angle);
 
         static Vector2 findMapPoint(Vector2 vector2);
+
+        void render(SDL_Renderer *pRenderer, std::vector<GameObject *> gameobjects, Player *pPlayer, Map map,
+                    int screenWidth,
+                    int screenHeight);
+
+        static void render(SDL_Renderer *pRenderer, Scene scene, int screenWidth, int screenHeight);
     };
 }
 

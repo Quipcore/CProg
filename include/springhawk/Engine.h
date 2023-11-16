@@ -6,7 +6,7 @@
 #include "scripts/GameObject.h"
 #include "springhawk/Time.h"
 #include "springhawk/Scene.h"
-#include "Renderer.h"
+#include "springhawk/renderers/Renderer.h"
 
 namespace Springhawk {
     class Engine: Time{

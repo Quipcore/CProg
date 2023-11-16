@@ -1,6 +1,6 @@
 #include "springhawk/Engine.h"
 #include "springhawk/Time.h"
-#include "springhawk/raycaster/Raycaster.h"
+#include "springhawk/renderers/Raycaster.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -77,7 +77,7 @@ std::vector<SDL_Texture*> Springhawk::Engine::loadTextures(SDL_Renderer* pRender
 void Springhawk::Engine::playScene(Scene *scene, SDL_Renderer *sdlRenderer) {
     std::vector<GameObject*> gameObjects = scene->getGameObjects();
     Player* player = scene->getPlayer();
-    std::vector<std::vector<int>> map = scene->getMap();
+    std::vector<std::vector<int>> map = scene->getTileMap();
     if(isOutOfBounds(player->getPosition(), map)){
         player->setPosition(getValidPos(map));
     }
@@ -189,7 +189,7 @@ bool Springhawk::Engine::isOutOfBounds(Vector2 objectPosition, std::vector<std::
 }
 
 Vector2 Springhawk::Engine::getValidPos(std::vector<std::vector<int>> map) {
-    //Todo: Change scalar to be based on map size not screenSize. ScreenSize works in 2D game not in 3D
+    //Todo: Change scalar to be based on tileMap size not screenSize. ScreenSize works in 2D game not in 3D
     int mapWidth = SCREEN_WIDTH;
     int mapHeight = SCREEN_HEIGHT;
 

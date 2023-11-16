@@ -3,13 +3,15 @@
 //
 
 #include <iostream>
-#include "springhawk/raycaster/Raycaster.h"
-#include "Math.h"
 #include "springhawk/Input.h"
+#include "springhawk/renderers/Raycaster.h"
+#include "Math.h"
+#include "springhawk/Map.h"
+#include "springhawk/Scene.h"
 
 int Springhawk::Raycaster::SCREEN_WIDTH = 0;
 int Springhawk::Raycaster::SCREEN_HEIGHT = 0;
-int Springhawk::Raycaster::map[mapWidth][mapHeight];
+int Springhawk::Raycaster::tileMap[mapWidth][mapHeight];
 
 void Springhawk::Raycaster::render(SDL_Renderer *pRenderer, std::vector<GameObject *> gameobjects, Player *pPlayer,
                                    std::vector<std::vector<int>> map, int screenWidth, int screenHeight) {
@@ -18,7 +20,47 @@ void Springhawk::Raycaster::render(SDL_Renderer *pRenderer, std::vector<GameObje
 
     for(int x = 0; x < map.size(); x++){
         for(int y = 0; y < map[x].size(); y++){
-            Raycaster::map[x][y] = map[x][y];
+            Raycaster::tileMap[x][y] = map[x][y];
+        }
+    }
+
+    //drawMap(pRenderer);
+    //drawObjects(pRenderer, gameobjects);
+    drawPlayer(pRenderer, pPlayer);
+}
+
+void Springhawk::Raycaster::render(SDL_Renderer *pRenderer, Scene scene, int screenWidth, int screenHeight) {
+    SCREEN_WIDTH = screenWidth;
+    SCREEN_HEIGHT = screenHeight;
+    Map map = scene.getMap();
+    Player* pPlayer = scene.getPlayer();
+    std::vector<GameObject*> gameobjects = scene.getGameObjects();
+    int mapWidth = map.getWidth();
+    int mapHeight = map.getHeight();
+
+    for(int x = 0; x <mapWidth; x++){
+        for(int y = 0; y < mapHeight; y++){
+                Raycaster::tileMap[x][y] = map[{x,y}];
+        }
+    }
+
+    //drawMap(pRenderer);
+    //drawObjects(pRenderer, gameobjects);
+    drawPlayer(pRenderer, pPlayer);
+}
+
+
+void Springhawk::Raycaster::render(SDL_Renderer *pRenderer, std::vector<GameObject *> gameobjects, Player *pPlayer,
+                                   Map map, int screenWidth, int screenHeight) {
+    SCREEN_WIDTH = screenWidth;
+    SCREEN_HEIGHT = screenHeight;
+
+    int mapWidth = map.getWidth();
+    int mapHeight = map.getHeight();
+
+    for(int x = 0; x <mapWidth; x++){
+        for(int y = 0; y < mapHeight; y++){
+            Raycaster::tileMap[x][y] = map[{x, y}];
         }
     }
 
@@ -33,7 +75,7 @@ void Springhawk::Raycaster::drawMap(SDL_Renderer *pRenderer) {
     int x, y, xo, yo;
     for (y = 0; y < mapHeight; y++) {
         for (x = 0; x < mapWidth; x++) {
-            setRenderDrawColor(pRenderer,map[y][x]);
+            setRenderDrawColor(pRenderer, tileMap[y][x]);
 
             xo = x * w;
             yo = y * h;
@@ -99,7 +141,7 @@ void Springhawk::Raycaster::drawRays(SDL_Renderer *pRenderer, Player *pPlayer) {
         Vector2 mapPos = findMapPoint(endPosition);
         int mapPointX = (int) mapPos.getX();
         int mapPointY = (int) mapPos.getY();
-        setRenderDrawColor(pRenderer, map[mapPointY][mapPointX]);
+        setRenderDrawColor(pRenderer, tileMap[mapPointY][mapPointX]);
 
         double rayMag = (pPlayer->getPosition() - endPosition).magnitude();
         double lineDistance = (rayMag)* cos((angle));
@@ -148,7 +190,7 @@ bool Springhawk::Raycaster::isPositionValid(Vector2 vector2) {
     if (x < 0 || x >= mapWidth || y < 0 || y >= mapHeight) {
         return false;
     }
-    if (map[y][x] != 0) {
+    if (tileMap[y][x] != 0) {
         return false;
     }
     return true;
