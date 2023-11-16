@@ -22,25 +22,20 @@ void Player::update(){
 
 void Player::input() {
     if(Input::bufferContains(A)){
-        //position -= Vector2{static_cast<float>(velocity*sin(angle)),static_cast<float>(velocity* cos(angle))} * Time::getDeltaTime();
         position +=Vector2{static_cast<float>(velocity* cos(angle + M_PI/2)),static_cast<float>(velocity*sin(angle + M_PI/2))} * Time::getDeltaTime();
         //std::cout << "A" << std::endl;
     }
 
     if(Input::bufferContains(D)){
         position -= Vector2{static_cast<float>(velocity* cos(angle + M_PI/2)),static_cast<float>(velocity*sin(angle + M_PI/2))} * Time::getDeltaTime();
-        //position += Vector2{static_cast<float>(velocity*sin(angle)),static_cast<float>(velocity* cos(angle))} * Time::getDeltaTime();
-        //std::cout << "D" << std::endl;
     }
 
     if(Input::bufferContains(S)){
         position -=Vector2{static_cast<float>(velocity* cos(angle)),static_cast<float>(velocity*sin(angle))} * Time::getDeltaTime();
-        //std::cout << "S" << std::endl;
     }
 
     if(Input::bufferContains(W)){
         position += Vector2{static_cast<float>(velocity* cos(angle)),static_cast<float>(velocity*sin(angle))} * Time::getDeltaTime();
-        //std::cout << "W" << std::endl;
     }
 
     if(Input::bufferContains(E)){
