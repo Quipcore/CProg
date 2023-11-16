@@ -1,26 +1,43 @@
+//
+// Created by felix on 2023-11-12.
+//
+
 #ifndef CPROG_PROJECT_RAYCASTER_H
 #define CPROG_PROJECT_RAYCASTER_H
 
-#include <array>
-#include "SDL2/SDL.h"
+#include <SDL2/SDL.h>
+#include <vector>
+#include "../../scripts/GameObject.h"
+#include "../../scripts/Player.h"
 
-const int MAP_HEIGHT = 5;
-const int MAP_WIDTH = 5;
+namespace Springhawk {
 
-struct createWindowExit{
-    int exitcode;
-    SDL_Window* window;
-    SDL_Renderer* renderer;
-};
-
-namespace Springhawk{
     class Raycaster {
     public:
-        static int run(int screenWidth , int screenHeight, std::array<std::array<int,5>,5> map);
-    private:
-        static createWindowExit createWindow(int width, int height);
+        static void
+        render(SDL_Renderer *pRenderer, std::vector<GameObject *> vector1, Player *pPlayer,
+               std::vector<std::vector<int>> vector2,
+               int i, int i1);
 
-        static void stayUp();
+    private:
+        static const int mapWidth = 8;
+        static const int mapHeight = 8;
+        static int map[mapWidth][mapHeight];
+        static int flatMap[mapWidth * mapHeight];
+
+        static int SCREEN_WIDTH;
+        static int SCREEN_HEIGHT;
+
+        static void drawMap(SDL_Renderer *pRenderer);
+        static void drawObjects(SDL_Renderer *pRenderer, std::vector<GameObject *> &vector);
+        static void drawPlayer(SDL_Renderer *pRenderer, class Player *const &player);
+        static Vector2 findEndPosition(Vector2 &position, Vector2 &direction, double maxDistance);
+        static bool isPositionValid(Vector2 vector2);
+        static void drawRays(SDL_Renderer *pRenderer, class Player *pPlayer);
+        static void setRenderDrawColor(SDL_Renderer *pRenderer,int wallValue);
+        static Vector2 getIntersectionPoint(Vector2 &position, double angle);
+
+        static Vector2 findMapPoint(Vector2 vector2);
     };
 }
 

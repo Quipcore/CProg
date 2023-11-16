@@ -1,7 +1,6 @@
 #include "springhawk/Engine.h"
-#include "springhawk/Input.h"
 #include "springhawk/Time.h"
-#include "springhawk/Renderer.h"
+#include "springhawk/raycaster/Raycaster.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -147,7 +146,7 @@ void Springhawk::Engine::draw(SDL_Renderer *pRenderer, std::vector<GameObject *>
     Color backgroundColor = {120,104,103,255};
     SDL_SetRenderDrawColor( pRenderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a );
     SDL_RenderClear( pRenderer );
-    Springhawk::Renderer::render(pRenderer, gameObjects,pPlayer, map, SCREEN_WIDTH,SCREEN_HEIGHT);
+    Springhawk::Raycaster::render(pRenderer, gameObjects, pPlayer, map, SCREEN_WIDTH, SCREEN_HEIGHT);
     SDL_RenderPresent(pRenderer);
 }
 
