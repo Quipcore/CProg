@@ -97,8 +97,39 @@ void Springhawk::Renderer::drawRays(SDL_Renderer *pRenderer, Player *pPlayer) {
     int playerY = (int) -playerPosition.getY();
 
     SDL_SetRenderDrawColor(pRenderer, rayColor.r, rayColor.g, rayColor.b, rayColor.a);
-    for(int i = 0; i <= lineCount; i++){
+    for(int i = -lineCount/2; i < lineCount/2; i++){
+        double angle = (fov * (i)/ lineCount) + playerAngle;
+        Vector2 direction = {cos(angle), sin(angle)};
+        Vector2 endPosition = findEndPosition(playerPosition, direction, radius);
 
+        Vector2 mapPos = findMapPoint(endPosition);
+        int mapPointX = (int) mapPos.getX();
+        int mapPointY = (int) mapPos.getY();
+        setRenderDrawColor(pRenderer, map[mapPointY][mapPointX]);
+
+        double rayMag = (pPlayer->getPosition() - endPosition).magnitude();
+        double lineDistance = (rayMag)* 0.5; //Causes div by zero if cos(angle) instead of .5
+        double wallHeight = SCREEN_HEIGHT * wallScale/ lineDistance;
+        if(wallHeight > SCREEN_HEIGHT){
+            wallHeight = SCREEN_HEIGHT;
+        }
+
+        bool render2D = Input::bufferContains(Keycode::TAB);
+        if(render2D){
+            drawMap(pRenderer);
+            SDL_SetRenderDrawColor(pRenderer, rayColor.r, rayColor.g, rayColor.b, rayColor.a);
+            SDL_RenderDrawLine(pRenderer, playerX, playerY, (int) endPosition.getX(), (int) -endPosition.getY());
+        }else{
+            int rectX = (lineCount-(i+lineCount/2)) * sliceWidth;
+            int rectY = (SCREEN_HEIGHT - wallHeight) / 2;
+            SDL_Rect rect = {rectX,rectY,(int)sliceWidth,(int)wallHeight};
+
+            SDL_RenderFillRect(pRenderer, &rect);
+        }
+    }
+
+    /*
+    for(int i = 0; i <= lineCount; i++){
         double angle = (fov * i / lineCount) + playerAngle;
         Vector2 direction = {cos(angle), sin(angle)};
         Vector2 endPosition = findEndPosition(playerPosition, direction, radius);
@@ -110,12 +141,9 @@ void Springhawk::Renderer::drawRays(SDL_Renderer *pRenderer, Player *pPlayer) {
 
         double rayMag = (pPlayer->getPosition() - endPosition).magnitude();
         double lineDistance = (rayMag)* 0.5; //Causes div by zero if cos(angle) instead of .5
-        double wallHeight = SCREEN_HEIGHT * wallScale / lineDistance;
+        double wallHeight = SCREEN_HEIGHT * wallScale/ lineDistance;
         if(wallHeight > SCREEN_HEIGHT){
             wallHeight = SCREEN_HEIGHT;
-        }
-        if(i == 0){
-            std::cout << rayMag << " " << lineDistance <<" "<< wallHeight << std::endl;
         }
 
         bool render2D = Input::bufferContains(Keycode::TAB);
@@ -131,7 +159,7 @@ void Springhawk::Renderer::drawRays(SDL_Renderer *pRenderer, Player *pPlayer) {
             SDL_RenderFillRect(pRenderer, &rect);
         }
     }
-
+*/
 }
 
 /*
