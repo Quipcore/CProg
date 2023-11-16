@@ -5,11 +5,11 @@
 #ifndef CPROG_PROJECT_RENDERER_H
 #define CPROG_PROJECT_RENDERER_H
 
+namespace Springhawk{
+    class Renderer {
 
-
-class Renderer {
-
-};
+    };
+}
 
 
 

@@ -91,8 +91,9 @@ void Springhawk::Raycaster::drawRays(SDL_Renderer *pRenderer, Player *pPlayer) {
 
     SDL_SetRenderDrawColor(pRenderer, rayColor.r, rayColor.g, rayColor.b, rayColor.a);
     for(int i = -lineCount/2; i < lineCount/2; i++){
-        double angle = (fov * (i)/ lineCount) + playerAngle;
-        Vector2 direction = {cos(angle), sin(angle)};
+
+        double angle = (fov * (i)/ lineCount);
+        Vector2 direction = {cos(angle + playerAngle), sin(angle + playerAngle)};
         Vector2 endPosition = findEndPosition(playerPosition, direction, radius);
 
         Vector2 mapPos = findMapPoint(endPosition);
@@ -101,7 +102,7 @@ void Springhawk::Raycaster::drawRays(SDL_Renderer *pRenderer, Player *pPlayer) {
         setRenderDrawColor(pRenderer, map[mapPointY][mapPointX]);
 
         double rayMag = (pPlayer->getPosition() - endPosition).magnitude();
-        double lineDistance = (rayMag)* cos((fov * (i)/ lineCount)); //Causes div by zero if cos(angle) instead of .5
+        double lineDistance = (rayMag)* cos((angle));
         double wallHeight = SCREEN_HEIGHT * wallScale/ lineDistance;
         if(wallHeight > SCREEN_HEIGHT){
             wallHeight = SCREEN_HEIGHT;

@@ -8,10 +8,11 @@
 
 Scene::~Scene() = default;
 
-Scene::Scene(Player *player, std::vector<std::vector<int>> map, std::vector<GameObject *> gameObjects) {
+Scene::Scene(Player *player, std::vector<std::vector<int>> map, std::vector<GameObject *> gameObjects, Springhawk::RenderTag renderTag) {
     this->player = player;
     this->map = std::move(map);
     this->gameObjects = std::move(gameObjects);
+    this->renderTag = renderTag;
 }
 
 std::vector<GameObject *> Scene::getGameObjects() {
@@ -24,4 +25,8 @@ Player * Scene::getPlayer() {
 
 std::vector<std::vector<int>> Scene::getMap() {
     return map;
+}
+
+Springhawk::RenderTag Scene::getRenderTag() const {
+    return renderTag;
 }

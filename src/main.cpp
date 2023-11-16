@@ -9,7 +9,7 @@ int main( int argc, char* args[] )
     //START
     std::vector<Game*> games = {
             new Wolfenstein(),
-            new Tetris()
+            //new Tetris()
     };
 
     for(Game* game : games){

@@ -7,7 +7,7 @@
 
 Springhawk::SceneBuilder Springhawk::SceneBuilder::addScene() {
 
-    currentScene = new Scene(currentPlayer, currentMap, currentGameObjects);
+    currentScene = new Scene(currentPlayer, currentMap, currentGameObjects,currentRenderTag);
 
     scenes.push_back(currentScene);
 
@@ -21,6 +21,11 @@ Springhawk::SceneBuilder Springhawk::SceneBuilder::setMap(std::vector<std::vecto
 
 Springhawk::SceneBuilder Springhawk::SceneBuilder::setPlayer(Player* player) {
     this->currentPlayer = player;
+    return *this;
+}
+
+Springhawk::SceneBuilder Springhawk::SceneBuilder::setRenderTag(RenderTag renderTag) {
+    this->currentRenderTag = renderTag;
     return *this;
 }
 

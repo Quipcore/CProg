@@ -18,6 +18,8 @@
 const int Springhawk::Engine::SCREEN_WIDTH = 1500;
 const int Springhawk::Engine::SCREEN_HEIGHT = 680;
 
+void (*Springhawk::Engine::render)(SDL_Renderer*, std::vector<GameObject*>, Player*, std::vector<std::vector<int>>, int, int) = nullptr;
+
 
 int Springhawk::Engine::run(std::vector<Scene *> scenes) {
 
@@ -30,8 +32,6 @@ int Springhawk::Engine::run(std::vector<Scene *> scenes) {
 
     playScene(scenes[0],renderer);
     quit(window, renderer);
-
-
     return EXIT_SUCCESS;
 }
 // Städa innan programmet avslutas!
@@ -74,11 +74,33 @@ std::vector<SDL_Texture*> Springhawk::Engine::loadTextures(SDL_Renderer* pRender
 }
 
 
-void Springhawk::Engine::playScene(Scene *scene, SDL_Renderer *renderer) {
+void Springhawk::Engine::playScene(Scene *scene, SDL_Renderer *sdlRenderer) {
     std::vector<GameObject*> gameObjects = scene->getGameObjects();
     Player* player = scene->getPlayer();
     std::vector<std::vector<int>> map = scene->getMap();
-    keepOpen(renderer, gameObjects, player, map);
+    if(isOutOfBounds(player->getPosition(), map)){
+        player->setPosition(getValidPos(map));
+    }
+
+    Springhawk::RenderTag renderTag = scene->getRenderTag();
+    switch (renderTag) {
+        case Springhawk::RenderTag::Plane:
+            std::cout << "No plane renderer available yet" << std::endl;
+            break;
+        case Springhawk::RenderTag::Raycaster:
+            Springhawk::Engine::render = &Raycaster::render;
+            break;
+        case Doom:
+            std::cout << "No doom style renderer available yet" << std::endl;
+            break;
+        default:
+            std::cout << "No render tag found" << std::endl;
+            std::exit(-1);
+            break;
+    }
+
+
+    keepOpen(sdlRenderer, gameObjects, player, map);
 }
 
 void Springhawk::Engine::keepOpen(SDL_Renderer *pRenderer, std::vector<GameObject *> gameObjects, Player *pPlayer,
@@ -146,7 +168,7 @@ void Springhawk::Engine::draw(SDL_Renderer *pRenderer, std::vector<GameObject *>
     Color backgroundColor = {120,104,103,255};
     SDL_SetRenderDrawColor( pRenderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a );
     SDL_RenderClear( pRenderer );
-    Springhawk::Raycaster::render(pRenderer, gameObjects, pPlayer, map, SCREEN_WIDTH, SCREEN_HEIGHT);
+    Springhawk::Engine::render(pRenderer, gameObjects, pPlayer, map, SCREEN_WIDTH, SCREEN_HEIGHT);
     SDL_RenderPresent(pRenderer);
 }
 
@@ -164,6 +186,23 @@ bool Springhawk::Engine::isOutOfBounds(Vector2 objectPosition, std::vector<std::
     int currentXCell = static_cast<int>(objectPosition.getX() * mapWidth / SCREEN_WIDTH);
     int currentYCell = static_cast<int>(objectPosition.getY() * mapHeight / SCREEN_HEIGHT);
     return map[-currentYCell][currentXCell] != 0;
+}
+
+Vector2 Springhawk::Engine::getValidPos(std::vector<std::vector<int>> map) {
+    //Todo: Change scalar to be based on map size not screenSize. ScreenSize works in 2D game not in 3D
+    int mapWidth = SCREEN_WIDTH;
+    int mapHeight = SCREEN_HEIGHT;
+
+    for(int x = 0; x < mapWidth; x++){
+        for(int y = 0; y < mapHeight; y++){
+            Vector2 pos = Vector2(x,-y);
+            if(!isOutOfBounds(pos, map)){
+                return pos;
+            }
+        }
+    }
+
+    return Vector2();
 }
 
 

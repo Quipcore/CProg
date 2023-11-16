@@ -25,11 +25,11 @@ void Wolfenstein::run() {
             {3, 4, 4, 4, 4, 4, 4, 4}
     };
     sceneBuilder.setMap(mapVector);
-
     sceneBuilder.setPlayer(new Player());
     //sceneBuilder.addGameObjects();
-    sceneBuilder.addScene();
+    sceneBuilder.setRenderTag(Springhawk::RenderTag::Raycaster);
 
+    sceneBuilder.addScene();
     std::vector<Scene*> scenes = sceneBuilder.buildScenes();
 
     Springhawk::Engine::run(scenes);

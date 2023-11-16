@@ -17,12 +17,17 @@ namespace Springhawk{
         SceneBuilder setPlayer(Player* player);
         SceneBuilder addGameObjects(std::vector<GameObject *> gameObjects);
         std::vector<Scene*> buildScenes();
+
+        SceneBuilder setRenderTag(RenderTag renderTag);
+
     private:
         std::vector<Scene*> scenes;
         Scene* currentScene;
         Player* currentPlayer;
         std::vector<std::vector<int>> currentMap;
         std::vector<GameObject*> currentGameObjects;
+        Springhawk::RenderTag currentRenderTag;
+
     };
 }
 

@@ -9,10 +9,11 @@
 #include <vector>
 #include "../../scripts/GameObject.h"
 #include "../../scripts/Player.h"
+#include "springhawk/Renderer.h"
 
 namespace Springhawk {
 
-    class Raycaster {
+    class Raycaster : public Springhawk::Renderer {
     public:
         static void
         render(SDL_Renderer *pRenderer, std::vector<GameObject *> vector1, Player *pPlayer,
@@ -23,7 +24,6 @@ namespace Springhawk {
         static const int mapWidth = 8;
         static const int mapHeight = 8;
         static int map[mapWidth][mapHeight];
-        static int flatMap[mapWidth * mapHeight];
 
         static int SCREEN_WIDTH;
         static int SCREEN_HEIGHT;
