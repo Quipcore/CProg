@@ -101,7 +101,7 @@ void Springhawk::Raycaster::drawRays(SDL_Renderer *pRenderer, Player *pPlayer) {
         setRenderDrawColor(pRenderer, map[mapPointY][mapPointX]);
 
         double rayMag = (pPlayer->getPosition() - endPosition).magnitude();
-        double lineDistance = (rayMag)* 0.5; //Causes div by zero if cos(angle) instead of .5
+        double lineDistance = (rayMag)* cos((fov * (i)/ lineCount)); //Causes div by zero if cos(angle) instead of .5
         double wallHeight = SCREEN_HEIGHT * wallScale/ lineDistance;
         if(wallHeight > SCREEN_HEIGHT){
             wallHeight = SCREEN_HEIGHT;
