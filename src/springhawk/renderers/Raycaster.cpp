@@ -18,6 +18,7 @@ void Springhawk::Raycaster::render(SDL_Renderer *pRenderer, std::vector<GameObje
     SCREEN_WIDTH = screenWidth;
     SCREEN_HEIGHT = screenHeight;
 
+    //VERY INEFFICIENT. Copies the map to the tileMap array every frame.
     for(int x = 0; x < map.size(); x++){
         for(int y = 0; y < map[x].size(); y++){
             Raycaster::tileMap[x][y] = map[x][y];
