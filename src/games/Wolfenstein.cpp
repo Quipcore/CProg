@@ -1,14 +1,14 @@
 //
 // Created by felix on 2023-11-14.
 //
-
+#include "scripts/Player.h"
 #include "games/Wolfenstein.h"
 
 #include "iostream"
 
 #include "springhawk/Engine.h"
 #include "springhawk/SceneBuilder.h"
-#include "scripts/Player.h"
+
 
 
 void Wolfenstein::run() {

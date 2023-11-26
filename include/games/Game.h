@@ -10,9 +10,9 @@
 
 class Game {
 public:
-    Game();
-    ~Game();
-    virtual void run();
+    Game() = default;
+    ~Game()  =default;
+    virtual void run() = 0;
 private:
     std::vector<Scene*> scenes;
 };

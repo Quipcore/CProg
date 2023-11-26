@@ -9,8 +9,19 @@
 
 class Wolfenstein : public Game{
 public:
+    Wolfenstein() = default;
+    ~Wolfenstein() = default;
+
     void run() override;
 };
+
+//class Wolfenstein{
+//public:
+//    Wolfenstein() = default;
+//    ~Wolfenstein() = default;
+//
+//    void run();
+//};
 
 
 #endif //CPROG_PROJECT_WOLFENSTEIN_H

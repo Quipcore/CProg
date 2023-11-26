@@ -1,7 +1,7 @@
 #Other
 .idea
 cmake-build-debug
-CMakeLists.txt
+#CMakeLists.txt
 .vscode/
 
 # Prerequisites

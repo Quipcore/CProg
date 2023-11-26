@@ -4,7 +4,7 @@
 
 #ifndef CPROG_PROJECT_PLAYER_H
 #define CPROG_PROJECT_PLAYER_H
-#include "GameObject.h"
+#include "scripts/GameObject.h"
 #include "springhawk/Color.h"
 
 class Player : public GameObject{

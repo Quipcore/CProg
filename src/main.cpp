@@ -1,8 +1,12 @@
 #define SDL_MAIN_HANDLED
 
-#include "games/Tetris.h"
-#include "games/Wolfenstein.h"
+//#include "games/Game.h"
+//#include "games/Tetris.h"
+//#include "games/Wolfenstein.h"
+
 #include <vector>
+#include <iostream>
+#include "games/Wolfenstein.h"
 
 int main( int argc, char* args[] )
 {
@@ -15,6 +19,8 @@ int main( int argc, char* args[] )
     for(Game* game : games){
         game->run();
     }
+
+
 
     return 0;
     //STOP

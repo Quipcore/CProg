@@ -13,8 +13,8 @@ public:
     GameObject() = default;
     ~GameObject() = default;
 
-    virtual void update();
-    virtual Color getColor();
+    virtual void update() = 0;
+    virtual Color getColor() = 0;
 
 
     double getAngle() const;
@@ -24,8 +24,6 @@ protected:
     Vector2 position;
     Color color;
     double angle = 0;
-
-
 };
 
 
