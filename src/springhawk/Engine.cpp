@@ -1,6 +1,7 @@
 #include "springhawk/Engine.h"
 #include "springhawk/Time.h"
 #include "springhawk/renderers/Raycaster.h"
+#include "springhawk/renderers/ui/UIRenderer.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -109,6 +110,7 @@ void Engine::keepOpen(SDL_Renderer *pRenderer, std::vector<GameObject *> gameObj
 
     Vector2 lastValidPlayerPosition = pPlayer->getPosition(); //Assuming the player spawns i valid space
     while (true) {
+
         SDL_Event e;
         if (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
@@ -168,8 +170,13 @@ void Engine::draw(SDL_Renderer *pRenderer, std::vector<GameObject *> gameObjects
     Color backgroundColor = {120,104,103,255};
     SDL_SetRenderDrawColor( pRenderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a );
     SDL_RenderClear( pRenderer );
-    springhawk::Engine::render(pRenderer, gameObjects, pPlayer, map, SCREEN_WIDTH, SCREEN_HEIGHT);
+    Engine::render(pRenderer, gameObjects, pPlayer, map, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+    std::string text = "FPS: " + std::to_string((int)(1/Time::getDeltaTime()));
+//    UIRenderer::drawText(text, {0,0}, "ComicSans/comic.ttf", 20, {255,255,0,255}, pRenderer);
+    UIRenderer::drawText(text, {0,0}, "ComicSans/comic.ttf", 20, {255,255,0,255}, pRenderer);
     SDL_RenderPresent(pRenderer);
+
 }
 
 bool Engine::isOutOfBounds(Vector2 objectPosition, std::vector<std::vector<int>> map) {

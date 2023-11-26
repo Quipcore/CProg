@@ -6,6 +6,7 @@
 namespace constants
 {
     const std::string gResPath = "resources/";
+    const std::string gFontPath = gResPath + "fonts/";
 }
 
 #endif
