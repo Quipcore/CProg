@@ -13,15 +13,15 @@
 #include "chrono"
 #include "thread"
 
-
+using namespace Springhawk;
 //Screen dimension constants
-const int Springhawk::Engine::SCREEN_WIDTH = 1500;
-const int Springhawk::Engine::SCREEN_HEIGHT = 680;
+const int Engine::SCREEN_WIDTH = 1500;
+const int Engine::SCREEN_HEIGHT = 680;
 
-void (*Springhawk::Engine::render)(SDL_Renderer*, std::vector<GameObject*>, Player*, std::vector<std::vector<int>>, int, int) = nullptr;
+void (*Engine::render)(SDL_Renderer*, std::vector<GameObject*>, Player*, std::vector<std::vector<int>>, int, int) = nullptr;
 
 
-int Springhawk::Engine::run(std::vector<Scene *> scenes) {
+int Engine::run(std::vector<Scene *> scenes) {
 
     if(init()){
         throw std::runtime_error("Failed to initialize!");
@@ -35,7 +35,7 @@ int Springhawk::Engine::run(std::vector<Scene *> scenes) {
     return EXIT_SUCCESS;
 }
 // Städa innan programmet avslutas!
-void Springhawk::Engine::quit(SDL_Window *window, SDL_Renderer *renderer,std::vector<SDL_Texture*> &textures) {
+void Engine::quit(SDL_Window *window, SDL_Renderer *renderer,std::vector<SDL_Texture*> &textures) {
     for(SDL_Texture* texture : textures){
         SDL_DestroyTexture(texture);
     }
@@ -47,7 +47,7 @@ void Springhawk::Engine::quit(SDL_Window *window, SDL_Renderer *renderer,std::ve
     SDL_Quit();
 }
 
-bool Springhawk::Engine::init() {
+bool Engine::init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
         std::cout << "Error SDL2 Initialization : " << SDL_GetError();
@@ -62,7 +62,7 @@ bool Springhawk::Engine::init() {
     return EXIT_SUCCESS;
 }
 
-std::vector<SDL_Texture*> Springhawk::Engine::loadTextures(SDL_Renderer* pRenderer) {
+std::vector<SDL_Texture*> Engine::loadTextures(SDL_Renderer* pRenderer) {
     std::vector<SDL_Texture*> textures;
 
     SDL_Surface* bg_sur = IMG_Load( (constants::gResPath + "images/bg.jpg").c_str() );
@@ -74,7 +74,7 @@ std::vector<SDL_Texture*> Springhawk::Engine::loadTextures(SDL_Renderer* pRender
 }
 
 
-void Springhawk::Engine::playScene(Scene *scene, SDL_Renderer *sdlRenderer) {
+void Engine::playScene(Scene *scene, SDL_Renderer *sdlRenderer) {
     std::vector<GameObject*> gameObjects = scene->getGameObjects();
     Player* player = scene->getPlayer();
     std::vector<std::vector<int>> map = scene->getTileMap();
@@ -103,7 +103,7 @@ void Springhawk::Engine::playScene(Scene *scene, SDL_Renderer *sdlRenderer) {
     keepOpen(sdlRenderer, gameObjects, player, map);
 }
 
-void Springhawk::Engine::keepOpen(SDL_Renderer *pRenderer, std::vector<GameObject *> gameObjects, Player *pPlayer,
+void Engine::keepOpen(SDL_Renderer *pRenderer, std::vector<GameObject *> gameObjects, Player *pPlayer,
                                   std::vector<std::vector<int>> map) {
     Uint64 startTime = SDL_GetTicks();
 
@@ -143,7 +143,7 @@ void Springhawk::Engine::keepOpen(SDL_Renderer *pRenderer, std::vector<GameObjec
 
 }
 
-void Springhawk::Engine::handleEvent(SDL_Event *event){
+void Engine::handleEvent(SDL_Event *event){
     switch (event->type) {
         case SDL_KEYDOWN:
         case SDL_KEYUP:
@@ -151,11 +151,11 @@ void Springhawk::Engine::handleEvent(SDL_Event *event){
     }
 }
 
-void Springhawk::Engine::sleep(int duration_ms){
+void Engine::sleep(int duration_ms){
     std::this_thread::sleep_for(std::chrono::milliseconds(duration_ms));
 }
 
-void Springhawk::Engine::quit(SDL_Window *window, SDL_Renderer *renderer) {
+void Engine::quit(SDL_Window *window, SDL_Renderer *renderer) {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
 
@@ -163,7 +163,7 @@ void Springhawk::Engine::quit(SDL_Window *window, SDL_Renderer *renderer) {
     SDL_Quit();
 }
 
-void Springhawk::Engine::draw(SDL_Renderer *pRenderer, std::vector<GameObject *> gameObjects, Player *pPlayer,
+void Engine::draw(SDL_Renderer *pRenderer, std::vector<GameObject *> gameObjects, Player *pPlayer,
                               std::vector<std::vector<int>> map) {
     Color backgroundColor = {120,104,103,255};
     SDL_SetRenderDrawColor( pRenderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a );
@@ -172,7 +172,7 @@ void Springhawk::Engine::draw(SDL_Renderer *pRenderer, std::vector<GameObject *>
     SDL_RenderPresent(pRenderer);
 }
 
-bool Springhawk::Engine::isOutOfBounds(Vector2 objectPosition, std::vector<std::vector<int>> map) {
+bool Engine::isOutOfBounds(Vector2 objectPosition, std::vector<std::vector<int>> map) {
 
     if(objectPosition.getX() < 0 || objectPosition.getX() > SCREEN_WIDTH){
         return true;
@@ -188,7 +188,7 @@ bool Springhawk::Engine::isOutOfBounds(Vector2 objectPosition, std::vector<std::
     return map[-currentYCell][currentXCell] != 0;
 }
 
-Vector2 Springhawk::Engine::getValidPos(std::vector<std::vector<int>> map) {
+Vector2 Engine::getValidPos(std::vector<std::vector<int>> map) {
     //Todo: Change scalar to be based on tileMap size not screenSize. ScreenSize works in 2D game not in 3D
     int mapWidth = SCREEN_WIDTH;
     int mapHeight = SCREEN_HEIGHT;
