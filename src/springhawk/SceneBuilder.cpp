@@ -5,7 +5,7 @@
 #include "springhawk/SceneBuilder.h"
 #include "springhawk/Scene.h"
 
-Springhawk::SceneBuilder Springhawk::SceneBuilder::addScene() {
+springhawk::SceneBuilder springhawk::SceneBuilder::addScene() {
 
     currentScene = new Scene(currentPlayer, currentMap, currentGameObjects,currentRenderTag);
 
@@ -14,26 +14,26 @@ Springhawk::SceneBuilder Springhawk::SceneBuilder::addScene() {
     return *this;
 }
 
-Springhawk::SceneBuilder Springhawk::SceneBuilder::setMap(std::vector<std::vector<int>> map) {
+springhawk::SceneBuilder springhawk::SceneBuilder::setMap(std::vector<std::vector<int>> map) {
     this->currentMap = map;
     return *this;
 }
 
-Springhawk::SceneBuilder Springhawk::SceneBuilder::setPlayer(Player* player) {
+springhawk::SceneBuilder springhawk::SceneBuilder::setPlayer(Player* player) {
     this->currentPlayer = player;
     return *this;
 }
 
-Springhawk::SceneBuilder Springhawk::SceneBuilder::setRenderTag(RenderTag renderTag) {
+springhawk::SceneBuilder springhawk::SceneBuilder::setRenderTag(RenderTag renderTag) {
     this->currentRenderTag = renderTag;
     return *this;
 }
 
-std::vector<Scene *> Springhawk::SceneBuilder::buildScenes() {
+std::vector<Scene *> springhawk::SceneBuilder::buildScenes() {
     return scenes;
 }
 
-Springhawk::SceneBuilder Springhawk::SceneBuilder::addGameObjects(std::vector<GameObject *> gameObjects) {
+springhawk::SceneBuilder springhawk::SceneBuilder::addGameObjects(std::vector<GameObject *> gameObjects) {
     for(GameObject* gameObject : gameObjects){
         currentGameObjects.push_back(gameObject);
     }

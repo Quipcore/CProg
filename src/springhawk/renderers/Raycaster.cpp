@@ -9,7 +9,7 @@
 #include "springhawk/maps/Map.h"
 #include "springhawk/Scene.h"
 
-using namespace Springhawk;
+using namespace springhawk;
 
 int Raycaster::SCREEN_WIDTH = 0;
 int Raycaster::SCREEN_HEIGHT = 0;

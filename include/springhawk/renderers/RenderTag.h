@@ -5,7 +5,7 @@
 #ifndef CPROG_PROJECT_RENDERTAGH_H
 #define CPROG_PROJECT_RENDERTAGH_H
 
-namespace Springhawk{
+namespace springhawk{
     enum RenderTag{
         Plane,
         Raycaster,

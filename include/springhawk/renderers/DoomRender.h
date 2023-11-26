@@ -7,7 +7,7 @@
 
 #include "springhawk/renderers/Renderer.h"
 
-class DoomRender : public Springhawk::Renderer {
+class DoomRender : public springhawk::Renderer {
 
 };
 

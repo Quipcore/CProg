@@ -21,5 +21,5 @@ int main( int argc, char* args[] )
 //    std::vector<GameObject*> gameObjects = {
 //            new class Player()
 //    };
-//    return Springhawk::Engine::run(SCREEN_WIDTH, SCREEN_HEIGHT, gameObjects);
+//    return springhawk::Engine::run(SCREEN_WIDTH, SCREEN_HEIGHT, gameObjects);
 }

@@ -6,7 +6,6 @@
 namespace constants
 {
     const std::string gResPath = "resources/";
-
 }
 
 #endif

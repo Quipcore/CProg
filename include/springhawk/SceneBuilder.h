@@ -9,7 +9,7 @@
 #include "springhawk/Scene.h"
 #include "scripts/Player.h"
 
-namespace Springhawk{
+namespace springhawk{
     class SceneBuilder {
     public :
         SceneBuilder addScene();
@@ -26,7 +26,7 @@ namespace Springhawk{
         Player* currentPlayer;
         std::vector<std::vector<int>> currentMap;
         std::vector<GameObject*> currentGameObjects;
-        Springhawk::RenderTag currentRenderTag;
+        springhawk::RenderTag currentRenderTag;
 
     };
 }

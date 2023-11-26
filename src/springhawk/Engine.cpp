@@ -13,7 +13,7 @@
 #include "chrono"
 #include "thread"
 
-using namespace Springhawk;
+using namespace springhawk;
 //Screen dimension constants
 const int Engine::SCREEN_WIDTH = 1500;
 const int Engine::SCREEN_HEIGHT = 680;
@@ -82,13 +82,13 @@ void Engine::playScene(Scene *scene, SDL_Renderer *sdlRenderer) {
         player->setPosition(getValidPos(map));
     }
 
-    Springhawk::RenderTag renderTag = scene->getRenderTag();
+    springhawk::RenderTag renderTag = scene->getRenderTag();
     switch (renderTag) {
-        case Springhawk::RenderTag::Plane:
+        case springhawk::RenderTag::Plane:
             std::cout << "No plane renderer available yet" << std::endl;
             break;
-        case Springhawk::RenderTag::Raycaster:
-            Springhawk::Engine::render = &Raycaster::render;
+        case springhawk::RenderTag::Raycaster:
+            springhawk::Engine::render = &Raycaster::render;
             break;
         case Doom:
             std::cout << "No doom style renderer available yet" << std::endl;
@@ -168,7 +168,7 @@ void Engine::draw(SDL_Renderer *pRenderer, std::vector<GameObject *> gameObjects
     Color backgroundColor = {120,104,103,255};
     SDL_SetRenderDrawColor( pRenderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a );
     SDL_RenderClear( pRenderer );
-    Springhawk::Engine::render(pRenderer, gameObjects, pPlayer, map, SCREEN_WIDTH, SCREEN_HEIGHT);
+    springhawk::Engine::render(pRenderer, gameObjects, pPlayer, map, SCREEN_WIDTH, SCREEN_HEIGHT);
     SDL_RenderPresent(pRenderer);
 }
 

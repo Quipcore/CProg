@@ -8,7 +8,7 @@
 #include "springhawk/Scene.h"
 #include "springhawk/renderers/Renderer.h"
 
-namespace Springhawk {
+namespace springhawk {
     class Engine: Time{
     public:
         static int run(std::vector<Scene*> scenes);

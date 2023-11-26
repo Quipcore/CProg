@@ -5,7 +5,7 @@
 #ifndef CPROG_PROJECT_RENDERER_H
 #define CPROG_PROJECT_RENDERER_H
 
-namespace Springhawk{
+namespace springhawk{
     class Renderer {
 
     };

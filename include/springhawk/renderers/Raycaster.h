@@ -13,9 +13,9 @@
 #include "springhawk/maps/Map.h"
 #include "springhawk/Scene.h"
 
-namespace Springhawk {
+namespace springhawk {
 
-    class Raycaster : public Springhawk::Renderer {
+    class Raycaster : public springhawk::Renderer {
     public:
         static void
         render(SDL_Renderer *pRenderer, std::vector<GameObject *> vector1, Player *pPlayer,
