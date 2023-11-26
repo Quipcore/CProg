@@ -9,11 +9,13 @@
 #include "springhawk/Map.h"
 #include "springhawk/Scene.h"
 
-int Springhawk::Raycaster::SCREEN_WIDTH = 0;
-int Springhawk::Raycaster::SCREEN_HEIGHT = 0;
-int Springhawk::Raycaster::tileMap[mapWidth][mapHeight];
+using namespace Springhawk;
 
-void Springhawk::Raycaster::render(SDL_Renderer *pRenderer, std::vector<GameObject *> gameobjects, Player *pPlayer,
+int Raycaster::SCREEN_WIDTH = 0;
+int Raycaster::SCREEN_HEIGHT = 0;
+int Raycaster::tileMap[mapWidth][mapHeight];
+
+void Raycaster::render(SDL_Renderer *pRenderer, std::vector<GameObject *> gameobjects, Player *pPlayer,
                                    std::vector<std::vector<int>> map, int screenWidth, int screenHeight) {
     SCREEN_WIDTH = screenWidth;
     SCREEN_HEIGHT = screenHeight;
@@ -30,7 +32,7 @@ void Springhawk::Raycaster::render(SDL_Renderer *pRenderer, std::vector<GameObje
     drawPlayer(pRenderer, pPlayer);
 }
 
-void Springhawk::Raycaster::render(SDL_Renderer *pRenderer, Scene scene, int screenWidth, int screenHeight) {
+void Raycaster::render(SDL_Renderer *pRenderer, Scene scene, int screenWidth, int screenHeight) {
     SCREEN_WIDTH = screenWidth;
     SCREEN_HEIGHT = screenHeight;
     Map map = scene.getMap();
@@ -51,7 +53,7 @@ void Springhawk::Raycaster::render(SDL_Renderer *pRenderer, Scene scene, int scr
 }
 
 
-void Springhawk::Raycaster::render(SDL_Renderer *pRenderer, std::vector<GameObject *> gameobjects, Player *pPlayer,
+void Raycaster::render(SDL_Renderer *pRenderer, std::vector<GameObject *> gameobjects, Player *pPlayer,
                                    Map map, int screenWidth, int screenHeight) {
     SCREEN_WIDTH = screenWidth;
     SCREEN_HEIGHT = screenHeight;
@@ -70,7 +72,7 @@ void Springhawk::Raycaster::render(SDL_Renderer *pRenderer, std::vector<GameObje
     drawPlayer(pRenderer, pPlayer);
 }
 
-void Springhawk::Raycaster::drawMap(SDL_Renderer *pRenderer) {
+void Raycaster::drawMap(SDL_Renderer *pRenderer) {
     int w = SCREEN_WIDTH / mapWidth;
     int h = SCREEN_HEIGHT / mapHeight;
     int x, y, xo, yo;
@@ -86,7 +88,7 @@ void Springhawk::Raycaster::drawMap(SDL_Renderer *pRenderer) {
     }
 }
 
-void Springhawk::Raycaster::setRenderDrawColor(SDL_Renderer *pRenderer, int wallValue){
+void Raycaster::setRenderDrawColor(SDL_Renderer *pRenderer, int wallValue){
     switch(wallValue){
         case 1:
             SDL_SetRenderDrawColor(pRenderer, 0xff, 0xff, 0xff, 0xff);
@@ -109,17 +111,17 @@ void Springhawk::Raycaster::setRenderDrawColor(SDL_Renderer *pRenderer, int wall
     }
 }
 
-void Springhawk::Raycaster::drawObjects(SDL_Renderer *pRenderer, std::vector<GameObject *> &vector) {
+void Raycaster::drawObjects(SDL_Renderer *pRenderer, std::vector<GameObject *> &vector) {
     for (auto &gameObject: vector) {
         //Not yet implemented
     }
 }
 
-void Springhawk::Raycaster::drawPlayer(SDL_Renderer *pRenderer, Player *const &player) {
+void Raycaster::drawPlayer(SDL_Renderer *pRenderer, Player *const &player) {
     drawRays(pRenderer, player);
 }
 
-void Springhawk::Raycaster::drawRays(SDL_Renderer *pRenderer, Player *pPlayer) {
+void Raycaster::drawRays(SDL_Renderer *pRenderer, Player *pPlayer) {
     const int radius = 200;
     const int lineCount = pPlayer->getLineCount();
     const double sliceWidth = SCREEN_WIDTH / lineCount;
@@ -171,7 +173,7 @@ void Springhawk::Raycaster::drawRays(SDL_Renderer *pRenderer, Player *pPlayer) {
  * 2. Check if the ray intersects with a wall
  * 3. return the point of intersection
  */
-Vector2 Springhawk::Raycaster::findEndPosition(Vector2 &position, Vector2 &direction, double maxDistance) {
+Vector2 Raycaster::findEndPosition(Vector2 &position, Vector2 &direction, double maxDistance) {
     double stepSize = 1;
     Vector2 endPosition = position;
     while(isPositionValid(endPosition)){
@@ -180,11 +182,11 @@ Vector2 Springhawk::Raycaster::findEndPosition(Vector2 &position, Vector2 &direc
     return endPosition;
 }
 
-Vector2 Springhawk::Raycaster::getIntersectionPoint(Vector2 &position, double angle) {
+Vector2 Raycaster::getIntersectionPoint(Vector2 &position, double angle) {
     return position;
 }
 
-bool Springhawk::Raycaster::isPositionValid(Vector2 vector2) {
+bool Raycaster::isPositionValid(Vector2 vector2) {
     int x = (int) (vector2.getX() * mapWidth / SCREEN_WIDTH);
     int y = (int) (-vector2.getY() * mapHeight / SCREEN_HEIGHT);
 
@@ -197,7 +199,7 @@ bool Springhawk::Raycaster::isPositionValid(Vector2 vector2) {
     return true;
 }
 
-Vector2 Springhawk::Raycaster::findMapPoint(Vector2 vector2) {
+Vector2 Raycaster::findMapPoint(Vector2 vector2) {
     double setX = (vector2.getX() * mapWidth / SCREEN_WIDTH);
     double setY = (-vector2.getY() * mapHeight / SCREEN_HEIGHT);
 
