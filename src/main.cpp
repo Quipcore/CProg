@@ -15,6 +15,8 @@ int main( int argc, char* args[] )
     for(Game* game : games){
         game->run();
     }
+
+    return 0;
     //STOP
 
 
