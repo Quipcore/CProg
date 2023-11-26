@@ -2,7 +2,7 @@
 // Created by felix on 2023-11-16.
 //
 
-#include "springhawk/Map.h"
+#include "springhawk/maps/Map.h"
 
 int Map::getWidth() {
     return width;

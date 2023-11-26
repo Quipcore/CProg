@@ -8,7 +8,7 @@
 #include "scripts/Player.h"
 #include "scripts/GameObject.h"
 #include "springhawk/renderers/RenderTag.h"
-#include "springhawk/Map.h"
+#include "springhawk/maps/Map.h"
 #include <vector>
 
 

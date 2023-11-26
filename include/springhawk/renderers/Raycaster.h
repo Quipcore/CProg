@@ -10,7 +10,7 @@
 #include "scripts/GameObject.h"
 #include "scripts/Player.h"
 #include "springhawk/renderers/Renderer.h"
-#include "springhawk/Map.h"
+#include "springhawk/maps/Map.h"
 #include "springhawk/Scene.h"
 
 namespace Springhawk {

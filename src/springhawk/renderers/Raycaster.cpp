@@ -6,7 +6,7 @@
 #include "springhawk/Input.h"
 #include "springhawk/renderers/Raycaster.h"
 #include "Math.h"
-#include "springhawk/Map.h"
+#include "springhawk/maps/Map.h"
 #include "springhawk/Scene.h"
 
 using namespace Springhawk;

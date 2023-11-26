@@ -5,7 +5,7 @@
 #include <iostream>
 #include <utility>
 #include "springhawk/Scene.h"
-#include "springhawk/Map.h"
+#include "springhawk/maps/Map.h"
 
 Scene::~Scene() = default;
 
