@@ -17,7 +17,9 @@ Player &Scene::getPlayer() {
     return player;
 }
 
+[[deprecated("Will get removed! Change function call to look in map object instead of this returning vector!")]]
 std::vector<std::vector<int>> Scene::getTileMap() {
+
     return tileMap;
 }
 
