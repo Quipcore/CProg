@@ -11,12 +11,15 @@
 
 class Tilemap : public Map{
 public:
-    Tilemap(std::string mapName);
+    explicit Tilemap(std::string mapName);
+
+    Tilemap(std::vector<std::vector<int>> vector1);
+
 private:
     Wall createWall(std::string& fileLine);
     void loadMap(std::string& mapName);
 
-    std::vector<Wall> walls;
+    std::vector<Wall*>* walls;
 };
 
 

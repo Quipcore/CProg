@@ -1,24 +1,10 @@
-//
-// Created by felix on 2023-11-14.
-//
-
 #include <iostream>
 #include <utility>
 #include "springhawk/Scene.h"
-#include "springhawk/maps/Map.h"
 
-Scene::~Scene() = default;
-
-Scene::Scene(Player *player, Map map, std::vector<GameObject *> gameObjects, springhawk::RenderTag renderTag) {
+Scene::Scene(Player &player, Map &map, std::vector<GameObject *> &gameObjects, springhawk::RenderTag renderTag) {
     this->player = player;
     this->map = map;
-    this->gameObjects = std::move(gameObjects);
-    this->renderTag = renderTag;
-}
-
-Scene::Scene(Player *player, std::vector<std::vector<int>> tileMap, std::vector<GameObject *> gameObjects, springhawk::RenderTag renderTag) {
-    this->player = player;
-    this->tileMap = std::move(tileMap);
     this->gameObjects = std::move(gameObjects);
     this->renderTag = renderTag;
 }
@@ -27,7 +13,7 @@ std::vector<GameObject *> Scene::getGameObjects() {
     return gameObjects;
 }
 
-Player * Scene::getPlayer() {
+Player &Scene::getPlayer() {
     return player;
 }
 

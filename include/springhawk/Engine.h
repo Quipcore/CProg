@@ -11,31 +11,31 @@
 namespace springhawk {
     class Engine: Time{
     public:
-        static int run(std::vector<Scene*> scenes);
+        static int run(std::vector<Scene*>& scenes);
     private:
         static const int SCREEN_WIDTH;
         static const int SCREEN_HEIGHT;
 
         //Might causes prefomance issues
-        static void (*render)(SDL_Renderer*, std::vector<GameObject*>, Player*, std::vector<std::vector<int>>, int, int);
+        static void (*render)(SDL_Renderer&, std::vector<GameObject*>&, Player&, std::vector<std::vector<int>>&, int, int);
 
         static bool init();
-        static std::vector<SDL_Texture*> loadTextures(SDL_Renderer *pRenderer);
-        static void handleEvent(SDL_Event*);
-        static void sleep(int);
+        static bool isOutOfBounds(Vector2 &objectPosition, std::vector<std::vector<int>> &map);
 
-        static void playScene(Scene *scene, SDL_Renderer *sdlRenderer);
-        static void keepOpen(SDL_Renderer *pRenderer, std::vector<GameObject *> vector1, Player *pPlayer,
-                             std::vector<std::vector<int>> vector2);
+        static void sleep(int);
         static void draw(SDL_Renderer *pRenderer, std::vector<GameObject *> vector1, Player *pPlayer,
                          std::vector<std::vector<int>> vector2);
-
-        static void quit(SDL_Window *window, SDL_Renderer *renderer);
-        static void quit(SDL_Window *window, SDL_Renderer *renderer, std::vector<SDL_Texture *> &textures);
-
-        static bool isOutOfBounds(Vector2 vector2, std::vector<std::vector<int>> vector1);
+        static void quit(SDL_Window* window, SDL_Renderer* renderer);
+        static void quit(SDL_Window &window, SDL_Renderer &renderer, std::vector<SDL_Texture *> &textures);
+        static void playScene(Scene &scene, SDL_Renderer &sdlRenderer);
+        static void keepOpen(SDL_Renderer &pRenderer, std::vector<GameObject *> &gameObjects, Player &pPlayer,
+                             std::vector<std::vector<int>> &map);
+        static void handleEvent(SDL_Event &event);
 
         static Vector2 getValidPos(std::vector<std::vector<int>> map);
+        static std::vector<SDL_Texture *> loadTextures(SDL_Renderer &pRenderer);
+
+
     };
 }
 

@@ -8,7 +8,12 @@
 #include "Constants.h"
 
 Tilemap::Tilemap(std::string mapName) {
+    this->walls = new std::vector<Wall*>;
     loadMap(mapName);
+}
+
+Tilemap::Tilemap(std::vector<std::vector<int>> vector1) {
+    //TODO Implement this!
 }
 
 void Tilemap::loadMap(std::string &mapName) {
@@ -40,7 +45,8 @@ void Tilemap::loadMap(std::string &mapName) {
         }
 
         Wall wall = createWall(line);
-        walls.push_back(wall);
+
+        walls->push_back(new Wall(wall));
         std::cout << wall << std::endl;
     }
 }
@@ -61,3 +67,5 @@ Wall Tilemap::createWall(std::string &fileLine) {
 
     return {Vector2::zero, Vector2::zero};
 }
+
+

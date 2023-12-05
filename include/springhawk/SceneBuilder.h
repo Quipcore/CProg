@@ -6,28 +6,34 @@
 #define CPROG_PROJECT_SCENEBUILDER_H
 
 #include <vector>
+#include <memory>
 #include "springhawk/Scene.h"
 #include "scripts/Player.h"
+
 
 namespace springhawk{
     class SceneBuilder {
     public :
-        SceneBuilder addScene();
-        SceneBuilder setMap(std::vector<std::vector<int>>);
-        SceneBuilder setPlayer(Player* player);
-        SceneBuilder addGameObjects(std::vector<GameObject *> gameObjects);
-        std::vector<Scene*> buildScenes();
 
-        SceneBuilder setRenderTag(RenderTag renderTag);
+        SceneBuilder() = default;
+        SceneBuilder(const SceneBuilder&) = default;
+        ~SceneBuilder() = default;
+
+        SceneBuilder& addScene();
+        SceneBuilder& setMap(Map &map);
+        SceneBuilder& addGameObjects(std::vector<GameObject *>& gameObjects);
+        SceneBuilder& setRenderTag(RenderTag renderTag);
+        SceneBuilder& setPlayer(Player &player);
+
+        std::vector<Scene*> buildScenes();
 
     private:
         std::vector<Scene*> scenes;
-        Scene* currentScene;
-        Player* currentPlayer;
-        std::vector<std::vector<int>> currentMap;
+        Scene currentScene;
+        Player currentPlayer;
+        Map currentMap;
         std::vector<GameObject*> currentGameObjects;
-        springhawk::RenderTag currentRenderTag;
-
+        springhawk::RenderTag currentRenderTag = springhawk::RenderTag::Plane;
     };
 }
 

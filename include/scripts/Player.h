@@ -10,6 +10,7 @@
 class Player : public GameObject{
 public:
     Player();
+    Player(const Player&);
     void update() override;
     Color getColor() override;
 
@@ -17,7 +18,7 @@ public:
 
 private:
     void input();
-    const double velocity = 100;
+    double velocity = 100;
     int lineCount = 250;
 };
 

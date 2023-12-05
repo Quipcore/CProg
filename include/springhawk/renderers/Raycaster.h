@@ -17,11 +17,8 @@ namespace springhawk {
 
     class Raycaster : public springhawk::Renderer {
     public:
-        static void
-        render(SDL_Renderer *pRenderer, std::vector<GameObject *> vector1, Player *pPlayer,
-               std::vector<std::vector<int>> vector2,
-               int i, int i1);
-
+        static void render(SDL_Renderer &pRenderer, std::vector<GameObject *> &gameobjects, Player &pPlayer,
+                           std::vector<std::vector<int>> &map, int screenWidth, int screenHeight);
     private:
         static const int mapWidth = 8;
         static const int mapHeight = 8;
@@ -40,12 +37,6 @@ namespace springhawk {
         static Vector2 getIntersectionPoint(Vector2 &position, double angle);
 
         static Vector2 findMapPoint(Vector2 vector2);
-
-        void render(SDL_Renderer *pRenderer, std::vector<GameObject *> gameobjects, Player *pPlayer, Map map,
-                    int screenWidth,
-                    int screenHeight);
-
-        static void render(SDL_Renderer *pRenderer, Scene scene, int screenWidth, int screenHeight);
     };
 }
 

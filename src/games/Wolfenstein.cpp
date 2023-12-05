@@ -1,6 +1,3 @@
-//
-// Created by felix on 2023-11-14.
-//
 #include "scripts/Player.h"
 #include "games/Wolfenstein.h"
 
@@ -8,7 +5,7 @@
 
 #include "springhawk/Engine.h"
 #include "springhawk/SceneBuilder.h"
-
+#include "springhawk/maps/Tilemap.h"
 
 
 void Wolfenstein::run() {
@@ -24,8 +21,8 @@ void Wolfenstein::run() {
             {3, 0, 0, 0, 0, 0, 0, 5},
             {3, 4, 4, 4, 4, 4, 4, 4}
     };
-    sceneBuilder.setMap(mapVector);
-    sceneBuilder.setPlayer(new Player());
+    sceneBuilder.setMap(*new Tilemap(mapVector));
+    sceneBuilder.setPlayer(*new Player());
     //sceneBuilder.addGameObjects();
     sceneBuilder.setRenderTag(springhawk::RenderTag::Raycaster);
 

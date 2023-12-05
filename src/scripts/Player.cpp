@@ -13,6 +13,14 @@ Player::Player() {
     position = {500,-500}; // fix. Game object should not need to tell the engine to spawn in negative space
 }
 
+Player::Player(const Player &player)  : GameObject(player) {
+    this->lineCount = player.lineCount;
+    this->angle = player.angle;
+    this->position = player.position;
+    this->color = player.color;
+    this->velocity = player.velocity;
+}
+
 void Player::update(){
 
     input();
@@ -62,4 +70,6 @@ Color Player::getColor() {
 int Player::getLineCount() {
     return lineCount;
 }
+
+
 

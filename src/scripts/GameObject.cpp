@@ -13,7 +13,7 @@ Color GameObject::getColor() {
     return color;
 }
 
-Vector2 GameObject::getPosition() const{
+Vector2& GameObject::getPosition(){
     return position;
 }
 
@@ -21,7 +21,7 @@ double GameObject::getAngle() const{
     return angle;
 }
 
-void GameObject::setPosition(Vector2 position) {
+void GameObject::setPosition(Vector2 &position) {
     this->position = position;
 }
 

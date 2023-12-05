@@ -10,6 +10,7 @@
 class Wall {
 public:
     Wall(const Vector2& startPosition, const Vector2& endPosition);
+    Wall(const Wall &);
     ~Wall() = default;
 
     Vector2 getStartPosition();

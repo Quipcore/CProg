@@ -15,14 +15,15 @@
 #include "thread"
 
 using namespace springhawk;
+
+
 //Screen dimension constants
 const int Engine::SCREEN_WIDTH = 1500;
 const int Engine::SCREEN_HEIGHT = 680;
+void (*Engine::render)(SDL_Renderer&, std::vector<GameObject*>&, Player&, std::vector<std::vector<int>>&, int, int) = nullptr;
 
-void (*Engine::render)(SDL_Renderer*, std::vector<GameObject*>, Player*, std::vector<std::vector<int>>, int, int) = nullptr;
 
-
-int Engine::run(std::vector<Scene *> scenes) {
+int Engine::run(std::vector<Scene *> &scenes) {
 
     if(init()){
         throw std::runtime_error("Failed to initialize!");
@@ -31,21 +32,11 @@ int Engine::run(std::vector<Scene *> scenes) {
     SDL_Window* window = SDL_CreateWindow("Window", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 
-    playScene(scenes[0],renderer);
+    Scene* startScene = scenes.at(0);
+
+    playScene(*startScene, *renderer);
     quit(window, renderer);
     return EXIT_SUCCESS;
-}
-// Städa innan programmet avslutas!
-void Engine::quit(SDL_Window *window, SDL_Renderer *renderer,std::vector<SDL_Texture*> &textures) {
-    for(SDL_Texture* texture : textures){
-        SDL_DestroyTexture(texture);
-    }
-
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-
-    TTF_Quit();
-    SDL_Quit();
 }
 
 bool Engine::init() {
@@ -63,33 +54,54 @@ bool Engine::init() {
     return EXIT_SUCCESS;
 }
 
-std::vector<SDL_Texture*> Engine::loadTextures(SDL_Renderer* pRenderer) {
-    std::vector<SDL_Texture*> textures;
+void Engine::quit(SDL_Window &window, SDL_Renderer &renderer,std::vector<SDL_Texture*> &textures) {
+    for(SDL_Texture* texture : textures){
+        SDL_DestroyTexture(texture);
+    }
 
-    SDL_Surface* bg_sur = IMG_Load( (constants::gResPath + "images/bg.jpg").c_str() );
-    SDL_Texture* bg_tex = SDL_CreateTextureFromSurface(pRenderer, bg_sur);
-    SDL_FreeSurface(bg_sur);
+    quit(&window,&renderer);
+}
 
-    textures.push_back(bg_tex);
-    return textures;
+void Engine::quit(SDL_Window *window, SDL_Renderer *renderer) {
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+
+    TTF_Quit();
+    SDL_Quit();
 }
 
 
-void Engine::playScene(Scene *scene, SDL_Renderer *sdlRenderer) {
-    std::vector<GameObject*> gameObjects = scene->getGameObjects();
-    Player* player = scene->getPlayer();
-    std::vector<std::vector<int>> map = scene->getTileMap();
-    if(isOutOfBounds(player->getPosition(), map)){
-        player->setPosition(getValidPos(map));
+
+std::vector<SDL_Texture*> Engine::loadTextures(SDL_Renderer& pRenderer) {
+    auto textures = new std::vector<SDL_Texture*>;
+
+    SDL_Surface* bg_sur = IMG_Load( (constants::gResPath + "images/bg.jpg").c_str() );
+    SDL_Texture* bg_tex = SDL_CreateTextureFromSurface(&pRenderer, bg_sur);
+    SDL_FreeSurface(bg_sur);
+
+    textures->push_back(bg_tex);
+    return *textures;
+}
+
+
+void Engine::playScene(Scene &scene, SDL_Renderer &sdlRenderer) {
+    std::vector<GameObject*> gameObjects = scene.getGameObjects();
+    Player player = scene.getPlayer();
+    Map map = scene.getMap();
+    std::vector<std::vector<int>> tileMap = scene.getTileMap();
+    if(isOutOfBounds(player.getPosition(), tileMap)){
+        Vector2 validPos = getValidPos(tileMap);
+        player.setPosition(validPos);
     }
 
-    RenderTag renderTag = scene->getRenderTag();
+    RenderTag renderTag = scene.getRenderTag();
     switch (renderTag) {
         case Plane:
             std::cout << "No plane renderer available yet" << std::endl;
             break;
         case Raycaster:
-            springhawk::Engine::render = &Raycaster::render;
+//            springhawk::Engine::render = &Raycaster::render;
+            Engine::render = Raycaster::render;
             break;
         case Doom:
             std::cout << "No doom style renderer available yet" << std::endl;
@@ -101,14 +113,14 @@ void Engine::playScene(Scene *scene, SDL_Renderer *sdlRenderer) {
     }
 
 
-    keepOpen(sdlRenderer, gameObjects, player, map);
+    keepOpen(sdlRenderer, gameObjects, player, tileMap);
 }
 
-void Engine::keepOpen(SDL_Renderer *pRenderer, std::vector<GameObject *> gameObjects, Player *pPlayer,
-                                  std::vector<std::vector<int>> map) {
+void Engine::keepOpen(SDL_Renderer &pRenderer, std::vector<GameObject *> &gameObjects, Player &pPlayer,
+                                  std::vector<std::vector<int>> &map) {
     Uint64 startTime = SDL_GetTicks();
 
-    Vector2 lastValidPlayerPosition = pPlayer->getPosition(); //Assuming the player spawns i valid space
+    Vector2 lastValidPlayerPosition = pPlayer.getPosition(); //Assuming the player spawns i valid space
     while (true) {
 
         SDL_Event e;
@@ -117,7 +129,7 @@ void Engine::keepOpen(SDL_Renderer *pRenderer, std::vector<GameObject *> gameObj
                 return;
             }
 
-            handleEvent(&e);
+            handleEvent(e);
         }
 
         for(const auto& gameObject : gameObjects){
@@ -126,13 +138,13 @@ void Engine::keepOpen(SDL_Renderer *pRenderer, std::vector<GameObject *> gameObj
 
             }
         }
-        pPlayer->update();
-        if(isOutOfBounds(pPlayer->getPosition(), map)){
-            pPlayer->setPosition(lastValidPlayerPosition);
+        pPlayer.update();
+        if(isOutOfBounds(pPlayer.getPosition(), map)){
+            pPlayer.setPosition(lastValidPlayerPosition);
         }
-        lastValidPlayerPosition = pPlayer->getPosition();
+        lastValidPlayerPosition = pPlayer.getPosition();
 
-        draw(pRenderer, gameObjects, pPlayer, map);
+        draw(&pRenderer, gameObjects, &pPlayer, map);
 
         float deltaTime = (SDL_GetTicks64() - startTime) / 1000.0f;
 
@@ -145,8 +157,8 @@ void Engine::keepOpen(SDL_Renderer *pRenderer, std::vector<GameObject *> gameObj
 
 }
 
-void Engine::handleEvent(SDL_Event *event){
-    switch (event->type) {
+void Engine::handleEvent(SDL_Event &event){
+    switch (event.type) {
         case SDL_KEYDOWN:
         case SDL_KEYUP:
             break;
@@ -157,29 +169,20 @@ void Engine::sleep(int duration_ms){
     std::this_thread::sleep_for(std::chrono::milliseconds(duration_ms));
 }
 
-void Engine::quit(SDL_Window *window, SDL_Renderer *renderer) {
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
 
-    TTF_Quit();
-    SDL_Quit();
-}
-
-void Engine::draw(SDL_Renderer *pRenderer, std::vector<GameObject *> gameObjects, Player *pPlayer,
-                              std::vector<std::vector<int>> map) {
+void Engine::draw(SDL_Renderer *pRenderer, std::vector<GameObject *> gameObjects, Player *pPlayer, std::vector<std::vector<int>> map) {
     Color backgroundColor = {120,104,103,255};
     SDL_SetRenderDrawColor( pRenderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a );
     SDL_RenderClear( pRenderer );
-    Engine::render(pRenderer, gameObjects, pPlayer, map, SCREEN_WIDTH, SCREEN_HEIGHT);
+    Engine::render(*pRenderer, gameObjects, *pPlayer, map, SCREEN_WIDTH, SCREEN_HEIGHT);
 
     std::string text = "FPS: " + std::to_string((int)(1/Time::getDeltaTime()));
-//    UIRenderer::drawText(text, {0,0}, "ComicSans/comic.ttf", 20, {255,255,0,255}, pRenderer);
     UIRenderer::drawText(text, {0,0}, "ComicSans/comic.ttf", 20, {255,255,0,255}, pRenderer);
     SDL_RenderPresent(pRenderer);
 
 }
 
-bool Engine::isOutOfBounds(Vector2 objectPosition, std::vector<std::vector<int>> map) {
+bool Engine::isOutOfBounds(Vector2 &objectPosition, std::vector<std::vector<int>> &map) {
 
     if(objectPosition.getX() < 0 || objectPosition.getX() > SCREEN_WIDTH){
         return true;
@@ -200,16 +203,16 @@ Vector2 Engine::getValidPos(std::vector<std::vector<int>> map) {
     int mapWidth = SCREEN_WIDTH;
     int mapHeight = SCREEN_HEIGHT;
 
-    for(int x = 0; x < mapWidth; x++){
-        for(int y = 0; y < mapHeight; y++){
-            Vector2 pos = Vector2(x,-y);
-            if(!isOutOfBounds(pos, map)){
+    for (int x = 0; x < mapWidth; x++) {
+        for (int y = 0; y < mapHeight; y++) {
+            Vector2 pos = Vector2(x, -y);
+            if (!isOutOfBounds(pos, map)) {
                 return pos;
             }
         }
     }
 
-    return Vector2();
+    return {0, 0};
 }
 
 

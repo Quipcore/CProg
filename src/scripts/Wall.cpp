@@ -20,3 +20,8 @@ std::ostream &operator<<(std::ostream &os, const Wall &wall) {
     os << "(" << wall.startPosition << ", " << wall.endPosition << ")";
     return os;
 }
+
+Wall::Wall(const Wall &wall) {
+    this->startPosition = wall.startPosition;
+    this->endPosition = wall.endPosition;
+}
