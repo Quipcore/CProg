@@ -1,0 +1,128 @@
+        -:    0:Source:E:/Code/Skola/Su/CProg/CProg-Project/src/springhawk/renderers/ui/UIRenderer.cpp
+        -:    0:Graph:E:\Code\Skola\Su\CProg\CProg-Project\cmake-build-debug-coverage\src\CMakeFiles\CProg.dir\springhawk\renderers\ui\UIRenderer.cpp.gcno
+        -:    0:Data:E:\Code\Skola\Su\CProg\CProg-Project\cmake-build-debug-coverage\src\CMakeFiles\CProg.dir\springhawk\renderers\ui\UIRenderer.cpp.gcda
+        -:    0:Runs:1
+        -:    1://
+        -:    2:// Created by felix on 2023-11-26.
+        -:    3://
+        -:    4:
+        -:    5:
+        -:    6:#include <iostream>
+        -:    7:#include "springhawk/renderers/ui/UIRenderer.h"
+        -:    8:#include "Constants.h"
+        -:    9:
+        -:   10:
+function _ZN10UIRenderer8drawTextERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERK7Vector2P9_TTF_Font5ColorP12SDL_Renderer called 1841 returned 100% blocks executed 100%
+     1841:   11:void UIRenderer::drawText(const std::string& text, const Vector2& position, TTF_Font* font, Color color, SDL_Renderer *renderer) {
+        -:   12:    //Modified from https://stackoverflow.com/a/22889483
+        -:   13:
+        -:   14:    // this is the color in rgb format,
+        -:   15:    // maxing out all would give you the color white,
+        -:   16:    // and it will be your text's color
+     1841:   17:    SDL_Color sdl_color = { static_cast<Uint8>(color.r), static_cast<Uint8>(color.g), static_cast<Uint8>(color.b),255 };
+        -:   18:
+     1841:   19:    sdl_color = {255,255,0,255};
+        -:   20:
+     1841:   21:    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, text.c_str(), sdl_color);
+     1841:   21-block  0
+call    0 returned 1841
+call    1 returned 1841
+branch  2 taken 1841 (fallthrough)
+branch  3 taken 0 (throw)
+        -:   22:
+     1841:   23:    SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+     1841:   23-block  0
+call    0 returned 1841
+branch  1 taken 1841 (fallthrough)
+branch  2 taken 0 (throw)
+        -:   24:
+     1841:   25:    SDL_Rect Message_rect = {0,0,500,100}; //create a rect
+     1841:   26:    SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
+     1841:   26-block  0
+call    0 returned 1841
+branch  1 taken 1841 (fallthrough)
+branch  2 taken 0 (throw)
+        -:   27:
+        -:   28:    // Don't forget to free your surface and texture
+     1841:   29:    SDL_FreeSurface(surfaceMessage);
+     1841:   29-block  0
+call    0 returned 1841
+branch  1 taken 1841 (fallthrough)
+branch  2 taken 0 (throw)
+     1841:   30:    SDL_DestroyTexture(Message);
+     1841:   30-block  0
+call    0 returned 1841
+branch  1 taken 1841 (fallthrough)
+branch  2 taken 0 (throw)
+     1841:   31:}
+     1841:   31-block  0
+        -:   32:
+function _ZN10UIRenderer8drawTextERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERK7Vector2S7_i5ColorP12SDL_Renderer called 1841 returned 100% blocks executed 54%
+     1841:   33:void UIRenderer::drawText(const std::string& text, const Vector2& position, const std::string& fontName, int fontSize, Color color, SDL_Renderer *renderer) {
+     1841:   34:    std::string pathToFont = constants::gFontPath + fontName;
+     1841:   34-block  0
+call    0 returned 1841
+branch  1 taken 1841 (fallthrough)
+branch  2 taken 0 (throw)
+        -:   35:
+     1841:   36:    TTF_Font *font = TTF_OpenFont(pathToFont.c_str(), fontSize);
+     1841:   36-block  0
+call    0 returned 1841
+call    1 returned 1841
+branch  2 taken 1841 (fallthrough)
+branch  3 taken 0 (throw)
+     1841:   37:    if(font == nullptr){
+     1841:   37-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1841
+    #####:   38:        std::cout << "Failed to load font: " << fontName << std::endl;
+    %%%%%:   38-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   38-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:   38-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    #####:   39:        std::cout << "Error: " << TTF_GetError() << std::endl;
+    %%%%%:   39-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   39-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:   39-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:   39-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    #####:   40:        return;
+    %%%%%:   40-block  0
+        -:   41:    }
+     1841:   42:    drawText(text, position, font, color, renderer);
+     1841:   42-block  0
+call    0 returned 1841
+branch  1 taken 1841 (fallthrough)
+branch  2 taken 0 (throw)
+     1841:   43:    TTF_CloseFont(font);
+     1841:   43-block  0
+call    0 returned 1841
+branch  1 taken 1841 (fallthrough)
+branch  2 taken 0 (throw)
+     1841:   44:}
+     1841:   44-block  0
+     1841:   44-block  1
+call    0 returned 1841
+branch  1 taken 1841 (fallthrough)
+branch  2 taken 0
+    $$$$$:   44-block  2
+call    3 never executed

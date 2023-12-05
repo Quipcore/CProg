@@ -1,0 +1,57 @@
+        -:    0:Source:E:/Code/Skola/Su/CProg/CProg-Project/src/springhawk/Input.cpp
+        -:    0:Graph:E:\Code\Skola\Su\CProg\CProg-Project\cmake-build-debug-coverage\src\CMakeFiles\CProg.dir\springhawk\Input.cpp.gcno
+        -:    0:Data:E:\Code\Skola\Su\CProg\CProg-Project\cmake-build-debug-coverage\src\CMakeFiles\CProg.dir\springhawk\Input.cpp.gcda
+        -:    0:Runs:1
+        -:    1://
+        -:    2:// Created by felix on 2023-11-11.
+        -:    3://
+        -:    4:
+        -:    5:#include "springhawk/Input.h"
+        -:    6:#include <algorithm>
+        -:    7:
+        -:    8:
+        -:    9:const Uint8* Input::currentKeyState = SDL_GetKeyboardState(nullptr);
+        -:   10:
+        -:   11://Mostly likely a better way to do this mapping.
+        -:   12:std::map<Keycode, SDL_Scancode> Input::keyMap = {
+        -:   13:        {A, SDL_SCANCODE_A},
+        -:   14:        {B, SDL_SCANCODE_B},
+        -:   15:        {C, SDL_SCANCODE_C},
+        -:   16:        {D, SDL_SCANCODE_D},
+        -:   17:        {E, SDL_SCANCODE_E},
+        -:   18:        {F, SDL_SCANCODE_F},
+        -:   19:        {G, SDL_SCANCODE_G},
+        -:   20:        {H, SDL_SCANCODE_H},
+        -:   21:        {I, SDL_SCANCODE_I},
+        -:   22:        {J, SDL_SCANCODE_J},
+        -:   23:        {K, SDL_SCANCODE_K},
+        -:   24:        {L, SDL_SCANCODE_L},
+        -:   25:        {M, SDL_SCANCODE_M},
+        -:   26:        {N, SDL_SCANCODE_N},
+        -:   27:        {O, SDL_SCANCODE_O},
+        -:   28:        {P, SDL_SCANCODE_P},
+        -:   29:        {Q, SDL_SCANCODE_Q},
+        -:   30:        {R, SDL_SCANCODE_R},
+        -:   31:        {S, SDL_SCANCODE_S},
+        -:   32:        {T, SDL_SCANCODE_T},
+        -:   33:        {U, SDL_SCANCODE_U},
+        -:   34:        {V, SDL_SCANCODE_V},
+        -:   35:        {W, SDL_SCANCODE_W},
+        -:   36:        {X, SDL_SCANCODE_X},
+        -:   37:        {Y, SDL_SCANCODE_Y},
+        -:   38:        {Z, SDL_SCANCODE_Z},
+        -:   39:        {SPACE, SDL_SCANCODE_SPACE},
+        -:   40:        {ENTER, SDL_SCANCODE_RETURN},
+        -:   41:        {ESCAPE, SDL_SCANCODE_ESCAPE},
+        -:   42:        {TAB, SDL_SCANCODE_TAB},
+        -:   43:        {NUM_PLUS, SDL_SCANCODE_KP_PLUS},
+        -:   44:        {NUM_MINUS, SDL_SCANCODE_KP_MINUS}
+        -:   45:};
+        -:   46:
+        -:   47:
+function _ZN5Input14bufferContainsE7Keycode called 474978 returned 100% blocks executed 100%
+   474978:   48:bool Input::bufferContains(Keycode keycode) {
+   474978:   49:    return currentKeyState[keyMap[keycode]];
+   474978:   49-block  0
+call    0 returned 474978
+        -:   50:}

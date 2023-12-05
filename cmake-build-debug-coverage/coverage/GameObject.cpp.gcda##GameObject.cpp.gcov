@@ -1,0 +1,42 @@
+        -:    0:Source:E:/Code/Skola/Su/CProg/CProg-Project/src/scripts/GameObject.cpp
+        -:    0:Graph:E:\Code\Skola\Su\CProg\CProg-Project\cmake-build-debug-coverage\src\CMakeFiles\CProg.dir\scripts\GameObject.cpp.gcno
+        -:    0:Data:E:\Code\Skola\Su\CProg\CProg-Project\cmake-build-debug-coverage\src\CMakeFiles\CProg.dir\scripts\GameObject.cpp.gcda
+        -:    0:Runs:1
+        -:    1://
+        -:    2:// Created by felix on 2023-11-11.
+        -:    3://
+        -:    4:
+        -:    5:#include "scripts/GameObject.h"
+        -:    6:#include "iostream"
+        -:    7:
+function _ZN10GameObject6updateEv called 0 returned 0% blocks executed 0%
+    #####:    8:void GameObject::update() {
+        -:    9:
+    #####:   10:}
+        -:   11:
+function _ZN10GameObject8getColorEv called 0 returned 0% blocks executed 0%
+    #####:   12:Color GameObject::getColor() {
+    #####:   13:    return color;
+    %%%%%:   13-block  0
+        -:   14:}
+        -:   15:
+function _ZNK10GameObject11getPositionEv called 465775 returned 100% blocks executed 100%
+   465775:   16:Vector2 GameObject::getPosition() const{
+   465775:   17:    return position;
+   465775:   17-block  0
+call    0 returned 465775
+        -:   18:}
+        -:   19:
+function _ZNK10GameObject8getAngleEv called 1841 returned 100% blocks executed 100%
+     1841:   20:double GameObject::getAngle() const{
+     1841:   21:    return angle;
+     1841:   21-block  0
+        -:   22:}
+        -:   23:
+function _ZN10GameObject11setPositionE7Vector2 called 0 returned 0% blocks executed 0%
+    #####:   24:void GameObject::setPosition(Vector2 position) {
+    #####:   25:    this->position = position;
+    %%%%%:   25-block  0
+call    0 never executed
+    #####:   26:}
+        -:   27:

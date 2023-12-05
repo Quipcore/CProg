@@ -83,12 +83,12 @@ void Engine::playScene(Scene *scene, SDL_Renderer *sdlRenderer) {
         player->setPosition(getValidPos(map));
     }
 
-    springhawk::RenderTag renderTag = scene->getRenderTag();
+    RenderTag renderTag = scene->getRenderTag();
     switch (renderTag) {
-        case springhawk::RenderTag::Plane:
+        case Plane:
             std::cout << "No plane renderer available yet" << std::endl;
             break;
-        case springhawk::RenderTag::Raycaster:
+        case Raycaster:
             springhawk::Engine::render = &Raycaster::render;
             break;
         case Doom:

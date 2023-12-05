@@ -1,0 +1,529 @@
+        -:    0:Source:E:/Code/Skola/Su/CProg/CProg-Project/src/springhawk/renderers/Raycaster.cpp
+        -:    0:Graph:E:\Code\Skola\Su\CProg\CProg-Project\cmake-build-debug-coverage\src\CMakeFiles\CProg.dir\springhawk\renderers\Raycaster.cpp.gcno
+        -:    0:Data:E:\Code\Skola\Su\CProg\CProg-Project\cmake-build-debug-coverage\src\CMakeFiles\CProg.dir\springhawk\renderers\Raycaster.cpp.gcda
+        -:    0:Runs:1
+        -:    1://
+        -:    2:// Created by felix on 2023-11-12.
+        -:    3://
+        -:    4:
+        -:    5:#include <iostream>
+        -:    6:#include "springhawk/Input.h"
+        -:    7:#include "springhawk/renderers/Raycaster.h"
+        -:    8:#include "Math.h"
+        -:    9:#include "springhawk/maps/Map.h"
+        -:   10:#include "springhawk/Scene.h"
+        -:   11:
+        -:   12:using namespace springhawk;
+        -:   13:
+        -:   14:int Raycaster::SCREEN_WIDTH = 0;
+        -:   15:int Raycaster::SCREEN_HEIGHT = 0;
+        -:   16:int Raycaster::tileMap[mapWidth][mapHeight];
+        -:   17:
+function _ZN10springhawk9Raycaster6renderEP12SDL_RendererSt6vectorIP10GameObjectSaIS5_EEP6PlayerS3_IS3_IiSaIiEESaISB_EEii called 1841 returned 100% blocks executed 100%
+     1841:   18:void Raycaster::render(SDL_Renderer *pRenderer, std::vector<GameObject *> gameobjects, Player *pPlayer,
+        -:   19:                                   std::vector<std::vector<int>> map, int screenWidth, int screenHeight) {
+     1841:   20:    SCREEN_WIDTH = screenWidth;
+     1841:   21:    SCREEN_HEIGHT = screenHeight;
+        -:   22:
+        -:   23:    //VERY INEFFICIENT. Copies the map to the tileMap array every frame.
+    16569:   24:    for(int x = 0; x < map.size(); x++){
+     1841:   24-block  0
+    14728:   24-block  1
+    16569:   24-block  2
+call    0 returned 16569
+branch  1 taken 14728
+branch  2 taken 1841 (fallthrough)
+   132552:   25:        for(int y = 0; y < map[x].size(); y++){
+    14728:   25-block  0
+   132552:   25-block  1
+call    0 returned 132552
+call    1 returned 132552
+branch  2 taken 117824
+branch  3 taken 14728 (fallthrough)
+   117824:   26:            Raycaster::tileMap[x][y] = map[x][y];
+   117824:   26-block  0
+call    0 returned 117824
+call    1 returned 117824
+        -:   27:        }
+        -:   28:    }
+        -:   29:
+        -:   30:    //drawMap(pRenderer);
+        -:   31:    //drawObjects(pRenderer, gameobjects);
+     1841:   32:    drawPlayer(pRenderer, pPlayer);
+     1841:   32-block  0
+call    0 returned 1841
+     1841:   33:}
+        -:   34:
+function _ZN10springhawk9Raycaster6renderEP12SDL_Renderer5Sceneii called 0 returned 0% blocks executed 0%
+    #####:   35:void Raycaster::render(SDL_Renderer *pRenderer, Scene scene, int screenWidth, int screenHeight) {
+    #####:   36:    SCREEN_WIDTH = screenWidth;
+    #####:   37:    SCREEN_HEIGHT = screenHeight;
+    #####:   38:    Map map = scene.getMap();
+    %%%%%:   38-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    #####:   39:    Player* pPlayer = scene.getPlayer();
+    %%%%%:   39-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    #####:   40:    std::vector<GameObject*> gameobjects = scene.getGameObjects();
+    %%%%%:   40-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    #####:   41:    int mapWidth = map.getWidth();
+    %%%%%:   41-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    #####:   42:    int mapHeight = map.getHeight();
+    %%%%%:   42-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+        -:   43:
+    #####:   44:    for(int x = 0; x <mapWidth; x++){
+    %%%%%:   44-block  0
+    %%%%%:   44-block  1
+    %%%%%:   44-block  2
+branch  0 never executed
+branch  1 never executed (fallthrough)
+    #####:   45:        for(int y = 0; y < mapHeight; y++){
+    %%%%%:   45-block  0
+    %%%%%:   45-block  1
+branch  0 never executed
+branch  1 never executed (fallthrough)
+    #####:   46:                Raycaster::tileMap[x][y] = map[{x,y}];
+    %%%%%:   46-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   46-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:   46-block  2
+    $$$$$:   46-block  3
+        -:   47:        }
+        -:   48:    }
+        -:   49:
+        -:   50:    //drawMap(pRenderer);
+        -:   51:    //drawObjects(pRenderer, gameobjects);
+    #####:   52:    drawPlayer(pRenderer, pPlayer);
+    %%%%%:   52-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    #####:   53:}
+    %%%%%:   53-block  0
+call    0 never executed
+call    1 never executed
+    $$$$$:   53-block  1
+call    2 never executed
+    $$$$$:   53-block  2
+call    3 never executed
+        -:   54:
+        -:   55:
+function _ZN10springhawk9Raycaster6renderEP12SDL_RendererSt6vectorIP10GameObjectSaIS5_EEP6Player3Mapii called 0 returned 0% blocks executed 0%
+    #####:   56:void Raycaster::render(SDL_Renderer *pRenderer, std::vector<GameObject *> gameobjects, Player *pPlayer,
+        -:   57:                                   Map map, int screenWidth, int screenHeight) {
+    #####:   58:    SCREEN_WIDTH = screenWidth;
+    #####:   59:    SCREEN_HEIGHT = screenHeight;
+        -:   60:
+    #####:   61:    int mapWidth = map.getWidth();
+    %%%%%:   61-block  0
+call    0 never executed
+    #####:   62:    int mapHeight = map.getHeight();
+call    0 never executed
+        -:   63:
+    #####:   64:    for(int x = 0; x <mapWidth; x++){
+    %%%%%:   64-block  0
+    %%%%%:   64-block  1
+branch  0 never executed
+branch  1 never executed (fallthrough)
+    #####:   65:        for(int y = 0; y < mapHeight; y++){
+    %%%%%:   65-block  0
+    %%%%%:   65-block  1
+branch  0 never executed
+branch  1 never executed (fallthrough)
+    #####:   66:            Raycaster::tileMap[x][y] = map[{x, y}];
+    %%%%%:   66-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   66-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:   66-block  2
+        -:   67:        }
+        -:   68:    }
+        -:   69:
+        -:   70:    //drawMap(pRenderer);
+        -:   71:    //drawObjects(pRenderer, gameobjects);
+    #####:   72:    drawPlayer(pRenderer, pPlayer);
+    %%%%%:   72-block  0
+call    0 never executed
+    #####:   73:}
+        -:   74:
+function _ZN10springhawk9Raycaster7drawMapEP12SDL_Renderer called 5000 returned 100% blocks executed 100%
+     5000:   75:void Raycaster::drawMap(SDL_Renderer *pRenderer) {
+     5000:   76:    int w = SCREEN_WIDTH / mapWidth;
+     5000:   77:    int h = SCREEN_HEIGHT / mapHeight;
+        -:   78:    int x, y, xo, yo;
+    45000:   79:    for (y = 0; y < mapHeight; y++) {
+     5000:   79-block  0
+    40000:   79-block  1
+    45000:   79-block  2
+branch  0 taken 40000
+branch  1 taken 5000 (fallthrough)
+   360000:   80:        for (x = 0; x < mapWidth; x++) {
+    40000:   80-block  0
+   320000:   80-block  1
+   360000:   80-block  2
+branch  0 taken 320000
+branch  1 taken 40000 (fallthrough)
+   320000:   81:            setRenderDrawColor(pRenderer, tileMap[y][x]);
+   320000:   81-block  0
+call    0 returned 320000
+branch  1 taken 320000 (fallthrough)
+branch  2 taken 0 (throw)
+        -:   82:
+   320000:   83:            xo = x * w;
+   320000:   84:            yo = y * h;
+   320000:   85:            SDL_Rect rect = {xo, yo, w - 1, h - 1};
+   320000:   86:            SDL_RenderFillRect(pRenderer, &rect);
+   320000:   86-block  0
+call    0 returned 320000
+branch  1 taken 320000 (fallthrough)
+branch  2 taken 0 (throw)
+        -:   87:        }
+        -:   88:    }
+     5000:   89:}
+     5000:   89-block  0
+        -:   90:
+function _ZN10springhawk9Raycaster18setRenderDrawColorEP12SDL_Rendereri called 780250 returned 100% blocks executed 100%
+   780250:   91:void Raycaster::setRenderDrawColor(SDL_Renderer *pRenderer, int wallValue){
+   780250:   92:    switch(wallValue){
+   780250:   92-block  0
+branch  0 taken 52327
+branch  1 taken 31023
+branch  2 taken 96058
+branch  3 taken 390173
+branch  4 taken 50669
+branch  5 taken 160000
+    52327:   93:        case 1:
+    52327:   94:            SDL_SetRenderDrawColor(pRenderer, 0xff, 0xff, 0xff, 0xff);
+    52327:   94-block  0
+call    0 returned 52327
+    52327:   95:            break;
+    31023:   96:        case 2:
+    31023:   97:            SDL_SetRenderDrawColor(pRenderer, 0x00, 0xff, 0x00, 0xff);
+    31023:   97-block  0
+call    0 returned 31023
+    31023:   98:            break;
+    96058:   99:        case 3:
+    96058:  100:            SDL_SetRenderDrawColor(pRenderer,0x00,0x00,0xff,0xff);
+    96058:  100-block  0
+call    0 returned 96058
+    96058:  101:            break;
+   390173:  102:        case 4:
+   390173:  103:            SDL_SetRenderDrawColor(pRenderer,0xff,0xff,0x00,0xff);
+   390173:  103-block  0
+call    0 returned 390173
+   390173:  104:            break;
+    50669:  105:        case 5:
+    50669:  106:            SDL_SetRenderDrawColor(pRenderer,0xff,0x00,0xff,0xff);
+    50669:  106-block  0
+call    0 returned 50669
+    50669:  107:            break;
+   160000:  108:        default:
+   160000:  109:            SDL_SetRenderDrawColor(pRenderer, 0x00, 0x00, 0x00, 0xff);
+   160000:  109-block  0
+call    0 returned 160000
+   160000:  110:            break;
+        -:  111:    }
+   780250:  112:}
+        -:  113:
+function _ZN10springhawk9Raycaster11drawObjectsEP12SDL_RendererRSt6vectorIP10GameObjectSaIS5_EE called 0 returned 0% blocks executed 0%
+    #####:  114:void Raycaster::drawObjects(SDL_Renderer *pRenderer, std::vector<GameObject *> &vector) {
+    #####:  115:    for (auto &gameObject: vector) {
+    %%%%%:  115-block  0
+call    0 never executed
+call    1 never executed
+    %%%%%:  115-block  1
+call    2 never executed
+call    3 never executed
+    %%%%%:  115-block  2
+call    4 never executed
+branch  5 never executed
+branch  6 never executed (fallthrough)
+        -:  116:        //Not yet implemented
+        -:  117:    }
+    #####:  118:}
+        -:  119:
+function _ZN10springhawk9Raycaster10drawPlayerEP12SDL_RendererRKP6Player called 1841 returned 100% blocks executed 100%
+     1841:  120:void Raycaster::drawPlayer(SDL_Renderer *pRenderer, Player *const &player) {
+     1841:  121:    drawRays(pRenderer, player);
+     1841:  121-block  0
+call    0 returned 1841
+     1841:  122:}
+        -:  123:
+function _ZN10springhawk9Raycaster8drawRaysEP12SDL_RendererP6Player called 1841 returned 100% blocks executed 84%
+     1841:  124:void Raycaster::drawRays(SDL_Renderer *pRenderer, Player *pPlayer) {
+     1841:  125:    const int radius = 200;
+     1841:  126:    const int lineCount = pPlayer->getLineCount();
+     1841:  126-block  0
+call    0 returned 1841
+branch  1 taken 1841 (fallthrough)
+branch  2 taken 0 (throw)
+     1841:  127:    const double sliceWidth = SCREEN_WIDTH / lineCount;
+     1841:  128:    const double fov = M_PI/2;
+     1841:  129:    const double playerAngle = pPlayer->getAngle();
+     1841:  129-block  0
+call    0 returned 1841
+branch  1 taken 1841 (fallthrough)
+branch  2 taken 0 (throw)
+     1841:  130:    const double wallScale = SCREEN_HEIGHT/16;
+        -:  131:    const Color rayColor = {0xff, 0, 0, 0xff};
+        -:  132:
+     1841:  133:    Vector2 playerPosition = pPlayer->getPosition();
+     1841:  133-block  0
+call    0 returned 1841
+branch  1 taken 1841 (fallthrough)
+branch  2 taken 0 (throw)
+     1841:  134:    int playerX = (int) playerPosition.getX();
+     1841:  134-block  0
+call    0 returned 1841
+branch  1 taken 1841 (fallthrough)
+branch  2 taken 0 (throw)
+     1841:  135:    int playerY = (int) -playerPosition.getY();
+     1841:  135-block  0
+call    0 returned 1841
+branch  1 taken 1841 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  136:
+     1841:  137:    SDL_SetRenderDrawColor(pRenderer, rayColor.r, rayColor.g, rayColor.b, rayColor.a);
+     1841:  137-block  0
+call    0 returned 1841
+branch  1 taken 1841 (fallthrough)
+branch  2 taken 0 (throw)
+   462091:  138:    for(int i = -lineCount/2; i < lineCount/2; i++){
+     1841:  138-block  0
+   460250:  138-block  1
+   462091:  138-block  2
+branch  0 taken 460250
+branch  1 taken 1841 (fallthrough)
+        -:  139:
+   460250:  140:        double angle = (fov * (i)/ lineCount);
+   460250:  141:        Vector2 direction = {cos(angle + playerAngle), sin(angle + playerAngle)};
+   460250:  141-block  0
+call    0 returned 460250
+branch  1 taken 460250 (fallthrough)
+branch  2 taken 0 (throw)
+   460250:  142:        Vector2 endPosition = findEndPosition(playerPosition, direction, radius);
+   460250:  142-block  0
+call    0 returned 460250
+branch  1 taken 460250 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  143:
+   460250:  144:        Vector2 mapPos = findMapPoint(endPosition);
+   460250:  144-block  0
+call    0 returned 460250
+branch  1 taken 460250 (fallthrough)
+branch  2 taken 0 (throw)
+   460250:  144-block  1
+call    3 returned 460250
+branch  4 taken 460250 (fallthrough)
+branch  5 taken 0 (throw)
+    $$$$$:  144-block  2
+   460250:  145:        int mapPointX = (int) mapPos.getX();
+   460250:  145-block  0
+call    0 returned 460250
+branch  1 taken 460250 (fallthrough)
+branch  2 taken 0 (throw)
+   460250:  146:        int mapPointY = (int) mapPos.getY();
+   460250:  146-block  0
+call    0 returned 460250
+branch  1 taken 460250 (fallthrough)
+branch  2 taken 0 (throw)
+   460250:  147:        setRenderDrawColor(pRenderer, tileMap[mapPointY][mapPointX]);
+   460250:  147-block  0
+call    0 returned 460250
+branch  1 taken 460250 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  148:
+   460250:  149:        double rayMag = (pPlayer->getPosition() - endPosition).magnitude();
+   460250:  149-block  0
+call    0 returned 460250
+branch  1 taken 460250 (fallthrough)
+branch  2 taken 0 (throw)
+   460250:  149-block  1
+call    3 returned 460250
+branch  4 taken 460250 (fallthrough)
+branch  5 taken 0 (throw)
+   460250:  149-block  2
+call    6 returned 460250
+branch  7 taken 460250 (fallthrough)
+branch  8 taken 0 (throw)
+    $$$$$:  149-block  3
+    $$$$$:  149-block  4
+   460250:  150:        double lineDistance = (rayMag)* cos((angle));
+   460250:  151:        double wallHeight = SCREEN_HEIGHT * wallScale/ lineDistance;
+   460250:  152:        if(wallHeight > SCREEN_HEIGHT){
+   460250:  152-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 460250
+    #####:  153:            wallHeight = SCREEN_HEIGHT;
+    %%%%%:  153-block  0
+        -:  154:        }
+        -:  155:
+   460250:  156:        bool render2D = Input::bufferContains(Keycode::TAB);
+   460250:  156-block  0
+call    0 returned 460250
+branch  1 taken 460250 (fallthrough)
+branch  2 taken 0 (throw)
+   460250:  157:        if(render2D){
+   460250:  157-block  0
+branch  0 taken 5000 (fallthrough)
+branch  1 taken 455250
+     5000:  158:            drawMap(pRenderer);
+     5000:  158-block  0
+call    0 returned 5000
+branch  1 taken 5000 (fallthrough)
+branch  2 taken 0 (throw)
+     5000:  159:            SDL_SetRenderDrawColor(pRenderer, rayColor.r, rayColor.g, rayColor.b, rayColor.a);
+     5000:  159-block  0
+call    0 returned 5000
+branch  1 taken 5000 (fallthrough)
+branch  2 taken 0 (throw)
+     5000:  160:            SDL_RenderDrawLine(pRenderer, playerX, playerY, (int) endPosition.getX(), (int) -endPosition.getY());
+     5000:  160-block  0
+call    0 returned 5000
+branch  1 taken 5000 (fallthrough)
+branch  2 taken 0 (throw)
+     5000:  160-block  1
+call    3 returned 5000
+branch  4 taken 5000 (fallthrough)
+branch  5 taken 0 (throw)
+     5000:  160-block  2
+call    6 returned 5000
+branch  7 taken 5000 (fallthrough)
+branch  8 taken 0 (throw)
+        -:  161:        }else{
+   455250:  162:            int rectX = (lineCount-(i+lineCount/2)) * sliceWidth;
+   455250:  163:            int rectY = (SCREEN_HEIGHT - wallHeight) / 2;
+   455250:  164:            SDL_Rect rect = {rectX,rectY,(int)sliceWidth,(int)wallHeight};
+        -:  165:
+   455250:  166:            SDL_RenderFillRect(pRenderer, &rect);
+   455250:  166-block  0
+call    0 returned 455250
+branch  1 taken 455250 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  167:        }
+        -:  168:    }
+     1841:  169:}
+     1841:  169-block  0
+        -:  170:
+        -:  171:/*
+        -:  172: * 1. Shoot a ray from the player to the end of the screen
+        -:  173: * 2. Check if the ray intersects with a wall
+        -:  174: * 3. return the point of intersection
+        -:  175: */
+function _ZN10springhawk9Raycaster15findEndPositionER7Vector2S2_d called 460250 returned 100% blocks executed 80%
+   460250:  176:Vector2 Raycaster::findEndPosition(Vector2 &position, Vector2 &direction, double maxDistance) {
+   460250:  177:    double stepSize = 1;
+   460250:  178:    Vector2 endPosition = position;
+   460250:  178-block  0
+call    0 returned 460250
+branch  1 taken 460250 (fallthrough)
+branch  2 taken 0 (throw)
+104865990:  179:    while(isPositionValid(endPosition)){
+   460250:  179-block  0
+104865990:  179-block  1
+call    0 returned 104865990
+branch  1 taken 104865990 (fallthrough)
+branch  2 taken 0 (throw)
+104865990:  179-block  2
+call    3 returned 104865990
+branch  4 taken 104865990 (fallthrough)
+branch  5 taken 0 (throw)
+104865990:  179-block  3
+branch  6 taken 104405740
+branch  7 taken 460250 (fallthrough)
+    $$$$$:  179-block  4
+104405740:  180:        endPosition += direction * stepSize;
+104405740:  180-block  0
+call    0 returned 104405740
+branch  1 taken 104405740 (fallthrough)
+branch  2 taken 0 (throw)
+104405740:  180-block  1
+call    3 returned 104405740
+branch  4 taken 104405740 (fallthrough)
+branch  5 taken 0 (throw)
+104405740:  180-block  2
+    $$$$$:  180-block  3
+    $$$$$:  180-block  4
+        -:  181:    }
+   920500:  182:    return endPosition;
+   460250:  182-block  0
+   460250:  182-block  1
+        -:  183:}
+        -:  184:
+function _ZN10springhawk9Raycaster20getIntersectionPointER7Vector2d called 0 returned 0% blocks executed 0%
+    #####:  185:Vector2 Raycaster::getIntersectionPoint(Vector2 &position, double angle) {
+    #####:  186:    return position;
+    %%%%%:  186-block  0
+call    0 never executed
+        -:  187:}
+        -:  188:
+function _ZN10springhawk9Raycaster15isPositionValidE7Vector2 called 104865990 returned 100% blocks executed 91%
+104865990:  189:bool Raycaster::isPositionValid(Vector2 vector2) {
+104865990:  190:    int x = (int) (vector2.getX() * mapWidth / SCREEN_WIDTH);
+104865990:  190-block  0
+call    0 returned 104865990
+104865990:  191:    int y = (int) (-vector2.getY() * mapHeight / SCREEN_HEIGHT);
+call    0 returned 104865990
+        -:  192:
+104865990:  193:    if (x < 0 || x >= mapWidth || y < 0 || y >= mapHeight) {
+branch  0 taken 104865990 (fallthrough)
+branch  1 taken 0
+104865990:  193-block  0
+branch  2 taken 104865990 (fallthrough)
+branch  3 taken 0
+104865990:  193-block  1
+branch  4 taken 104865990 (fallthrough)
+branch  5 taken 0
+104865990:  193-block  2
+branch  6 taken 0 (fallthrough)
+branch  7 taken 104865990
+    #####:  194:        return false;
+    %%%%%:  194-block  0
+        -:  195:    }
+104865990:  196:    if (tileMap[y][x] != 0) {
+104865990:  196-block  0
+branch  0 taken 460250 (fallthrough)
+branch  1 taken 104405740
+   460250:  197:        return false;
+   460250:  197-block  0
+        -:  198:    }
+104405740:  199:    return true;
+104405740:  199-block  0
+        -:  200:}
+        -:  201:
+function _ZN10springhawk9Raycaster12findMapPointE7Vector2 called 460250 returned 100% blocks executed 100%
+   460250:  202:Vector2 Raycaster::findMapPoint(Vector2 vector2) {
+   460250:  203:    double setX = (vector2.getX() * mapWidth / SCREEN_WIDTH);
+   460250:  203-block  0
+call    0 returned 460250
+   460250:  204:    double setY = (-vector2.getY() * mapHeight / SCREEN_HEIGHT);
+call    0 returned 460250
+        -:  205:
+   460250:  206:    return {setX, setY};
+call    0 returned 460250
+        -:  207:}
+        -:  208:
+        -:  209:
+        -:  210:

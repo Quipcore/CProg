@@ -147,6 +147,7 @@ public:
     static Vector2 rotated(const Vector2& vector, double angle);
 
 
+    static Vector2 parse(std::string point);
 
 private:
     double y;

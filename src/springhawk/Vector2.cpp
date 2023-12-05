@@ -142,3 +142,14 @@ Vector2 Vector2::rotate(double angle){
 double Vector2::distance(const Vector2 &rhs) const {
     return (*this - rhs).magnitude();
 }
+
+Vector2 Vector2::parse(std::string point) {
+    for(int i = 0; i < point.length(); i++){
+        if(point[i] == ','){
+            std::string x = point.substr(1,i-1);
+            std::string y = point.substr(i+1,point.length()-i-2);
+            return {std::stod(x),std::stod(y)};
+        }
+    }
+    return Vector2::zero;
+}

@@ -1,0 +1,216 @@
+        -:    0:Source:E:/Code/Skola/Su/CProg/CProg-Project/src/scripts/Player.cpp
+        -:    0:Graph:E:\Code\Skola\Su\CProg\CProg-Project\cmake-build-debug-coverage\src\CMakeFiles\CProg.dir\scripts\Player.cpp.gcno
+        -:    0:Data:E:\Code\Skola\Su\CProg\CProg-Project\cmake-build-debug-coverage\src\CMakeFiles\CProg.dir\scripts\Player.cpp.gcda
+        -:    0:Runs:1
+        -:    1://
+        -:    2:// Created by felix on 2023-11-11.
+        -:    3://
+        -:    4:
+        -:    5:#include <cmath>
+        -:    6:#include "scripts/Player.h"
+        -:    7:#include "springhawk/Input.h"
+        -:    8:#include "springhawk/Time.h"
+        -:    9:#include "iostream"
+        -:   10:
+function _ZN6PlayerC2Ev called 1 returned 100% blocks executed 100%
+        1:   11:Player::Player() {
+        1:   11-block  0
+call    0 returned 1
+        1:   12:    color = {0,0xcf,0x50,0xff};
+        1:   13:    position = {500,-500}; // fix. Game object should not need to tell the engine to spawn in negative space
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   13-block  0
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:   14:}
+        1:   14-block  0
+        -:   15:
+function _ZN6Player6updateEv called 1841 returned 100% blocks executed 100%
+     1841:   16:void Player::update(){
+        -:   17:
+     1841:   18:    input();
+     1841:   18-block  0
+call    0 returned 1841
+     1841:   19:}
+        -:   20:
+function _ZN6Player5inputEv called 1841 returned 100% blocks executed 37%
+     1841:   21:void Player::input() {
+     1841:   22:    if(Input::bufferContains(A)){
+     1841:   22-block  0
+call    0 returned 1841
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1841
+    #####:   23:        position +=Vector2{static_cast<float>(velocity* cos(angle + M_PI/2)),static_cast<float>(velocity*sin(angle + M_PI/2))} * Time::getDeltaTime();
+    %%%%%:   23-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   23-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:   23-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:   23-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:   23-block  4
+    $$$$$:   23-block  5
+    $$$$$:   23-block  6
+    $$$$$:   23-block  7
+    $$$$$:   23-block  8
+call   12 never executed
+        -:   24:        //std::cout << "A" << std::endl;
+        -:   25:    }
+        -:   26:
+     1841:   27:    if(Input::bufferContains(D)){
+     1841:   27-block  0
+call    0 returned 1841
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1841
+    #####:   28:        position -= Vector2{static_cast<float>(velocity* cos(angle + M_PI/2)),static_cast<float>(velocity*sin(angle + M_PI/2))} * Time::getDeltaTime();
+    %%%%%:   28-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   28-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:   28-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:   28-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:   28-block  4
+    $$$$$:   28-block  5
+    $$$$$:   28-block  6
+    $$$$$:   28-block  7
+    $$$$$:   28-block  8
+call   12 never executed
+        -:   29:    }
+        -:   30:
+     1841:   31:    if(Input::bufferContains(S)){
+     1841:   31-block  0
+call    0 returned 1841
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1841
+    #####:   32:        position -=Vector2{static_cast<float>(velocity* cos(angle)),static_cast<float>(velocity*sin(angle))} * Time::getDeltaTime();
+    %%%%%:   32-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   32-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:   32-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:   32-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:   32-block  4
+    $$$$$:   32-block  5
+    $$$$$:   32-block  6
+    $$$$$:   32-block  7
+    $$$$$:   32-block  8
+call   12 never executed
+        -:   33:    }
+        -:   34:
+     1841:   35:    if(Input::bufferContains(W)){
+     1841:   35-block  0
+call    0 returned 1841
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1841
+    #####:   36:        position += Vector2{static_cast<float>(velocity* cos(angle)),static_cast<float>(velocity*sin(angle))} * Time::getDeltaTime();
+    %%%%%:   36-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   36-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:   36-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:   36-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:   36-block  4
+    $$$$$:   36-block  5
+    $$$$$:   36-block  6
+    $$$$$:   36-block  7
+        -:   37:    }
+        -:   38:
+     1841:   39:    if(Input::bufferContains(E)){
+     1841:   39-block  0
+call    0 returned 1841
+branch  1 taken 1112 (fallthrough)
+branch  2 taken 729
+     1112:   40:        angle -= 1 * Time::getDeltaTime();
+     1112:   40-block  0
+call    0 returned 1112
+        -:   41:    }
+        -:   42:
+     1841:   43:    if(Input::bufferContains(Q)){
+     1841:   43-block  0
+call    0 returned 1841
+branch  1 taken 305 (fallthrough)
+branch  2 taken 1536
+      305:   44:        angle += 1 * Time::getDeltaTime();
+      305:   44-block  0
+call    0 returned 305
+        -:   45:    }
+        -:   46:
+     1841:   47:    if(Input::bufferContains(NUM_PLUS)){
+     1841:   47-block  0
+call    0 returned 1841
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1841
+    #####:   48:        lineCount++;
+    %%%%%:   48-block  0
+        -:   49:    }
+        -:   50:
+     1841:   51:    if(Input::bufferContains(NUM_MINUS)){
+     1841:   51-block  0
+call    0 returned 1841
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1841
+    #####:   52:        if(--lineCount < 5){
+    %%%%%:   52-block  0
+branch  0 never executed (fallthrough)
+branch  1 never executed
+    #####:   53:            lineCount = 5;
+    %%%%%:   53-block  0
+        -:   54:        }
+        -:   55:    }
+     1841:   56:}
+     1841:   56-block  0
+        -:   57:
+function _ZN6Player8getColorEv called 0 returned 0% blocks executed 0%
+    #####:   58:Color Player::getColor() {
+    #####:   59:    return color;
+    %%%%%:   59-block  0
+        -:   60:}
+        -:   61:
+function _ZN6Player12getLineCountEv called 1841 returned 100% blocks executed 100%
+     1841:   62:int Player::getLineCount() {
+     1841:   63:    return lineCount;
+     1841:   63-block  0
+        -:   64:}
+        -:   65:

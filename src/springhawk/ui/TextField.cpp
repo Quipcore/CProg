@@ -5,7 +5,16 @@
 #include "springhawk/ui/TextField.h"
 
 TextField::TextField(std::string text, Vector2 &position) {
-    this->text = text;
+    setText(text);
+    setPosition(position);
+}
+
+Vector2 TextField::getPosition() const{
+    return position;
+}
+
+void TextField::setPosition(Vector2 position) {
+    delete &this->position;
     this->position = position;
 }
 
@@ -14,5 +23,8 @@ std::string TextField::getText() const{
 }
 
 void TextField::setText(std::string text) {
+    delete &this->text;
     this->text = text;
 }
+
+

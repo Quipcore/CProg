@@ -1,0 +1,26 @@
+        -:    0:Source:E:/Code/Skola/Su/CProg/CProg-Project/include/games/Wolfenstein.h
+        -:    0:Graph:E:\Code\Skola\Su\CProg\CProg-Project\cmake-build-debug-coverage\CMakeFiles\Play.dir\src\main.cpp.gcno
+        -:    0:Data:E:\Code\Skola\Su\CProg\CProg-Project\cmake-build-debug-coverage\CMakeFiles\Play.dir\src\main.cpp.gcda
+        -:    0:Runs:1
+        -:    1://
+        -:    2:// Created by felix on 2023-11-14.
+        -:    3://
+        -:    4:
+        -:    5:#ifndef CPROG_PROJECT_WOLFENSTEIN_H
+        -:    6:#define CPROG_PROJECT_WOLFENSTEIN_H
+        -:    7:
+        -:    8:#include "games/Game.h"
+        -:    9:
+        -:   10:class Wolfenstein : public Game{
+        -:   11:public:
+function _ZN11WolfensteinC1Ev called 1 returned 100% blocks executed 100%
+        1:   12:    Wolfenstein() = default;
+        1:   12-block  0
+call    0 returned 1
+        -:   13:    ~Wolfenstein() = default;
+        -:   14:
+        -:   15:    void run() override;
+        -:   16:};
+        -:   17:
+        -:   18:
+        -:   19:#endif //CPROG_PROJECT_WOLFENSTEIN_H

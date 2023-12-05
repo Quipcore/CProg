@@ -25,7 +25,9 @@ SET(FILES
         games/Wolfenstein.cpp
         games/Tetris.cpp
         games/Game.cpp
-        )
+        games/PacMan.cpp
+        scripts/Wall.cpp
+)
 
 add_library(CProg STATIC ${FILES})
 

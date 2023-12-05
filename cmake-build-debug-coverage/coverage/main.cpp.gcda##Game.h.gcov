@@ -1,0 +1,28 @@
+        -:    0:Source:E:/Code/Skola/Su/CProg/CProg-Project/include/games/Game.h
+        -:    0:Graph:E:\Code\Skola\Su\CProg\CProg-Project\cmake-build-debug-coverage\CMakeFiles\Play.dir\src\main.cpp.gcno
+        -:    0:Data:E:\Code\Skola\Su\CProg\CProg-Project\cmake-build-debug-coverage\CMakeFiles\Play.dir\src\main.cpp.gcda
+        -:    0:Runs:1
+        -:    1://
+        -:    2:// Created by felix on 2023-11-14.
+        -:    3://
+        -:    4:
+        -:    5:#ifndef CPROG_PROJECT_GAME_H
+        -:    6:#define CPROG_PROJECT_GAME_H
+        -:    7:
+        -:    8:#include <vector>
+        -:    9:#include "springhawk/Scene.h"
+        -:   10:
+        -:   11:class Game {
+        -:   12:public:
+function _ZN4GameC2Ev called 1 returned 100% blocks executed 100%
+        1:   13:    Game() = default;
+        1:   13-block  0
+call    0 returned 1
+        -:   14:    ~Game()  =default;
+        -:   15:    virtual void run() = 0;
+        -:   16:private:
+        -:   17:    std::vector<Scene*> scenes;
+        -:   18:};
+        -:   19:
+        -:   20:
+        -:   21:#endif //CPROG_PROJECT_GAME_H

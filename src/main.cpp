@@ -7,12 +7,14 @@
 #include <vector>
 #include <iostream>
 #include "games/Wolfenstein.h"
+#include "games/PacMan.h"
 
 int main( int argc, char* args[] )
 {
     //START
     std::vector<Game*> games = {
-            new Wolfenstein(),
+            new PacMan()
+//            new Wolfenstein(),
             //new Tetris()
     };
 
