@@ -21,6 +21,10 @@ public:
 
     ~Map();
 
+    bool isOutOfBounds(Vector2 &position);
+
+    Vector2 getValidPos();
+
 private:
     int height;
     int width;

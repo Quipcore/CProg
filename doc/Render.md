@@ -1,4 +1,4 @@
-Let Wolfenstein use Dooms renderer just set all wall/floor/ceiling to the same height
+Let Wolfenstein use Dooms render just set all wall/floor/ceiling to the same height
 Let Pure 2D game use a top down version of the same map system. Basicly make it so that tilemap is a sector map
 
 ## Resources

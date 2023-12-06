@@ -31,6 +31,10 @@ void Raycaster::render(SDL_Renderer &pRenderer, std::vector<GameObject*>& gameob
     //drawObjects(pRenderer, gameobjects);
     drawPlayer(&pRenderer, &pPlayer);
 }
+
+void Raycaster::render(SDL_Renderer &renderer, std::vector<GameObject *> &gameObjects, Player &player, Map &map, int screenWidth, int screenHeight) {
+
+}
 //
 //void Raycaster::render(SDL_Renderer *pRenderer, Scene scene, int screenWidth, int screenHeight) {
 //    SCREEN_WIDTH = screenWidth;

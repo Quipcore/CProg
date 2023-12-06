@@ -20,7 +20,8 @@ using namespace springhawk;
 //Screen dimension constants
 const int Engine::SCREEN_WIDTH = 1500;
 const int Engine::SCREEN_HEIGHT = 680;
-void (*Engine::render)(SDL_Renderer&, std::vector<GameObject*>&, Player&, std::vector<std::vector<int>>&, int, int) = nullptr;
+//void (*Engine::render)(SDL_Renderer&, std::vector<GameObject*>&, Player&, std::vector<std::vector<int>>&, int, int) = nullptr;
+void (*Engine::render)(SDL_Renderer&, std::vector<GameObject*>&, Player&, Map&, int, int) = nullptr;
 
 
 int Engine::run(std::vector<Scene *> &scenes) {
@@ -89,22 +90,22 @@ void Engine::playScene(Scene &scene, SDL_Renderer &sdlRenderer) {
     Player player = scene.getPlayer();
     Map map = scene.getMap();
     std::vector<std::vector<int>> tileMap = scene.getTileMap();
-    if(isOutOfBounds(player.getPosition(), tileMap)){
-        Vector2 validPos = getValidPos(tileMap);
+
+    if(map.isOutOfBounds(player.getPosition())){
+        Vector2 validPos = map.getValidPos();
         player.setPosition(validPos);
     }
 
     RenderTag renderTag = scene.getRenderTag();
     switch (renderTag) {
         case Plane:
-            std::cout << "No plane renderer available yet" << std::endl;
+            std::cout << "No plane render available yet" << std::endl;
             break;
         case Raycaster:
-//            springhawk::Engine::render = &Raycaster::render;
             Engine::render = Raycaster::render;
             break;
         case Doom:
-            std::cout << "No doom style renderer available yet" << std::endl;
+            std::cout << "No doom style render available yet" << std::endl;
             break;
         default:
             std::cout << "No render tag found" << std::endl;
@@ -113,14 +114,14 @@ void Engine::playScene(Scene &scene, SDL_Renderer &sdlRenderer) {
     }
 
 
-    keepOpen(sdlRenderer, gameObjects, player, tileMap);
+    keepOpen(sdlRenderer, gameObjects, player, map);
 }
 
-void Engine::keepOpen(SDL_Renderer &pRenderer, std::vector<GameObject *> &gameObjects, Player &pPlayer,
-                                  std::vector<std::vector<int>> &map) {
+//TODO Player should be renamed to Camera!
+void Engine::keepOpen(SDL_Renderer &renderer, std::vector<GameObject*> &gameObjects, Player &camera, Map& map) {
     Uint64 startTime = SDL_GetTicks();
 
-    Vector2 lastValidPlayerPosition = pPlayer.getPosition(); //Assuming the player spawns i valid space
+    Vector2 lastValidCameraPosition = camera.getPosition(); //Assuming the player spawns i valid space
     while (true) {
 
         SDL_Event e;
@@ -128,33 +129,30 @@ void Engine::keepOpen(SDL_Renderer &pRenderer, std::vector<GameObject *> &gameOb
             if (e.type == SDL_QUIT) {
                 return;
             }
-
             handleEvent(e);
         }
 
-        for(const auto& gameObject : gameObjects){
+        for (const auto &gameObject: gameObjects) {
             gameObject->update();
-            if(isOutOfBounds(gameObject->getPosition(), map)){
+            if (map.isOutOfBounds(gameObject->getPosition())) {
 
             }
         }
-        pPlayer.update();
-        if(isOutOfBounds(pPlayer.getPosition(), map)){
-            pPlayer.setPosition(lastValidPlayerPosition);
-        }
-        lastValidPlayerPosition = pPlayer.getPosition();
 
-        draw(&pRenderer, gameObjects, &pPlayer, map);
+        camera.update();
+        if (map.isOutOfBounds(camera.getPosition())) {
+            camera.setPosition(lastValidCameraPosition);
+        }
+        lastValidCameraPosition = camera.getPosition();
+
+        draw(renderer, gameObjects, camera, map);
 
         float deltaTime = (SDL_GetTicks64() - startTime) / 1000.0f;
-
         //Needs to be looked at, dont know if this is the best way to do it. Should probably not use inheritance.
         //Works for now.
         Time::setDeltaTime(deltaTime);
-
         startTime = SDL_GetTicks();
     }
-
 }
 
 void Engine::handleEvent(SDL_Event &event){
@@ -169,50 +167,48 @@ void Engine::sleep(int duration_ms){
     std::this_thread::sleep_for(std::chrono::milliseconds(duration_ms));
 }
 
-
-void Engine::draw(SDL_Renderer *pRenderer, std::vector<GameObject *> gameObjects, Player *pPlayer, std::vector<std::vector<int>> map) {
+void Engine::draw(SDL_Renderer &renderer, std::vector<GameObject*> &gameObjects, Player &camera, Map &map){
     Color backgroundColor = {120,104,103,255};
-    SDL_SetRenderDrawColor( pRenderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a );
-    SDL_RenderClear( pRenderer );
-    Engine::render(*pRenderer, gameObjects, *pPlayer, map, SCREEN_WIDTH, SCREEN_HEIGHT);
+    SDL_SetRenderDrawColor( &renderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a );
+    SDL_RenderClear( &renderer );
+    Engine::render(renderer, gameObjects, camera, map, SCREEN_WIDTH, SCREEN_HEIGHT);
 
     std::string text = "FPS: " + std::to_string((int)(1/Time::getDeltaTime()));
-    UIRenderer::drawText(text, {0,0}, "ComicSans/comic.ttf", 20, {255,255,0,255}, pRenderer);
-    SDL_RenderPresent(pRenderer);
-
+    UIRenderer::drawText(text, {0,0}, "ComicSans/comic.ttf", 20, {255,255,0,255},&renderer);
+    SDL_RenderPresent(&renderer);
 }
 
-bool Engine::isOutOfBounds(Vector2 &objectPosition, std::vector<std::vector<int>> &map) {
-
-    if(objectPosition.getX() < 0 || objectPosition.getX() > SCREEN_WIDTH){
-        return true;
-    }
-    if(objectPosition.getY() > 0 || objectPosition.getY() < -SCREEN_HEIGHT){
-        return true;
-    }
-
-    int mapWidth = map.size();
-    int mapHeight = map[0].size();
-    int currentXCell = static_cast<int>(objectPosition.getX() * mapWidth / SCREEN_WIDTH);
-    int currentYCell = static_cast<int>(objectPosition.getY() * mapHeight / SCREEN_HEIGHT);
-    return map[-currentYCell][currentXCell] != 0;
-}
-
-Vector2 Engine::getValidPos(std::vector<std::vector<int>> map) {
-    //Todo: Change scalar to be based on tileMap size not screenSize. ScreenSize works in 2D game not in 3D
-    int mapWidth = SCREEN_WIDTH;
-    int mapHeight = SCREEN_HEIGHT;
-
-    for (int x = 0; x < mapWidth; x++) {
-        for (int y = 0; y < mapHeight; y++) {
-            Vector2 pos = Vector2(x, -y);
-            if (!isOutOfBounds(pos, map)) {
-                return pos;
-            }
-        }
-    }
-
-    return {0, 0};
-}
+//bool Engine::isOutOfBounds(Vector2 &objectPosition, std::vector<std::vector<int>> &map) {
+//
+//    if(objectPosition.getX() < 0 || objectPosition.getX() > SCREEN_WIDTH){
+//        return true;
+//    }
+//    if(objectPosition.getY() > 0 || objectPosition.getY() < -SCREEN_HEIGHT){
+//        return true;
+//    }
+//
+//    int mapWidth = map.size();
+//    int mapHeight = map[0].size();
+//    int currentXCell = static_cast<int>(objectPosition.getX() * mapWidth / SCREEN_WIDTH);
+//    int currentYCell = static_cast<int>(objectPosition.getY() * mapHeight / SCREEN_HEIGHT);
+//    return map[-currentYCell][currentXCell] != 0;
+//}
+//
+//Vector2 Engine::getValidPos(std::vector<std::vector<int>> map) {
+//    //Todo: Change scalar to be based on tileMap size not screenSize. ScreenSize works in 2D game not in 3D
+//    int mapWidth = SCREEN_WIDTH;
+//    int mapHeight = SCREEN_HEIGHT;
+//
+//    for (int x = 0; x < mapWidth; x++) {
+//        for (int y = 0; y < mapHeight; y++) {
+//            Vector2 pos = Vector2(x, -y);
+//            if (!isOutOfBounds(pos, map)) {
+//                return pos;
+//            }
+//        }
+//    }
+//
+//    return {0, 0};
+//}
 
 

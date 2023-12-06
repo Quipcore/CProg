@@ -14,7 +14,6 @@
 namespace springhawk{
     class SceneBuilder {
     public :
-
         SceneBuilder() = default;
         SceneBuilder(const SceneBuilder&) = default;
         ~SceneBuilder() = default;

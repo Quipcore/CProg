@@ -13,8 +13,8 @@ int main( int argc, char* args[] )
 {
     //START
     std::vector<Game*> games = {
-            new PacMan()
-//            new Wolfenstein(),
+//            new PacMan(),
+            new Wolfenstein(),
             //new Tetris()
     };
 

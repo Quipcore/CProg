@@ -22,3 +22,13 @@ Map::Map() {
 }
 
 Map::~Map() = default;
+
+//TODO: Implement virtual for this function!
+bool Map::isOutOfBounds(Vector2 &position) {
+    return false;
+}
+
+//TODO: Implement!
+Vector2 Map::getValidPos() {
+    return Vector2();
+}

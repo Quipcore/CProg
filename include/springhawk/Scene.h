@@ -15,11 +15,9 @@
 class Scene {
 public:
     Scene() = default;
-//    Scene(Player* player, std::vector<std::vector<int>> tileMap, std::vector<GameObject*> gameObjects, springhawk::RenderTag renderTag);
-//    Scene(Player *player, Map map, std::vector<GameObject *> gameObjects, springhawk::RenderTag renderTag);
-    Scene(Player &player, Map &map, std::vector<GameObject *> &gameObjects, springhawk::RenderTag renderTag);
+    ~Scene() = default;
 
-    ~Scene();
+    Scene(Player &player, Map &map, std::vector<GameObject *> &gameObjects, springhawk::RenderTag renderTag);
 
     std::vector<GameObject *> getGameObjects();
     Player &getPlayer();
