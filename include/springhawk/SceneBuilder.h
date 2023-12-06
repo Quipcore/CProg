@@ -15,6 +15,8 @@ namespace springhawk{
     class SceneBuilder {
     public :
         SceneBuilder() = default;
+
+//        SceneBuilder() = default;
         SceneBuilder(const SceneBuilder&) = default;
         ~SceneBuilder() = default;
 
@@ -30,7 +32,7 @@ namespace springhawk{
         std::vector<Scene*> scenes;
         Scene currentScene;
         Player currentPlayer;
-        Map currentMap;
+        Map* currentMap;
         std::vector<GameObject*> currentGameObjects;
         springhawk::RenderTag currentRenderTag = springhawk::RenderTag::Plane;
     };

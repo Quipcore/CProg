@@ -21,7 +21,7 @@ void Wolfenstein::run() {
             {3, 0, 0, 0, 0, 0, 0, 5},
             {3, 4, 4, 4, 4, 4, 4, 4}
     };
-    sceneBuilder.setMap(*new Tilemap(mapVector));
+    sceneBuilder.setMap(*new springhawk::Tilemap(mapVector));
     sceneBuilder.setPlayer(*new Player());
     //sceneBuilder.addGameObjects();
     sceneBuilder.setRenderTag(springhawk::RenderTag::Raycaster);

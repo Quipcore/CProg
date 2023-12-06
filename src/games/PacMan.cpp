@@ -10,7 +10,7 @@
 
 void PacMan::run() {
     auto* sceneBuilder = new springhawk::SceneBuilder();
-    auto* tilemap = new Tilemap("pacman.sphk");
+    auto* tilemap = new springhawk::Tilemap("pacman.sphk");
     auto* player = new Player();
 
     sceneBuilder->addScene();

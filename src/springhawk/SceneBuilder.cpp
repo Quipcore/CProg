@@ -1,7 +1,7 @@
 #include "springhawk/SceneBuilder.h"
 
 springhawk::SceneBuilder& springhawk::SceneBuilder::addScene() {
-    scenes.push_back(new Scene(currentPlayer, currentMap, currentGameObjects,currentRenderTag));
+    scenes.push_back(new Scene(currentPlayer, *currentMap, currentGameObjects,currentRenderTag));
     return *this;
 }
 
@@ -20,7 +20,7 @@ std::vector<Scene *> springhawk::SceneBuilder::buildScenes() {
 }
 
 springhawk::SceneBuilder & springhawk::SceneBuilder::setMap(Map& map) {
-    this->currentMap = map;
+    this->currentMap = &map;
     return *this;
 }
 

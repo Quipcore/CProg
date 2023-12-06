@@ -8,6 +8,7 @@
 #include <iostream>
 #include "games/Wolfenstein.h"
 #include "games/PacMan.h"
+#include "games/Tetris.h"
 
 int main( int argc, char* args[] )
 {
@@ -15,7 +16,7 @@ int main( int argc, char* args[] )
     std::vector<Game*> games = {
 //            new PacMan(),
             new Wolfenstein(),
-            //new Tetris()
+//            new Tetris()
     };
 
     for(Game* game : games){
@@ -25,11 +26,4 @@ int main( int argc, char* args[] )
 
 
     return 0;
-    //STOP
-
-
-//    std::vector<GameObject*> gameObjects = {
-//            new class Player()
-//    };
-//    return springhawk::Engine::run(SCREEN_WIDTH, SCREEN_HEIGHT, gameObjects);
 }

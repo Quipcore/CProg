@@ -88,11 +88,10 @@ std::vector<SDL_Texture*> Engine::loadTextures(SDL_Renderer& pRenderer) {
 void Engine::playScene(Scene &scene, SDL_Renderer &sdlRenderer) {
     std::vector<GameObject*> gameObjects = scene.getGameObjects();
     Player player = scene.getPlayer();
-    Map map = scene.getMap();
-    std::vector<std::vector<int>> tileMap = scene.getTileMap();
+    Map* map = scene.getMap();
 
-    if(map.isOutOfBounds(player.getPosition())){
-        Vector2 validPos = map.getValidPos();
+    if(map->isOutOfBounds(player.getPosition())){
+        Vector2 validPos = map->getValidPos();
         player.setPosition(validPos);
     }
 
@@ -114,7 +113,7 @@ void Engine::playScene(Scene &scene, SDL_Renderer &sdlRenderer) {
     }
 
 
-    keepOpen(sdlRenderer, gameObjects, player, map);
+    keepOpen(sdlRenderer, gameObjects, player, *map);
 }
 
 //TODO Player should be renamed to Camera!

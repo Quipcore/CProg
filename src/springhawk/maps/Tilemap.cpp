@@ -7,16 +7,17 @@
 #include "springhawk/maps/Tilemap.h"
 #include "Constants.h"
 
-Tilemap::Tilemap(std::string mapName) {
+springhawk::Tilemap::Tilemap(std::string mapName) {
     this->walls = new std::vector<Wall*>;
     loadMap(mapName);
 }
 
-Tilemap::Tilemap(std::vector<std::vector<int>> vector1) {
-    //TODO Implement this!
+springhawk::Tilemap::Tilemap(std::vector<std::vector<int>> vector1) {
+    mapVector = &vector1;
+    this->walls = new std::vector<Wall*>;
 }
 
-void Tilemap::loadMap(std::string &mapName) {
+void springhawk::Tilemap::loadMap(std::string &mapName) {
 
     std::string FilePath = constants::gMapPath + mapName;
     std::ifstream mapFile;
@@ -51,7 +52,7 @@ void Tilemap::loadMap(std::string &mapName) {
     }
 }
 
-Wall Tilemap::createWall(std::string &fileLine) {
+Wall springhawk::Tilemap::createWall(std::string &fileLine) {
 
     for(int i = 0 ; i < fileLine.length() ; i++){
         if(fileLine[i] == '-'){
@@ -66,6 +67,26 @@ Wall Tilemap::createWall(std::string &fileLine) {
     }
 
     return {Vector2::zero, Vector2::zero};
+}
+
+bool springhawk::Tilemap::isOutOfBounds(Vector2 &position) {
+    return false;
+}
+
+Vector2 springhawk::Tilemap::getValidPos() {
+    return Vector2();
+}
+
+int springhawk::Tilemap::operator[](Vector2 vector2) {
+    return 0;
+}
+
+int springhawk::Tilemap::getWidth() {
+    return 0;
+}
+
+int springhawk::Tilemap::getHeight() {
+    return 0;
 }
 
 

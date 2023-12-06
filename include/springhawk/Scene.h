@@ -9,26 +9,28 @@
 #include "scripts/GameObject.h"
 #include "springhawk/renderers/RenderTag.h"
 #include "springhawk/maps/Map.h"
+#include "springhawk/maps/Tilemap.h"
 #include <vector>
 
 
 class Scene {
 public:
-    Scene() = default;
     ~Scene() = default;
-
-    Scene(Player &player, Map &map, std::vector<GameObject *> &gameObjects, springhawk::RenderTag renderTag);
+    Scene(){
+        this->map = new springhawk::Tilemap("");
+    }
+    Scene(Player &player, Map &incomingMap, std::vector<GameObject *> &gameObjects, springhawk::RenderTag renderTag);
 
     std::vector<GameObject *> getGameObjects();
     Player &getPlayer();
-    std::vector<std::vector<int>> getTileMap();
+//    std::vector<std::vector<int>> getTileMap();
     springhawk::RenderTag getRenderTag() const;
 
-    Map getMap();
+    Map * getMap();
 
 private:
     Player player;
-    Map map;
+    Map* map;
     std::vector<std::vector<int>> tileMap;
     std::vector<GameObject*> gameObjects;
     springhawk::RenderTag renderTag;

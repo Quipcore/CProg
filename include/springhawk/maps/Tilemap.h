@@ -9,18 +9,32 @@
 #include "Map.h"
 #include "scripts/Wall.h"
 
-class Tilemap : public Map{
-public:
-    explicit Tilemap(std::string mapName);
+namespace springhawk {
+    class Tilemap : public Map {
+    public:
+        explicit Tilemap(std::string mapName);
+        explicit Tilemap(std::vector<std::vector<int>> vector1);
 
-    Tilemap(std::vector<std::vector<int>> vector1);
+        ~Tilemap() override = default;
 
-private:
-    Wall createWall(std::string& fileLine);
-    void loadMap(std::string& mapName);
+        bool isOutOfBounds(Vector2 &position) override;
+        Vector2 getValidPos() override;
+        int operator[](Vector2 vector2) override;
+        int getWidth() override;
+        int getHeight() override;
 
-    std::vector<Wall*>* walls;
-};
 
+    private:
+        Wall createWall(std::string &fileLine);
+
+        void loadMap(std::string &mapName);
+
+
+        //For now avoid walls!
+        std::vector<Wall *> *walls;
+
+        std::vector<std::vector<int>> *mapVector;
+    };
+}
 
 #endif //CPROG_PROJECT_TILEMAP_H

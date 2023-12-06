@@ -11,23 +11,12 @@
 class Map {
 
 public:
-    int operator[](Vector2 vector2);
-
-    int getWidth();
-
-    int getHeight();
-
-    Map();
-
-    ~Map();
-
-    bool isOutOfBounds(Vector2 &position);
-
-    Vector2 getValidPos();
-
-private:
-    int height;
-    int width;
+    virtual ~Map() = default;
+    virtual int operator[](Vector2 vector2) = 0;
+    virtual int getWidth() = 0;
+    virtual int getHeight() = 0;
+    virtual bool isOutOfBounds(Vector2 &position) = 0;
+    virtual Vector2 getValidPos() = 0;
 };
 
 
