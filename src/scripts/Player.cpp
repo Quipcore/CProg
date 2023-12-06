@@ -29,7 +29,7 @@ void Player::update(){
 void Player::input() {
     if(Input::bufferContains(A)){
         position +=Vector2{static_cast<float>(velocity* cos(angle + M_PI/2)),static_cast<float>(velocity*sin(angle + M_PI/2))} * Time::getDeltaTime();
-        //std::cout << "A" << std::endl;
+        std::cout << "A" << std::endl;
     }
 
     if(Input::bufferContains(D)){

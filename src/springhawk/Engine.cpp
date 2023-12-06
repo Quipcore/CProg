@@ -119,8 +119,11 @@ void Engine::playScene(Scene &scene, SDL_Renderer &sdlRenderer) {
 //TODO Player should be renamed to Camera!
 void Engine::keepOpen(SDL_Renderer &renderer, std::vector<GameObject*> &gameObjects, Player &camera, Map& map) {
     Uint64 startTime = SDL_GetTicks();
-
+    Vector2 spaceMid =  camera.getPosition() + Vector2(SCREEN_WIDTH/2,SCREEN_HEIGHT/2);
+    camera.setPosition(spaceMid);
     Vector2 lastValidCameraPosition = camera.getPosition(); //Assuming the player spawns i valid space
+
+
     while (true) {
 
         SDL_Event e;
@@ -133,13 +136,13 @@ void Engine::keepOpen(SDL_Renderer &renderer, std::vector<GameObject*> &gameObje
 
         for (const auto &gameObject: gameObjects) {
             gameObject->update();
-            if (map.isOutOfBounds(gameObject->getPosition())) {
+            if (isOutOfBounds(camera.getPosition(), map)) {
 
             }
         }
 
         camera.update();
-        if (map.isOutOfBounds(camera.getPosition())) {
+        if (isOutOfBounds(camera.getPosition(), map)) {
             camera.setPosition(lastValidCameraPosition);
         }
         lastValidCameraPosition = camera.getPosition();
@@ -175,6 +178,23 @@ void Engine::draw(SDL_Renderer &renderer, std::vector<GameObject*> &gameObjects,
     std::string text = "FPS: " + std::to_string((int)(1/Time::getDeltaTime()));
     UIRenderer::drawText(text, {0,0}, "ComicSans/comic.ttf", 20, {255,255,0,255},&renderer);
     SDL_RenderPresent(&renderer);
+}
+
+bool Engine::isOutOfBounds(Vector2 &objectPosition, Map &map) {
+    if(objectPosition.getX() < 0 || objectPosition.getX() > SCREEN_WIDTH){
+        return true;
+    }
+    if(objectPosition.getY() > 0 || objectPosition.getY() < -SCREEN_HEIGHT){
+        return true;
+    }
+
+    int mapWidth = map.getWidth();
+    int mapHeight = map.getHeight();
+    int currentXCell = static_cast<int>(objectPosition.getX() * mapWidth / SCREEN_WIDTH);
+    int currentYCell = static_cast<int>(objectPosition.getY() * mapHeight / SCREEN_HEIGHT);
+    Vector2 objectMapPos = {-currentYCell,currentXCell};
+    return map.isOutOfBounds(objectMapPos);
+
 }
 
 //bool Engine::isOutOfBounds(Vector2 &objectPosition, std::vector<std::vector<int>> &map) {

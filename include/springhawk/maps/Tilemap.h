@@ -34,6 +34,9 @@ namespace springhawk {
         std::vector<Wall *> *walls;
 
         std::vector<std::vector<int>> *mapVector;
+
+        int width;
+        int height;
     };
 }
 

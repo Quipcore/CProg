@@ -15,66 +15,19 @@ int Raycaster::SCREEN_WIDTH = 0;
 int Raycaster::SCREEN_HEIGHT = 0;
 int Raycaster::tileMap[mapWidth][mapHeight];
 
-void Raycaster::render(SDL_Renderer &pRenderer, std::vector<GameObject*>& gameobjects, Player &pPlayer,
-                                   std::vector<std::vector<int>> &map, int screenWidth, int screenHeight) {
+void Raycaster::render(SDL_Renderer &renderer, std::vector<GameObject *> &gameObjects, Player &player, Map &map, int screenWidth, int screenHeight) {
     SCREEN_WIDTH = screenWidth;
     SCREEN_HEIGHT = screenHeight;
 
     //VERY INEFFICIENT. Copies the map to the tileMap array every frame.
-    for(int x = 0; x < map.size(); x++){
-        for(int y = 0; y < map[x].size(); y++){
-            Raycaster::tileMap[x][y] = map[x][y];
+    for(int x = 0; x < map.getWidth(); x++){
+        for(int y = 0; y < map.getHeight(); y++){
+            Raycaster::tileMap[x][y] = map[{x,y}];;
         }
     }
 
-    //drawMap(pRenderer);
-    //drawObjects(pRenderer, gameobjects);
-    drawPlayer(&pRenderer, &pPlayer);
+    drawPlayer(&renderer, &player);
 }
-
-void Raycaster::render(SDL_Renderer &renderer, std::vector<GameObject *> &gameObjects, Player &player, Map &map, int screenWidth, int screenHeight) {
-
-}
-//
-//void Raycaster::render(SDL_Renderer *pRenderer, Scene scene, int screenWidth, int screenHeight) {
-//    SCREEN_WIDTH = screenWidth;
-//    SCREEN_HEIGHT = screenHeight;
-//    Map map = scene.getMap();
-//    Player& pPlayer = scene.getPlayer();
-//    std::vector<GameObject*> gameobjects = scene.getGameObjects();
-//    int mapWidth = map.getWidth();
-//    int mapHeight = map.getHeight();
-//
-//    for(int x = 0; x <mapWidth; x++){
-//        for(int y = 0; y < mapHeight; y++){
-//                Raycaster::tileMap[x][y] = map[{x,y}];
-//        }
-//    }
-//
-//    //drawMap(pRenderer);
-//    //drawObjects(pRenderer, gameobjects);
-//    drawPlayer(pRenderer, &pPlayer);
-//}
-//
-//
-//void Raycaster::render(SDL_Renderer *pRenderer, std::vector<GameObject *> gameobjects, Player *pPlayer,
-//                                   Map map, int screenWidth, int screenHeight) {
-//    SCREEN_WIDTH = screenWidth;
-//    SCREEN_HEIGHT = screenHeight;
-//
-//    int mapWidth = map.getWidth();
-//    int mapHeight = map.getHeight();
-//
-//    for(int x = 0; x <mapWidth; x++){
-//        for(int y = 0; y < mapHeight; y++){
-//            Raycaster::tileMap[x][y] = map[{x, y}];
-//        }
-//    }
-//
-//    //drawMap(pRenderer);
-//    //drawObjects(pRenderer, gameobjects);
-//    drawPlayer(pRenderer, pPlayer);
-//}
 
 void Raycaster::drawMap(SDL_Renderer *pRenderer) {
     int w = SCREEN_WIDTH / mapWidth;
@@ -136,7 +89,7 @@ void Raycaster::drawRays(SDL_Renderer *pRenderer, Player *pPlayer) {
 
     Vector2 playerPosition = pPlayer->getPosition();
     int playerX = (int) playerPosition.getX();
-    int playerY = (int) -playerPosition.getY();
+    int playerY = (int) playerPosition.getY();
 
     SDL_SetRenderDrawColor(pRenderer, rayColor.r, rayColor.g, rayColor.b, rayColor.a);
     for(int i = -lineCount/2; i < lineCount/2; i++){
@@ -205,7 +158,7 @@ bool Raycaster::isPositionValid(Vector2 vector2) {
 
 Vector2 Raycaster::findMapPoint(Vector2 vector2) {
     double setX = (vector2.getX() * mapWidth / SCREEN_WIDTH);
-    double setY = (-vector2.getY() * mapHeight / SCREEN_HEIGHT);
+    double setY = (vector2.getY() * mapHeight / SCREEN_HEIGHT);
 
     return {setX, setY};
 }

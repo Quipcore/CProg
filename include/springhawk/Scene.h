@@ -23,7 +23,6 @@ public:
 
     std::vector<GameObject *> getGameObjects();
     Player &getPlayer();
-//    std::vector<std::vector<int>> getTileMap();
     springhawk::RenderTag getRenderTag() const;
 
     Map * getMap();
@@ -31,7 +30,6 @@ public:
 private:
     Player player;
     Map* map;
-    std::vector<std::vector<int>> tileMap;
     std::vector<GameObject*> gameObjects;
     springhawk::RenderTag renderTag;
 };

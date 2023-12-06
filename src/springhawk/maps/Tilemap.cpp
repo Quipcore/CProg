@@ -4,6 +4,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <utility>
 #include "springhawk/maps/Tilemap.h"
 #include "Constants.h"
 
@@ -13,8 +14,10 @@ springhawk::Tilemap::Tilemap(std::string mapName) {
 }
 
 springhawk::Tilemap::Tilemap(std::vector<std::vector<int>> vector1) {
-    mapVector = &vector1;
+    mapVector = new std::vector<std::vector<int>>(std::move(vector1));
     this->walls = new std::vector<Wall*>;
+    this->width = mapVector->size();
+    this->height = mapVector[0].size();
 }
 
 void springhawk::Tilemap::loadMap(std::string &mapName) {
@@ -70,23 +73,40 @@ Wall springhawk::Tilemap::createWall(std::string &fileLine) {
 }
 
 bool springhawk::Tilemap::isOutOfBounds(Vector2 &position) {
-    return false;
+
+    if(position.getX() < 0 || position.getX() > width){
+        return true;
+    }
+
+    if(position.getY() < 0 || position.getY() > height){
+        return true;
+    }
+
+    return this->operator[](position) != 0;
 }
 
 Vector2 springhawk::Tilemap::getValidPos() {
-    return Vector2();
+    for(int x = 0; x < width; x++){
+        for(int y = 0; y < height; y++){
+            Vector2 pos = {x,y};
+            if(!isOutOfBounds(pos)){
+                return pos;
+            }
+        }
+    }
+    return {0,0};
 }
 
-int springhawk::Tilemap::operator[](Vector2 vector2) {
-    return 0;
+int springhawk::Tilemap::operator[](Vector2 position) {
+    return mapVector->at(position.getX()).at(position.getY());
 }
 
 int springhawk::Tilemap::getWidth() {
-    return 0;
+    return width;
 }
 
 int springhawk::Tilemap::getHeight() {
-    return 0;
+    return height;
 }
 
 

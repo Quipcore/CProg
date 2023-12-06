@@ -20,7 +20,7 @@ namespace springhawk {
         static void (*render)(SDL_Renderer&, std::vector<GameObject*>&, Player&, Map&, int, int);
 
         static bool init();
-        static bool isOutOfBounds(Vector2 &objectPosition, std::vector<std::vector<int>> &map);
+//        static bool isOutOfBounds(Vector2 &objectPosition, std::vector<std::vector<int>> &map);
 
         static void sleep(int);
         static void draw(SDL_Renderer &renderer, std::vector<GameObject *> &gameObjects, Player &camera, Map &map);
@@ -32,9 +32,10 @@ namespace springhawk {
 
         static void handleEvent(SDL_Event &event);
 
-        static Vector2 getValidPos(std::vector<std::vector<int>> map);
+//        static Vector2 getValidPos(std::vector<std::vector<int>> map);
         static std::vector<SDL_Texture *> loadTextures(SDL_Renderer &pRenderer);
 
+        static bool isOutOfBounds(Vector2 &objectPosition, Map &map);
     };
 }
 
