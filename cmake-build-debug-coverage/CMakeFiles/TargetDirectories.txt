@@ -1,7 +1,0 @@
-E:/Code/Skola/Su/CProg/CProg-Project/cmake-build-debug-coverage/CMakeFiles/CopyDirectoryTarget.dir
-E:/Code/Skola/Su/CProg/CProg-Project/cmake-build-debug-coverage/CMakeFiles/Cprog_Project.dir
-E:/Code/Skola/Su/CProg/CProg-Project/cmake-build-debug-coverage/CMakeFiles/edit_cache.dir
-E:/Code/Skola/Su/CProg/CProg-Project/cmake-build-debug-coverage/CMakeFiles/rebuild_cache.dir
-E:/Code/Skola/Su/CProg/CProg-Project/cmake-build-debug-coverage/src/CMakeFiles/CProg.dir
-E:/Code/Skola/Su/CProg/CProg-Project/cmake-build-debug-coverage/src/CMakeFiles/edit_cache.dir
-E:/Code/Skola/Su/CProg/CProg-Project/cmake-build-debug-coverage/src/CMakeFiles/rebuild_cache.dir
