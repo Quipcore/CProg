@@ -23,6 +23,7 @@ namespace springhawk{
         SceneBuilder& addGameObjects(std::vector<GameObject *>& gameObjects);
         SceneBuilder& setRenderTag(RenderTag renderTag);
         SceneBuilder& setPlayer(Player &player);
+        SceneBuilder& addFromJSON(std::string path);
 
         std::vector<Scene*> buildScenes();
 

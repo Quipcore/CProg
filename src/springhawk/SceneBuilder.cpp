@@ -1,4 +1,17 @@
+#include <fstream>
 #include "springhawk/SceneBuilder.h"
+#include <nlohmann/json.hpp>
+
+springhawk::SceneBuilder &springhawk::SceneBuilder::addFromJSON(std::string path) {
+
+    std::ifstream file(path);
+
+    nlohmann::json data = nlohmann::json::parse(file);
+
+
+
+    return *this;
+}
 
 //----------------------------------------------------------------------------------------------------------------------
 
