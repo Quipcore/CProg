@@ -6,7 +6,11 @@
 #define CPROG_PROJECT_MAP_H
 
 
+#include <map>
 #include "springhawk/Vector2.h"
+#include "SDL2/SDL.h"
+#include "vector"
+#include "springhawk/TextureTag.h"
 
 class Map {
 
@@ -17,6 +21,12 @@ public:
     virtual int getHeight() = 0;
     virtual bool isOutOfBounds(Vector2 &position) = 0;
     virtual Vector2 getValidPos() = 0;
+
+    //SHOULD ONLY BE USED BY RENDERER!
+    virtual SDL_Texture *getTextureAt(Vector2 position) = 0;
+
+    //SHOULD ONLY BE USED BY ENGINE!
+    virtual void loadTextures(std::map<TextureTag, SDL_Texture *> &) = 0;
 };
 
 

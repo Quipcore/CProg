@@ -1,29 +1,39 @@
 #include <fstream>
 #include <iostream>
 #include <utility>
+#include <map>
+#include "algorithm"
+#include "random"
+
+#include <SDL2/SDL_image.h>
+
 #include "springhawk/maps/Tilemap.h"
 #include "Constants.h"
+#include "springhawk/TextureTag.h"
 
 //----------------------------------------------------------------------------------------------------------------------
 
 springhawk::Tilemap::Tilemap(std::string mapName) {
-    this->walls = new std::vector<Wall*>;
+    mapVector = new std::vector<std::vector<int>>();
+    tiles = new std::vector<std::vector<Tile*>>();
     loadMap(mapName);
+    this->height = mapVector->size();
+    this->width = mapVector->at(0).size();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
 
 springhawk::Tilemap::Tilemap(std::vector<std::vector<int>> vector1) {
     mapVector = new std::vector<std::vector<int>>(std::move(vector1));
+    tiles = new std::vector<std::vector<Tile*>>();
     this->walls = new std::vector<Wall*>;
     this->width = mapVector->size();
-    this->height = mapVector[0].size();
+    this->height = mapVector->at(0).size();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
 
 void springhawk::Tilemap::loadMap(std::string &mapName) {
-
     std::string FilePath = constants::gMapPath + mapName;
     std::ifstream mapFile;
     mapFile.open(FilePath, std::ios::in);
@@ -31,6 +41,8 @@ void springhawk::Tilemap::loadMap(std::string &mapName) {
         std::cout << "Could not open file: " << FilePath << std::endl;
         return;
     }
+
+    int maxCols = 0;
     bool readingComment = false;
     while(!mapFile.eof()) {
         std::string line;
@@ -50,12 +62,76 @@ void springhawk::Tilemap::loadMap(std::string &mapName) {
             continue;
         }
 
-        Wall wall = createWall(line);
+        std::vector<int> current;
 
-        walls->push_back(new Wall(wall));
-        std::cout << wall << std::endl;
+        std::map<char, int> lookup {
+                {' ',0},
+                {'#',1},
+                {'.',2}
+        };
+
+        for(char ch : line){
+            if(ch != '|'){
+                current.push_back(lookup[ch]);
+            }
+        }
+        maxCols = std::max(maxCols, (int)current.size());
+        mapVector->push_back(current);
+    }
+
+    for (auto& row : *mapVector) {
+        if (row.size() < maxCols) {
+            row.resize(maxCols, 0);
+        }
+    }
+
+    for(const auto & y : *mapVector){
+        auto* vector = new std::vector<Tile*>;
+        for(int x = 0; x < y.size(); x++){
+            vector->push_back(new Tile());
+        }
+        tiles->push_back(*vector);
     }
 }
+
+
+
+
+
+//void springhawk::Tilemap::loadMap(std::string &mapName) {
+//
+//    std::string FilePath = constants::gMapPath + mapName;
+//    std::ifstream mapFile;
+//    mapFile.open(FilePath, std::ios::in);
+//    if(!mapFile.is_open()){
+//        std::cout << "Could not open file: " << FilePath << std::endl;
+//        return;
+//    }
+//    bool readingComment = false;
+//    while(!mapFile.eof()) {
+//        std::string line;
+//        std::getline(mapFile, line);
+//
+//        if (line == "/*") {
+//            readingComment = true;
+//            continue;
+//        }
+//
+//        if (line == "*/") {
+//            readingComment = false;
+//            continue;
+//        }
+//
+//        if (readingComment || line.empty() || (line[0] == '/' && line[1] == '/') || line[0] == '\n'){
+//            continue;
+//        }
+//
+//        Wall wall = createWall(line);
+//
+//        walls->push_back(new Wall(wall));
+//        std::cout << wall << std::endl;
+//    }
+//}
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -108,7 +184,7 @@ Vector2 springhawk::Tilemap::getValidPos() {
 //----------------------------------------------------------------------------------------------------------------------
 
 int springhawk::Tilemap::operator[](Vector2 position) {
-    return mapVector->at(position.getX()).at(position.getY());
+    return mapVector->at(position.getY()).at(position.getX());
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -121,4 +197,28 @@ int springhawk::Tilemap::getWidth() {
 
 int springhawk::Tilemap::getHeight() {
     return height;
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+SDL_Texture* springhawk::Tilemap::getTextureAt(Vector2 position){
+    return tiles->at(position.getY()).at(position.getX())->getTexture();
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void springhawk::Tilemap::loadTextures(std::map<TextureTag, SDL_Texture *> &textureMap) {
+
+    std::map<int, TextureTag> m{
+            {0, PACMAN_EMPTY},
+            {1, PACMAN_NORTH_SOUTH_WALL},
+            {2, PACMAN_PELLET},
+    };
+
+
+    for(int y = 0; y < mapVector->size(); y++){
+        for(int x = 0; x < mapVector->at(y).size(); x++){
+            tiles->at(y).at(x)->setTexture(*textureMap[m[mapVector->at(y).at(x)]]);
+        }
+    }
 }

@@ -17,8 +17,6 @@ namespace springhawk {
 
     class Raycaster : public springhawk::Renderer {
     public:
-        static void render(SDL_Renderer &pRenderer, std::vector<GameObject *> &gameobjects, Player &pPlayer,
-                           std::vector<std::vector<int>> &map, int screenWidth, int screenHeight);
         static void render(SDL_Renderer&, std::vector<GameObject*>&, Player&, Map&, int,int);
     private:
         static const int mapWidth = 8;

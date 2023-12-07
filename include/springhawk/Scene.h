@@ -17,7 +17,7 @@ class Scene {
 public:
     ~Scene() = default;
     Scene(){
-        this->map = new springhawk::Tilemap("");
+
     }
     Scene(Player &player, Map &incomingMap, std::vector<GameObject *> &gameObjects, springhawk::RenderTag renderTag);
 

@@ -10,6 +10,7 @@ SET(FILES
 #        springhawk/maps/Map.cpp
         springhawk/maps/Sectormap.cpp
         springhawk/maps/Tilemap.cpp
+        springhawk/maps/Tile.cpp
 
         springhawk/renderers/Renderer.cpp
         springhawk/renderers/DoomRender.cpp
@@ -27,6 +28,9 @@ SET(FILES
         games/Game.cpp
         games/PacMan.cpp
         scripts/Wall.cpp
+        springhawk/renderers/PlaneRenderer.cpp
+        scripts/PacmanController.cpp
+
 )
 
 add_library(CProg STATIC ${FILES})

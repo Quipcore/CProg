@@ -2,6 +2,7 @@
 #include "springhawk/Time.h"
 #include "springhawk/Input.h"
 #include "springhawk/renderers/Raycaster.h"
+#include "springhawk/renderers/PlaneRenderer.h"
 #include "springhawk/renderers/ui/UIRenderer.h"
 
 
@@ -25,37 +26,43 @@ const int Engine::SCREEN_HEIGHT = 680;
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void (*Engine::render)(SDL_Renderer&, std::vector<GameObject*>&, Player&, Map&, int, int) = nullptr;
+void (*Engine::render)(SDL_Renderer &, std::vector<GameObject *> &, Player &, Map &, int, int) = nullptr;
 
 //----------------------------------------------------------------------------------------------------------------------
 
 int Engine::run(std::vector<Scene *> &scenes) {
 
-    if(init()){
+    if (init()) {
         throw std::runtime_error("Failed to initialize!");
     }
 
-    SDL_Window* window = SDL_CreateWindow("Window", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
+    SDL_Window *window = SDL_CreateWindow("Springhawk", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+    SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0);
 
-    Scene* startScene = scenes.at(0);
 
+    std::map<TextureTag, SDL_Texture*> textureMap = loadTextures(*renderer);
+
+    Scene *startScene = scenes.at(0);
+    startScene->getMap()->loadTextures(textureMap);
     playScene(*startScene, *renderer);
-    quit(window, renderer);
+
+    std::vector<SDL_Texture*> textures;
+    for(const auto& [key,value] : textureMap){
+        textures.push_back(value);
+    }
+    quit(*window, *renderer, textures);
     return EXIT_SUCCESS;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
 
 bool Engine::init() {
-    if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
-    {
+    if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         std::cout << "Error SDL2 Initialization : " << SDL_GetError();
         return EXIT_FAILURE;
     }
 
-    if (TTF_Init() < 0)
-    {
+    if (TTF_Init() < 0) {
         std::cout << "Error SDL_ttf Initialization : " << SDL_GetError();
         return EXIT_FAILURE;
     }
@@ -64,12 +71,12 @@ bool Engine::init() {
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void Engine::quit(SDL_Window &window, SDL_Renderer &renderer,std::vector<SDL_Texture*> &textures) {
-    for(SDL_Texture* texture : textures){
+void Engine::quit(SDL_Window &window, SDL_Renderer &renderer, std::vector<SDL_Texture *> &textures) {
+    for (SDL_Texture *texture: textures) {
         SDL_DestroyTexture(texture);
     }
 
-    quit(&window,&renderer);
+    quit(&window, &renderer);
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -84,50 +91,52 @@ void Engine::quit(SDL_Window *window, SDL_Renderer *renderer) {
 
 //----------------------------------------------------------------------------------------------------------------------
 
-std::vector<SDL_Texture*> Engine::loadTextures(SDL_Renderer& pRenderer) {
-    auto textures = new std::vector<SDL_Texture*>;
+std::map<TextureTag, SDL_Texture*> Engine::loadTextures(SDL_Renderer &pRenderer) {
+    auto textureMap = new std::map<TextureTag, SDL_Texture*>;
 
-    SDL_Surface* bg_sur = IMG_Load( (constants::gResPath + "images/bg.jpg").c_str() );
-    SDL_Texture* bg_tex = SDL_CreateTextureFromSurface(&pRenderer, bg_sur);
-    SDL_FreeSurface(bg_sur);
-
-    textures->push_back(bg_tex);
-    return *textures;
+    std::map<std::string, TextureTag> names{
+            {"ns_wall.png",      PACMAN_NORTH_SOUTH_WALL},
+            {"pellet.png",       PACMAN_PELLET},
+            {"power_pellet.png", PACMAN_POWER_PELLET},
+            {"empty.png",        PACMAN_EMPTY}
+    };
+    std::string path = constants::gResPath + "images/";
+    for(const auto& [imageName, value] : names){
+        SDL_Surface *surface = IMG_Load((path + imageName).c_str());
+        SDL_Texture *pTexture = SDL_CreateTextureFromSurface(&pRenderer, surface);
+        SDL_FreeSurface(surface);
+        textureMap->insert({value,pTexture});
+    }
+    return *textureMap;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
 
 void Engine::playScene(Scene &scene, SDL_Renderer &sdlRenderer) {
-    std::vector<GameObject*> gameObjects = scene.getGameObjects();
+    std::vector<GameObject *> gameObjects = scene.getGameObjects();
     Player player = scene.getPlayer();
-    Map* map = scene.getMap();
-
-    if(map->isOutOfBounds(player.getPosition())){
-        Vector2 validPos = map->getValidPos();
-        player.setPosition(validPos);
-    }
+    Map *map = scene.getMap();
 
     RenderTag renderTag = scene.getRenderTag();
-    bool renderTagFound = true;
+    bool tagFound = true;
     switch (renderTag) {
         case Plane:
-            std::cout << "No plane render available yet" << std::endl;
-            renderTagFound = false;
+            Engine::render = PlaneRenderer::render;
             break;
         case Raycaster:
             Engine::render = Raycaster::render;
             break;
         case Doom:
             std::cout << "No doom style render available yet" << std::endl;
-            renderTagFound = false;
+            tagFound = false;
             break;
         default:
             std::cout << "No render tag found" << std::endl;
-            renderTagFound = false;
+            tagFound = false;
             break;
     }
 
-    if(renderTagFound){
+    if (tagFound) {
         keepOpen(sdlRenderer, gameObjects, player, *map);
     }
 
@@ -136,10 +145,13 @@ void Engine::playScene(Scene &scene, SDL_Renderer &sdlRenderer) {
 //----------------------------------------------------------------------------------------------------------------------
 
 //TODO Player should be renamed to Camera!
-void Engine::keepOpen(SDL_Renderer &renderer, std::vector<GameObject*> &gameObjects, Player &camera, Map& map) {
+void Engine::keepOpen(SDL_Renderer &renderer, std::vector<GameObject *> &gameObjects, Player &camera, Map &map) {
     Uint64 startTime = SDL_GetTicks();
-    Vector2 spaceMid =  camera.getPosition() + Vector2(SCREEN_WIDTH/2,SCREEN_HEIGHT/2);
-    camera.setPosition(spaceMid);
+
+    if (isOutOfBounds(camera.getPosition(), map)) {
+        Vector2 spaceMid = Vector2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+        camera.setPosition(spaceMid);
+    }
     Vector2 lastValidCameraPosition = camera.getPosition(); //Assuming the player spawns i valid space
 
     bool running = true;
@@ -150,7 +162,7 @@ void Engine::keepOpen(SDL_Renderer &renderer, std::vector<GameObject*> &gameObje
             if (e.type == SDL_QUIT) {
                 return;
             }
-            if(Input::bufferContains(ESCAPE)){
+            if (Input::bufferContains(ESCAPE)) {
                 running = false;
             }
             handleEvent(e);
@@ -181,7 +193,7 @@ void Engine::keepOpen(SDL_Renderer &renderer, std::vector<GameObject*> &gameObje
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void Engine::handleEvent(SDL_Event &event){
+void Engine::handleEvent(SDL_Event &event) {
     switch (event.type) {
         case SDL_KEYDOWN:
         case SDL_KEYUP:
@@ -191,24 +203,23 @@ void Engine::handleEvent(SDL_Event &event){
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void Engine::sleep(int duration_ms){
+void Engine::sleep(int duration_ms) {
     std::this_thread::sleep_for(std::chrono::milliseconds(duration_ms));
 }
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void Engine::draw(SDL_Renderer &renderer, std::vector<GameObject*> &gameObjects, Player &camera, Map &map){
-    //Clear last screen
-    Color backgroundColor = {120,104,103,255};
-    SDL_SetRenderDrawColor( &renderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a );
-    SDL_RenderClear( &renderer );
+void Engine::draw(SDL_Renderer &renderer, std::vector<GameObject *> &gameObjects, Player &camera, Map &map) {
+    Color backgroundColor = {0,0,0,255};
+    SDL_SetRenderDrawColor(&renderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
+    SDL_RenderClear(&renderer);
 
     //Draw scene
     Engine::render(renderer, gameObjects, camera, map, SCREEN_WIDTH, SCREEN_HEIGHT);
 
     //Draw debug text
-    std::string text = "FPS: " + std::to_string((int)(1/Time::getDeltaTime()));
-    UIRenderer::drawText(text, {0,0}, "ComicSans/comic.ttf", 20, {255,255,0,255},&renderer);
+    std::string text = "FPS: " + std::to_string((int) (1 / Time::getDeltaTime()));
+    UIRenderer::drawText(text, {0, 0}, "ComicSans/comic.ttf", 20, {255, 255, 0, 255}, &renderer);
 
     //Rendering drawing
     SDL_RenderPresent(&renderer);
@@ -217,10 +228,10 @@ void Engine::draw(SDL_Renderer &renderer, std::vector<GameObject*> &gameObjects,
 //----------------------------------------------------------------------------------------------------------------------
 
 bool Engine::isOutOfBounds(Vector2 &objectPosition, Map &map) {
-    if(objectPosition.getX() < 0 || objectPosition.getX() > SCREEN_WIDTH){
+    if (objectPosition.getX() < 0 || objectPosition.getX() > SCREEN_WIDTH) {
         return true;
     }
-    if(objectPosition.getY() < 0 || objectPosition.getY() > SCREEN_HEIGHT){
+    if (objectPosition.getY() < 0 || objectPosition.getY() > SCREEN_HEIGHT) {
         return true;
     }
 

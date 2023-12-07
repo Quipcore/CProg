@@ -33,7 +33,8 @@ namespace springhawk {
         static void handleEvent(SDL_Event &event);
 
 //        static Vector2 getValidPos(std::vector<std::vector<int>> map);
-        static std::vector<SDL_Texture *> loadTextures(SDL_Renderer &pRenderer);
+//        static std::vector<SDL_Texture *> loadTextures(SDL_Renderer &pRenderer);
+        static std::map<TextureTag, SDL_Texture*> loadTextures(SDL_Renderer &pRenderer);
 
         static bool isOutOfBounds(Vector2 &objectPosition, Map &map);
     };

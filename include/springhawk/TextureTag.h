@@ -1,0 +1,16 @@
+//
+// Created by felix on 2023-12-07.
+//
+
+#ifndef CPROG_PROJECT_TEXTURETAG_H
+#define CPROG_PROJECT_TEXTURETAG_H
+
+enum TextureTag{
+    PACMAN_NORTH_SOUTH_WALL,
+    PACMAN_POWER_PELLET,
+    PACMAN_PELLET,
+    PACMAN_EMPTY
+};
+
+
+#endif //CPROG_PROJECT_TEXTURETAG_H

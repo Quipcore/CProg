@@ -6,8 +6,11 @@
 #define CPROG_PROJECT_TILEMAP_H
 
 #include <vector>
+#include <map>
 #include "Map.h"
 #include "scripts/Wall.h"
+#include "Tile.h"
+#include "springhawk/TextureTag.h"
 
 namespace springhawk {
     class Tilemap : public Map {
@@ -22,8 +25,9 @@ namespace springhawk {
         int operator[](Vector2 vector2) override;
         int getWidth() override;
         int getHeight() override;
-
-
+        SDL_Texture *getTextureAt(Vector2 position) override;
+//        void loadTextures(std::vector<SDL_Texture*>&) override;
+        void loadTextures(std::map<TextureTag, SDL_Texture *> &) override;
     private:
         Wall createWall(std::string &fileLine);
 
@@ -37,6 +41,12 @@ namespace springhawk {
 
         int width;
         int height;
+
+
+        std::vector<std::vector<Tile*>> *tiles;
+        std::vector<SDL_Texture*> *textures;
+
+
     };
 }
 

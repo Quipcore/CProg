@@ -9,8 +9,8 @@
 int main( int argc, char* args[] )
 {
     std::vector<Game*> games = {
-//            new PacMan(),
-            new Wolfenstein(),
+            new PacMan(),
+//            new Wolfenstein(),
 //            new Tetris()
     };
     for(Game* game : games){
