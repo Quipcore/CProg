@@ -170,13 +170,19 @@ void Engine::sleep(int duration_ms){
 }
 
 void Engine::draw(SDL_Renderer &renderer, std::vector<GameObject*> &gameObjects, Player &camera, Map &map){
+    //Clear last screen
     Color backgroundColor = {120,104,103,255};
     SDL_SetRenderDrawColor( &renderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a );
     SDL_RenderClear( &renderer );
+
+    //Draw scene
     Engine::render(renderer, gameObjects, camera, map, SCREEN_WIDTH, SCREEN_HEIGHT);
 
+    //Draw debug text
     std::string text = "FPS: " + std::to_string((int)(1/Time::getDeltaTime()));
     UIRenderer::drawText(text, {0,0}, "ComicSans/comic.ttf", 20, {255,255,0,255},&renderer);
+
+    //Rendering drawing
     SDL_RenderPresent(&renderer);
 }
 

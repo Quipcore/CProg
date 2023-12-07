@@ -26,6 +26,21 @@ void Raycaster::render(SDL_Renderer &renderer, std::vector<GameObject *> &gameOb
         }
     }
 
+    if(!Input::bufferContains(TAB)){
+        //Draw ceiling
+        Color ceilingColor = {125,125,125,255};
+        SDL_Rect ceiling = {0,0,SCREEN_WIDTH,SCREEN_HEIGHT/2};
+        SDL_SetRenderDrawColor(&renderer, ceilingColor.r,ceilingColor.g,ceilingColor.b,ceilingColor.a);
+        SDL_RenderFillRect(&renderer, &ceiling);
+
+        //Draw floor
+        Color floorColor = {125,0,125,255};
+        SDL_Rect floor = {0,SCREEN_HEIGHT/2,SCREEN_WIDTH,SCREEN_HEIGHT/2};
+        SDL_SetRenderDrawColor(&renderer, floorColor.r,floorColor.g,floorColor.b,floorColor.a);
+        SDL_RenderFillRect(&renderer, &floor);
+    }
+
+
     drawPlayer(&renderer, &player);
 }
 
@@ -119,7 +134,6 @@ void Raycaster::drawRays(SDL_Renderer *pRenderer, Player *pPlayer) {
             int rectX = (lineCount-(i+lineCount/2)) * sliceWidth;
             int rectY = (SCREEN_HEIGHT - wallHeight) / 2;
             SDL_Rect rect = {rectX,rectY,(int)sliceWidth,(int)wallHeight};
-
             SDL_RenderFillRect(pRenderer, &rect);
         }
     }
