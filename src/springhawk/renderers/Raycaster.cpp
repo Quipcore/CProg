@@ -114,7 +114,7 @@ void Raycaster::drawRays(SDL_Renderer *pRenderer, Player *pPlayer) {
         if(render2D){
             drawMap(pRenderer);
             SDL_SetRenderDrawColor(pRenderer, rayColor.r, rayColor.g, rayColor.b, rayColor.a);
-            SDL_RenderDrawLine(pRenderer, playerX, playerY, (int) endPosition.getX(), (int) -endPosition.getY());
+            SDL_RenderDrawLine(pRenderer, playerX, playerY, (int) endPosition.getX(), (int) endPosition.getY());
         }else{
             int rectX = (lineCount-(i+lineCount/2)) * sliceWidth;
             int rectY = (SCREEN_HEIGHT - wallHeight) / 2;
@@ -145,7 +145,7 @@ Vector2 Raycaster::getIntersectionPoint(Vector2 &position, double angle) {
 
 bool Raycaster::isPositionValid(Vector2 vector2) {
     int x = (int) (vector2.getX() * mapWidth / SCREEN_WIDTH);
-    int y = (int) (-vector2.getY() * mapHeight / SCREEN_HEIGHT);
+    int y = (int) (vector2.getY() * mapHeight / SCREEN_HEIGHT);
 
     if (x < 0 || x >= mapWidth || y < 0 || y >= mapHeight) {
         return false;
