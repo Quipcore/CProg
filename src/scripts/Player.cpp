@@ -31,20 +31,20 @@ void Player::update(){
 
 void Player::input() {
     if(Input::bufferContains(A)){
-        position +=Vector2{velocity* cos(angle + M_PI/2),velocity*sin(angle + M_PI/2)} * Time::getDeltaTime();
+        position +=Vector2{cos(angle + M_PI/2),sin(angle + M_PI/2)} * velocity  * Time::getDeltaTime();
         std::cout << "A" << std::endl;
     }
 
     if(Input::bufferContains(D)){
-        position -= Vector2{velocity* cos(angle + M_PI/2),velocity*sin(angle + M_PI/2)} * Time::getDeltaTime();
+        position -= Vector2{cos(angle + M_PI/2),sin(angle + M_PI/2)} * velocity * Time::getDeltaTime();
     }
 
     if(Input::bufferContains(S)){
-        position -=Vector2{velocity * cos(angle),velocity*sin(angle)} * Time::getDeltaTime();
+        position -=Vector2{cos(angle),sin(angle)} * velocity * Time::getDeltaTime();
     }
 
     if(Input::bufferContains(W)){
-        position += Vector2{velocity* cos(angle),velocity*sin(angle)} * Time::getDeltaTime();
+        position += Vector2{cos(angle),sin(angle)} * velocity * Time::getDeltaTime();
     }
 
     if(Input::bufferContains(E)){
