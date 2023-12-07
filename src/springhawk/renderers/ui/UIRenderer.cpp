@@ -1,12 +1,8 @@
-//
-// Created by felix on 2023-11-26.
-//
-
-
 #include <iostream>
 #include "springhawk/renderers/ui/UIRenderer.h"
 #include "Constants.h"
 
+//----------------------------------------------------------------------------------------------------------------------
 
 void UIRenderer::drawText(const std::string& text, const Vector2& position, TTF_Font* font, Color color, SDL_Renderer *renderer) {
     //Modified from https://stackoverflow.com/a/22889483
@@ -29,6 +25,8 @@ void UIRenderer::drawText(const std::string& text, const Vector2& position, TTF_
     SDL_FreeSurface(surfaceMessage);
     SDL_DestroyTexture(Message);
 }
+
+//----------------------------------------------------------------------------------------------------------------------
 
 void UIRenderer::drawText(const std::string& text, const Vector2& position, const std::string& fontName, int fontSize, Color color, SDL_Renderer *renderer) {
     std::string pathToFont = constants::gFontPath + fontName;

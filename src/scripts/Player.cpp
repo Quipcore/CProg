@@ -1,17 +1,17 @@
-//
-// Created by felix on 2023-11-11.
-//
-
 #include <cmath>
 #include "scripts/Player.h"
 #include "springhawk/Input.h"
 #include "springhawk/Time.h"
 #include "iostream"
 
+//----------------------------------------------------------------------------------------------------------------------
+
 Player::Player() {
     color = {0,0xcf,0x50,0xff};
     position = {500,-500}; // fix. Game object should not need to tell the engine to spawn in negative space
 }
+
+//----------------------------------------------------------------------------------------------------------------------
 
 Player::Player(const Player &player)  : GameObject(player) {
     this->lineCount = player.lineCount;
@@ -21,10 +21,13 @@ Player::Player(const Player &player)  : GameObject(player) {
     this->velocity = player.velocity;
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 void Player::update(){
-    std::cout << position << std::endl;
     input();
 }
+
+//----------------------------------------------------------------------------------------------------------------------
 
 void Player::input() {
     if(Input::bufferContains(A)){
@@ -63,13 +66,14 @@ void Player::input() {
     }
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 Color Player::getColor() {
     return color;
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 int Player::getLineCount() {
     return lineCount;
 }
-
-
-

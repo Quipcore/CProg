@@ -1,17 +1,17 @@
-//
-// Created by felix on 2023-11-16.
-//
-
 #include <fstream>
 #include <iostream>
 #include <utility>
 #include "springhawk/maps/Tilemap.h"
 #include "Constants.h"
 
+//----------------------------------------------------------------------------------------------------------------------
+
 springhawk::Tilemap::Tilemap(std::string mapName) {
     this->walls = new std::vector<Wall*>;
     loadMap(mapName);
 }
+
+//----------------------------------------------------------------------------------------------------------------------
 
 springhawk::Tilemap::Tilemap(std::vector<std::vector<int>> vector1) {
     mapVector = new std::vector<std::vector<int>>(std::move(vector1));
@@ -19,6 +19,8 @@ springhawk::Tilemap::Tilemap(std::vector<std::vector<int>> vector1) {
     this->width = mapVector->size();
     this->height = mapVector[0].size();
 }
+
+//----------------------------------------------------------------------------------------------------------------------
 
 void springhawk::Tilemap::loadMap(std::string &mapName) {
 
@@ -55,6 +57,8 @@ void springhawk::Tilemap::loadMap(std::string &mapName) {
     }
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 Wall springhawk::Tilemap::createWall(std::string &fileLine) {
 
     for(int i = 0 ; i < fileLine.length() ; i++){
@@ -72,6 +76,8 @@ Wall springhawk::Tilemap::createWall(std::string &fileLine) {
     return {Vector2::zero, Vector2::zero};
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 bool springhawk::Tilemap::isOutOfBounds(Vector2 &position) {
 
     if(position.getX() < 0 || position.getX() > width){
@@ -85,6 +91,8 @@ bool springhawk::Tilemap::isOutOfBounds(Vector2 &position) {
     return this->operator[](position) != 0;
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 Vector2 springhawk::Tilemap::getValidPos() {
     for(int x = 0; x < width; x++){
         for(int y = 0; y < height; y++){
@@ -97,16 +105,20 @@ Vector2 springhawk::Tilemap::getValidPos() {
     return {0,0};
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 int springhawk::Tilemap::operator[](Vector2 position) {
     return mapVector->at(position.getX()).at(position.getY());
 }
+
+//----------------------------------------------------------------------------------------------------------------------
 
 int springhawk::Tilemap::getWidth() {
     return width;
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 int springhawk::Tilemap::getHeight() {
     return height;
 }
-
-

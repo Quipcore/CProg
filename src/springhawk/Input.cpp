@@ -1,12 +1,11 @@
-//
-// Created by felix on 2023-11-11.
-//
-
 #include "springhawk/Input.h"
 #include <algorithm>
 
+//----------------------------------------------------------------------------------------------------------------------
 
 const Uint8* Input::currentKeyState = SDL_GetKeyboardState(nullptr);
+
+//----------------------------------------------------------------------------------------------------------------------
 
 //Mostly likely a better way to do this mapping.
 std::map<Keycode, SDL_Scancode> Input::keyMap = {
@@ -44,6 +43,7 @@ std::map<Keycode, SDL_Scancode> Input::keyMap = {
         {NUM_MINUS, SDL_SCANCODE_KP_MINUS}
 };
 
+//----------------------------------------------------------------------------------------------------------------------
 
 bool Input::bufferContains(Keycode keycode) {
     return currentKeyState[keyMap[keycode]];

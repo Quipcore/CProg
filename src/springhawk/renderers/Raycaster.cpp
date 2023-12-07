@@ -1,7 +1,3 @@
-//
-// Created by felix on 2023-11-12.
-//
-
 #include <iostream>
 #include "springhawk/Input.h"
 #include "springhawk/renderers/Raycaster.h"
@@ -9,11 +5,17 @@
 #include "springhawk/maps/Map.h"
 #include "springhawk/Scene.h"
 
+//----------------------------------------------------------------------------------------------------------------------
+
 using namespace springhawk;
+
+//----------------------------------------------------------------------------------------------------------------------
 
 int Raycaster::SCREEN_WIDTH = 0;
 int Raycaster::SCREEN_HEIGHT = 0;
 int Raycaster::tileMap[mapWidth][mapHeight];
+
+//----------------------------------------------------------------------------------------------------------------------
 
 void Raycaster::render(SDL_Renderer &renderer, std::vector<GameObject *> &gameObjects, Player &player, Map &map, int screenWidth, int screenHeight) {
     SCREEN_WIDTH = screenWidth;
@@ -44,6 +46,8 @@ void Raycaster::render(SDL_Renderer &renderer, std::vector<GameObject *> &gameOb
     drawPlayer(&renderer, &player);
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 void Raycaster::drawMap(SDL_Renderer *pRenderer) {
     int w = SCREEN_WIDTH / mapWidth;
     int h = SCREEN_HEIGHT / mapHeight;
@@ -59,6 +63,8 @@ void Raycaster::drawMap(SDL_Renderer *pRenderer) {
         }
     }
 }
+
+//----------------------------------------------------------------------------------------------------------------------
 
 void Raycaster::setRenderDrawColor(SDL_Renderer *pRenderer, int wallValue){
     switch(wallValue){
@@ -83,15 +89,21 @@ void Raycaster::setRenderDrawColor(SDL_Renderer *pRenderer, int wallValue){
     }
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 void Raycaster::drawObjects(SDL_Renderer *pRenderer, std::vector<GameObject *> &vector) {
     for (auto &gameObject: vector) {
         //Not yet implemented
     }
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 void Raycaster::drawPlayer(SDL_Renderer *pRenderer, Player *const &player) {
     drawRays(pRenderer, player);
 }
+
+//----------------------------------------------------------------------------------------------------------------------
 
 void Raycaster::drawRays(SDL_Renderer *pRenderer, Player *pPlayer) {
     const int radius = 200;
@@ -139,6 +151,8 @@ void Raycaster::drawRays(SDL_Renderer *pRenderer, Player *pPlayer) {
     }
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 /*
  * 1. Shoot a ray from the player to the end of the screen
  * 2. Check if the ray intersects with a wall
@@ -153,9 +167,13 @@ Vector2 Raycaster::findEndPosition(Vector2 &position, Vector2 &direction, double
     return endPosition;
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 Vector2 Raycaster::getIntersectionPoint(Vector2 &position, double angle) {
     return position;
 }
+
+//----------------------------------------------------------------------------------------------------------------------
 
 bool Raycaster::isPositionValid(Vector2 vector2) {
     int x = (int) (vector2.getX() * mapWidth / SCREEN_WIDTH);
@@ -170,12 +188,11 @@ bool Raycaster::isPositionValid(Vector2 vector2) {
     return true;
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 Vector2 Raycaster::findMapPoint(Vector2 vector2) {
     double setX = (vector2.getX() * mapWidth / SCREEN_WIDTH);
     double setY = (vector2.getY() * mapHeight / SCREEN_HEIGHT);
 
     return {setX, setY};
 }
-
-
-

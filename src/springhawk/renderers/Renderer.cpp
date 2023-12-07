@@ -1,5 +1,2 @@
-//
-// Created by felix on 2023-11-16.
-//
-
 #include "springhawk/renderers/Renderer.h"
+//TODO: Convert to interface

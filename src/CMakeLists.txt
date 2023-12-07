@@ -7,7 +7,7 @@ SET(FILES
         springhawk/Time.cpp
         springhawk/Vector2.cpp
 
-        springhawk/maps/Map.cpp
+#        springhawk/maps/Map.cpp
         springhawk/maps/Sectormap.cpp
         springhawk/maps/Tilemap.cpp
 

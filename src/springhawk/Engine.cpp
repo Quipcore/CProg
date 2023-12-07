@@ -1,7 +1,9 @@
 #include "springhawk/Engine.h"
 #include "springhawk/Time.h"
+#include "springhawk/Input.h"
 #include "springhawk/renderers/Raycaster.h"
 #include "springhawk/renderers/ui/UIRenderer.h"
+
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -20,9 +22,12 @@ using namespace springhawk;
 //Screen dimension constants
 const int Engine::SCREEN_WIDTH = 1500;
 const int Engine::SCREEN_HEIGHT = 680;
-//void (*Engine::render)(SDL_Renderer&, std::vector<GameObject*>&, Player&, std::vector<std::vector<int>>&, int, int) = nullptr;
+
+//----------------------------------------------------------------------------------------------------------------------
+
 void (*Engine::render)(SDL_Renderer&, std::vector<GameObject*>&, Player&, Map&, int, int) = nullptr;
 
+//----------------------------------------------------------------------------------------------------------------------
 
 int Engine::run(std::vector<Scene *> &scenes) {
 
@@ -40,6 +45,8 @@ int Engine::run(std::vector<Scene *> &scenes) {
     return EXIT_SUCCESS;
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 bool Engine::init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
@@ -55,6 +62,8 @@ bool Engine::init() {
     return EXIT_SUCCESS;
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 void Engine::quit(SDL_Window &window, SDL_Renderer &renderer,std::vector<SDL_Texture*> &textures) {
     for(SDL_Texture* texture : textures){
         SDL_DestroyTexture(texture);
@@ -62,6 +71,8 @@ void Engine::quit(SDL_Window &window, SDL_Renderer &renderer,std::vector<SDL_Tex
 
     quit(&window,&renderer);
 }
+
+//----------------------------------------------------------------------------------------------------------------------
 
 void Engine::quit(SDL_Window *window, SDL_Renderer *renderer) {
     SDL_DestroyRenderer(renderer);
@@ -71,7 +82,7 @@ void Engine::quit(SDL_Window *window, SDL_Renderer *renderer) {
     SDL_Quit();
 }
 
-
+//----------------------------------------------------------------------------------------------------------------------
 
 std::vector<SDL_Texture*> Engine::loadTextures(SDL_Renderer& pRenderer) {
     auto textures = new std::vector<SDL_Texture*>;
@@ -84,6 +95,7 @@ std::vector<SDL_Texture*> Engine::loadTextures(SDL_Renderer& pRenderer) {
     return *textures;
 }
 
+//----------------------------------------------------------------------------------------------------------------------
 
 void Engine::playScene(Scene &scene, SDL_Renderer &sdlRenderer) {
     std::vector<GameObject*> gameObjects = scene.getGameObjects();
@@ -96,25 +108,32 @@ void Engine::playScene(Scene &scene, SDL_Renderer &sdlRenderer) {
     }
 
     RenderTag renderTag = scene.getRenderTag();
+    bool renderTagFound = true;
     switch (renderTag) {
         case Plane:
             std::cout << "No plane render available yet" << std::endl;
+            renderTagFound = false;
             break;
         case Raycaster:
             Engine::render = Raycaster::render;
             break;
         case Doom:
             std::cout << "No doom style render available yet" << std::endl;
+            renderTagFound = false;
             break;
         default:
             std::cout << "No render tag found" << std::endl;
-            std::exit(-1);
+            renderTagFound = false;
             break;
     }
 
+    if(renderTagFound){
+        keepOpen(sdlRenderer, gameObjects, player, *map);
+    }
 
-    keepOpen(sdlRenderer, gameObjects, player, *map);
 }
+
+//----------------------------------------------------------------------------------------------------------------------
 
 //TODO Player should be renamed to Camera!
 void Engine::keepOpen(SDL_Renderer &renderer, std::vector<GameObject*> &gameObjects, Player &camera, Map& map) {
@@ -123,13 +142,16 @@ void Engine::keepOpen(SDL_Renderer &renderer, std::vector<GameObject*> &gameObje
     camera.setPosition(spaceMid);
     Vector2 lastValidCameraPosition = camera.getPosition(); //Assuming the player spawns i valid space
 
-
-    while (true) {
+    bool running = true;
+    while (running) {
 
         SDL_Event e;
         if (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
                 return;
+            }
+            if(Input::bufferContains(ESCAPE)){
+                running = false;
             }
             handleEvent(e);
         }
@@ -157,6 +179,8 @@ void Engine::keepOpen(SDL_Renderer &renderer, std::vector<GameObject*> &gameObje
     }
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 void Engine::handleEvent(SDL_Event &event){
     switch (event.type) {
         case SDL_KEYDOWN:
@@ -165,9 +189,13 @@ void Engine::handleEvent(SDL_Event &event){
     }
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 void Engine::sleep(int duration_ms){
     std::this_thread::sleep_for(std::chrono::milliseconds(duration_ms));
 }
+
+//----------------------------------------------------------------------------------------------------------------------
 
 void Engine::draw(SDL_Renderer &renderer, std::vector<GameObject*> &gameObjects, Player &camera, Map &map){
     //Clear last screen
@@ -186,6 +214,8 @@ void Engine::draw(SDL_Renderer &renderer, std::vector<GameObject*> &gameObjects,
     SDL_RenderPresent(&renderer);
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 bool Engine::isOutOfBounds(Vector2 &objectPosition, Map &map) {
     if(objectPosition.getX() < 0 || objectPosition.getX() > SCREEN_WIDTH){
         return true;
@@ -200,7 +230,6 @@ bool Engine::isOutOfBounds(Vector2 &objectPosition, Map &map) {
     int currentYCell = static_cast<int>(objectPosition.getY() * mapHeight / SCREEN_HEIGHT);
     Vector2 objectMapPos = {currentXCell, currentYCell};
     return map.isOutOfBounds(objectMapPos);
-
 }
 
 
