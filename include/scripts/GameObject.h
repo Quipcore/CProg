@@ -16,7 +16,6 @@ public:
     virtual void update() = 0;
     virtual Color getColor() = 0;
 
-
     double getAngle() const;
     Vector2& getPosition();
     void setPosition(Vector2 &position);

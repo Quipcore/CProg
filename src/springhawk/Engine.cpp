@@ -136,7 +136,7 @@ void Engine::keepOpen(SDL_Renderer &renderer, std::vector<GameObject*> &gameObje
 
         for (const auto &gameObject: gameObjects) {
             gameObject->update();
-            if (isOutOfBounds(camera.getPosition(), map)) {
+            if (isOutOfBounds(gameObject->getPosition(), map)) {
 
             }
         }
@@ -184,7 +184,7 @@ bool Engine::isOutOfBounds(Vector2 &objectPosition, Map &map) {
     if(objectPosition.getX() < 0 || objectPosition.getX() > SCREEN_WIDTH){
         return true;
     }
-    if(objectPosition.getY() > 0 || objectPosition.getY() < -SCREEN_HEIGHT){
+    if(objectPosition.getY() < 0 || objectPosition.getY() > SCREEN_HEIGHT){
         return true;
     }
 
@@ -192,42 +192,9 @@ bool Engine::isOutOfBounds(Vector2 &objectPosition, Map &map) {
     int mapHeight = map.getHeight();
     int currentXCell = static_cast<int>(objectPosition.getX() * mapWidth / SCREEN_WIDTH);
     int currentYCell = static_cast<int>(objectPosition.getY() * mapHeight / SCREEN_HEIGHT);
-    Vector2 objectMapPos = {-currentYCell,currentXCell};
+    Vector2 objectMapPos = {currentXCell, currentYCell};
     return map.isOutOfBounds(objectMapPos);
 
 }
-
-//bool Engine::isOutOfBounds(Vector2 &objectPosition, std::vector<std::vector<int>> &map) {
-//
-//    if(objectPosition.getX() < 0 || objectPosition.getX() > SCREEN_WIDTH){
-//        return true;
-//    }
-//    if(objectPosition.getY() > 0 || objectPosition.getY() < -SCREEN_HEIGHT){
-//        return true;
-//    }
-//
-//    int mapWidth = map.size();
-//    int mapHeight = map[0].size();
-//    int currentXCell = static_cast<int>(objectPosition.getX() * mapWidth / SCREEN_WIDTH);
-//    int currentYCell = static_cast<int>(objectPosition.getY() * mapHeight / SCREEN_HEIGHT);
-//    return map[-currentYCell][currentXCell] != 0;
-//}
-//
-//Vector2 Engine::getValidPos(std::vector<std::vector<int>> map) {
-//    //Todo: Change scalar to be based on tileMap size not screenSize. ScreenSize works in 2D game not in 3D
-//    int mapWidth = SCREEN_WIDTH;
-//    int mapHeight = SCREEN_HEIGHT;
-//
-//    for (int x = 0; x < mapWidth; x++) {
-//        for (int y = 0; y < mapHeight; y++) {
-//            Vector2 pos = Vector2(x, -y);
-//            if (!isOutOfBounds(pos, map)) {
-//                return pos;
-//            }
-//        }
-//    }
-//
-//    return {0, 0};
-//}
 
 

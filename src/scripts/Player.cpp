@@ -22,26 +22,26 @@ Player::Player(const Player &player)  : GameObject(player) {
 }
 
 void Player::update(){
-
+    std::cout << position << std::endl;
     input();
 }
 
 void Player::input() {
     if(Input::bufferContains(A)){
-        position +=Vector2{static_cast<float>(velocity* cos(angle + M_PI/2)),static_cast<float>(velocity*sin(angle + M_PI/2))} * Time::getDeltaTime();
+        position +=Vector2{velocity* cos(angle + M_PI/2),velocity*sin(angle + M_PI/2)} * Time::getDeltaTime();
         std::cout << "A" << std::endl;
     }
 
     if(Input::bufferContains(D)){
-        position -= Vector2{static_cast<float>(velocity* cos(angle + M_PI/2)),static_cast<float>(velocity*sin(angle + M_PI/2))} * Time::getDeltaTime();
+        position -= Vector2{velocity* cos(angle + M_PI/2),velocity*sin(angle + M_PI/2)} * Time::getDeltaTime();
     }
 
     if(Input::bufferContains(S)){
-        position -=Vector2{static_cast<float>(velocity* cos(angle)),static_cast<float>(velocity*sin(angle))} * Time::getDeltaTime();
+        position -=Vector2{velocity * cos(angle),velocity*sin(angle)} * Time::getDeltaTime();
     }
 
     if(Input::bufferContains(W)){
-        position += Vector2{static_cast<float>(velocity* cos(angle)),static_cast<float>(velocity*sin(angle))} * Time::getDeltaTime();
+        position += Vector2{velocity* cos(angle),velocity*sin(angle)} * Time::getDeltaTime();
     }
 
     if(Input::bufferContains(E)){
