@@ -7,6 +7,7 @@
   },
   "properties": {
     "rendering mode": "Plane",
+    "Map type": "Tilemap",
     "backgroundColor": "#000000"
   },
   "scenes" : [
