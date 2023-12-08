@@ -18,9 +18,12 @@ public:
 
     void setTexture(SDL_Texture &texture);
 
+    char getId() const;
+    void setId(char id);
+
 private:
     SDL_Texture* texture{};
-
+    char id;
 
 };
 

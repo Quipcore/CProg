@@ -39,18 +39,10 @@ int Engine::run(std::vector<Scene *> &scenes) {
     SDL_Window *window = SDL_CreateWindow("Springhawk", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0);
 
-
-    std::map<TextureTag, SDL_Texture*> textureMap = loadTextures(*renderer);
-
     Scene *startScene = scenes.at(0);
-    startScene->getMap()->loadTextures(textureMap);
+    startScene->getMap()->loadTextures(*renderer);
     playScene(*startScene, *renderer);
-
-    std::vector<SDL_Texture*> textures;
-    for(const auto& [key,value] : textureMap){
-        textures.push_back(value);
-    }
-    quit(*window, *renderer, textures);
+    quit(window, renderer);
     return EXIT_SUCCESS;
 }
 
@@ -87,27 +79,6 @@ void Engine::quit(SDL_Window *window, SDL_Renderer *renderer) {
 
     TTF_Quit();
     SDL_Quit();
-}
-
-//----------------------------------------------------------------------------------------------------------------------
-
-std::map<TextureTag, SDL_Texture*> Engine::loadTextures(SDL_Renderer &pRenderer) {
-    auto textureMap = new std::map<TextureTag, SDL_Texture*>;
-
-    std::map<std::string, TextureTag> names{
-            {"ns_wall.png",      PACMAN_NORTH_SOUTH_WALL},
-            {"pellet.png",       PACMAN_PELLET},
-            {"power_pellet.png", PACMAN_POWER_PELLET},
-            {"empty.png",        PACMAN_EMPTY}
-    };
-    std::string path = constants::gResPath + "images/";
-    for(const auto& [imageName, value] : names){
-        SDL_Surface *surface = IMG_Load((path + imageName).c_str());
-        SDL_Texture *pTexture = SDL_CreateTextureFromSurface(&pRenderer, surface);
-        SDL_FreeSurface(surface);
-        textureMap->insert({value,pTexture});
-    }
-    return *textureMap;
 }
 
 //----------------------------------------------------------------------------------------------------------------------

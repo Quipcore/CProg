@@ -15,3 +15,11 @@ void Tile::setTexture(SDL_Texture &texture){
     this->texture = &texture;
 }
 
+char Tile::getId() const {
+    return id;
+}
+
+void Tile::setId(char id){
+    this->id = id;
+}
+

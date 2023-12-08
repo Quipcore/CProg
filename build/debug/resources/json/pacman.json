@@ -1,12 +1,6 @@
 {
-  "textures": {
-    "empty": "empty.png",
-    "ns_wall": "ns_wall.png",
-    "pellet": "pellet.png",
-    "power_pellet": "power_pellet.png"
-  },
   "properties": {
-    "rendering mode": "Plane",
+    "renderingMode": "Plane",
     "Map type": "Tilemap",
     "backgroundColor": "#000000"
   },
@@ -52,11 +46,11 @@
             "############################"
           ],
           "textureKey": {
-            "#": "ns_wall",
-            ".": "pellet",
-            "_": "empty",
-            "+": "power_pellet",
-            "-": "empty"
+            "#": "ns_wall.png",
+            ".": "pellet.png",
+            "_": "empty.png",
+            "+": "power_pellet.png",
+            "-": "empty.png"
           }
         }
       }

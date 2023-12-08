@@ -33,6 +33,7 @@ namespace springhawk{
         Player currentPlayer;
         Map* currentMap;
         std::vector<GameObject*> currentGameObjects;
+        std::map<int,SDL_Texture*> textureMap;
         springhawk::RenderTag currentRenderTag;
     };
 }
