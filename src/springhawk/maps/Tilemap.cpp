@@ -13,18 +13,17 @@
 #include "nlohmann/json.hpp"
 
 //----------------------------------------------------------------------------------------------------------------------
-
 springhawk::Tilemap::Tilemap(nlohmann::json &mapdata) {
-    std::vector<std::string> map = mapdata["data"];
-    this->map = map;
-    this->height = map.size();
-    this->width = map[0].length();
+    std::vector<std::string> jsonMapData = mapdata["data"];
+    this->map = jsonMapData;
+    this->height = jsonMapData.size();
+    this->width = jsonMapData[0].length();
 
     generateTiles();
 
     nlohmann::json textureKey = mapdata["textureKey"];
     for (const auto& entry : textureKey.items()) {
-        this->texturePaths.insert({entry.key().at(0),entry.value()});
+        this->texturesMap.insert({entry.key().at(0),{entry.value(), nullptr}});
     }
 }
 
@@ -79,35 +78,33 @@ int springhawk::Tilemap::getHeight() {
 //----------------------------------------------------------------------------------------------------------------------
 
 SDL_Texture* springhawk::Tilemap::getTextureAt(Vector2 position){
-    return tiles->at(position.getY()).at(position.getX())->getTexture();
+    return tiles.at(position.getY()).at(position.getX())->getTexture();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
 
 void springhawk::Tilemap::loadTextures(SDL_Renderer& renderer) {
     //TODO: Create Textures with renderer and texturePaths
+    std::string path = constants::gResPath + "images/";
 
-    std::map<char,SDL_Texture* > textures;
-    std::string path = constants::gResPath + "/images/";
-    for(const auto& [key,imageName] : texturePaths){
-        SDL_Surface *surface = IMG_Load((path + imageName).c_str());
+    for(const auto& [key, pair] : texturesMap){
+        SDL_Surface *surface = IMG_Load((path + pair.first).c_str());
         SDL_Texture *pTexture = SDL_CreateTextureFromSurface(&renderer, surface);
         SDL_FreeSurface(surface);
-        textures.insert({key, pTexture});
+        std::pair<std::string,SDL_Texture*>& value = texturesMap[key];
+        value.second = pTexture;
     }
 
-
-    for(std::vector<Tile*> row : *tiles){
+    for(const std::vector<Tile*>& row : tiles){
         for(Tile* tile : row){
-            SDL_Texture* c = textures[tile->getId()];
+            SDL_Texture* c = texturesMap[tile->getId()].second;
             tile->setTexture(*c);
         }
     }
-
 }
 
 void springhawk::Tilemap::generateTiles() {
-    tiles = new std::vector<std::vector<Tile*>>;
+    tiles = *new std::vector<std::vector<Tile*>>;
 
     for(int y = 0; y < height; y++){
         std::vector<Tile*> vec;
@@ -116,6 +113,12 @@ void springhawk::Tilemap::generateTiles() {
             tile->setId(map[y][x]);
             vec.push_back(tile);
         }
-        tiles->push_back(vec);
+        tiles.push_back(vec);
     }
+}
+
+void springhawk::Tilemap::setValueAt(Vector2 pos, char value) {
+    Tile* tile = tiles.at((int)pos.getY()).at((int)pos.getX());
+    tile->setId(value);
+    tile->setTexture(*texturesMap[value].second);
 }

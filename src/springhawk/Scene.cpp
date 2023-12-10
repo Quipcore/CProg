@@ -4,9 +4,8 @@
 
 //----------------------------------------------------------------------------------------------------------------------
 
-Scene::Scene(Player &player, Map &map, std::vector<GameObject *> &gameObjects, springhawk::RenderTag renderTag) {
+Scene::Scene(Player &player, Map &incomingMap, std::vector<GameObject *> &gameObjects, springhawk::RenderTag renderTag)  : map(incomingMap) {
     this->player = player;
-    this->map = &map;
     this->gameObjects = std::move(gameObjects);
     this->renderTag = renderTag;
 }
@@ -31,6 +30,6 @@ springhawk::RenderTag Scene::getRenderTag() const {
 
 //----------------------------------------------------------------------------------------------------------------------
 
-Map * Scene::getMap() {
+Map & Scene::getMap() {
     return map;
 }

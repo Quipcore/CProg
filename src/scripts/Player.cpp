@@ -1,14 +1,21 @@
 #include <cmath>
+#include "springhawk/maps/Map.h"
 #include "scripts/Player.h"
 #include "springhawk/Input.h"
 #include "springhawk/Time.h"
 #include "iostream"
+
 
 //----------------------------------------------------------------------------------------------------------------------
 
 Player::Player() {
     color = {0,0xcf,0x50,0xff};
     position = {500,500};
+}
+
+//TODO: REMOVE THIS!
+Player::Player(Map& incomingMap) : Player() {
+    this->map = &incomingMap;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -57,6 +64,15 @@ void Player::input() {
 
     if(Input::bufferContains(NUM_PLUS)){
         lineCount++;
+    }
+
+    if(Input::bufferContains(SPACE)){
+        if(map == nullptr){
+            std::cout << "MAP IS NULL!" << std::endl;
+        }else{
+            std::cout << "MAP EXISTS!" << std::endl;
+            map->setValueAt({0,0},'=');
+        }
     }
 
     if(Input::bufferContains(NUM_MINUS)){

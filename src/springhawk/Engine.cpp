@@ -40,7 +40,7 @@ int Engine::run(std::vector<Scene *> &scenes) {
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0);
 
     Scene *startScene = scenes.at(0);
-    startScene->getMap()->loadTextures(*renderer);
+    startScene->getMap().loadTextures(*renderer);
     playScene(*startScene, *renderer);
     quit(window, renderer);
     return EXIT_SUCCESS;
@@ -86,7 +86,7 @@ void Engine::quit(SDL_Window *window, SDL_Renderer *renderer) {
 void Engine::playScene(Scene &scene, SDL_Renderer &sdlRenderer) {
     std::vector<GameObject *> gameObjects = scene.getGameObjects();
     Player player = scene.getPlayer();
-    Map *map = scene.getMap();
+    Map& map = scene.getMap();
 
     RenderTag renderTag = scene.getRenderTag();
     bool tagFound = true;
@@ -108,7 +108,7 @@ void Engine::playScene(Scene &scene, SDL_Renderer &sdlRenderer) {
     }
 
     if (tagFound) {
-        keepOpen(sdlRenderer, gameObjects, player, *map);
+        keepOpen(sdlRenderer, gameObjects, player,map);
     }
 
 }

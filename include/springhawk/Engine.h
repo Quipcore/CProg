@@ -37,6 +37,8 @@ namespace springhawk {
         static std::map<TextureTag, SDL_Texture*> loadTextures(SDL_Renderer &pRenderer);
 
         static bool isOutOfBounds(Vector2 &objectPosition, Map &map);
+
+        void keepOpen(SDL_Renderer &renderer, std::vector<GameObject *> &gameObjects, Player &camera, Map *map);
     };
 }
 

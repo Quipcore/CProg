@@ -1,0 +1,36 @@
+{
+  "properties": {
+    "renderingMode": "Raycaster",
+    "Map type": "Tilemap",
+    "backgroundColor": "#000000"
+  },
+  "scenes" : [
+    {
+      "gameScene": {
+        "player": {
+          "speed": 0.1,
+          "texture": "player.png"
+        },
+        "map": {
+          "data":[
+            "11111111",
+            "30200005",
+            "30200005",
+            "30200005",
+            "30000005",
+            "30000205",
+            "30000005",
+            "34444444"
+          ],
+          "textureKey": {
+            "1": "ns_wall.png",
+            "2": "pellet.png",
+            "3": "empty.png",
+            "4": "power_pellet.png",
+            "5": "empty.png"
+          }
+        }
+      }
+    }
+  ]
+}
