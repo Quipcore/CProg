@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.26)
-project(Cprog_Project)
+project(CProg_Project)
 
 set(CMAKE_CXX_STANDARD 17)
 
-SET(FILES
+SET(SOURCE_FILES
         src/main.cpp
 
         src/springhawk/Engine.cpp
@@ -30,12 +30,11 @@ SET(FILES
 
         src/games/Wolfenstein.cpp
         src/games/Tetris.cpp
-        src/games/Game.cpp
         src/games/PacMan.cpp
         src/scripts/Wall.cpp
         src/springhawk/renderers/PlaneRenderer.cpp
         src/scripts/PacmanController.cpp
-        src/scripts/WolfensteinPlayerController.cpp
+        src/scripts/WolfensteinController.cpp
 )
 
 include_directories(include)
@@ -54,7 +53,7 @@ add_custom_command(
 # Add a custom target to make sure the custom command is executed before building the main target
 add_custom_target(CopyDirectoryTarget DEPENDS ${DESTINATION_DIR})
 
-add_executable(${PROJECT_NAME} ${FILES})
+add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 find_package(SDL2 CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME}

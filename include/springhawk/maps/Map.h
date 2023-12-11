@@ -10,7 +10,6 @@
 #include "springhawk/Vector2.h"
 #include "SDL2/SDL.h"
 #include "vector"
-#include "springhawk/TextureTag.h"
 
 class Map {
 

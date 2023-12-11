@@ -10,7 +10,6 @@
 #include "Map.h"
 #include "scripts/Wall.h"
 #include "Tile.h"
-#include "springhawk/TextureTag.h"
 #include "nlohmann/json.hpp"
 
 namespace springhawk {
