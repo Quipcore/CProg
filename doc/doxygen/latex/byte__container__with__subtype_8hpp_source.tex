@@ -1,0 +1,94 @@
+\doxysection{byte\+\_\+container\+\_\+with\+\_\+subtype.\+hpp}
+\hypertarget{byte__container__with__subtype_8hpp_source}{}\label{byte__container__with__subtype_8hpp_source}\index{E:/Code/Skola/Su/CProg/CProg-\/Project/include/nlohmann/byte\_container\_with\_subtype.hpp@{E:/Code/Skola/Su/CProg/CProg-\/Project/include/nlohmann/byte\_container\_with\_subtype.hpp}}
+\mbox{\hyperlink{byte__container__with__subtype_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00001}00001\ \textcolor{comment}{//\ \ \ \ \ \_\_\ \_\_\_\_\_\ \_\_\_\_\_\ \_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00002}00002\ \textcolor{comment}{//\ \ \_\_|\ \ |\ \ \ \_\_|\ \ \ \ \ |\ \ \ |\ |\ \ JSON\ for\ Modern\ C++}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00003}00003\ \textcolor{comment}{//\ |\ \ |\ \ |\_\_\ \ \ |\ \ |\ \ |\ |\ |\ |\ \ version\ 3.11.2}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00004}00004\ \textcolor{comment}{//\ |\_\_\_\_\_|\_\_\_\_\_|\_\_\_\_\_|\_|\_\_\_|\ \ https://github.com/nlohmann/json}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00005}00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00006}00006\ \textcolor{comment}{//\ SPDX-\/FileCopyrightText:\ 2013-\/2022\ Niels\ Lohmann\ <https://nlohmann.me>}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00007}00007\ \textcolor{comment}{//\ SPDX-\/License-\/Identifier:\ MIT}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00009}00009\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <cstdint>}\ \textcolor{comment}{//\ uint8\_t,\ uint64\_t}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <tuple>}\ \textcolor{comment}{//\ tie}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <utility>}\ \textcolor{comment}{//\ move}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00015}00015\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{abi__macros_8hpp}{nlohmann/detail/abi\_macros.hpp}}>}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00017}00017\ \mbox{\hyperlink{abi__macros_8hpp_ac7a66dcd7a3ddd51927365b7f804d95e}{NLOHMANN\_JSON\_NAMESPACE\_BEGIN}}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00021}00021\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BinaryType>}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00022}\mbox{\hyperlink{classbyte__container__with__subtype}{00022}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classbyte__container__with__subtype}{byte\_container\_with\_subtype}}\ :\ \textcolor{keyword}{public}\ BinaryType}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00023}00023\ \{}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00024}00024\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00025}\mbox{\hyperlink{classbyte__container__with__subtype_a29aa3b98709ae1fcdaf8b55766935c08}{00025}}\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classbyte__container__with__subtype_a29aa3b98709ae1fcdaf8b55766935c08}{container\_type}}\ =\ BinaryType;}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00026}\mbox{\hyperlink{classbyte__container__with__subtype_a1b423c8cd161e67e1af1c72bbc2c8b90}{00026}}\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classbyte__container__with__subtype_a1b423c8cd161e67e1af1c72bbc2c8b90}{subtype\_type}}\ =\ std::uint64\_t;}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00029}\mbox{\hyperlink{classbyte__container__with__subtype_a17bc4a2dabb6c7a5ec2cba3f3aaf0431}{00029}}\ \ \ \ \ \mbox{\hyperlink{classbyte__container__with__subtype_a17bc4a2dabb6c7a5ec2cba3f3aaf0431}{byte\_container\_with\_subtype}}()\ noexcept(noexcept(\mbox{\hyperlink{classbyte__container__with__subtype_a29aa3b98709ae1fcdaf8b55766935c08}{container\_type}}()))}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00030}00030\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classbyte__container__with__subtype_a29aa3b98709ae1fcdaf8b55766935c08}{container\_type}}()}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00031}00031\ \ \ \ \ \{\}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00034}\mbox{\hyperlink{classbyte__container__with__subtype_a7f9fb60d4a835e97fbf1c2de7fa382e2}{00034}}\ \ \ \ \ \mbox{\hyperlink{classbyte__container__with__subtype_a7f9fb60d4a835e97fbf1c2de7fa382e2}{byte\_container\_with\_subtype}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classbyte__container__with__subtype_a29aa3b98709ae1fcdaf8b55766935c08}{container\_type}}\&\ b)\ \textcolor{keyword}{noexcept}(\textcolor{keyword}{noexcept}(\mbox{\hyperlink{classbyte__container__with__subtype_a29aa3b98709ae1fcdaf8b55766935c08}{container\_type}}(b)))}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00035}00035\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classbyte__container__with__subtype_a29aa3b98709ae1fcdaf8b55766935c08}{container\_type}}(b)}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00036}00036\ \ \ \ \ \{\}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00039}\mbox{\hyperlink{classbyte__container__with__subtype_a42b8b66b00eb5c0057d4420e196dadf0}{00039}}\ \ \ \ \ \mbox{\hyperlink{classbyte__container__with__subtype_a42b8b66b00eb5c0057d4420e196dadf0}{byte\_container\_with\_subtype}}(\mbox{\hyperlink{classbyte__container__with__subtype_a29aa3b98709ae1fcdaf8b55766935c08}{container\_type}}\&\&\ b)\ \textcolor{keyword}{noexcept}(\textcolor{keyword}{noexcept}(\mbox{\hyperlink{classbyte__container__with__subtype_a29aa3b98709ae1fcdaf8b55766935c08}{container\_type}}(std::move(b))))}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00040}00040\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classbyte__container__with__subtype_a29aa3b98709ae1fcdaf8b55766935c08}{container\_type}}(std::move(b))}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00041}00041\ \ \ \ \ \{\}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00044}\mbox{\hyperlink{classbyte__container__with__subtype_a759c6a582dd0684adf7fb9641ef586a4}{00044}}\ \ \ \ \ \mbox{\hyperlink{classbyte__container__with__subtype_a759c6a582dd0684adf7fb9641ef586a4}{byte\_container\_with\_subtype}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classbyte__container__with__subtype_a29aa3b98709ae1fcdaf8b55766935c08}{container\_type}}\&\ b,\ \mbox{\hyperlink{classbyte__container__with__subtype_a1b423c8cd161e67e1af1c72bbc2c8b90}{subtype\_type}}\ subtype\_)\ \textcolor{keyword}{noexcept}(\textcolor{keyword}{noexcept}(\mbox{\hyperlink{classbyte__container__with__subtype_a29aa3b98709ae1fcdaf8b55766935c08}{container\_type}}(b)))}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00045}00045\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classbyte__container__with__subtype_a29aa3b98709ae1fcdaf8b55766935c08}{container\_type}}(b)}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00046}00046\ \ \ \ \ \ \ \ \ ,\ m\_subtype(subtype\_)}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00047}00047\ \ \ \ \ \ \ \ \ ,\ m\_has\_subtype(\textcolor{keyword}{true})}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00048}00048\ \ \ \ \ \{\}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00051}\mbox{\hyperlink{classbyte__container__with__subtype_a3b43bde08a4bff8917bcfad01d9e6089}{00051}}\ \ \ \ \ \mbox{\hyperlink{classbyte__container__with__subtype_a3b43bde08a4bff8917bcfad01d9e6089}{byte\_container\_with\_subtype}}(\mbox{\hyperlink{classbyte__container__with__subtype_a29aa3b98709ae1fcdaf8b55766935c08}{container\_type}}\&\&\ b,\ \mbox{\hyperlink{classbyte__container__with__subtype_a1b423c8cd161e67e1af1c72bbc2c8b90}{subtype\_type}}\ subtype\_)\ \textcolor{keyword}{noexcept}(\textcolor{keyword}{noexcept}(\mbox{\hyperlink{classbyte__container__with__subtype_a29aa3b98709ae1fcdaf8b55766935c08}{container\_type}}(std::move(b))))}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00052}00052\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classbyte__container__with__subtype_a29aa3b98709ae1fcdaf8b55766935c08}{container\_type}}(std::move(b))}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00053}00053\ \ \ \ \ \ \ \ \ ,\ m\_subtype(subtype\_)}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00054}00054\ \ \ \ \ \ \ \ \ ,\ m\_has\_subtype(\textcolor{keyword}{true})}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00055}00055\ \ \ \ \ \{\}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00057}\mbox{\hyperlink{classbyte__container__with__subtype_a263d63d0a518cfe9a6b6e508f9a22e85}{00057}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classbyte__container__with__subtype_a263d63d0a518cfe9a6b6e508f9a22e85}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classbyte__container__with__subtype}{byte\_container\_with\_subtype}}\&\ rhs)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00058}00058\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00059}00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::tie(\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }BinaryType\&\textcolor{keyword}{>}(*\textcolor{keyword}{this}),\ m\_subtype,\ m\_has\_subtype)\ ==}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::tie(\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }BinaryType\&\textcolor{keyword}{>}(rhs),\ rhs.m\_subtype,\ rhs.m\_has\_subtype);}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00061}00061\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00063}\mbox{\hyperlink{classbyte__container__with__subtype_a07f26c9ed1e216c1c3a1a286b9c4c197}{00063}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classbyte__container__with__subtype_a07f26c9ed1e216c1c3a1a286b9c4c197}{operator!=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classbyte__container__with__subtype}{byte\_container\_with\_subtype}}\&\ rhs)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00064}00064\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00065}00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !(rhs\ ==\ *\textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00066}00066\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00070}\mbox{\hyperlink{classbyte__container__with__subtype_aa211ecfe3f0a626e96c54ea7e160491b}{00070}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classbyte__container__with__subtype_aa211ecfe3f0a626e96c54ea7e160491b}{set\_subtype}}(\mbox{\hyperlink{classbyte__container__with__subtype_a1b423c8cd161e67e1af1c72bbc2c8b90}{subtype\_type}}\ subtype\_)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00071}00071\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00072}00072\ \ \ \ \ \ \ \ \ m\_subtype\ =\ subtype\_;}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00073}00073\ \ \ \ \ \ \ \ \ m\_has\_subtype\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00074}00074\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00078}\mbox{\hyperlink{classbyte__container__with__subtype_a678460360dd494c33fbfde782e7c8201}{00078}}\ \ \ \ \ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{classbyte__container__with__subtype_a1b423c8cd161e67e1af1c72bbc2c8b90}{subtype\_type}}\ \mbox{\hyperlink{classbyte__container__with__subtype_a678460360dd494c33fbfde782e7c8201}{subtype}}()\ const\ noexcept}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00079}00079\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00080}00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_has\_subtype\ ?\ m\_subtype\ :\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{classbyte__container__with__subtype_a1b423c8cd161e67e1af1c72bbc2c8b90}{subtype\_type}}\textcolor{keyword}{>}(-\/1);}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00081}00081\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00085}\mbox{\hyperlink{classbyte__container__with__subtype_a793fab04ad06741b6909dde032d9ea35}{00085}}\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classbyte__container__with__subtype_a793fab04ad06741b6909dde032d9ea35}{has\_subtype}}()\ const\ noexcept}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00086}00086\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00087}00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_has\_subtype;}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00088}00088\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00092}\mbox{\hyperlink{classbyte__container__with__subtype_ad18f6a7557a2bfce28f1ed8d4d10607c}{00092}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classbyte__container__with__subtype_ad18f6a7557a2bfce28f1ed8d4d10607c}{clear\_subtype}}()\ noexcept}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00093}00093\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00094}00094\ \ \ \ \ \ \ \ \ m\_subtype\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00095}00095\ \ \ \ \ \ \ \ \ m\_has\_subtype\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00096}00096\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00098}00098\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00099}00099\ \ \ \ \ \mbox{\hyperlink{classbyte__container__with__subtype_a1b423c8cd161e67e1af1c72bbc2c8b90}{subtype\_type}}\ m\_subtype\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00100}00100\ \ \ \ \ \textcolor{keywordtype}{bool}\ m\_has\_subtype\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00101}00101\ \};}
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{byte__container__with__subtype_8hpp_source_l00103}00103\ \mbox{\hyperlink{abi__macros_8hpp_a9a4005b8c985f1d04dcc87918cab2019}{NLOHMANN\_JSON\_NAMESPACE\_END}}}
+
+\end{DoxyCode}

@@ -1,0 +1,1034 @@
+\doxysection{to\+\_\+chars.\+hpp}
+\hypertarget{to__chars_8hpp_source}{}\label{to__chars_8hpp_source}\index{E:/Code/Skola/Su/CProg/CProg-\/Project/include/nlohmann/detail/conversions/to\_chars.hpp@{E:/Code/Skola/Su/CProg/CProg-\/Project/include/nlohmann/detail/conversions/to\_chars.hpp}}
+\mbox{\hyperlink{to__chars_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00001}00001\ \textcolor{comment}{//\ \ \ \ \ \_\_\ \_\_\_\_\_\ \_\_\_\_\_\ \_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00002}00002\ \textcolor{comment}{//\ \ \_\_|\ \ |\ \ \ \_\_|\ \ \ \ \ |\ \ \ |\ |\ \ JSON\ for\ Modern\ C++}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00003}00003\ \textcolor{comment}{//\ |\ \ |\ \ |\_\_\ \ \ |\ \ |\ \ |\ |\ |\ |\ \ version\ 3.11.2}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00004}00004\ \textcolor{comment}{//\ |\_\_\_\_\_|\_\_\_\_\_|\_\_\_\_\_|\_|\_\_\_|\ \ https://github.com/nlohmann/json}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00005}00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00006}00006\ \textcolor{comment}{//\ SPDX-\/FileCopyrightText:\ 2009\ Florian\ Loitsch\ <https://florian.loitsch.com/>}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00007}00007\ \textcolor{comment}{//\ SPDX-\/FileCopyrightText:\ 2013-\/2022\ Niels\ Lohmann\ <https://nlohmann.me>}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00008}00008\ \textcolor{comment}{//\ SPDX-\/License-\/Identifier:\ MIT}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00010}00010\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <array>}\ \textcolor{comment}{//\ array}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <cmath>}\ \ \ \textcolor{comment}{//\ signbit,\ isfinite}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <cstdint>}\ \textcolor{comment}{//\ intN\_t,\ uintN\_t}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00015}00015\ \textcolor{preprocessor}{\#include\ <cstring>}\ \textcolor{comment}{//\ memcpy,\ memmove}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00016}00016\ \textcolor{preprocessor}{\#include\ <limits>}\ \textcolor{comment}{//\ numeric\_limits}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00017}00017\ \textcolor{preprocessor}{\#include\ <type\_traits>}\ \textcolor{comment}{//\ conditional}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00019}00019\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{macro__scope_8hpp}{nlohmann/detail/macro\_scope.hpp}}>}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00021}00021\ \mbox{\hyperlink{abi__macros_8hpp_ac7a66dcd7a3ddd51927365b7f804d95e}{NLOHMANN\_JSON\_NAMESPACE\_BEGIN}}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00022}00022\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacedetail}{detail}}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00023}00023\ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00044}\mbox{\hyperlink{namespacedetail_1_1dtoa__impl}{00044}}\ \textcolor{keyword}{namespace\ }dtoa\_impl}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00045}00045\ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00047}00047\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Target,\ \textcolor{keyword}{typename}\ Source>}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00048}\mbox{\hyperlink{namespacedetail_1_1dtoa__impl_a3c879bf97b806cacbcbb2da07a5ff5c8}{00048}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Target}}\ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_a3c879bf97b806cacbcbb2da07a5ff5c8}{reinterpret\_bits}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Source}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{source}})}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00049}00049\ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00050}00050\ \ \ \ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Target}})\ ==\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Source}}),\ \textcolor{stringliteral}{"{}size\ mismatch"{}});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00052}00052\ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Target}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{target}};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00053}00053\ \ \ \ \ std::memcpy(\&\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{target}},\ \&\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{source}},\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Source}}));}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00054}00054\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{target}};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00055}00055\ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00057}\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{00057}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ \textcolor{comment}{//\ f\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00058}00058\ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00059}\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_a80cf8cc846a7bf96362d3b11886994e3}{00059}}\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_a80cf8cc846a7bf96362d3b11886994e3}{kPrecision}}\ =\ 64;\ \textcolor{comment}{//\ =\ q}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00061}\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_ae1518119517cb69d79aa64ffb93c8375}{00061}}\ \ \ \ \ std::uint64\_t\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_ae1518119517cb69d79aa64ffb93c8375}{f}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00062}\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_ae2b59fab8dee9ef0192eb6b568fa7314}{00062}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_ae2b59fab8dee9ef0192eb6b568fa7314}{e}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00064}\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_a7c8377d2b931fcb3088d54c41b99c53b}{00064}}\ \ \ \ \ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_a7c8377d2b931fcb3088d54c41b99c53b}{diyfp}}(std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{f\_}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{e\_}})\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{noexcept}}\ :\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_ae1518119517cb69d79aa64ffb93c8375}{f}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{f\_}}),\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_ae2b59fab8dee9ef0192eb6b568fa7314}{e}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{e\_}})\ \{\}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00070}\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_a75142bace0b78b1e1433b1d35a7ff252}{00070}}\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_a75142bace0b78b1e1433b1d35a7ff252}{sub}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\&\ x,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\&\ y)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00071}00071\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(x.e\ ==\ y.e);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(x.f\ >=\ y.f);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00075}00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{x.f\ -\/\ y.f,\ x.e\};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00076}00076\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00082}\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_a046c61f2c13411677eedfb5b9b7a8226}{00082}}\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_a046c61f2c13411677eedfb5b9b7a8226}{mul}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\&\ x,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\&\ y)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00083}00083\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_a80cf8cc846a7bf96362d3b11886994e3}{kPrecision}}\ ==\ 64,\ \textcolor{stringliteral}{"{}internal\ error"{}});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00086}00086\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Computes:}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00087}00087\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ f\ =\ round((x.f\ *\ y.f)\ /\ 2\string^q)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00088}00088\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ e\ =\ x.e\ +\ y.e\ +\ q}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00090}00090\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Emulate\ the\ 64-\/bit\ *\ 64-\/bit\ multiplication:}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00092}00092\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ p\ =\ u\ *\ v}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00093}00093\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ =\ (u\_lo\ +\ 2\string^32\ u\_hi)\ (v\_lo\ +\ 2\string^32\ v\_hi)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00094}00094\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ =\ (u\_lo\ v\_lo\ \ \ \ \ \ \ \ \ )\ +\ 2\string^32\ ((u\_lo\ v\_hi\ \ \ \ \ \ \ \ \ )\ +\ (u\_hi\ v\_lo\ \ \ \ \ \ \ \ \ ))\ +\ 2\string^64\ (u\_hi\ v\_hi\ \ \ \ \ \ \ \ \ )}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00095}00095\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ =\ (p0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )\ +\ 2\string^32\ ((p1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )\ +\ (p2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ))\ +\ 2\string^64\ (p3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00096}00096\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ =\ (p0\_lo\ +\ 2\string^32\ p0\_hi)\ +\ 2\string^32\ ((p1\_lo\ +\ 2\string^32\ p1\_hi)\ +\ (p2\_lo\ +\ 2\string^32\ p2\_hi))\ +\ 2\string^64\ (p3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00097}00097\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ =\ (p0\_lo\ \ \ \ \ \ \ \ \ \ \ \ \ )\ +\ 2\string^32\ (p0\_hi\ +\ p1\_lo\ +\ p2\_lo\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )\ +\ 2\string^64\ (p1\_hi\ +\ p2\_hi\ +\ p3)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ =\ (p0\_lo\ \ \ \ \ \ \ \ \ \ \ \ \ )\ +\ 2\string^32\ (Q\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )\ +\ 2\string^64\ (H\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00099}00099\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ =\ (p0\_lo\ \ \ \ \ \ \ \ \ \ \ \ \ )\ +\ 2\string^32\ (Q\_lo\ +\ 2\string^32\ Q\_hi\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )\ +\ 2\string^64\ (H\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00101}00101\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ (Since\ Q\ might\ be\ larger\ than\ 2\string^32\ -\/\ 1)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00103}00103\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ =\ (p0\_lo\ +\ 2\string^32\ Q\_lo)\ +\ 2\string^64\ (Q\_hi\ +\ H)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00105}00105\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ (Q\_hi\ +\ H\ does\ not\ overflow\ a\ 64-\/bit\ int)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00106}00106\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00107}00107\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ =\ p\_lo\ +\ 2\string^64\ p\_hi}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00109}00109\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{u\_lo}}\ =\ x.\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_ae1518119517cb69d79aa64ffb93c8375}{f}}\ \&\ 0xFFFFFFFFu;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00110}00110\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{u\_hi}}\ =\ x.f\ >>\ 32u;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00111}00111\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{v\_lo}}\ =\ y.f\ \&\ 0xFFFFFFFFu;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00112}00112\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{v\_hi}}\ =\ y.f\ >>\ 32u;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00114}00114\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p0}}\ =\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{u\_lo}}\ *\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{v\_lo}};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00115}00115\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p1}}\ =\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{u\_lo}}\ *\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{v\_hi}};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00116}00116\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p2}}\ =\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{u\_hi}}\ *\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{v\_lo}};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00117}00117\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p3}}\ =\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{u\_hi}}\ *\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{v\_hi}};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00119}00119\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p0\_hi}}\ =\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p0}}\ >>\ 32u;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00120}00120\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p1\_lo}}\ =\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p1}}\ \&\ 0xFFFFFFFFu;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00121}00121\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p1\_hi}}\ =\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p1}}\ >>\ 32u;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00122}00122\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p2\_lo}}\ =\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p2}}\ \&\ 0xFFFFFFFFu;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00123}00123\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p2\_hi}}\ =\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p2}}\ >>\ 32u;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00125}00125\ \ \ \ \ \ \ \ \ std::uint64\_t\ \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142aa53ab217f1572250a530c8c2b3c820cf}{Q}}\ =\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p0\_hi}}\ +\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p1\_lo}}\ +\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p2\_lo}};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00127}00127\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ full\ product\ might\ now\ be\ computed\ as}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00128}00128\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00129}00129\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ p\_hi\ =\ p3\ +\ p2\_hi\ +\ p1\_hi\ +\ (Q\ >>\ 32)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00130}00130\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ p\_lo\ =\ p0\_lo\ +\ (Q\ <<\ 32)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00131}00131\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00132}00132\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ But\ in\ this\ particular\ case\ here,\ the\ full\ p\_lo\ is\ not\ required.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00133}00133\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Effectively\ we\ only\ need\ to\ add\ the\ highest\ bit\ in\ p\_lo\ to\ p\_hi\ (and}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00134}00134\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Q\_hi\ +\ 1\ does\ not\ overflow).}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00136}00136\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142aa53ab217f1572250a530c8c2b3c820cf}{Q}}\ +=\ std::uint64\_t\{1\}\ <<\ (64u\ -\/\ 32u\ -\/\ 1u);\ \textcolor{comment}{//\ round,\ ties\ up}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00137}00137\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00138}00138\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{h}}\ =\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p3}}\ +\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p2\_hi}}\ +\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p1\_hi}}\ +\ (\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142aa53ab217f1572250a530c8c2b3c820cf}{Q}}\ >>\ 32u);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00140}00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{h}},\ x.e\ +\ y.e\ +\ 64\};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00141}00141\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00147}\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_a5bad735c2cb50b194938a8a89b82f6ed}{00147}}\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_a5bad735c2cb50b194938a8a89b82f6ed}{normalize}}(\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ x)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00148}00148\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00149}00149\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(x.f\ !=\ 0);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00151}00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ ((x.f\ >>\ 63u)\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00152}00152\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ x.f\ <<=\ 1u;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ x.e-\/-\/;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00155}00155\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00156}00156\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00157}00157\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00158}00158\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00159}00159\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00164}\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_a5a9ce83c6c1663c9aaac7ffd9009b971}{00164}}\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_a5a9ce83c6c1663c9aaac7ffd9009b971}{normalize\_to}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\&\ x,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{target\_exponent}})\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00165}00165\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00166}00166\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{delta}}\ =\ x.\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_ae2b59fab8dee9ef0192eb6b568fa7314}{e}}\ -\/\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{target\_exponent}};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00167}00167\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00168}00168\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{delta}}\ >=\ 0);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00169}00169\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(((x.f\ <<\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{delta}})\ >>\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{delta}})\ ==\ x.f);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00171}00171\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{x.f\ <<\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{delta}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{target\_exponent}}\};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00172}00172\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00173}00173\ \};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00174}00174\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00175}\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1boundaries}{00175}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1boundaries}{boundaries}}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00176}00176\ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00177}\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1boundaries_a4ca4291f3ebf758a4708698688dda485}{00177}}\ \ \ \ \ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1boundaries_a4ca4291f3ebf758a4708698688dda485}{w}};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00178}\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1boundaries_aa3b1c7a566175a9ca2f23875dbbbccc4}{00178}}\ \ \ \ \ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1boundaries_aa3b1c7a566175a9ca2f23875dbbbccc4}{minus}};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00179}\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1boundaries_ae2d4dbee09b23c49dac2980e8f455d08}{00179}}\ \ \ \ \ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1boundaries_ae2d4dbee09b23c49dac2980e8f455d08}{plus}};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00180}00180\ \};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00181}00181\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00188}00188\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ FloatType>}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00189}\mbox{\hyperlink{namespacedetail_1_1dtoa__impl_a6a5ccf11847aab7a0f42f587b33935df}{00189}}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1boundaries}{boundaries}}\ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_a6a5ccf11847aab7a0f42f587b33935df}{compute\_boundaries}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{FloatType}}\ \mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}})}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00190}00190\ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00191}00191\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(std::isfinite(\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}}));}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00192}00192\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}}\ >\ 0);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00193}00193\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00194}00194\ \ \ \ \ \textcolor{comment}{//\ Convert\ the\ IEEE\ representation\ into\ a\ diyfp.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00195}00195\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00196}00196\ \ \ \ \ \textcolor{comment}{//\ If\ v\ is\ denormal:}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00197}00197\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ value\ =\ 0.F\ *\ 2\string^(1\ -\/\ bias)\ =\ (\ \ \ \ \ \ \ \ \ \ F)\ *\ 2\string^(1\ -\/\ bias\ -\/\ (p-\/1))}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00198}00198\ \ \ \ \ \textcolor{comment}{//\ If\ v\ is\ normalized:}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00199}00199\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ value\ =\ 1.F\ *\ 2\string^(E\ -\/\ bias)\ =\ (2\string^(p-\/1)\ +\ F)\ *\ 2\string^(E\ -\/\ bias\ -\/\ (p-\/1))}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00200}00200\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00201}00201\ \ \ \ \ \textcolor{keyword}{static\_assert}(std::numeric\_limits<FloatType>::is\_iec559,}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}internal\ error:\ dtoa\_short\ requires\ an\ IEEE-\/754\ floating-\/point\ implementation"{}});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00203}00203\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00204}00204\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ kPrecision\ =\ std::numeric\_limits<FloatType>::digits;\ \textcolor{comment}{//\ =\ p\ (includes\ the\ hidden\ bit)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00205}00205\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{kBias}}\ \ \ \ \ \ =\ std::numeric\_limits<FloatType>::max\_exponent\ -\/\ 1\ +\ (kPrecision\ -\/\ 1);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00206}00206\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{kMinExp}}\ \ \ \ =\ 1\ -\/\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{kBias}};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00207}00207\ \ \ \ \ \textcolor{keyword}{constexpr}\ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{kHiddenBit}}\ =\ std::uint64\_t\{1\}\ <<\ (kPrecision\ -\/\ 1);\ \textcolor{comment}{//\ =\ 2\string^(p-\/1)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00208}00208\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00209}00209\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{bits\_type}}\ =\ \textcolor{keyword}{typename}\ std::conditional<kPrecision\ ==\ 24,\ std::uint32\_t,\ std::uint64\_t\ >::type;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00211}00211\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{bits}}\ =\ \textcolor{keyword}{static\_cast<}std::uint64\_t\textcolor{keyword}{>}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{reinterpret\_bits<bits\_type>}}(\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}}));}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00212}00212\ \ \ \ \ \textcolor{keyword}{const}\ std::uint64\_t\ \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ab199e021998d49b1f09338d8b9b18ecb}{E}}\ =\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{bits}}\ >>\ (kPrecision\ -\/\ 1);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00213}00213\ \ \ \ \ \textcolor{keyword}{const}\ std::uint64\_t\ \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142af382a63cc3d6491bf26b59e66f46826d}{F}}\ =\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{bits}}\ \&\ (\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{kHiddenBit}}\ -\/\ 1);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00214}00214\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00215}00215\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{is\_denormal}}\ =\ \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ab199e021998d49b1f09338d8b9b18ecb}{E}}\ ==\ 0;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00216}00216\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ v\ =\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{is\_denormal}}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00217}00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ?\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}(\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142af382a63cc3d6491bf26b59e66f46826d}{F}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{kMinExp}})}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00218}00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}(\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142af382a63cc3d6491bf26b59e66f46826d}{F}}\ +\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{kHiddenBit}},\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ab199e021998d49b1f09338d8b9b18ecb}{E}})\ -\/\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{kBias}});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00219}00219\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00220}00220\ \ \ \ \ \textcolor{comment}{//\ Compute\ the\ boundaries\ m-\/\ and\ m+\ of\ the\ floating-\/point\ value}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00221}00221\ \ \ \ \ \textcolor{comment}{//\ v\ =\ f\ *\ 2\string^e.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00222}00222\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00223}00223\ \ \ \ \ \textcolor{comment}{//\ Determine\ v-\/\ and\ v+,\ the\ floating-\/point\ predecessor\ and\ successor\ if\ v,}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00224}00224\ \ \ \ \ \textcolor{comment}{//\ respectively.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00225}00225\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00226}00226\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ v-\/\ =\ v\ -\/\ 2\string^e\ \ \ \ \ \ \ \ if\ f\ !=\ 2\string^(p-\/1)\ or\ e\ ==\ e\_min\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (A)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00227}00227\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ =\ v\ -\/\ 2\string^(e-\/1)\ \ \ \ if\ f\ ==\ 2\string^(p-\/1)\ and\ e\ >\ e\_min\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (B)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00228}00228\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00229}00229\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ v+\ =\ v\ +\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00230}00230\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00231}00231\ \ \ \ \ \textcolor{comment}{//\ Let\ m-\/\ =\ (v-\/\ +\ v)\ /\ 2\ and\ m+\ =\ (v\ +\ v+)\ /\ 2.\ All\ real\ numbers\ \_strictly\_}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00232}00232\ \ \ \ \ \textcolor{comment}{//\ between\ m-\/\ and\ m+\ round\ to\ v,\ regardless\ of\ how\ the\ input\ rounding}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00233}00233\ \ \ \ \ \textcolor{comment}{//\ algorithm\ breaks\ ties.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00234}00234\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00235}00235\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ -\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/\ \ (A)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00236}00236\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ v-\/\ \ \ \ \ \ \ \ \ \ \ \ m-\/\ \ \ \ \ \ \ \ \ \ \ \ v\ \ \ \ \ \ \ \ \ \ \ \ \ m+\ \ \ \ \ \ \ \ \ \ \ \ v+}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00237}00237\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00238}00238\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/\ \ (B)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00239}00239\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v-\/\ \ \ \ \ m-\/\ \ \ \ \ v\ \ \ \ \ \ \ \ \ \ \ \ \ m+\ \ \ \ \ \ \ \ \ \ \ \ v+}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00240}00240\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00241}00241\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{lower\_boundary\_is\_closer}}\ =\ \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142af382a63cc3d6491bf26b59e66f46826d}{F}}\ ==\ 0\ \&\&\ \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ab199e021998d49b1f09338d8b9b18ecb}{E}}\ >\ 1;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00242}00242\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{m\_plus}}\ =\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}(2\ *\ v.\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_ae1518119517cb69d79aa64ffb93c8375}{f}}\ +\ 1,\ v.\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_ae2b59fab8dee9ef0192eb6b568fa7314}{e}}\ -\/\ 1);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00243}00243\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{m\_minus}}\ =\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{lower\_boundary\_is\_closer}}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00244}00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ?\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}(4\ *\ v.\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_ae1518119517cb69d79aa64ffb93c8375}{f}}\ -\/\ 1,\ v.\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_ae2b59fab8dee9ef0192eb6b568fa7314}{e}}\ -\/\ 2)\ \ \textcolor{comment}{//\ (B)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}(2\ *\ v.\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_ae1518119517cb69d79aa64ffb93c8375}{f}}\ -\/\ 1,\ v.\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_ae2b59fab8dee9ef0192eb6b568fa7314}{e}}\ -\/\ 1);\ \textcolor{comment}{//\ (A)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00246}00246\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00247}00247\ \ \ \ \ \textcolor{comment}{//\ Determine\ the\ normalized\ w+\ =\ m+.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00248}00248\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{w\_plus}}\ =\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_a5bad735c2cb50b194938a8a89b82f6ed}{diyfp::normalize}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{m\_plus}});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00249}00249\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00250}00250\ \ \ \ \ \textcolor{comment}{//\ Determine\ w-\/\ =\ m-\/\ such\ that\ e\_(w-\/)\ =\ e\_(w+).}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00251}00251\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{w\_minus}}\ =\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_a5a9ce83c6c1663c9aaac7ffd9009b971}{diyfp::normalize\_to}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{m\_minus}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{w\_plus}}.e);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00252}00252\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00253}00253\ \ \ \ \ \textcolor{keywordflow}{return}\ \{\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_a5bad735c2cb50b194938a8a89b82f6ed}{diyfp::normalize}}(v),\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{w\_minus}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{w\_plus}}\};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00254}00254\ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00255}00255\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00256}00256\ \textcolor{comment}{//\ Given\ normalized\ diyfp\ w,\ Grisu\ needs\ to\ find\ a\ (normalized)\ cached}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00257}00257\ \textcolor{comment}{//\ power-\/of-\/ten\ c,\ such\ that\ the\ exponent\ of\ the\ product\ c\ *\ w\ =\ f\ *\ 2\string^e\ lies}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00258}00258\ \textcolor{comment}{//\ within\ a\ certain\ range\ [alpha,\ gamma]\ (Definition\ 3.2\ from\ [1])}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00259}00259\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00260}00260\ \textcolor{comment}{//\ \ \ \ \ \ alpha\ <=\ e\ =\ e\_c\ +\ e\_w\ +\ q\ <=\ gamma}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00261}00261\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00262}00262\ \textcolor{comment}{//\ or}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00263}00263\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00264}00264\ \textcolor{comment}{//\ \ \ \ \ \ f\_c\ *\ f\_w\ *\ 2\string^alpha\ <=\ f\_c\ 2\string^(e\_c)\ *\ f\_w\ 2\string^(e\_w)\ *\ 2\string^q}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00265}00265\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <=\ f\_c\ *\ f\_w\ *\ 2\string^gamma}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00266}00266\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00267}00267\ \textcolor{comment}{//\ Since\ c\ and\ w\ are\ normalized,\ i.e.\ 2\string^(q-\/1)\ <=\ f\ <\ 2\string^q,\ this\ implies}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00268}00268\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00269}00269\ \textcolor{comment}{//\ \ \ \ \ \ 2\string^(q-\/1)\ *\ 2\string^(q-\/1)\ *\ 2\string^alpha\ <=\ c\ *\ w\ *\ 2\string^q\ <\ 2\string^q\ *\ 2\string^q\ *\ 2\string^gamma}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00270}00270\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00271}00271\ \textcolor{comment}{//\ or}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00272}00272\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00273}00273\ \textcolor{comment}{//\ \ \ \ \ \ 2\string^(q\ -\/\ 2\ +\ alpha)\ <=\ c\ *\ w\ <\ 2\string^(q\ +\ gamma)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00274}00274\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00275}00275\ \textcolor{comment}{//\ The\ choice\ of\ (alpha,gamma)\ determines\ the\ size\ of\ the\ table\ and\ the\ form\ of}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00276}00276\ \textcolor{comment}{//\ the\ digit\ generation\ procedure.\ Using\ (alpha,gamma)=(-\/60,-\/32)\ works\ out\ well}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00277}00277\ \textcolor{comment}{//\ in\ practice:}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00278}00278\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00279}00279\ \textcolor{comment}{//\ The\ idea\ is\ to\ cut\ the\ number\ c\ *\ w\ =\ f\ *\ 2\string^e\ into\ two\ parts,\ which\ can\ be}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00280}00280\ \textcolor{comment}{//\ processed\ independently:\ An\ integral\ part\ p1,\ and\ a\ fractional\ part\ p2:}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00281}00281\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00282}00282\ \textcolor{comment}{//\ \ \ \ \ \ f\ *\ 2\string^e\ =\ (\ (f\ div\ 2\string^-\/e)\ *\ 2\string^-\/e\ +\ (f\ mod\ 2\string^-\/e)\ )\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00283}00283\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ (f\ div\ 2\string^-\/e)\ +\ (f\ mod\ 2\string^-\/e)\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00284}00284\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ p1\ +\ p2\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00285}00285\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00286}00286\ \textcolor{comment}{//\ The\ conversion\ of\ p1\ into\ decimal\ form\ requires\ a\ series\ of\ divisions\ and}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00287}00287\ \textcolor{comment}{//\ modulos\ by\ (a\ power\ of)\ 10.\ These\ operations\ are\ faster\ for\ 32-\/bit\ than\ for}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00288}00288\ \textcolor{comment}{//\ 64-\/bit\ integers,\ so\ p1\ should\ ideally\ fit\ into\ a\ 32-\/bit\ integer.\ This\ can\ be}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00289}00289\ \textcolor{comment}{//\ achieved\ by\ choosing}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00290}00290\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00291}00291\ \textcolor{comment}{//\ \ \ \ \ \ -\/e\ >=\ 32\ \ \ or\ \ \ e\ <=\ -\/32\ :=\ gamma}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00292}00292\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00293}00293\ \textcolor{comment}{//\ In\ order\ to\ convert\ the\ fractional\ part}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00294}00294\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00295}00295\ \textcolor{comment}{//\ \ \ \ \ \ p2\ *\ 2\string^e\ =\ p2\ /\ 2\string^-\/e\ =\ d[-\/1]\ /\ 10\string^1\ +\ d[-\/2]\ /\ 10\string^2\ +\ ...}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00296}00296\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00297}00297\ \textcolor{comment}{//\ into\ decimal\ form,\ the\ fraction\ is\ repeatedly\ multiplied\ by\ 10\ and\ the\ digits}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00298}00298\ \textcolor{comment}{//\ d[-\/i]\ are\ extracted\ in\ order:}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00299}00299\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00300}00300\ \textcolor{comment}{//\ \ \ \ \ \ (10\ *\ p2)\ div\ 2\string^-\/e\ =\ d[-\/1]}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00301}00301\ \textcolor{comment}{//\ \ \ \ \ \ (10\ *\ p2)\ mod\ 2\string^-\/e\ =\ d[-\/2]\ /\ 10\string^1\ +\ ...}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00302}00302\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00303}00303\ \textcolor{comment}{//\ The\ multiplication\ by\ 10\ must\ not\ overflow.\ It\ is\ sufficient\ to\ choose}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00304}00304\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00305}00305\ \textcolor{comment}{//\ \ \ \ \ \ 10\ *\ p2\ <\ 16\ *\ p2\ =\ 2\string^4\ *\ p2\ <=\ 2\string^64.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00306}00306\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00307}00307\ \textcolor{comment}{//\ Since\ p2\ =\ f\ mod\ 2\string^-\/e\ <\ 2\string^-\/e,}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00308}00308\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00309}00309\ \textcolor{comment}{//\ \ \ \ \ \ -\/e\ <=\ 60\ \ \ or\ \ \ e\ >=\ -\/60\ :=\ alpha}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00310}00310\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00311}\mbox{\hyperlink{namespacedetail_1_1dtoa__impl_a95c569b7627a9372686f1f77d73e8660}{00311}}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_a95c569b7627a9372686f1f77d73e8660}{kAlpha}}\ =\ -\/60;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00312}\mbox{\hyperlink{namespacedetail_1_1dtoa__impl_ae152a095d2dd1a6dd41ef8ad39c26e19}{00312}}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_ae152a095d2dd1a6dd41ef8ad39c26e19}{kGamma}}\ =\ -\/32;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00313}00313\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00314}\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1cached__power}{00314}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1cached__power}{cached\_power}}\ \textcolor{comment}{//\ c\ =\ f\ *\ 2\string^e\ \string~=\ 10\string^k}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00315}00315\ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00316}\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1cached__power_a1e1bc1d228d8e54dc830fe6ef719eecf}{00316}}\ \ \ \ \ std::uint64\_t\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1cached__power_a1e1bc1d228d8e54dc830fe6ef719eecf}{f}};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00317}\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1cached__power_a96cc75e988a7e08e2de93db20024e7df}{00317}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1cached__power_a96cc75e988a7e08e2de93db20024e7df}{e}};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00318}\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1cached__power_ae9c889d5fc4427f633ec23044e986755}{00318}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1cached__power_ae9c889d5fc4427f633ec23044e986755}{k}};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00319}00319\ \};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00320}00320\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00328}\mbox{\hyperlink{namespacedetail_1_1dtoa__impl_a29ae6574f6be09a5c8ab08da9a3f71b4}{00328}}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1cached__power}{cached\_power}}\ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_a29ae6574f6be09a5c8ab08da9a3f71b4}{get\_cached\_power\_for\_binary\_exponent}}(\textcolor{keywordtype}{int}\ e)}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00329}00329\ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00330}00330\ \ \ \ \ \textcolor{comment}{//\ Now}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00331}00331\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00332}00332\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ alpha\ <=\ e\_c\ +\ e\ +\ q\ <=\ gamma\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00333}00333\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ ==>\ f\_c\ *\ 2\string^alpha\ <=\ c\ *\ 2\string^e\ *\ 2\string^q}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00334}00334\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00335}00335\ \ \ \ \ \textcolor{comment}{//\ and\ since\ the\ c's\ are\ normalized,\ 2\string^(q-\/1)\ <=\ f\_c,}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00336}00336\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00337}00337\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ ==>\ 2\string^(q\ -\/\ 1\ +\ alpha)\ <=\ c\ *\ 2\string^(e\ +\ q)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00338}00338\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ ==>\ 2\string^(alpha\ -\/\ e\ -\/\ 1)\ <=\ c}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00339}00339\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00340}00340\ \ \ \ \ \textcolor{comment}{//\ If\ c\ were\ an\ exact\ power\ of\ ten,\ i.e.\ c\ =\ 10\string^k,\ one\ may\ determine\ k\ as}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00341}00341\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00342}00342\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ k\ =\ ceil(\ log\_10(\ 2\string^(alpha\ -\/\ e\ -\/\ 1)\ )\ )}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00343}00343\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ =\ ceil(\ (alpha\ -\/\ e\ -\/\ 1)\ *\ log\_10(2)\ )}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00344}00344\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00345}00345\ \ \ \ \ \textcolor{comment}{//\ From\ the\ paper:}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00346}00346\ \ \ \ \ \textcolor{comment}{//\ "{}In\ theory\ the\ result\ of\ the\ procedure\ could\ be\ wrong\ since\ c\ is\ rounded,}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00347}00347\ \ \ \ \ \textcolor{comment}{//\ \ and\ the\ computation\ itself\ is\ approximated\ [...].\ In\ practice,\ however,}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00348}00348\ \ \ \ \ \textcolor{comment}{//\ \ this\ simple\ function\ is\ sufficient."{}}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00349}00349\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00350}00350\ \ \ \ \ \textcolor{comment}{//\ For\ IEEE\ double\ precision\ floating-\/point\ numbers\ converted\ into}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00351}00351\ \ \ \ \ \textcolor{comment}{//\ normalized\ diyfp's\ w\ =\ f\ *\ 2\string^e,\ with\ q\ =\ 64,}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00352}00352\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00353}00353\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ e\ >=\ -\/1022\ \ \ \ \ \ (min\ IEEE\ exponent)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00354}00354\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ -\/52\ \ \ \ \ \ \ \ (p\ -\/\ 1)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00355}00355\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ -\/52\ \ \ \ \ \ \ \ (p\ -\/\ 1,\ possibly\ normalize\ denormal\ IEEE\ numbers)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00356}00356\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ -\/11\ \ \ \ \ \ \ \ (normalize\ the\ diyfp)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00357}00357\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ =\ -\/1137}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00358}00358\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00359}00359\ \ \ \ \ \textcolor{comment}{//\ and}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00360}00360\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00361}00361\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ e\ <=\ +1023\ \ \ \ \ \ (max\ IEEE\ exponent)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00362}00362\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ -\/52\ \ \ \ \ \ \ \ (p\ -\/\ 1)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00363}00363\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ -\/11\ \ \ \ \ \ \ \ (normalize\ the\ diyfp)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00364}00364\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ =\ 960}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00365}00365\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00366}00366\ \ \ \ \ \textcolor{comment}{//\ This\ binary\ exponent\ range\ [-\/1137,960]\ results\ in\ a\ decimal\ exponent}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00367}00367\ \ \ \ \ \textcolor{comment}{//\ range\ [-\/307,324].\ One\ does\ not\ need\ to\ store\ a\ cached\ power\ for\ each}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00368}00368\ \ \ \ \ \textcolor{comment}{//\ k\ in\ this\ range.\ For\ each\ such\ k\ it\ suffices\ to\ find\ a\ cached\ power}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00369}00369\ \ \ \ \ \textcolor{comment}{//\ such\ that\ the\ exponent\ of\ the\ product\ lies\ in\ [alpha,gamma].}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00370}00370\ \ \ \ \ \textcolor{comment}{//\ This\ implies\ that\ the\ difference\ of\ the\ decimal\ exponents\ of\ adjacent}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00371}00371\ \ \ \ \ \textcolor{comment}{//\ table\ entries\ must\ be\ less\ than\ or\ equal\ to}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00372}00372\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00373}00373\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ floor(\ (gamma\ -\/\ alpha)\ *\ log\_10(2)\ )\ =\ 8.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00374}00374\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00375}00375\ \ \ \ \ \textcolor{comment}{//\ (A\ smaller\ distance\ gamma-\/alpha\ would\ require\ a\ larger\ table.)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00376}00376\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00377}00377\ \ \ \ \ \textcolor{comment}{//\ NB:}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00378}00378\ \ \ \ \ \textcolor{comment}{//\ Actually\ this\ function\ returns\ c,\ such\ that\ -\/60\ <=\ e\_c\ +\ e\ +\ 64\ <=\ -\/34.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00379}00379\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00380}00380\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{kCachedPowersMinDecExp}}\ =\ -\/300;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00381}00381\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{kCachedPowersDecStep}}\ =\ 8;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00382}00382\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00383}00383\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ std::array<cached\_power,\ 79>\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{kCachedPowers}}\ =}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00384}00384\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00385}00385\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00386}00386\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xAB70FE17C79AC6CA,\ -\/1060,\ -\/300\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00387}00387\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xFF77B1FCBEBCDC4F,\ -\/1034,\ -\/292\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00388}00388\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xBE5691EF416BD60C,\ -\/1007,\ -\/284\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00389}00389\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x8DD01FAD907FFC3C,\ \ -\/980,\ -\/276\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00390}00390\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xD3515C2831559A83,\ \ -\/954,\ -\/268\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00391}00391\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x9D71AC8FADA6C9B5,\ \ -\/927,\ -\/260\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00392}00392\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xEA9C227723EE8BCB,\ \ -\/901,\ -\/252\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00393}00393\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xAECC49914078536D,\ \ -\/874,\ -\/244\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00394}00394\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x823C12795DB6CE57,\ \ -\/847,\ -\/236\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00395}00395\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xC21094364DFB5637,\ \ -\/821,\ -\/228\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00396}00396\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x9096EA6F3848984F,\ \ -\/794,\ -\/220\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00397}00397\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xD77485CB25823AC7,\ \ -\/768,\ -\/212\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00398}00398\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xA086CFCD97BF97F4,\ \ -\/741,\ -\/204\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00399}00399\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xEF340A98172AACE5,\ \ -\/715,\ -\/196\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00400}00400\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xB23867FB2A35B28E,\ \ -\/688,\ -\/188\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00401}00401\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x84C8D4DFD2C63F3B,\ \ -\/661,\ -\/180\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00402}00402\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xC5DD44271AD3CDBA,\ \ -\/635,\ -\/172\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00403}00403\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x936B9FCEBB25C996,\ \ -\/608,\ -\/164\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00404}00404\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xDBAC6C247D62A584,\ \ -\/582,\ -\/156\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00405}00405\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xA3AB66580D5FDAF6,\ \ -\/555,\ -\/148\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00406}00406\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xF3E2F893DEC3F126,\ \ -\/529,\ -\/140\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00407}00407\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xB5B5ADA8AAFF80B8,\ \ -\/502,\ -\/132\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00408}00408\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x87625F056C7C4A8B,\ \ -\/475,\ -\/124\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00409}00409\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xC9BCFF6034C13053,\ \ -\/449,\ -\/116\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00410}00410\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x964E858C91BA2655,\ \ -\/422,\ -\/108\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00411}00411\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xDFF9772470297EBD,\ \ -\/396,\ -\/100\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00412}00412\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xA6DFBD9FB8E5B88F,\ \ -\/369,\ \ -\/92\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00413}00413\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xF8A95FCF88747D94,\ \ -\/343,\ \ -\/84\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00414}00414\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xB94470938FA89BCF,\ \ -\/316,\ \ -\/76\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00415}00415\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x8A08F0F8BF0F156B,\ \ -\/289,\ \ -\/68\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00416}00416\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xCDB02555653131B6,\ \ -\/263,\ \ -\/60\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00417}00417\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x993FE2C6D07B7FAC,\ \ -\/236,\ \ -\/52\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00418}00418\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xE45C10C42A2B3B06,\ \ -\/210,\ \ -\/44\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00419}00419\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xAA242499697392D3,\ \ -\/183,\ \ -\/36\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00420}00420\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xFD87B5F28300CA0E,\ \ -\/157,\ \ -\/28\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00421}00421\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xBCE5086492111AEB,\ \ -\/130,\ \ -\/20\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00422}00422\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x8CBCCC096F5088CC,\ \ -\/103,\ \ -\/12\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00423}00423\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xD1B71758E219652C,\ \ \ -\/77,\ \ \ -\/4\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00424}00424\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x9C40000000000000,\ \ \ -\/50,\ \ \ \ 4\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00425}00425\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xE8D4A51000000000,\ \ \ -\/24,\ \ \ 12\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00426}00426\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xAD78EBC5AC620000,\ \ \ \ \ 3,\ \ \ 20\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00427}00427\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x813F3978F8940984,\ \ \ \ 30,\ \ \ 28\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00428}00428\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xC097CE7BC90715B3,\ \ \ \ 56,\ \ \ 36\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00429}00429\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x8F7E32CE7BEA5C70,\ \ \ \ 83,\ \ \ 44\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00430}00430\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xD5D238A4ABE98068,\ \ \ 109,\ \ \ 52\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00431}00431\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x9F4F2726179A2245,\ \ \ 136,\ \ \ 60\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00432}00432\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xED63A231D4C4FB27,\ \ \ 162,\ \ \ 68\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00433}00433\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xB0DE65388CC8ADA8,\ \ \ 189,\ \ \ 76\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00434}00434\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x83C7088E1AAB65DB,\ \ \ 216,\ \ \ 84\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00435}00435\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xC45D1DF942711D9A,\ \ \ 242,\ \ \ 92\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00436}00436\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x924D692CA61BE758,\ \ \ 269,\ \ 100\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00437}00437\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xDA01EE641A708DEA,\ \ \ 295,\ \ 108\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00438}00438\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xA26DA3999AEF774A,\ \ \ 322,\ \ 116\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00439}00439\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xF209787BB47D6B85,\ \ \ 348,\ \ 124\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00440}00440\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xB454E4A179DD1877,\ \ \ 375,\ \ 132\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00441}00441\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x865B86925B9BC5C2,\ \ \ 402,\ \ 140\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00442}00442\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xC83553C5C8965D3D,\ \ \ 428,\ \ 148\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00443}00443\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x952AB45CFA97A0B3,\ \ \ 455,\ \ 156\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00444}00444\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xDE469FBD99A05FE3,\ \ \ 481,\ \ 164\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00445}00445\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xA59BC234DB398C25,\ \ \ 508,\ \ 172\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00446}00446\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xF6C69A72A3989F5C,\ \ \ 534,\ \ 180\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00447}00447\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xB7DCBF5354E9BECE,\ \ \ 561,\ \ 188\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00448}00448\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x88FCF317F22241E2,\ \ \ 588,\ \ 196\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00449}00449\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xCC20CE9BD35C78A5,\ \ \ 614,\ \ 204\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00450}00450\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x98165AF37B2153DF,\ \ \ 641,\ \ 212\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00451}00451\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xE2A0B5DC971F303A,\ \ \ 667,\ \ 220\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00452}00452\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xA8D9D1535CE3B396,\ \ \ 694,\ \ 228\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00453}00453\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xFB9B7CD9A4A7443C,\ \ \ 720,\ \ 236\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00454}00454\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xBB764C4CA7A44410,\ \ \ 747,\ \ 244\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00455}00455\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x8BAB8EEFB6409C1A,\ \ \ 774,\ \ 252\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00456}00456\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xD01FEF10A657842C,\ \ \ 800,\ \ 260\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00457}00457\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x9B10A4E5E9913129,\ \ \ 827,\ \ 268\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00458}00458\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xE7109BFBA19C0C9D,\ \ \ 853,\ \ 276\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00459}00459\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xAC2820D9623BF429,\ \ \ 880,\ \ 284\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00460}00460\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x80444B5E7AA7CF85,\ \ \ 907,\ \ 292\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00461}00461\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xBF21E44003ACDD2D,\ \ \ 933,\ \ 300\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00462}00462\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x8E679C2F5E44FF8F,\ \ \ 960,\ \ 308\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00463}00463\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xD433179D9C8CB841,\ \ \ 986,\ \ 316\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00464}00464\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0x9E19DB92B4E31BA9,\ \ 1013,\ \ 324\ \},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00465}00465\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00466}00466\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00467}00467\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00468}00468\ \ \ \ \ \textcolor{comment}{//\ This\ computation\ gives\ exactly\ the\ same\ results\ for\ k\ as}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00469}00469\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ k\ =\ ceil((kAlpha\ -\/\ e\ -\/\ 1)\ *\ 0.30102999566398114)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00470}00470\ \ \ \ \ \textcolor{comment}{//\ for\ |e|\ <=\ 1500,\ but\ doesn't\ require\ floating-\/point\ operations.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00471}00471\ \ \ \ \ \textcolor{comment}{//\ NB:\ log\_10(2)\ \string~=\ 78913\ /\ 2\string^18}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00472}00472\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(e\ >=\ -\/1500);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00473}00473\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(e\ <=\ \ 1500);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00474}00474\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ f\ =\ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_a95c569b7627a9372686f1f77d73e8660}{kAlpha}}\ -\/\ e\ -\/\ 1;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00475}00475\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ k\ =\ (f\ *\ 78913)\ /\ (1\ <<\ 18)\ +\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(f\ >\ 0);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00476}00476\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00477}00477\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{index}}\ =\ (-\/\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{kCachedPowersMinDecExp}}\ +\ k\ +\ (\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{kCachedPowersDecStep}}\ -\/\ 1))\ /\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{kCachedPowersDecStep}};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00478}00478\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{index}}\ >=\ 0);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00479}00479\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{index}})\ <\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{kCachedPowers}}.size());}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00480}00480\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00481}00481\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1cached__power}{cached\_power}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{cached}}\ =\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{kCachedPowers}}[\textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{index}})];}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00482}00482\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_1_1dtoa__impl_a95c569b7627a9372686f1f77d73e8660}{kAlpha}}\ <=\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{cached}}.e\ +\ e\ +\ 64);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00483}00483\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_1_1dtoa__impl_ae152a095d2dd1a6dd41ef8ad39c26e19}{kGamma}}\ >=\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{cached}}.e\ +\ e\ +\ 64);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00484}00484\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00485}00485\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{cached}};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00486}00486\ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00487}00487\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00492}\mbox{\hyperlink{namespacedetail_1_1dtoa__impl_a04eb234a28617519974fc962cd4da666}{00492}}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_a04eb234a28617519974fc962cd4da666}{find\_largest\_pow10}}(\textcolor{keyword}{const}\ std::uint32\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}},\ std::uint32\_t\&\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{pow10}})}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00493}00493\ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00494}00494\ \ \ \ \ \textcolor{comment}{//\ LCOV\_EXCL\_START}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00495}00495\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}}\ >=\ 1000000000)}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00496}00496\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00497}00497\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{pow10}}\ =\ 1000000000;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00498}00498\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 10;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00499}00499\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00500}00500\ \ \ \ \ \textcolor{comment}{//\ LCOV\_EXCL\_STOP}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00501}00501\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}}\ >=\ 100000000)}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00502}00502\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00503}00503\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{pow10}}\ =\ 100000000;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00504}00504\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \ 9;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00505}00505\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00506}00506\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}}\ >=\ 10000000)}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00507}00507\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00508}00508\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{pow10}}\ =\ 10000000;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00509}00509\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \ 8;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00510}00510\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00511}00511\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}}\ >=\ 1000000)}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00512}00512\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00513}00513\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{pow10}}\ =\ 1000000;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00514}00514\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \ 7;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00515}00515\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00516}00516\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}}\ >=\ 100000)}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00517}00517\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00518}00518\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{pow10}}\ =\ 100000;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00519}00519\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \ 6;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00520}00520\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00521}00521\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}}\ >=\ 10000)}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00522}00522\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00523}00523\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{pow10}}\ =\ 10000;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00524}00524\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \ 5;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00525}00525\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00526}00526\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}}\ >=\ 1000)}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00527}00527\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00528}00528\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{pow10}}\ =\ 1000;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00529}00529\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \ 4;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00530}00530\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00531}00531\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}}\ >=\ 100)}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00532}00532\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00533}00533\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{pow10}}\ =\ 100;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00534}00534\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \ 3;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00535}00535\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00536}00536\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}}\ >=\ 10)}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00537}00537\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00538}00538\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{pow10}}\ =\ 10;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00539}00539\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \ 2;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00540}00540\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00541}00541\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00542}00542\ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{pow10}}\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00543}00543\ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00544}00544\ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00545}00545\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00546}\mbox{\hyperlink{namespacedetail_1_1dtoa__impl_a73a15efcb5c2157ea0e1375b98ef0e83}{00546}}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_a73a15efcb5c2157ea0e1375b98ef0e83}{grisu2\_round}}(\textcolor{keywordtype}{char}*\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{len}},\ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{dist}},\ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{delta}},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00547}00547\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{rest}},\ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{ten\_k}})}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00548}00548\ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00549}00549\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{len}}\ >=\ 1);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00550}00550\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{dist}}\ <=\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{delta}});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00551}00551\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{rest}}\ <=\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{delta}});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00552}00552\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{ten\_k}}\ >\ 0);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00553}00553\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00554}00554\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ delta\ -\/-\/-\/-\/>}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00555}00555\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <-\/-\/-\/-\/\ dist\ -\/-\/-\/-\/-\/-\/-\/-\/-\/>}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00556}00556\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/[-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/]-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00557}00557\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ M-\/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ w\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ M+}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00558}00558\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00559}00559\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ten\_k}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00560}00560\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <-\/-\/-\/-\/-\/-\/>}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00561}00561\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <-\/-\/-\/-\/\ rest\ -\/-\/-\/-\/>}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00562}00562\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/[-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/]-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00563}00563\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ w\ \ \ \ V}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00564}00564\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ buf\ *\ 10\string^k}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00565}00565\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00566}00566\ \ \ \ \ \textcolor{comment}{//\ ten\_k\ represents\ a\ unit-\/in-\/the-\/last-\/place\ in\ the\ decimal\ representation}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00567}00567\ \ \ \ \ \textcolor{comment}{//\ stored\ in\ buf.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00568}00568\ \ \ \ \ \textcolor{comment}{//\ Decrement\ buf\ by\ ten\_k\ while\ this\ takes\ buf\ closer\ to\ w.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00569}00569\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00570}00570\ \ \ \ \ \textcolor{comment}{//\ The\ tests\ are\ written\ in\ this\ order\ to\ avoid\ overflow\ in\ unsigned}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00571}00571\ \ \ \ \ \textcolor{comment}{//\ integer\ arithmetic.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00572}00572\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00573}00573\ \ \ \ \ \textcolor{keywordflow}{while}\ (\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{rest}}\ <\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{dist}}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00574}00574\ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{delta}}\ -\/\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{rest}}\ >=\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{ten\_k}}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00575}00575\ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ (\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{rest}}\ +\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{ten\_k\ <\ dist\ ||\ dist\ -\/\ rest\ >}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{rest}}\ +\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{ten\_k}}\ -\/\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{dist}}))}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00576}00576\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00577}00577\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}[\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{len}}\ -\/\ 1]\ !=\ \textcolor{charliteral}{'0'});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00578}00578\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}[\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{len}}\ -\/\ 1]-\/-\/;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00579}00579\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{rest}}\ +=\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{ten\_k}};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00580}00580\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00581}00581\ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00582}00582\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00587}\mbox{\hyperlink{namespacedetail_1_1dtoa__impl_ae877aa13ab872c99a1c614e5e1524807}{00587}}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_ae877aa13ab872c99a1c614e5e1524807}{grisu2\_digit\_gen}}(\textcolor{keywordtype}{char}*\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buffer}},\ \textcolor{keywordtype}{int}\&\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{length}},\ \textcolor{keywordtype}{int}\&\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{decimal\_exponent}},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00588}00588\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{M\_minus}},\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ w,\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{M\_plus}})}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00589}00589\ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00590}00590\ \ \ \ \ \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{namespacedetail_1_1dtoa__impl_a95c569b7627a9372686f1f77d73e8660}{kAlpha}}\ >=\ -\/60,\ \textcolor{stringliteral}{"{}internal\ error"{}});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00591}00591\ \ \ \ \ \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{namespacedetail_1_1dtoa__impl_ae152a095d2dd1a6dd41ef8ad39c26e19}{kGamma}}\ <=\ -\/32,\ \textcolor{stringliteral}{"{}internal\ error"{}});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00592}00592\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00593}00593\ \ \ \ \ \textcolor{comment}{//\ Generates\ the\ digits\ (and\ the\ exponent)\ of\ a\ decimal\ floating-\/point}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00594}00594\ \ \ \ \ \textcolor{comment}{//\ number\ V\ =\ buffer\ *\ 10\string^decimal\_exponent\ in\ the\ range\ [M-\/,\ M+].\ The\ diyfp's}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00595}00595\ \ \ \ \ \textcolor{comment}{//\ w,\ M-\/\ and\ M+\ share\ the\ same\ exponent\ e,\ which\ satisfies\ alpha\ <=\ e\ <=\ gamma.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00596}00596\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00597}00597\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ delta\ -\/-\/-\/-\/>}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00598}00598\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <-\/-\/-\/-\/\ dist\ -\/-\/-\/-\/-\/-\/-\/-\/-\/>}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00599}00599\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/[-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/]-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00600}00600\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ M-\/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ w\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ M+}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00601}00601\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00602}00602\ \ \ \ \ \textcolor{comment}{//\ Grisu2\ generates\ the\ digits\ of\ M+\ from\ left\ to\ right\ and\ stops\ as\ soon\ as}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00603}00603\ \ \ \ \ \textcolor{comment}{//\ V\ is\ in\ [M-\/,M+].}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00604}00604\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00605}00605\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{M\_plus}}.e\ >=\ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_a95c569b7627a9372686f1f77d73e8660}{kAlpha}});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00606}00606\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{M\_plus}}.e\ <=\ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_ae152a095d2dd1a6dd41ef8ad39c26e19}{kGamma}});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00607}00607\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00608}00608\ \ \ \ \ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{delta}}\ =\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_a75142bace0b78b1e1433b1d35a7ff252}{diyfp::sub}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{M\_plus}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{M\_minus}}).\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_ae1518119517cb69d79aa64ffb93c8375}{f}};\ \textcolor{comment}{//\ (significand\ of\ (M+\ -\/\ M-\/),\ implicit\ exponent\ is\ e)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00609}00609\ \ \ \ \ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{dist}}\ \ =\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_a75142bace0b78b1e1433b1d35a7ff252}{diyfp::sub}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{M\_plus}},\ w\ \ \ \ \ \ ).\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_ae1518119517cb69d79aa64ffb93c8375}{f}};\ \textcolor{comment}{//\ (significand\ of\ (M+\ -\/\ w\ ),\ implicit\ exponent\ is\ e)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00610}00610\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00611}00611\ \ \ \ \ \textcolor{comment}{//\ Split\ M+\ =\ f\ *\ 2\string^e\ into\ two\ parts\ p1\ and\ p2\ (note:\ e\ <\ 0):}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00612}00612\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00613}00613\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ M+\ =\ f\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00614}00614\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ =\ ((f\ div\ 2\string^-\/e)\ *\ 2\string^-\/e\ +\ (f\ mod\ 2\string^-\/e))\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00615}00615\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ =\ ((p1\ \ \ \ \ \ \ \ )\ *\ 2\string^-\/e\ +\ (p2\ \ \ \ \ \ \ \ ))\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00616}00616\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ =\ p1\ +\ p2\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00617}00617\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00618}00618\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ one(std::uint64\_t\{1\}\ <<\ -\/\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{M\_plus}}.e,\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{M\_plus}}.e);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00619}00619\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00620}00620\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p1}}\ =\ \textcolor{keyword}{static\_cast<}std::uint32\_t\textcolor{keyword}{>}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{M\_plus}}.f\ >>\ -\/one.e);\ \textcolor{comment}{//\ p1\ =\ f\ div\ 2\string^-\/e\ (Since\ -\/e\ >=\ 32,\ p1\ fits\ into\ a\ 32-\/bit\ int.)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00621}00621\ \ \ \ \ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p2}}\ =\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{M\_plus}}.\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_ae1518119517cb69d79aa64ffb93c8375}{f}}\ \&\ (one.f\ -\/\ 1);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ p2\ =\ f\ mod\ 2\string^-\/e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00622}00622\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00623}00623\ \ \ \ \ \textcolor{comment}{//\ 1)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00624}00624\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00625}00625\ \ \ \ \ \textcolor{comment}{//\ Generate\ the\ digits\ of\ the\ integral\ part\ p1\ =\ d[n-\/1]...d[1]d[0]}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00626}00626\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00627}00627\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p1}}\ >\ 0);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00628}00628\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00629}00629\ \ \ \ \ std::uint32\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{pow10}}\{\};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00630}00630\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ k\ =\ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_a04eb234a28617519974fc962cd4da666}{find\_largest\_pow10}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p1}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{pow10}});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00631}00631\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00632}00632\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ 10\string^(k-\/1)\ <=\ p1\ <\ 10\string^k,\ pow10\ =\ 10\string^(k-\/1)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00633}00633\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00634}00634\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ p1\ =\ (p1\ div\ 10\string^(k-\/1))\ *\ 10\string^(k-\/1)\ +\ (p1\ mod\ 10\string^(k-\/1))}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00635}00635\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ =\ (d[k-\/1]\ \ \ \ \ \ \ \ \ )\ *\ 10\string^(k-\/1)\ +\ (p1\ mod\ 10\string^(k-\/1))}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00636}00636\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00637}00637\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ M+\ =\ p1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ p2\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00638}00638\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ =\ d[k-\/1]\ *\ 10\string^(k-\/1)\ +\ (p1\ mod\ 10\string^(k-\/1))\ \ \ \ \ \ \ \ \ \ +\ p2\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00639}00639\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ =\ d[k-\/1]\ *\ 10\string^(k-\/1)\ +\ ((p1\ mod\ 10\string^(k-\/1))\ *\ 2\string^-\/e\ +\ p2)\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00640}00640\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ =\ d[k-\/1]\ *\ 10\string^(k-\/1)\ +\ (\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rest)\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00641}00641\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00642}00642\ \ \ \ \ \textcolor{comment}{//\ Now\ generate\ the\ digits\ d[n]\ of\ p1\ from\ left\ to\ right\ (n\ =\ k-\/1,...,0)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00643}00643\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00644}00644\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ p1\ =\ d[k-\/1]...d[n]\ *\ 10\string^n\ +\ d[n-\/1]...d[0]}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00645}00645\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00646}00646\ \ \ \ \ \textcolor{comment}{//\ but\ stop\ as\ soon\ as}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00647}00647\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00648}00648\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ rest\ *\ 2\string^e\ =\ (d[n-\/1]...d[0]\ *\ 2\string^-\/e\ +\ p2)\ *\ 2\string^e\ <=\ delta\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00649}00649\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00650}00650\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}}\ =\ k;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00651}00651\ \ \ \ \ \textcolor{keywordflow}{while}\ (\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}}\ >\ 0)}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00652}00652\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00653}00653\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Invariants:}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00654}00654\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ M+\ =\ buffer\ *\ 10\string^n\ +\ (p1\ +\ p2\ *\ 2\string^e)\ \ \ \ (buffer\ =\ 0\ for\ n\ =\ k)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00655}00655\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ pow10\ =\ 10\string^(n-\/1)\ <=\ p1\ <\ 10\string^n}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00656}00656\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00657}00657\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::uint32\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{d}}\ =\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p1}}\ /\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{pow10}};\ \ \textcolor{comment}{//\ d\ =\ p1\ div\ 10\string^(n-\/1)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00658}00658\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::uint32\_t\ r\ =\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p1}}\ \%\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{pow10}};\ \ \textcolor{comment}{//\ r\ =\ p1\ mod\ 10\string^(n-\/1)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00659}00659\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00660}00660\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ M+\ =\ buffer\ *\ 10\string^n\ +\ (d\ *\ 10\string^(n-\/1)\ +\ r)\ +\ p2\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00661}00661\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ =\ (buffer\ *\ 10\ +\ d)\ *\ 10\string^(n-\/1)\ +\ (r\ +\ p2\ *\ 2\string^e)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00662}00662\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00663}00663\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{d}}\ <=\ 9);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00664}00664\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buffer}}[\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{length}}++]\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{char}\textcolor{keyword}{>}(\textcolor{charliteral}{'0'}\ +\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{d}});\ \textcolor{comment}{//\ buffer\ :=\ buffer\ *\ 10\ +\ d}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00665}00665\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00666}00666\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ M+\ =\ buffer\ *\ 10\string^(n-\/1)\ +\ (r\ +\ p2\ *\ 2\string^e)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00667}00667\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00668}00668\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p1}}\ =\ r;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00669}00669\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}}-\/-\/;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00670}00670\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00671}00671\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ M+\ =\ buffer\ *\ 10\string^n\ +\ (p1\ +\ p2\ *\ 2\string^e)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00672}00672\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ pow10\ =\ 10\string^n}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00673}00673\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00674}00674\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00675}00675\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Now\ check\ if\ enough\ digits\ have\ been\ generated.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00676}00676\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compute}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00677}00677\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00678}00678\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ p1\ +\ p2\ *\ 2\string^e\ =\ (p1\ *\ 2\string^-\/e\ +\ p2)\ *\ 2\string^e\ =\ rest\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00679}00679\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00680}00680\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Note:}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00681}00681\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Since\ rest\ and\ delta\ share\ the\ same\ exponent\ e,\ it\ suffices\ to}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00682}00682\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compare\ the\ significands.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00683}00683\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{rest}}\ =\ (std::uint64\_t\{\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p1}}\}\ <<\ -\/one.e)\ +\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p2}};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00684}00684\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{rest}}\ <=\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{delta}})}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00685}00685\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00686}00686\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ V\ =\ buffer\ *\ 10\string^n,\ with\ M-\/\ <=\ V\ <=\ M+.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00687}00687\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00688}00688\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{decimal\_exponent}}\ +=\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00689}00689\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00690}00690\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ may\ now\ just\ stop.\ But\ instead\ look\ if\ the\ buffer\ could\ be}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00691}00691\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ decremented\ to\ bring\ V\ closer\ to\ w.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00692}00692\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00693}00693\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ pow10\ =\ 10\string^n\ is\ now\ 1\ ulp\ in\ the\ decimal\ representation\ V.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00694}00694\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ rounding\ procedure\ works\ with\ diyfp's\ with\ an\ implicit}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00695}00695\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ exponent\ of\ e.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00696}00696\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00697}00697\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ 10\string^n\ =\ (10\string^n\ *\ 2\string^-\/e)\ *\ 2\string^e\ =\ ulp\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00698}00698\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00699}00699\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{ten\_n}}\ =\ std::uint64\_t\{\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{pow10}}\}\ <<\ -\/one.e;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00700}00700\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_a73a15efcb5c2157ea0e1375b98ef0e83}{grisu2\_round}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buffer}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{length}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{dist}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{delta}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{rest}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{ten\_n}});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00701}00701\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00702}00702\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00703}00703\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00704}00704\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00705}00705\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{pow10}}\ /=\ 10;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00706}00706\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00707}00707\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ pow10\ =\ 10\string^(n-\/1)\ <=\ p1\ <\ 10\string^n}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00708}00708\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Invariants\ restored.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00709}00709\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00710}00710\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00711}00711\ \ \ \ \ \textcolor{comment}{//\ 2)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00712}00712\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00713}00713\ \ \ \ \ \textcolor{comment}{//\ The\ digits\ of\ the\ integral\ part\ have\ been\ generated:}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00714}00714\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00715}00715\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ M+\ =\ d[k-\/1]...d[1]d[0]\ +\ p2\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00716}00716\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ =\ buffer\ \ \ \ \ \ \ \ \ \ \ \ +\ p2\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00717}00717\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00718}00718\ \ \ \ \ \textcolor{comment}{//\ Now\ generate\ the\ digits\ of\ the\ fractional\ part\ p2\ *\ 2\string^e.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00719}00719\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00720}00720\ \ \ \ \ \textcolor{comment}{//\ Note:}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00721}00721\ \ \ \ \ \textcolor{comment}{//\ No\ decimal\ point\ is\ generated:\ the\ exponent\ is\ adjusted\ instead.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00722}00722\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00723}00723\ \ \ \ \ \textcolor{comment}{//\ p2\ actually\ represents\ the\ fraction}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00724}00724\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00725}00725\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ p2\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00726}00726\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ =\ p2\ /\ 2\string^-\/e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00727}00727\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ =\ d[-\/1]\ /\ 10\string^1\ +\ d[-\/2]\ /\ 10\string^2\ +\ ...}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00728}00728\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00729}00729\ \ \ \ \ \textcolor{comment}{//\ Now\ generate\ the\ digits\ d[-\/m]\ of\ p1\ from\ left\ to\ right\ (m\ =\ 1,2,...)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00730}00730\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00731}00731\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ p2\ *\ 2\string^e\ =\ d[-\/1]d[-\/2]...d[-\/m]\ *\ 10\string^-\/m}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00732}00732\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ 10\string^-\/m\ *\ (d[-\/m-\/1]\ /\ 10\string^1\ +\ d[-\/m-\/2]\ /\ 10\string^2\ +\ ...)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00733}00733\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00734}00734\ \ \ \ \ \textcolor{comment}{//\ using}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00735}00735\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00736}00736\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ 10\string^m\ *\ p2\ =\ ((10\string^m\ *\ p2)\ div\ 2\string^-\/e)\ *\ 2\string^-\/e\ +\ ((10\string^m\ *\ p2)\ mod\ 2\string^-\/e)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00737}00737\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ (\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ d)\ *\ 2\string^-\/e\ +\ (\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ r)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00738}00738\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00739}00739\ \ \ \ \ \textcolor{comment}{//\ or}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00740}00740\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ 10\string^m\ *\ p2\ *\ 2\string^e\ =\ d\ +\ r\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00741}00741\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00742}00742\ \ \ \ \ \textcolor{comment}{//\ i.e.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00743}00743\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00744}00744\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ M+\ =\ buffer\ +\ p2\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00745}00745\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ =\ buffer\ +\ 10\string^-\/m\ *\ (d\ +\ r\ *\ 2\string^e)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00746}00746\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ =\ (buffer\ *\ 10\string^m\ +\ d)\ *\ 10\string^-\/m\ +\ 10\string^-\/m\ *\ r\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00747}00747\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00748}00748\ \ \ \ \ \textcolor{comment}{//\ and\ stop\ as\ soon\ as\ 10\string^-\/m\ *\ r\ *\ 2\string^e\ <=\ delta\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00749}00749\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00750}00750\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p2}}\ >\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{delta}});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00751}00751\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00752}00752\ \ \ \ \ \textcolor{keywordtype}{int}\ m\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00753}00753\ \ \ \ \ \textcolor{keywordflow}{for}\ (;;)}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00754}00754\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00755}00755\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Invariant:}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00756}00756\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ M+\ =\ buffer\ *\ 10\string^-\/m\ +\ 10\string^-\/m\ *\ (d[-\/m-\/1]\ /\ 10\ +\ d[-\/m-\/2]\ /\ 10\string^2\ +\ ...)\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00757}00757\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ =\ buffer\ *\ 10\string^-\/m\ +\ 10\string^-\/m\ *\ (p2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00758}00758\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ =\ buffer\ *\ 10\string^-\/m\ +\ 10\string^-\/m\ *\ (1/10\ *\ (10\ *\ p2)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00759}00759\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ =\ buffer\ *\ 10\string^-\/m\ +\ 10\string^-\/m\ *\ (1/10\ *\ ((10*p2\ div\ 2\string^-\/e)\ *\ 2\string^-\/e\ +\ (10*p2\ mod\ 2\string^-\/e))\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00760}00760\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00761}00761\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p2}}\ <=\ (std::numeric\_limits<std::uint64\_t>::max)()\ /\ 10);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00762}00762\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p2}}\ *=\ 10;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00763}00763\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{d}}\ =\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p2}}\ >>\ -\/one.e;\ \ \ \ \ \textcolor{comment}{//\ d\ =\ (10\ *\ p2)\ div\ 2\string^-\/e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00764}00764\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::uint64\_t\ r\ =\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p2}}\ \&\ (one.f\ -\/\ 1);\ \textcolor{comment}{//\ r\ =\ (10\ *\ p2)\ mod\ 2\string^-\/e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00765}00765\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00766}00766\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ M+\ =\ buffer\ *\ 10\string^-\/m\ +\ 10\string^-\/m\ *\ (1/10\ *\ (d\ *\ 2\string^-\/e\ +\ r)\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00767}00767\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ =\ buffer\ *\ 10\string^-\/m\ +\ 10\string^-\/m\ *\ (1/10\ *\ (d\ +\ r\ *\ 2\string^e))}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00768}00768\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ =\ (buffer\ *\ 10\ +\ d)\ *\ 10\string^(-\/m-\/1)\ +\ 10\string^(-\/m-\/1)\ *\ r\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00769}00769\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00770}00770\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{d}}\ <=\ 9);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00771}00771\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buffer}}[\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{length}}++]\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{char}\textcolor{keyword}{>}(\textcolor{charliteral}{'0'}\ +\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{d}});\ \textcolor{comment}{//\ buffer\ :=\ buffer\ *\ 10\ +\ d}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00772}00772\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00773}00773\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ M+\ =\ buffer\ *\ 10\string^(-\/m-\/1)\ +\ 10\string^(-\/m-\/1)\ *\ r\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00774}00774\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00775}00775\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p2}}\ =\ r;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00776}00776\ \ \ \ \ \ \ \ \ m++;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00777}00777\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00778}00778\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ M+\ =\ buffer\ *\ 10\string^-\/m\ +\ 10\string^-\/m\ *\ p2\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00779}00779\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Invariant\ restored.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00780}00780\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00781}00781\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ enough\ digits\ have\ been\ generated.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00782}00782\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00783}00783\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ 10\string^-\/m\ *\ p2\ *\ 2\string^e\ <=\ delta\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00784}00784\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ p2\ *\ 2\string^e\ <=\ 10\string^m\ *\ delta\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00785}00785\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p2\ <=\ 10\string^m\ *\ delta}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00786}00786\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{delta}}\ *=\ 10;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00787}00787\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{dist}}\ \ *=\ 10;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00788}00788\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p2}}\ <=\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{delta}})}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00789}00789\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00790}00790\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00791}00791\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00792}00792\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00793}00793\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00794}00794\ \ \ \ \ \textcolor{comment}{//\ V\ =\ buffer\ *\ 10\string^-\/m,\ with\ M-\/\ <=\ V\ <=\ M+.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00795}00795\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00796}00796\ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{decimal\_exponent}}\ -\/=\ m;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00797}00797\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00798}00798\ \ \ \ \ \textcolor{comment}{//\ 1\ ulp\ in\ the\ decimal\ representation\ is\ now\ 10\string^-\/m.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00799}00799\ \ \ \ \ \textcolor{comment}{//\ Since\ delta\ and\ dist\ are\ now\ scaled\ by\ 10\string^m,\ we\ need\ to\ do\ the}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00800}00800\ \ \ \ \ \textcolor{comment}{//\ same\ with\ ulp\ in\ order\ to\ keep\ the\ units\ in\ sync.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00801}00801\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00802}00802\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ 10\string^m\ *\ 10\string^-\/m\ =\ 1\ =\ 2\string^-\/e\ *\ 2\string^e\ =\ ten\_m\ *\ 2\string^e}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00803}00803\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00804}00804\ \ \ \ \ \textcolor{keyword}{const}\ std::uint64\_t\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{ten\_m}}\ =\ one.f;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00805}00805\ \ \ \ \ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_a73a15efcb5c2157ea0e1375b98ef0e83}{grisu2\_round}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buffer}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{length}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{dist}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{delta}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{p2}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{ten\_m}});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00806}00806\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00807}00807\ \ \ \ \ \textcolor{comment}{//\ By\ construction\ this\ algorithm\ generates\ the\ shortest\ possible\ decimal}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00808}00808\ \ \ \ \ \textcolor{comment}{//\ number\ (Loitsch,\ Theorem\ 6.2)\ which\ rounds\ back\ to\ w.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00809}00809\ \ \ \ \ \textcolor{comment}{//\ For\ an\ input\ number\ of\ precision\ p,\ at\ least}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00810}00810\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00811}00811\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ N\ =\ 1\ +\ ceil(p\ *\ log\_10(2))}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00812}00812\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00813}00813\ \ \ \ \ \textcolor{comment}{//\ decimal\ digits\ are\ sufficient\ to\ identify\ all\ binary\ floating-\/point}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00814}00814\ \ \ \ \ \textcolor{comment}{//\ numbers\ (Matula,\ "{}In-\/and-\/Out\ conversions"{}).}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00815}00815\ \ \ \ \ \textcolor{comment}{//\ This\ implies\ that\ the\ algorithm\ does\ not\ produce\ more\ than\ N\ decimal}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00816}00816\ \ \ \ \ \textcolor{comment}{//\ digits.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00817}00817\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00818}00818\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ N\ =\ 17\ for\ p\ =\ 53\ (IEEE\ double\ precision)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00819}00819\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ N\ =\ 9\ \ for\ p\ =\ 24\ (IEEE\ single\ precision)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00820}00820\ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00821}00821\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00827}00827\ \mbox{\hyperlink{hedley_8hpp_a5338981b5ad9027c9e54b1c5597f4344}{JSON\_HEDLEY\_NON\_NULL}}(1)}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00828}\mbox{\hyperlink{namespacedetail_1_1dtoa__impl_ad549352ed1a9676a092d143a2daa3dee}{00828}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{inline}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_ad549352ed1a9676a092d143a2daa3dee}{grisu2}}(\textcolor{keywordtype}{char}*\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}},\ \textcolor{keywordtype}{int}\&\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{len}},\ \textcolor{keywordtype}{int}\&\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{decimal\_exponent}},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00829}00829\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{m\_minus}},\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ v,\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{m\_plus}})}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00830}00830\ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00831}00831\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{m\_plus}}.e\ ==\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{m\_minus}}.e);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00832}00832\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{m\_plus}}.e\ ==\ v.e);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00833}00833\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00834}00834\ \ \ \ \ \textcolor{comment}{//\ \ -\/-\/-\/-\/-\/-\/-\/-\/(-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/)-\/-\/-\/-\/-\/-\/-\/-\/\ \ \ \ (A)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00835}00835\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ m-\/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m+}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00836}00836\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00837}00837\ \ \ \ \ \textcolor{comment}{//\ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/(-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/)-\/-\/-\/-\/-\/-\/-\/-\/\ \ \ \ (B)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00838}00838\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m-\/\ \ \ \ \ \ \ \ \ \ v\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m+}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00839}00839\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00840}00840\ \ \ \ \ \textcolor{comment}{//\ First\ scale\ v\ (and\ m-\/\ and\ m+)\ such\ that\ the\ exponent\ is\ in\ the\ range}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00841}00841\ \ \ \ \ \textcolor{comment}{//\ [alpha,\ gamma].}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00842}00842\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00843}00843\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1cached__power}{cached\_power}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{cached}}\ =\ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_a29ae6574f6be09a5c8ab08da9a3f71b4}{get\_cached\_power\_for\_binary\_exponent}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{m\_plus}}.e);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00844}00844\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00845}00845\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{c\_minus\_k}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{cached}}.f,\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{cached}}.e);\ \textcolor{comment}{//\ =\ c\ \string~=\ 10\string^-\/k}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00846}00846\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00847}00847\ \ \ \ \ \textcolor{comment}{//\ The\ exponent\ of\ the\ products\ is\ =\ v.e\ +\ c\_minus\_k.e\ +\ q\ and\ is\ in\ the\ range\ [alpha,gamma]}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00848}00848\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ w\ \ \ \ \ \ \ =\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_a046c61f2c13411677eedfb5b9b7a8226}{diyfp::mul}}(v,\ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{c\_minus\_k}});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00849}00849\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{w\_minus}}\ =\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_a046c61f2c13411677eedfb5b9b7a8226}{diyfp::mul}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{m\_minus}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{c\_minus\_k}});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00850}00850\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{w\_plus}}\ \ =\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_a046c61f2c13411677eedfb5b9b7a8226}{diyfp::mul}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{m\_plus}},\ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{c\_minus\_k}});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00851}00851\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00852}00852\ \ \ \ \ \textcolor{comment}{//\ \ -\/-\/-\/-\/(-\/-\/-\/+-\/-\/-\/)-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/(-\/-\/-\/+-\/-\/-\/)-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/(-\/-\/-\/+-\/-\/-\/)-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00853}00853\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ w-\/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ w\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ w+}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00854}00854\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ =\ c*m-\/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ c*v\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ c*m+}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00855}00855\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00856}00856\ \ \ \ \ \textcolor{comment}{//\ diyfp::mul\ rounds\ its\ result\ and\ c\_minus\_k\ is\ approximated\ too.\ w,\ w-\/\ and}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00857}00857\ \ \ \ \ \textcolor{comment}{//\ w+\ are\ now\ off\ by\ a\ small\ amount.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00858}00858\ \ \ \ \ \textcolor{comment}{//\ In\ fact:}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00859}00859\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00860}00860\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ w\ -\/\ v\ *\ 10\string^k\ <\ 1\ ulp}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00861}00861\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00862}00862\ \ \ \ \ \textcolor{comment}{//\ To\ account\ for\ this\ inaccuracy,\ add\ resp.\ subtract\ 1\ ulp.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00863}00863\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00864}00864\ \ \ \ \ \textcolor{comment}{//\ \ -\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/[-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/(-\/-\/-\/+-\/-\/-\/)-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/]-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00865}00865\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ w-\/\ \ M-\/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ w\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ M+\ \ w+}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00866}00866\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00867}00867\ \ \ \ \ \textcolor{comment}{//\ Now\ any\ number\ in\ [M-\/,\ M+]\ (bounds\ included)\ will\ round\ to\ w\ when\ input,}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00868}00868\ \ \ \ \ \textcolor{comment}{//\ regardless\ of\ how\ the\ input\ rounding\ algorithm\ breaks\ ties.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00869}00869\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00870}00870\ \ \ \ \ \textcolor{comment}{//\ And\ digit\_gen\ generates\ the\ shortest\ possible\ such\ number\ in\ [M-\/,\ M+].}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00871}00871\ \ \ \ \ \textcolor{comment}{//\ Note\ that\ this\ does\ not\ mean\ that\ Grisu2\ always\ generates\ the\ shortest}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00872}00872\ \ \ \ \ \textcolor{comment}{//\ possible\ number\ in\ the\ interval\ (m-\/,\ m+).}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00873}00873\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{M\_minus}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{w\_minus}}.f\ +\ 1,\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{w\_minus}}.e);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00874}00874\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{M\_plus}}\ (\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{w\_plus}}.f\ \ -\/\ 1,\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{w\_plus}}.e\ );}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00875}00875\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00876}00876\ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{decimal\_exponent}}\ =\ -\/\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{cached}}.k;\ \textcolor{comment}{//\ =\ -\/(-\/k)\ =\ k}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00877}00877\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00878}00878\ \ \ \ \ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_ae877aa13ab872c99a1c614e5e1524807}{grisu2\_digit\_gen}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{len}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{decimal\_exponent}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{M\_minus}},\ w,\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{M\_plus}});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00879}00879\ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00880}00880\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00886}00886\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ FloatType>}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00887}00887\ \mbox{\hyperlink{hedley_8hpp_a5338981b5ad9027c9e54b1c5597f4344}{JSON\_HEDLEY\_NON\_NULL}}(1)}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00888}\mbox{\hyperlink{namespacedetail_1_1dtoa__impl_abdf6bc05c54068a5930f66c2e803e8b8}{00888}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{void}}\ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_ad549352ed1a9676a092d143a2daa3dee}{grisu2}}(\textcolor{keywordtype}{char}*\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}},\ \textcolor{keywordtype}{int}\&\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{len}},\ \textcolor{keywordtype}{int}\&\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{decimal\_exponent}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{FloatType}}\ \mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}})}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00889}00889\ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00890}00890\ \ \ \ \ \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp_a80cf8cc846a7bf96362d3b11886994e3}{diyfp::kPrecision}}\ >=\ std::numeric\_limits<FloatType>::digits\ +\ 3,}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00891}00891\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}internal\ error:\ not\ enough\ precision"{}});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00892}00892\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00893}00893\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(std::isfinite(\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}}));}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00894}00894\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}}\ >\ 0);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00895}00895\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00896}00896\ \ \ \ \ \textcolor{comment}{//\ If\ the\ neighbors\ (and\ boundaries)\ of\ 'value'\ are\ always\ computed\ for\ double-\/precision}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00897}00897\ \ \ \ \ \textcolor{comment}{//\ numbers,\ all\ float's\ can\ be\ recovered\ using\ strtod\ (and\ strtof).\ However,\ the\ resulting}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00898}00898\ \ \ \ \ \textcolor{comment}{//\ decimal\ representations\ are\ not\ exactly\ "{}short"{}.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00899}00899\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00900}00900\ \ \ \ \ \textcolor{comment}{//\ The\ documentation\ for\ 'std::to\_chars'\ (https://en.cppreference.com/w/cpp/utility/to\_chars)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00901}00901\ \ \ \ \ \textcolor{comment}{//\ says\ "{}value\ is\ converted\ to\ a\ string\ as\ if\ by\ std::sprintf\ in\ the\ default\ ("{}C"{})\ locale"{}}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00902}00902\ \ \ \ \ \textcolor{comment}{//\ and\ since\ sprintf\ promotes\ floats\ to\ doubles,\ I\ think\ this\ is\ exactly\ what\ 'std::to\_chars'}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00903}00903\ \ \ \ \ \textcolor{comment}{//\ does.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00904}00904\ \ \ \ \ \textcolor{comment}{//\ On\ the\ other\ hand,\ the\ documentation\ for\ 'std::to\_chars'\ requires\ that\ "{}parsing\ the}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00905}00905\ \ \ \ \ \textcolor{comment}{//\ representation\ using\ the\ corresponding\ std::from\_chars\ function\ recovers\ value\ exactly"{}.\ That}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00906}00906\ \ \ \ \ \textcolor{comment}{//\ indicates\ that\ single\ precision\ floating-\/point\ numbers\ should\ be\ recovered\ using}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00907}00907\ \ \ \ \ \textcolor{comment}{//\ 'std::strtof'.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00908}00908\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00909}00909\ \ \ \ \ \textcolor{comment}{//\ NB:\ If\ the\ neighbors\ are\ computed\ for\ single-\/precision\ numbers,\ there\ is\ a\ single\ float}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00910}00910\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ (7.0385307e-\/26f)\ which\ can't\ be\ recovered\ using\ strtod.\ The\ resulting\ double\ precision}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00911}00911\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ value\ is\ off\ by\ 1\ ulp.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00912}00912\ \textcolor{preprocessor}{\#if\ 0}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00913}00913\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1boundaries}{boundaries}}\ w\ =\ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_a6a5ccf11847aab7a0f42f587b33935df}{compute\_boundaries}}(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}}));}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00914}00914\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00915}00915\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1boundaries}{boundaries}}\ w\ =\ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_a6a5ccf11847aab7a0f42f587b33935df}{compute\_boundaries}}(\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00916}00916\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00917}00917\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00918}00918\ \ \ \ \ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_ad549352ed1a9676a092d143a2daa3dee}{grisu2}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{len}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{decimal\_exponent}},\ w.\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1boundaries_aa3b1c7a566175a9ca2f23875dbbbccc4}{minus}},\ w.\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1boundaries_a4ca4291f3ebf758a4708698688dda485}{w}},\ w.\mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1boundaries_ae2d4dbee09b23c49dac2980e8f455d08}{plus}});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00919}00919\ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00920}00920\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00926}00926\ \mbox{\hyperlink{hedley_8hpp_a5338981b5ad9027c9e54b1c5597f4344}{JSON\_HEDLEY\_NON\_NULL}}(1)}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00927}00927\ \mbox{\hyperlink{hedley_8hpp_a5f2aaec3b681d0a72f7d6e90b70cdcd1}{JSON\_HEDLEY\_RETURNS\_NON\_NULL}}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00928}\mbox{\hyperlink{namespacedetail_1_1dtoa__impl_aec9f6655c3b629aeb0e8c887aea5da87}{00928}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{inline}}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_aec9f6655c3b629aeb0e8c887aea5da87}{append\_exponent}}(\textcolor{keywordtype}{char}*\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}},\ \textcolor{keywordtype}{int}\ e)}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00929}00929\ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00930}00930\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(e\ >\ -\/1000);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00931}00931\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(e\ <\ \ 1000);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00932}00932\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00933}00933\ \ \ \ \ \textcolor{keywordflow}{if}\ (e\ <\ 0)}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00934}00934\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00935}00935\ \ \ \ \ \ \ \ \ e\ =\ -\/e;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00936}00936\ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}++\ =\ \textcolor{charliteral}{'-\/'};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00937}00937\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00938}00938\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00939}00939\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00940}00940\ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}++\ =\ \textcolor{charliteral}{'+'};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00941}00941\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00942}00942\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00943}00943\ \ \ \ \ \textcolor{keyword}{auto}\ k\ =\ \textcolor{keyword}{static\_cast<}std::uint32\_t\textcolor{keyword}{>}(e);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00944}00944\ \ \ \ \ \textcolor{keywordflow}{if}\ (k\ <\ 10)}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00945}00945\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00946}00946\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Always\ print\ at\ least\ two\ digits\ in\ the\ exponent.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00947}00947\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ This\ is\ for\ compatibility\ with\ printf("{}\%g"{}).}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00948}00948\ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}++\ =\ \textcolor{charliteral}{'0'};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00949}00949\ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}++\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{char}\textcolor{keyword}{>}(\textcolor{charliteral}{'0'}\ +\ k);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00950}00950\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00951}00951\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (k\ <\ 100)}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00952}00952\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00953}00953\ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}++\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{char}\textcolor{keyword}{>}(\textcolor{charliteral}{'0'}\ +\ k\ /\ 10);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00954}00954\ \ \ \ \ \ \ \ \ k\ \%=\ 10;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00955}00955\ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}++\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{char}\textcolor{keyword}{>}(\textcolor{charliteral}{'0'}\ +\ k);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00956}00956\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00957}00957\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00958}00958\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00959}00959\ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}++\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{char}\textcolor{keyword}{>}(\textcolor{charliteral}{'0'}\ +\ k\ /\ 100);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00960}00960\ \ \ \ \ \ \ \ \ k\ \%=\ 100;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00961}00961\ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}++\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{char}\textcolor{keyword}{>}(\textcolor{charliteral}{'0'}\ +\ k\ /\ 10);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00962}00962\ \ \ \ \ \ \ \ \ k\ \%=\ 10;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00963}00963\ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}++\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{char}\textcolor{keyword}{>}(\textcolor{charliteral}{'0'}\ +\ k);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00964}00964\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00965}00965\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00966}00966\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00967}00967\ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00968}00968\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00978}00978\ \mbox{\hyperlink{hedley_8hpp_a5338981b5ad9027c9e54b1c5597f4344}{JSON\_HEDLEY\_NON\_NULL}}(1)}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00979}00979\ \mbox{\hyperlink{hedley_8hpp_a5f2aaec3b681d0a72f7d6e90b70cdcd1}{JSON\_HEDLEY\_RETURNS\_NON\_NULL}}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00980}\mbox{\hyperlink{namespacedetail_1_1dtoa__impl_afab91abfdd1cdf43cc2fcd5b9c4a7456}{00980}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{inline}}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_afab91abfdd1cdf43cc2fcd5b9c4a7456}{format\_buffer}}(\textcolor{keywordtype}{char}*\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{len}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{decimal\_exponent}},}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00981}00981\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{min\_exp}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{max\_exp}})}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00982}00982\ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00983}00983\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{min\_exp}}\ <\ 0);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00984}00984\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{max\_exp}}\ >\ 0);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00985}00985\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00986}00986\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ k\ =\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{len}};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00987}00987\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}}\ =\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{len}}\ +\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{decimal\_exponent}};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00988}00988\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00989}00989\ \ \ \ \ \textcolor{comment}{//\ v\ =\ buf\ *\ 10\string^(n-\/k)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00990}00990\ \ \ \ \ \textcolor{comment}{//\ k\ is\ the\ length\ of\ the\ buffer\ (number\ of\ decimal\ digits)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00991}00991\ \ \ \ \ \textcolor{comment}{//\ n\ is\ the\ position\ of\ the\ decimal\ point\ relative\ to\ the\ start\ of\ the\ buffer.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00992}00992\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00993}00993\ \ \ \ \ \textcolor{keywordflow}{if}\ (k\ <=\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}}\ \&\&\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}}\ <=\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{max\_exp}})}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00994}00994\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00995}00995\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ digits[000]}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00996}00996\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ len\ <=\ max\_exp\ +\ 2}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00997}00997\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00998}00998\ \ \ \ \ \ \ \ \ std::memset(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}\ +\ k,\ \textcolor{charliteral}{'0'},\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}})\ -\/\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(k));}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l00999}00999\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Make\ it\ look\ like\ a\ floating-\/point\ number\ (\#362,\ \#378)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01000}01000\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}[\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}}\ +\ 0]\ =\ \textcolor{charliteral}{'.'};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01001}01001\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}[\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}}\ +\ 1]\ =\ \textcolor{charliteral}{'0'};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01002}01002\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}\ +\ (\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}})\ +\ 2);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01003}01003\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01004}01004\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01005}01005\ \ \ \ \ \textcolor{keywordflow}{if}\ (0\ <\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}}\ \&\&\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}}\ <=\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{max\_exp}})}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01006}01006\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01007}01007\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ dig.its}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01008}01008\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ len\ <=\ max\_digits10\ +\ 1}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01009}01009\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01010}01010\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(k\ >\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01011}01011\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01012}01012\ \ \ \ \ \ \ \ \ std::memmove(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}\ +\ (\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}})\ +\ 1),\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}\ +\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}},\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(k)\ -\/\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}}));}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01013}01013\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}[\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}}]\ =\ \textcolor{charliteral}{'.'};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01014}01014\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}\ +\ (\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(k)\ +\ 1U);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01015}01015\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01016}01016\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01017}01017\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{min\_exp}}\ <\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}}\ \&\&\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}}\ <=\ 0)}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01018}01018\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01019}01019\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0.[000]digits}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01020}01020\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ len\ <=\ 2\ +\ (-\/min\_exp\ -\/\ 1)\ +\ max\_digits10}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01021}01021\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01022}01022\ \ \ \ \ \ \ \ \ std::memmove(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}\ +\ (2\ +\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(-\/\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}})),\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}},\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(k));}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01023}01023\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}[0]\ =\ \textcolor{charliteral}{'0'};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01024}01024\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}[1]\ =\ \textcolor{charliteral}{'.'};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01025}01025\ \ \ \ \ \ \ \ \ std::memset(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}\ +\ 2,\ \textcolor{charliteral}{'0'},\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(-\/\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}}));}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01026}01026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}\ +\ (2U\ +\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(-\/\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}})\ +\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(k));}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01027}01027\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01028}01028\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01029}01029\ \ \ \ \ \textcolor{keywordflow}{if}\ (k\ ==\ 1)}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01030}01030\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01031}01031\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ dE+123}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01032}01032\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ len\ <=\ 1\ +\ 5}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01033}01033\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01034}01034\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}\ +=\ 1;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01035}01035\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01036}01036\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01037}01037\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01038}01038\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ d.igitsE+123}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01039}01039\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ len\ <=\ max\_digits10\ +\ 1\ +\ 5}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01040}01040\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01041}01041\ \ \ \ \ \ \ \ \ std::memmove(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}\ +\ 2,\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}\ +\ 1,\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(k)\ -\/\ 1);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01042}01042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}[1]\ =\ \textcolor{charliteral}{'.'};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01043}01043\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}\ +=\ 1\ +\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(k);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01044}01044\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01045}01045\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01046}01046\ \ \ \ \ *\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}}++\ =\ \textcolor{charliteral}{'e'};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01047}01047\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_aec9f6655c3b629aeb0e8c887aea5da87}{append\_exponent}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{buf}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}}\ -\/\ 1);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01048}01048\ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01049}01049\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01050}01050\ \}\ \ \textcolor{comment}{//\ namespace\ dtoa\_impl}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01051}01051\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01062}01062\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ FloatType>}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01063}01063\ \mbox{\hyperlink{hedley_8hpp_a5338981b5ad9027c9e54b1c5597f4344}{JSON\_HEDLEY\_NON\_NULL}}(1,\ 2)}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01064}01064\ \mbox{\hyperlink{hedley_8hpp_a5f2aaec3b681d0a72f7d6e90b70cdcd1}{JSON\_HEDLEY\_RETURNS\_NON\_NULL}}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01065}\mbox{\hyperlink{namespacedetail_a3f0588f1a546b169113e6e1e293168f4}{01065}}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{namespacedetail_a3f0588f1a546b169113e6e1e293168f4}{to\_chars}}(\textcolor{keywordtype}{char}*\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{first}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{const}}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{last}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{FloatType}}\ \mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}})}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01066}01066\ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01067}01067\ \ \ \ \ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{void}\textcolor{keyword}{>}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{last}});\ \textcolor{comment}{//\ maybe\ unused\ -\/\ fix\ warning}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01068}01068\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(std::isfinite(\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}}));}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01069}01069\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01070}01070\ \ \ \ \ \textcolor{comment}{//\ Use\ signbit(value)\ instead\ of\ (value\ <\ 0)\ since\ signbit\ works\ for\ -\/0.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01071}01071\ \ \ \ \ \textcolor{keywordflow}{if}\ (std::signbit(\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}}))}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01072}01072\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01073}01073\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}}\ =\ -\/\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01074}01074\ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{first}}++\ =\ \textcolor{charliteral}{'-\/'};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01075}01075\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01076}01076\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01077}01077\ \textcolor{preprocessor}{\#ifdef\ \_\_GNUC\_\_}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01078}01078\ \textcolor{preprocessor}{\#pragma\ GCC\ diagnostic\ push}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01079}01079\ \textcolor{preprocessor}{\#pragma\ GCC\ diagnostic\ ignored\ "{}-\/Wfloat-\/equal"{}}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01080}01080\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01081}01081\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}}\ ==\ 0)\ \textcolor{comment}{//\ +-\/0}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01082}01082\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01083}01083\ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{first}}++\ =\ \textcolor{charliteral}{'0'};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01084}01084\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Make\ it\ look\ like\ a\ floating-\/point\ number\ (\#362,\ \#378)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01085}01085\ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{first}}++\ =\ \textcolor{charliteral}{'.'};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01086}01086\ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{first}}++\ =\ \textcolor{charliteral}{'0'};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01087}01087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{first}};}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01088}01088\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01089}01089\ \textcolor{preprocessor}{\#ifdef\ \_\_GNUC\_\_}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01090}01090\ \textcolor{preprocessor}{\#pragma\ GCC\ diagnostic\ pop}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01091}01091\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01092}01092\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01093}01093\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{last}}\ -\/\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{first}}\ >=\ std::numeric\_limits<FloatType>::max\_digits10);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01094}01094\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01095}01095\ \ \ \ \ \textcolor{comment}{//\ Compute\ v\ =\ buffer\ *\ 10\string^decimal\_exponent.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01096}01096\ \ \ \ \ \textcolor{comment}{//\ The\ decimal\ digits\ are\ stored\ in\ the\ buffer,\ which\ needs\ to\ be\ interpreted}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01097}01097\ \ \ \ \ \textcolor{comment}{//\ as\ an\ unsigned\ decimal\ integer.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01098}01098\ \ \ \ \ \textcolor{comment}{//\ len\ is\ the\ length\ of\ the\ buffer,\ i.e.\ the\ number\ of\ decimal\ digits.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01099}01099\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{len}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01100}01100\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{decimal\_exponent}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01101}01101\ \ \ \ \ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_ad549352ed1a9676a092d143a2daa3dee}{dtoa\_impl::grisu2}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{first}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{len}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{decimal\_exponent}},\ \mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01102}01102\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01103}01103\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{len}}\ <=\ std::numeric\_limits<FloatType>::max\_digits10);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01104}01104\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01105}01105\ \ \ \ \ \textcolor{comment}{//\ Format\ the\ buffer\ like\ printf("{}\%.*g"{},\ prec,\ value)}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01106}01106\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{kMinExp}}\ =\ -\/4;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01107}01107\ \ \ \ \ \textcolor{comment}{//\ Use\ digits10\ here\ to\ increase\ compatibility\ with\ version\ 2.}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01108}01108\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{kMaxExp}}\ =\ std::numeric\_limits<FloatType>::digits10;}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01109}01109\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01110}01110\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{last}}\ -\/\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{first}}\ >=\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{kMaxExp}}\ +\ 2);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01111}01111\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{last}}\ -\/\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{first}}\ >=\ 2\ +\ (-\/\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{kMinExp}}\ -\/\ 1)\ +\ std::numeric\_limits<FloatType>::max\_digits10);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01112}01112\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{last}}\ -\/\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{first}}\ >=\ std::numeric\_limits<FloatType>::max\_digits10\ +\ 6);}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01113}01113\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01114}01114\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_afab91abfdd1cdf43cc2fcd5b9c4a7456}{dtoa\_impl::format\_buffer}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{first}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{len}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{decimal\_exponent}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{kMinExp}},\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{kMaxExp}});}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01115}01115\ \}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01116}01116\ }
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01117}01117\ \}\ \ \textcolor{comment}{//\ namespace\ detail}}
+\DoxyCodeLine{\Hypertarget{to__chars_8hpp_source_l01118}01118\ \mbox{\hyperlink{abi__macros_8hpp_a9a4005b8c985f1d04dcc87918cab2019}{NLOHMANN\_JSON\_NAMESPACE\_END}}}
+
+\end{DoxyCode}

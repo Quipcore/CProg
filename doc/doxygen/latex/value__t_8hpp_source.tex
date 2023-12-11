@@ -1,0 +1,85 @@
+\doxysection{value\+\_\+t.\+hpp}
+\hypertarget{value__t_8hpp_source}{}\label{value__t_8hpp_source}\index{E:/Code/Skola/Su/CProg/CProg-\/Project/include/nlohmann/detail/value\_t.hpp@{E:/Code/Skola/Su/CProg/CProg-\/Project/include/nlohmann/detail/value\_t.hpp}}
+\mbox{\hyperlink{value__t_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00001}00001\ \textcolor{comment}{//\ \ \ \ \ \_\_\ \_\_\_\_\_\ \_\_\_\_\_\ \_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00002}00002\ \textcolor{comment}{//\ \ \_\_|\ \ |\ \ \ \_\_|\ \ \ \ \ |\ \ \ |\ |\ \ JSON\ for\ Modern\ C++}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00003}00003\ \textcolor{comment}{//\ |\ \ |\ \ |\_\_\ \ \ |\ \ |\ \ |\ |\ |\ |\ \ version\ 3.11.2}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00004}00004\ \textcolor{comment}{//\ |\_\_\_\_\_|\_\_\_\_\_|\_\_\_\_\_|\_|\_\_\_|\ \ https://github.com/nlohmann/json}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00005}00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00006}00006\ \textcolor{comment}{//\ SPDX-\/FileCopyrightText:\ 2013-\/2022\ Niels\ Lohmann\ <https://nlohmann.me>}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00007}00007\ \textcolor{comment}{//\ SPDX-\/License-\/Identifier:\ MIT}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00009}00009\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <array>}\ \textcolor{comment}{//\ array}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <cstddef>}\ \textcolor{comment}{//\ size\_t}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <cstdint>}\ \textcolor{comment}{//\ uint8\_t}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <string>}\ \textcolor{comment}{//\ string}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00016}00016\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{macro__scope_8hpp}{nlohmann/detail/macro\_scope.hpp}}>}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00017}00017\ \textcolor{preprocessor}{\#if\ JSON\_HAS\_THREE\_WAY\_COMPARISON}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00018}00018\ \textcolor{preprocessor}{\ \ \ \ \#include\ <compare>}\ \textcolor{comment}{//\ partial\_ordering}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00019}00019\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00021}00021\ \mbox{\hyperlink{abi__macros_8hpp_ac7a66dcd7a3ddd51927365b7f804d95e}{NLOHMANN\_JSON\_NAMESPACE\_BEGIN}}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00022}00022\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacedetail}{detail}}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00023}00023\ \{}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00026}00026\ \textcolor{comment}{//\ JSON\ type\ enumeration\ //}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00053}\mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632}{00053}}\ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632}{value\_t}}\ :\ std::uint8\_t}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00054}00054\ \{}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00055}00055\ \ \ \ \ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a37a6259cc0c1dae299a7866489dff0bd}{null}},\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00056}00056\ \ \ \ \ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632aa8cfde6331bd59eb2ac96f8911c4b666}{object}},\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00057}00057\ \ \ \ \ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632af1f713c9e000f5d3f280adbd124df4f5}{array}},\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00058}00058\ \ \ \ \ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ab45cffe084dd3d20d928bee85e7b0f21}{string}},\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00059}00059\ \ \ \ \ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a84e2c64f38f78ba3ea5c905ab5a2da27}{boolean}},\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00060}00060\ \ \ \ \ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a5763da164f8659d94a56e29df64b4bcc}{number\_integer}},\ \ \ }
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00061}00061\ \ \ \ \ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632adce7cc8ec29055c4158828921f2f265e}{number\_unsigned}},\ \ }
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00062}00062\ \ \ \ \ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ad9966ecb59667235a57b4b999a649eef}{number\_float}},\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00063}00063\ \ \ \ \ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a9d7183f16acce70658f686ae7f1a4d20}{binary}},\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00064}00064\ \ \ \ \ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a94708897ec9db8647dfe695714c98e46}{discarded}}\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00065}00065\ \};}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00080}00080\ \textcolor{preprocessor}{\#if\ JSON\_HAS\_THREE\_WAY\_COMPARISON}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00081}00081\ \ \ \ \ \textcolor{keyword}{inline}\ std::partial\_ordering\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{operator<=>}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632}{value\_t}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{lhs}},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632}{value\_t}}\ rhs)\ \textcolor{keyword}{noexcept}\ \textcolor{comment}{//\ *NOPAD*}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00082}00082\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00083}\mbox{\hyperlink{namespacedetail_aac7ca91589afb0bad68baec5949daaa2}{00083}}\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespacedetail_aac7ca91589afb0bad68baec5949daaa2}{operator<}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632}{value\_t}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{lhs}},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632}{value\_t}}\ rhs)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00084}00084\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00085}00085\ \{}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00086}00086\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ std::array<std::uint8\_t,\ 9>\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{order}}\ =\ \{\{}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ 0\ \textcolor{comment}{/*\ null\ */},\ 3\ \textcolor{comment}{/*\ object\ */},\ 4\ \textcolor{comment}{/*\ array\ */},\ 5\ \textcolor{comment}{/*\ string\ */},}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ 1\ \textcolor{comment}{/*\ boolean\ */},\ 2\ \textcolor{comment}{/*\ integer\ */},\ 2\ \textcolor{comment}{/*\ unsigned\ */},\ 2\ \textcolor{comment}{/*\ float\ */},}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ 6\ \textcolor{comment}{/*\ binary\ */}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00090}00090\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00091}00091\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00093}00093\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{l\_index}}\ =\ \textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{lhs}});}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00094}00094\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{r\_index}}\ =\ \textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(rhs);}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00095}00095\ \textcolor{preprocessor}{\#if\ JSON\_HAS\_THREE\_WAY\_COMPARISON}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00096}00096\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{l\_index}}\ <\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{order}}.size()\ \&\&\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{r\_index}}\ <\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{order}}.size())}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00097}00097\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{order}}[\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{l\_index}}]\ <=>\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{order}}[\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{r\_index}}];\ \textcolor{comment}{//\ *NOPAD*}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00099}00099\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00100}00100\ \ \ \ \ \textcolor{keywordflow}{return}\ std::partial\_ordering::unordered;}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00101}00101\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00102}00102\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{l\_index}}\ <\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{order}}.size()\ \&\&\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{r\_index}}\ <\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{order}}.size()\ \&\&\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{order}}[\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{l\_index}}]\ <\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{order}}[\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{r\_index}}];}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00103}00103\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00104}00104\ \}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00106}00106\ \textcolor{comment}{//\ GCC\ selects\ the\ built-\/in\ operator<\ over\ an\ operator\ rewritten\ from}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00107}00107\ \textcolor{comment}{//\ a\ user-\/defined\ spaceship\ operator}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00108}00108\ \textcolor{comment}{//\ Clang,\ MSVC,\ and\ ICC\ select\ the\ rewritten\ candidate}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00109}00109\ \textcolor{comment}{//\ (see\ GCC\ bug\ https://gcc.gnu.org/bugzilla/show\_bug.cgi?id=105200)}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00110}00110\ \textcolor{preprocessor}{\#if\ JSON\_HAS\_THREE\_WAY\_COMPARISON\ \&\&\ defined(\_\_GNUC\_\_)}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00111}00111\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespacedetail_aac7ca91589afb0bad68baec5949daaa2}{operator<}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632}{value\_t}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{lhs}},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632}{value\_t}}\ rhs)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00112}00112\ \{}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00113}00113\ \ \ \ \ \textcolor{keywordflow}{return}\ std::is\_lt(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{lhs\ <=>}}\ rhs);\ \textcolor{comment}{//\ *NOPAD*}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00114}00114\ \}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00115}00115\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00117}00117\ \}\ \ \textcolor{comment}{//\ namespace\ detail}}
+\DoxyCodeLine{\Hypertarget{value__t_8hpp_source_l00118}00118\ \mbox{\hyperlink{abi__macros_8hpp_a9a4005b8c985f1d04dcc87918cab2019}{NLOHMANN\_JSON\_NAMESPACE\_END}}}
+
+\end{DoxyCode}

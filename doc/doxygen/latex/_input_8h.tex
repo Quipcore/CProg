@@ -1,0 +1,198 @@
+\doxysection{E\+:/\+Code/\+Skola/\+Su/\+CProg/\+CProg-\/\+Project/include/springhawk/\+Input.h File Reference}
+\hypertarget{_input_8h}{}\label{_input_8h}\index{E:/Code/Skola/Su/CProg/CProg-\/Project/include/springhawk/Input.h@{E:/Code/Skola/Su/CProg/CProg-\/Project/include/springhawk/Input.h}}
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include "{}SDL2/\+SDL.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_input}{Input}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142}{Keycode}} \{ \newline
+\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a42a4ade1acd55a49164099104990e09f}{A}}
+, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a3f2a77ecd272aa6d6b5902faa5e5fc68}{B}}
+, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a739ce3f516592d245d16fd8a3893472c}{C}}
+, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a77a6b11f9898c052926f1d49765861e8}{D}}
+, \newline
+\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ab199e021998d49b1f09338d8b9b18ecb}{E}}
+, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142af382a63cc3d6491bf26b59e66f46826d}{F}}
+, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a2fe993340f6abb2234e543cd427df70b}{G}}
+, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a5008b1179f399a2273fd3f6a7fc3b292}{H}}
+, \newline
+\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ad091b8e376f7cf432dc367e1eda65e85}{I}}
+, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a03605500b0c55f3d95874e8edfcf4e30}{J}}
+, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a660a38111995acbeb2820648e82f0d8c}{K}}
+, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142aef31cc6fe9479955961311ee18ac205f}{L}}
+, \newline
+\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a51ca6c63d97347ee58cc7da59ab6994b}{M}}
+, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a2c63acbe79d9f41ba6bb7766e9c37702}{N}}
+, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142af4b8b7698dfedf5562a7db2bdb07010a}{O}}
+, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a82f05f38f6a17b117cdd2b83227912c6}{P}}
+, \newline
+\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142aa53ab217f1572250a530c8c2b3c820cf}{Q}}
+, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a1784b1a3d7cbd43c45ff82c72d05e4ae}{R}}
+, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142af1ce01387d2348f8b858721a7db81670}{S}}
+, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}}
+, \newline
+\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ac461e84f27bbb236874e1011cd66031f}{U}}
+, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a28f41f1144eee94834387e9a6a088bc1}{V}}
+, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ab722ceeb601c72cd78fbd35f3581fdf7}{W}}
+, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a58833a3110c570fb05130d40c365d1e4}{X}}
+, \newline
+\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a5596231eabd6cf29050967d5ac83ad84}{Y}}
+, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142aa70478ce277ffc322f8e1e3418e07355}{Z}}
+, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ac08dae7edcb5c5bb959fee5971fbad95}{SPACE}}
+, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a951ab68bb8f7daafb78951107080904e}{ENTER}}
+, \newline
+\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a0a311695a4f6c56869245418bebeb33d}{ESCAPE}}
+, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a920380215591395ea33ee5df8e293e19}{TAB}}
+, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ac2356116ba1e129b15ca1e29da738e6c}{NUM\+\_\+\+PLUS}}
+, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a3e660ede510b6aa2de158c360ac780f8}{NUM\+\_\+\+MINUS}}
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142} 
+\index{Input.h@{Input.h}!Keycode@{Keycode}}
+\index{Keycode@{Keycode}!Input.h@{Input.h}}
+\doxysubsubsection{\texorpdfstring{Keycode}{Keycode}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142}{Keycode}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{A@{A}!Input.h@{Input.h}}\index{Input.h@{Input.h}!A@{A}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a42a4ade1acd55a49164099104990e09f}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a42a4ade1acd55a49164099104990e09f} 
+A&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{B@{B}!Input.h@{Input.h}}\index{Input.h@{Input.h}!B@{B}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a3f2a77ecd272aa6d6b5902faa5e5fc68}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a3f2a77ecd272aa6d6b5902faa5e5fc68} 
+B&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{C@{C}!Input.h@{Input.h}}\index{Input.h@{Input.h}!C@{C}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a739ce3f516592d245d16fd8a3893472c}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a739ce3f516592d245d16fd8a3893472c} 
+C&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{D@{D}!Input.h@{Input.h}}\index{Input.h@{Input.h}!D@{D}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a77a6b11f9898c052926f1d49765861e8}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a77a6b11f9898c052926f1d49765861e8} 
+D&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E@{E}!Input.h@{Input.h}}\index{Input.h@{Input.h}!E@{E}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ab199e021998d49b1f09338d8b9b18ecb}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ab199e021998d49b1f09338d8b9b18ecb} 
+E&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{F@{F}!Input.h@{Input.h}}\index{Input.h@{Input.h}!F@{F}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142af382a63cc3d6491bf26b59e66f46826d}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142af382a63cc3d6491bf26b59e66f46826d} 
+F&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{G@{G}!Input.h@{Input.h}}\index{Input.h@{Input.h}!G@{G}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a2fe993340f6abb2234e543cd427df70b}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a2fe993340f6abb2234e543cd427df70b} 
+G&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{H@{H}!Input.h@{Input.h}}\index{Input.h@{Input.h}!H@{H}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a5008b1179f399a2273fd3f6a7fc3b292}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a5008b1179f399a2273fd3f6a7fc3b292} 
+H&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{I@{I}!Input.h@{Input.h}}\index{Input.h@{Input.h}!I@{I}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ad091b8e376f7cf432dc367e1eda65e85}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ad091b8e376f7cf432dc367e1eda65e85} 
+I&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{J@{J}!Input.h@{Input.h}}\index{Input.h@{Input.h}!J@{J}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a03605500b0c55f3d95874e8edfcf4e30}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a03605500b0c55f3d95874e8edfcf4e30} 
+J&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{K@{K}!Input.h@{Input.h}}\index{Input.h@{Input.h}!K@{K}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a660a38111995acbeb2820648e82f0d8c}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a660a38111995acbeb2820648e82f0d8c} 
+K&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{L@{L}!Input.h@{Input.h}}\index{Input.h@{Input.h}!L@{L}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142aef31cc6fe9479955961311ee18ac205f}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142aef31cc6fe9479955961311ee18ac205f} 
+L&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M@{M}!Input.h@{Input.h}}\index{Input.h@{Input.h}!M@{M}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a51ca6c63d97347ee58cc7da59ab6994b}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a51ca6c63d97347ee58cc7da59ab6994b} 
+M&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{N@{N}!Input.h@{Input.h}}\index{Input.h@{Input.h}!N@{N}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a2c63acbe79d9f41ba6bb7766e9c37702}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a2c63acbe79d9f41ba6bb7766e9c37702} 
+N&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{O@{O}!Input.h@{Input.h}}\index{Input.h@{Input.h}!O@{O}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142af4b8b7698dfedf5562a7db2bdb07010a}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142af4b8b7698dfedf5562a7db2bdb07010a} 
+O&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{P@{P}!Input.h@{Input.h}}\index{Input.h@{Input.h}!P@{P}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a82f05f38f6a17b117cdd2b83227912c6}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a82f05f38f6a17b117cdd2b83227912c6} 
+P&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Q@{Q}!Input.h@{Input.h}}\index{Input.h@{Input.h}!Q@{Q}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142aa53ab217f1572250a530c8c2b3c820cf}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142aa53ab217f1572250a530c8c2b3c820cf} 
+Q&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{R@{R}!Input.h@{Input.h}}\index{Input.h@{Input.h}!R@{R}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a1784b1a3d7cbd43c45ff82c72d05e4ae}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a1784b1a3d7cbd43c45ff82c72d05e4ae} 
+R&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S@{S}!Input.h@{Input.h}}\index{Input.h@{Input.h}!S@{S}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142af1ce01387d2348f8b858721a7db81670}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142af1ce01387d2348f8b858721a7db81670} 
+S&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{T@{T}!Input.h@{Input.h}}\index{Input.h@{Input.h}!T@{T}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce} 
+T&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U@{U}!Input.h@{Input.h}}\index{Input.h@{Input.h}!U@{U}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ac461e84f27bbb236874e1011cd66031f}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ac461e84f27bbb236874e1011cd66031f} 
+U&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{V@{V}!Input.h@{Input.h}}\index{Input.h@{Input.h}!V@{V}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a28f41f1144eee94834387e9a6a088bc1}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a28f41f1144eee94834387e9a6a088bc1} 
+V&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{W@{W}!Input.h@{Input.h}}\index{Input.h@{Input.h}!W@{W}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ab722ceeb601c72cd78fbd35f3581fdf7}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ab722ceeb601c72cd78fbd35f3581fdf7} 
+W&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{X@{X}!Input.h@{Input.h}}\index{Input.h@{Input.h}!X@{X}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a58833a3110c570fb05130d40c365d1e4}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a58833a3110c570fb05130d40c365d1e4} 
+X&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Y@{Y}!Input.h@{Input.h}}\index{Input.h@{Input.h}!Y@{Y}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a5596231eabd6cf29050967d5ac83ad84}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a5596231eabd6cf29050967d5ac83ad84} 
+Y&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Z@{Z}!Input.h@{Input.h}}\index{Input.h@{Input.h}!Z@{Z}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142aa70478ce277ffc322f8e1e3418e07355}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142aa70478ce277ffc322f8e1e3418e07355} 
+Z&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPACE@{SPACE}!Input.h@{Input.h}}\index{Input.h@{Input.h}!SPACE@{SPACE}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ac08dae7edcb5c5bb959fee5971fbad95}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ac08dae7edcb5c5bb959fee5971fbad95} 
+SPACE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ENTER@{ENTER}!Input.h@{Input.h}}\index{Input.h@{Input.h}!ENTER@{ENTER}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a951ab68bb8f7daafb78951107080904e}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a951ab68bb8f7daafb78951107080904e} 
+ENTER&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ESCAPE@{ESCAPE}!Input.h@{Input.h}}\index{Input.h@{Input.h}!ESCAPE@{ESCAPE}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a0a311695a4f6c56869245418bebeb33d}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a0a311695a4f6c56869245418bebeb33d} 
+ESCAPE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TAB@{TAB}!Input.h@{Input.h}}\index{Input.h@{Input.h}!TAB@{TAB}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a920380215591395ea33ee5df8e293e19}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a920380215591395ea33ee5df8e293e19} 
+TAB&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NUM\_PLUS@{NUM\_PLUS}!Input.h@{Input.h}}\index{Input.h@{Input.h}!NUM\_PLUS@{NUM\_PLUS}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ac2356116ba1e129b15ca1e29da738e6c}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ac2356116ba1e129b15ca1e29da738e6c} 
+NUM\+\_\+\+PLUS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NUM\_MINUS@{NUM\_MINUS}!Input.h@{Input.h}}\index{Input.h@{Input.h}!NUM\_MINUS@{NUM\_MINUS}}}\Hypertarget{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a3e660ede510b6aa2de158c360ac780f8}\label{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a3e660ede510b6aa2de158c360ac780f8} 
+NUM\+\_\+\+MINUS&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_input_8h_source_l00014}{14}} of file \mbox{\hyperlink{_input_8h_source}{Input.\+h}}.
+

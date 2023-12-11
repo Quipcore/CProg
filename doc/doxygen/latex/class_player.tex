@@ -1,0 +1,143 @@
+\doxysection{Player Class Reference}
+\hypertarget{class_player}{}\label{class_player}\index{Player@{Player}}
+
+
+{\ttfamily \#include $<$Player.\+h$>$}
+
+Inheritance diagram for Player\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_player}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_player_affe0cc3cb714f6deb4e62f0c0d3f1fd8}{Player}} ()
+\item 
+\mbox{\hyperlink{class_player_a8826850c4f8a2871819713ef61148836}{Player}} (const \mbox{\hyperlink{class_player}{Player}} \&)
+\item 
+\mbox{\hyperlink{class_player_aa3df5b0c3d9b301cf98bac45882a082b}{Player}} (\mbox{\hyperlink{class_map}{Map}} \texorpdfstring{$\ast$}{*}map)
+\item 
+virtual void \mbox{\hyperlink{class_player_a6912bb6e48efb5845d59f0f4582827ef}{update}} () override
+\item 
+virtual \mbox{\hyperlink{struct_color}{Color}} \mbox{\hyperlink{class_player_af5bc51db8ef9aaa7a3b529e7a3e90a89}{get\+Color}} () override
+\item 
+int \mbox{\hyperlink{class_player_ab41105796f7cb0576127a878d468736b}{get\+Line\+Count}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_game_object}{Game\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_game_object_a49f0fc91c3048ec583044e7a1b9c2518}{Game\+Object}} ()=default
+\item 
+\mbox{\hyperlink{class_game_object_aac8336499118faec34e0f406c022a25a}{\texorpdfstring{$\sim$}{\string~}\+Game\+Object}} ()=default
+\item 
+double \mbox{\hyperlink{class_game_object_abbd45990e855fd14fab7dfc974ec09d4}{get\+Angle}} () const
+\item 
+\mbox{\hyperlink{class_vector2}{Vector2}} \& \mbox{\hyperlink{class_game_object_aa5058297336152deeec335b923ca821a}{get\+Position}} ()
+\item 
+void \mbox{\hyperlink{class_game_object_af6c8a969ef030f8eeb3275ca39432453}{set\+Position}} (\mbox{\hyperlink{class_vector2}{Vector2}} \&\mbox{\hyperlink{class_game_object_a7b3fe962887a1512fade34a2d9427be6}{position}})
+\item 
+void \mbox{\hyperlink{class_game_object_aba330524a508b880bce6822b0746d900}{set\+Texture}} (SDL\+\_\+\+Renderer \&renderer, std\+::string path)
+\item 
+SDL\+\_\+\+Texture \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_game_object_af5a5f97ec626cbd7724fa0bea7c62399}{get\+Texture}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_game_object}{Game\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_vector2}{Vector2}} \mbox{\hyperlink{class_game_object_a7b3fe962887a1512fade34a2d9427be6}{position}}
+\item 
+\mbox{\hyperlink{struct_color}{Color}} \mbox{\hyperlink{class_game_object_a1427a7ea145b8306b59d623d7e20fa6e}{color}}
+\item 
+double \mbox{\hyperlink{class_game_object_ac7ea0b9874b8ee9f1dbfbb5d95393338}{angle}} = 0
+\item 
+SDL\+\_\+\+Texture \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_game_object_a01accf16dabf8b1006e3df597dc1728a}{texture}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00009}{9}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_player_affe0cc3cb714f6deb4e62f0c0d3f1fd8}\label{class_player_affe0cc3cb714f6deb4e62f0c0d3f1fd8} 
+\index{Player@{Player}!Player@{Player}}
+\index{Player@{Player}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{Player()}{Player()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Player\+::\+Player (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00011}{11}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+\Hypertarget{class_player_a8826850c4f8a2871819713ef61148836}\label{class_player_a8826850c4f8a2871819713ef61148836} 
+\index{Player@{Player}!Player@{Player}}
+\index{Player@{Player}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{Player()}{Player()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Player\+::\+Player (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_player}{Player}} \&}]{player }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00024}{24}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+\Hypertarget{class_player_aa3df5b0c3d9b301cf98bac45882a082b}\label{class_player_aa3df5b0c3d9b301cf98bac45882a082b} 
+\index{Player@{Player}!Player@{Player}}
+\index{Player@{Player}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{Player()}{Player()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Player\+::\+Player (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_map}{Map}} \texorpdfstring{$\ast$}{*}}]{map }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00018}{18}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_player_af5bc51db8ef9aaa7a3b529e7a3e90a89}\label{class_player_af5bc51db8ef9aaa7a3b529e7a3e90a89} 
+\index{Player@{Player}!getColor@{getColor}}
+\index{getColor@{getColor}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{getColor()}{getColor()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_color}{Color}} Player\+::get\+Color (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_game_object_ac550fca5812334bc562532edf91e79af}{Game\+Object}}.
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00086}{86}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+\Hypertarget{class_player_ab41105796f7cb0576127a878d468736b}\label{class_player_ab41105796f7cb0576127a878d468736b} 
+\index{Player@{Player}!getLineCount@{getLineCount}}
+\index{getLineCount@{getLineCount}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{getLineCount()}{getLineCount()}}
+{\footnotesize\ttfamily int Player\+::get\+Line\+Count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00092}{92}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+\Hypertarget{class_player_a6912bb6e48efb5845d59f0f4582827ef}\label{class_player_a6912bb6e48efb5845d59f0f4582827ef} 
+\index{Player@{Player}!update@{update}}
+\index{update@{update}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Player\+::update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_game_object_a3892a2215f99c5b76e95130a3a21254c}{Game\+Object}}.
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00035}{35}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+E\+:/\+Code/\+Skola/\+Su/\+CProg/\+CProg-\/\+Project/include/scripts/\mbox{\hyperlink{_player_8h}{Player.\+h}}\item 
+E\+:/\+Code/\+Skola/\+Su/\+CProg/\+CProg-\/\+Project/src/scripts/\mbox{\hyperlink{_player_8cpp}{Player.\+cpp}}\end{DoxyCompactItemize}

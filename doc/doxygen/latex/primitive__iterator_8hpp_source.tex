@@ -1,0 +1,133 @@
+\doxysection{primitive\+\_\+iterator.\+hpp}
+\hypertarget{primitive__iterator_8hpp_source}{}\label{primitive__iterator_8hpp_source}\index{E:/Code/Skola/Su/CProg/CProg-\/Project/include/nlohmann/detail/iterators/primitive\_iterator.hpp@{E:/Code/Skola/Su/CProg/CProg-\/Project/include/nlohmann/detail/iterators/primitive\_iterator.hpp}}
+\mbox{\hyperlink{primitive__iterator_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00001}00001\ \textcolor{comment}{//\ \ \ \ \ \_\_\ \_\_\_\_\_\ \_\_\_\_\_\ \_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00002}00002\ \textcolor{comment}{//\ \ \_\_|\ \ |\ \ \ \_\_|\ \ \ \ \ |\ \ \ |\ |\ \ JSON\ for\ Modern\ C++}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00003}00003\ \textcolor{comment}{//\ |\ \ |\ \ |\_\_\ \ \ |\ \ |\ \ |\ |\ |\ |\ \ version\ 3.11.2}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00004}00004\ \textcolor{comment}{//\ |\_\_\_\_\_|\_\_\_\_\_|\_\_\_\_\_|\_|\_\_\_|\ \ https://github.com/nlohmann/json}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00005}00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00006}00006\ \textcolor{comment}{//\ SPDX-\/FileCopyrightText:\ 2013-\/2022\ Niels\ Lohmann\ <https://nlohmann.me>}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00007}00007\ \textcolor{comment}{//\ SPDX-\/License-\/Identifier:\ MIT}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00009}00009\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <cstddef>}\ \textcolor{comment}{//\ ptrdiff\_t}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <limits>}\ \ \textcolor{comment}{//\ numeric\_limits}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{macro__scope_8hpp}{nlohmann/detail/macro\_scope.hpp}}>}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00016}00016\ \mbox{\hyperlink{abi__macros_8hpp_ac7a66dcd7a3ddd51927365b7f804d95e}{NLOHMANN\_JSON\_NAMESPACE\_BEGIN}}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00017}00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacedetail}{detail}}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00018}00018\ \{}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00020}00020\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00021}00021\ \textcolor{comment}{@brief\ an\ iterator\ for\ primitive\ JSON\ types}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00022}00022\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00023}00023\ \textcolor{comment}{This\ class\ models\ an\ iterator\ for\ primitive\ JSON\ types\ (boolean,\ number,}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00024}00024\ \textcolor{comment}{string).\ It's\ only\ purpose\ is\ to\ allow\ the\ iterator/const\_iterator\ classes}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00025}00025\ \textcolor{comment}{to\ "{}iterate"{}\ over\ primitive\ values.\ Internally,\ the\ iterator\ is\ modeled\ by}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00026}00026\ \textcolor{comment}{a\ \`{}difference\_type`\ variable.\ Value\ begin\_value\ (`0`)\ models\ the\ begin,}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00027}00027\ \textcolor{comment}{end\_value\ (`1`)\ models\ past\ the\ end.}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00028}00028\ \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00029}\mbox{\hyperlink{classdetail_1_1primitive__iterator__t}{00029}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetail_1_1primitive__iterator__t}{primitive\_iterator\_t}}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00030}00030\ \{}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00031}00031\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00032}00032\ \ \ \ \ \textcolor{keyword}{using\ }difference\_type\ =\ std::ptrdiff\_t;}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00033}00033\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ difference\_type\ begin\_value\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00034}00034\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ difference\_type\ end\_value\ =\ begin\_value\ +\ 1;}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00036}00036\ \ \ \mbox{\hyperlink{macro__scope_8hpp_a2cf645f34610e7f7d6e09ab88a2ab917}{JSON\_PRIVATE\_UNLESS\_TESTED}}:}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00038}00038\ \ \ \ \ difference\_type\ m\_it\ =\ (std::numeric\_limits<std::ptrdiff\_t>::min)();}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00040}00040\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00041}\mbox{\hyperlink{classdetail_1_1primitive__iterator__t_abc361e982ed6a4545dde3a30f9212d9b}{00041}}\ \ \ \ \ \textcolor{keyword}{constexpr}\ difference\_type\ \mbox{\hyperlink{classdetail_1_1primitive__iterator__t_abc361e982ed6a4545dde3a30f9212d9b}{get\_value}}()\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{const}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{noexcept}}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00042}00042\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_it;}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00044}00044\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00047}\mbox{\hyperlink{classdetail_1_1primitive__iterator__t_ae05402e355829cd46a9b31365a7b1a49}{00047}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdetail_1_1primitive__iterator__t_ae05402e355829cd46a9b31365a7b1a49}{set\_begin}}()\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{noexcept}}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00048}00048\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00049}00049\ \ \ \ \ \ \ \ \ m\_it\ =\ begin\_value;}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00050}00050\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00053}\mbox{\hyperlink{classdetail_1_1primitive__iterator__t_a761383c368d1c32f11bbeb31a04e6488}{00053}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdetail_1_1primitive__iterator__t_a761383c368d1c32f11bbeb31a04e6488}{set\_end}}()\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{noexcept}}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00054}00054\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00055}00055\ \ \ \ \ \ \ \ \ m\_it\ =\ end\_value;}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00056}00056\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00059}\mbox{\hyperlink{classdetail_1_1primitive__iterator__t_a46f7197f0ba0ef7c1f24caf3f7f52d6b}{00059}}\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classdetail_1_1primitive__iterator__t_a46f7197f0ba0ef7c1f24caf3f7f52d6b}{is\_begin}}()\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{const}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{noexcept}}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00060}00060\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00061}00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_it\ ==\ begin\_value;}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00062}00062\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00065}\mbox{\hyperlink{classdetail_1_1primitive__iterator__t_a9b8509ec7a7cbd4b1da3726be658f5a0}{00065}}\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classdetail_1_1primitive__iterator__t_a9b8509ec7a7cbd4b1da3726be658f5a0}{is\_end}}()\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{const}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{noexcept}}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00066}00066\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00067}00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_it\ ==\ end\_value;}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00068}00068\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00070}\mbox{\hyperlink{classdetail_1_1primitive__iterator__t_aae1e1e2ec0e229d1291d69de57d76bbe}{00070}}\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classdetail_1_1primitive__iterator__t_aae1e1e2ec0e229d1291d69de57d76bbe}{operator==}}(\mbox{\hyperlink{classdetail_1_1primitive__iterator__t}{primitive\_iterator\_t}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{lhs}},\ \mbox{\hyperlink{classdetail_1_1primitive__iterator__t}{primitive\_iterator\_t}}\ rhs)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00071}00071\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{lhs}}.m\_it\ ==\ rhs.m\_it;}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00073}00073\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00075}\mbox{\hyperlink{classdetail_1_1primitive__iterator__t_a901a95e6d73c9509d3dcde914f6c8a9d}{00075}}\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classdetail_1_1primitive__iterator__t_a901a95e6d73c9509d3dcde914f6c8a9d}{operator<}}(\mbox{\hyperlink{classdetail_1_1primitive__iterator__t}{primitive\_iterator\_t}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{lhs}},\ \mbox{\hyperlink{classdetail_1_1primitive__iterator__t}{primitive\_iterator\_t}}\ rhs)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00076}00076\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00077}00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{lhs}}.m\_it\ <\ rhs.m\_it;}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00078}00078\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00080}\mbox{\hyperlink{classdetail_1_1primitive__iterator__t_acc22136675807ea8caccb944264ea918}{00080}}\ \ \ \ \ \mbox{\hyperlink{classdetail_1_1primitive__iterator__t}{primitive\_iterator\_t}}\ \mbox{\hyperlink{classdetail_1_1primitive__iterator__t_acc22136675807ea8caccb944264ea918}{operator+}}(difference\_type\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}})\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00081}00081\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00082}00082\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ result\ =\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00083}00083\ \ \ \ \ \ \ \ \ result\ +=\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}};}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00085}00085\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00087}\mbox{\hyperlink{classdetail_1_1primitive__iterator__t_ac6d902d6ec9a02dabed5452d3ae78f7e}{00087}}\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{constexpr}\ difference\_type\ \mbox{\hyperlink{classdetail_1_1primitive__iterator__t_ac6d902d6ec9a02dabed5452d3ae78f7e}{operator-\/}}(\mbox{\hyperlink{classdetail_1_1primitive__iterator__t}{primitive\_iterator\_t}}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{lhs}},\ \mbox{\hyperlink{classdetail_1_1primitive__iterator__t}{primitive\_iterator\_t}}\ rhs)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00088}00088\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{lhs}}.m\_it\ -\/\ rhs.m\_it;}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00090}00090\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00092}\mbox{\hyperlink{classdetail_1_1primitive__iterator__t_a056779169e97913504f95584a37d1c8c}{00092}}\ \ \ \ \ \mbox{\hyperlink{classdetail_1_1primitive__iterator__t}{primitive\_iterator\_t}}\&\ \mbox{\hyperlink{classdetail_1_1primitive__iterator__t_a056779169e97913504f95584a37d1c8c}{operator++}}()\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{noexcept}}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00093}00093\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00094}00094\ \ \ \ \ \ \ \ \ ++m\_it;}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00095}00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00096}00096\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00098}\mbox{\hyperlink{classdetail_1_1primitive__iterator__t_aa2898a585da8dc77207b15ac9e703863}{00098}}\ \ \ \ \ \mbox{\hyperlink{classdetail_1_1primitive__iterator__t}{primitive\_iterator\_t}}\ \mbox{\hyperlink{classdetail_1_1primitive__iterator__t_aa2898a585da8dc77207b15ac9e703863}{operator++}}(\textcolor{keywordtype}{int})\&\ \textcolor{keyword}{noexcept}\ \textcolor{comment}{//\ NOLINT(cert-\/dcl21-\/cpp)}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00099}00099\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ result\ =\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00101}00101\ \ \ \ \ \ \ \ \ ++m\_it;}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00103}00103\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00105}\mbox{\hyperlink{classdetail_1_1primitive__iterator__t_a67803e850acd1c96c79ba45da33faf35}{00105}}\ \ \ \ \ \mbox{\hyperlink{classdetail_1_1primitive__iterator__t}{primitive\_iterator\_t}}\&\ \mbox{\hyperlink{classdetail_1_1primitive__iterator__t_a67803e850acd1c96c79ba45da33faf35}{operator-\/-\/}}()\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{noexcept}}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00106}00106\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00107}00107\ \ \ \ \ \ \ \ \ -\/-\/m\_it;}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00108}00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00109}00109\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00111}\mbox{\hyperlink{classdetail_1_1primitive__iterator__t_ae0c3dbc516ad0ac75e7d14556e8c80b7}{00111}}\ \ \ \ \ \mbox{\hyperlink{classdetail_1_1primitive__iterator__t}{primitive\_iterator\_t}}\ \mbox{\hyperlink{classdetail_1_1primitive__iterator__t_ae0c3dbc516ad0ac75e7d14556e8c80b7}{operator-\/-\/}}(\textcolor{keywordtype}{int})\&\ \textcolor{keyword}{noexcept}\ \textcolor{comment}{//\ NOLINT(cert-\/dcl21-\/cpp)}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00112}00112\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00113}00113\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ result\ =\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00114}00114\ \ \ \ \ \ \ \ \ -\/-\/m\_it;}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00115}00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00116}00116\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00118}\mbox{\hyperlink{classdetail_1_1primitive__iterator__t_aa8b891476428688c867b2c9c9da96f23}{00118}}\ \ \ \ \ \mbox{\hyperlink{classdetail_1_1primitive__iterator__t}{primitive\_iterator\_t}}\&\ \mbox{\hyperlink{classdetail_1_1primitive__iterator__t_aa8b891476428688c867b2c9c9da96f23}{operator+=}}(difference\_type\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}})\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00119}00119\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00120}00120\ \ \ \ \ \ \ \ \ m\_it\ +=\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}};}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00121}00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00122}00122\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00123}00123\ }
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00124}\mbox{\hyperlink{classdetail_1_1primitive__iterator__t_a06a467805e83af63b4428325889cf5c4}{00124}}\ \ \ \ \ \mbox{\hyperlink{classdetail_1_1primitive__iterator__t}{primitive\_iterator\_t}}\&\ \mbox{\hyperlink{classdetail_1_1primitive__iterator__t_a06a467805e83af63b4428325889cf5c4}{operator-\/=}}(difference\_type\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}})\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00125}00125\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00126}00126\ \ \ \ \ \ \ \ \ m\_it\ -\/=\ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{n}};}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00127}00127\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00128}00128\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00129}00129\ \};}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00131}00131\ \}\ \ \textcolor{comment}{//\ namespace\ detail}}
+\DoxyCodeLine{\Hypertarget{primitive__iterator_8hpp_source_l00132}00132\ \mbox{\hyperlink{abi__macros_8hpp_a9a4005b8c985f1d04dcc87918cab2019}{NLOHMANN\_JSON\_NAMESPACE\_END}}}
+
+\end{DoxyCode}

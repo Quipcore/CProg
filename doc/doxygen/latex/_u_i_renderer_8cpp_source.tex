@@ -1,0 +1,48 @@
+\doxysection{UIRenderer.\+cpp}
+\hypertarget{_u_i_renderer_8cpp_source}{}\label{_u_i_renderer_8cpp_source}\index{E:/Code/Skola/Su/CProg/CProg-\/Project/src/springhawk/renderers/ui/UIRenderer.cpp@{E:/Code/Skola/Su/CProg/CProg-\/Project/src/springhawk/renderers/ui/UIRenderer.cpp}}
+\mbox{\hyperlink{_u_i_renderer_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_u_i_renderer_8h}{springhawk/renderers/ui/UIRenderer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_constants_8h}{Constants.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00005}00005\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00007}\mbox{\hyperlink{class_u_i_renderer_ab55659d2b1b0a8d780a02f369058c828}{00007}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_u_i_renderer_ab55659d2b1b0a8d780a02f369058c828}{UIRenderer::drawText}}(\textcolor{keyword}{const}\ std::string\&\ text,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector2}{Vector2}}\&\ position,\ TTF\_Font*\ font,\ \mbox{\hyperlink{struct_color}{Color}}\ color,\ SDL\_Renderer\ *renderer)\ \{}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00008}00008\ \ \ \ \ \textcolor{comment}{//Modified\ from\ https://stackoverflow.com/a/22889483}}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00010}00010\ \ \ \ \ \textcolor{comment}{//\ this\ is\ the\ color\ in\ rgb\ format,}}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00011}00011\ \ \ \ \ \textcolor{comment}{//\ maxing\ out\ all\ would\ give\ you\ the\ color\ white,}}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00012}00012\ \ \ \ \ \textcolor{comment}{//\ and\ it\ will\ be\ your\ text's\ color}}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00013}00013\ \ \ \ \ SDL\_Color\ sdl\_color\ =\ \{\ \textcolor{keyword}{static\_cast<}Uint8\textcolor{keyword}{>}(color.\mbox{\hyperlink{struct_color_a4954bdc9772da2a610401b8a438125cb}{r}}),\ \textcolor{keyword}{static\_cast<}Uint8\textcolor{keyword}{>}(color.\mbox{\hyperlink{struct_color_ab5656e995bddd43d286c7ff5629a31dd}{g}}),\ \textcolor{keyword}{static\_cast<}Uint8\textcolor{keyword}{>}(color.\mbox{\hyperlink{struct_color_ae11f00d34bf3ecd8c8278f68876b82bf}{b}}),255\ \};}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00015}00015\ \ \ \ \ sdl\_color\ =\ \{255,255,0,255\};}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00017}00017\ \ \ \ \ SDL\_Surface*\ surfaceMessage\ =\ TTF\_RenderText\_Solid(font,\ text.c\_str(),\ sdl\_color);}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00019}00019\ \ \ \ \ SDL\_Texture*\ Message\ =\ SDL\_CreateTextureFromSurface(renderer,\ surfaceMessage);}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00021}00021\ \ \ \ \ SDL\_Rect\ Message\_rect\ =\ \{0,0,500,100\};\ \textcolor{comment}{//create\ a\ rect}}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00022}00022\ \ \ \ \ SDL\_RenderCopy(renderer,\ Message,\ NULL,\ \&Message\_rect);}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00024}00024\ \ \ \ \ \textcolor{comment}{//\ Don't\ forget\ to\ free\ your\ surface\ and\ texture}}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00025}00025\ \ \ \ \ SDL\_FreeSurface(surfaceMessage);}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00026}00026\ \ \ \ \ SDL\_DestroyTexture(Message);}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00027}00027\ \}}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00029}00029\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00031}\mbox{\hyperlink{class_u_i_renderer_a2589ac14403b5009cec37afb048e0f23}{00031}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_u_i_renderer_ab55659d2b1b0a8d780a02f369058c828}{UIRenderer::drawText}}(\textcolor{keyword}{const}\ std::string\&\ text,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector2}{Vector2}}\&\ position,\ \textcolor{keyword}{const}\ std::string\&\ fontName,\ \textcolor{keywordtype}{int}\ fontSize,\ \mbox{\hyperlink{struct_color}{Color}}\ color,\ SDL\_Renderer\ *renderer)\ \{}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00032}00032\ \ \ \ \ std::string\ pathToFont\ =\ \mbox{\hyperlink{namespaceconstants_a2ebe59f9d604e3d6d004a7c79c95b907}{constants::gFontPath}}\ +\ fontName;}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00034}00034\ \ \ \ \ TTF\_Font\ *font\ =\ TTF\_OpenFont(pathToFont.c\_str(),\ fontSize);}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00035}00035\ \ \ \ \ \textcolor{keywordflow}{if}(font\ ==\ \textcolor{keyword}{nullptr})\{}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Failed\ to\ load\ font:\ "{}}\ <<\ fontName\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Error:\ "{}}\ <<\ TTF\_GetError()\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00039}00039\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00040}00040\ \ \ \ \ \mbox{\hyperlink{class_u_i_renderer_ab55659d2b1b0a8d780a02f369058c828}{drawText}}(text,\ position,\ font,\ color,\ renderer);}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00041}00041\ \ \ \ \ TTF\_CloseFont(font);}
+\DoxyCodeLine{\Hypertarget{_u_i_renderer_8cpp_source_l00042}00042\ \}}
+
+\end{DoxyCode}

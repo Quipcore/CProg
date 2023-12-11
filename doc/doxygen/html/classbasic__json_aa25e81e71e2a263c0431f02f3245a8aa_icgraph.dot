@@ -1,0 +1,30 @@
+digraph "basic_json::is_binary"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="RL";
+  Node1 [id="Node000001",label="basic_json::is_binary",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="return whether value is a binary array"];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="basic_json::erase",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classbasic__json.html#a151124c5b91ecb1278c7e191053ce9ca",tooltip="remove elements given an iterator range"];
+  Node1 -> Node3 [id="edge2_Node000001_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="basic_json::erase",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classbasic__json.html#a7a5ed019983b582705ef5ee43d15ca24",tooltip="remove element given an iterator"];
+  Node3 -> Node4 [id="edge3_Node000003_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="basic_json::merge_patch",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classbasic__json.html#a1c7ab88eb6d043b434cd9e0b68ec7321",tooltip="applies a JSON Merge Patch"];
+  Node4 -> Node4 [id="edge4_Node000004_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node3 -> Node5 [id="edge5_Node000003_Node000005",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node5 [id="Node000005",label="basic_json::patch_inplace",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classbasic__json.html#adc2ae40925906c7e1d559b8bf12028a7",tooltip="applies a JSON patch in-place without copying the object"];
+  Node5 -> Node6 [id="edge6_Node000005_Node000006",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node6 [id="Node000006",label="basic_json::patch",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classbasic__json.html#a5a009b55b9dcdb30352f5f62537931b7",tooltip="applies a JSON patch to a copy of the current object"];
+  Node1 -> Node7 [id="edge7_Node000001_Node000007",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node7 [id="Node000007",label="basic_json::get_binary",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classbasic__json.html#aa4401911681258520903f3c374a9e994",tooltip="get a binary value"];
+  Node1 -> Node8 [id="edge8_Node000001_Node000008",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node8 [id="Node000008",label="basic_json::get_binary",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classbasic__json.html#a44b4244ff0e901156adfad7b027232de",tooltip="get a binary value"];
+  Node1 -> Node9 [id="edge9_Node000001_Node000009",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node9 [id="Node000009",label="basic_json::is_primitive",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classbasic__json.html#a7fa8bc506b1519193a7bbc09f8a0f095",tooltip="return whether type is primitive"];
+  Node1 -> Node10 [id="edge10_Node000001_Node000010",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node10 [id="Node000010",label="basic_json::swap",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classbasic__json.html#a23296c72c9f837e20cfdc28d8018dd57",tooltip="exchanges the values"];
+  Node1 -> Node11 [id="edge11_Node000001_Node000011",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node11 [id="Node000011",label="basic_json::swap",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classbasic__json.html#a636ae0a887a94436f43f26c94aa1f748",tooltip="exchanges the values"];
+}

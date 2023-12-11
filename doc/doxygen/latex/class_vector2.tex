@@ -1,0 +1,531 @@
+\doxysection{Vector2 Class Reference}
+\hypertarget{class_vector2}{}\label{class_vector2}\index{Vector2@{Vector2}}
+
+
+{\ttfamily \#include $<$Vector2.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_vector2_a695ccc36d26cb5f950ed47bfc4e6cfe1}{Vector2}} (double x, double y)
+\item 
+\mbox{\hyperlink{class_vector2_a321cf468f0b0caa050fc802f29af48ee}{Vector2}} (int x, int y)
+\item 
+\mbox{\hyperlink{class_vector2_ab5121be68bb6901b3ba92002a0f5fe58}{Vector2}} (const \mbox{\hyperlink{class_vector2}{Vector2}} \&rhs)
+\item 
+\mbox{\hyperlink{class_vector2_a22104d1809be26a419ef1f959e3761bf}{Vector2}} ()
+\item 
+double \mbox{\hyperlink{class_vector2_a546fe5669a930a7aba105764711eb045}{getX}} () const
+\item 
+double \mbox{\hyperlink{class_vector2_ad5557e427cdee62e5700b3a7deaa1d8f}{getY}} () const
+\item 
+\mbox{\hyperlink{class_vector2}{Vector2}} \mbox{\hyperlink{class_vector2_a5464c61a439372714d4f7b6425c1b811}{operator+}} (const \mbox{\hyperlink{class_vector2}{Vector2}} \&rhs) const
+\item 
+\mbox{\hyperlink{class_vector2}{Vector2}} \mbox{\hyperlink{class_vector2_a2629910525dbc01e0401b57f2b5a3baa}{operator-\/}} (const \mbox{\hyperlink{class_vector2}{Vector2}} \&rhs) const
+\item 
+\mbox{\hyperlink{class_vector2}{Vector2}} \mbox{\hyperlink{class_vector2_a2827a39f6bfd99502a2dffa79ec322a8}{operator\texorpdfstring{$\ast$}{*}}} (const double \&rhs) const
+\item 
+\mbox{\hyperlink{class_vector2}{Vector2}} \mbox{\hyperlink{class_vector2_a4705e3f2121bceb798aba58bece8cb96}{operator+=}} (const \mbox{\hyperlink{class_vector2}{Vector2}} \&rhs)
+\item 
+\mbox{\hyperlink{class_vector2}{Vector2}} \mbox{\hyperlink{class_vector2_a0c9c68fad12ad356a41c016104d4e4b4}{operator-\/=}} (const \mbox{\hyperlink{class_vector2}{Vector2}} \&rhs)
+\item 
+\mbox{\hyperlink{class_vector2}{Vector2}} \mbox{\hyperlink{class_vector2_a6bcf96e1c8273481d71474f26fe641d8}{operator\texorpdfstring{$\ast$}{*}=}} (const double \&rhs)
+\item 
+\mbox{\hyperlink{class_vector2}{Vector2}} \& \mbox{\hyperlink{class_vector2_a694d40fe4dd8a86968b1a8d48b3a1c3f}{operator=}} (const \mbox{\hyperlink{class_vector2}{Vector2}} \&rhs)
+\item 
+bool \mbox{\hyperlink{class_vector2_a599f063cda8b371a8c215ca37ab65859}{operator==}} (const \mbox{\hyperlink{class_vector2}{Vector2}} \&rhs) const
+\item 
+double \mbox{\hyperlink{class_vector2_a84eb03e7d3099db60477bf0e33251877}{magnitude}} () const
+\item 
+double \mbox{\hyperlink{class_vector2_a0f2dc60dc0ccbf338f0702157e683432}{dot}} (const \mbox{\hyperlink{class_vector2}{Vector2}} \&rhs) const
+\item 
+double \mbox{\hyperlink{class_vector2_ae56b303c75b657baaaebe163c8d763c9}{distance}} (const \mbox{\hyperlink{class_vector2}{Vector2}} \&rhs) const
+\item 
+double \mbox{\hyperlink{class_vector2_ab794df8d07d14866d366738da3e672c2}{angle\+Between}} (const \mbox{\hyperlink{class_vector2}{Vector2}} \&rhs) const
+\item 
+\mbox{\hyperlink{class_vector2}{Vector2}} \mbox{\hyperlink{class_vector2_abf921b268aff0012ec9b435fc35ad66a}{normalize}} ()
+\item 
+\mbox{\hyperlink{class_vector2}{Vector2}} \mbox{\hyperlink{class_vector2_adc3073492103b3f90bba21e65c5fc5b4}{rotate}} (double \mbox{\hyperlink{class_vector2_a67e1634ddf593983c145c93e2743771c}{angle}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static double \mbox{\hyperlink{class_vector2_ad846267343fbc2fffab1e9e392911737}{dot}} (const \mbox{\hyperlink{class_vector2}{Vector2}} \&v1, const \mbox{\hyperlink{class_vector2}{Vector2}} \&v2)
+\item 
+static double \mbox{\hyperlink{class_vector2_a853f751ea3e58eb16a06482bf708dc31}{distance}} (const \mbox{\hyperlink{class_vector2}{Vector2}} \&v1, const \mbox{\hyperlink{class_vector2}{Vector2}} \&v2)
+\item 
+static double \mbox{\hyperlink{class_vector2_a67e1634ddf593983c145c93e2743771c}{angle}} (const \mbox{\hyperlink{class_vector2}{Vector2}} \&v1, const \mbox{\hyperlink{class_vector2}{Vector2}} \&v2)
+\item 
+static \mbox{\hyperlink{class_vector2}{Vector2}} \mbox{\hyperlink{class_vector2_aafd49f60aa632ca5c47ea3c4f6c7575a}{normalized}} (const \mbox{\hyperlink{class_vector2}{Vector2}} \&vector)
+\item 
+static \mbox{\hyperlink{class_vector2}{Vector2}} \mbox{\hyperlink{class_vector2_a1200121c8c781dbea973a9ca837fed66}{rotated}} (const \mbox{\hyperlink{class_vector2}{Vector2}} \&vector, double \mbox{\hyperlink{class_vector2_a67e1634ddf593983c145c93e2743771c}{angle}})
+\item 
+static \mbox{\hyperlink{class_vector2}{Vector2}} \mbox{\hyperlink{class_vector2_a745e39069bda61a8385aff6c92a255a4}{parse}} (std\+::string point)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const \mbox{\hyperlink{class_vector2}{Vector2}} \mbox{\hyperlink{class_vector2_a4c23b7485e38c313652b1c0e0be0fef1}{zero}} = \mbox{\hyperlink{class_vector2}{Vector2}}(0,0)
+\item 
+static const \mbox{\hyperlink{class_vector2}{Vector2}} \mbox{\hyperlink{class_vector2_ad7d8c000e945748741b07f52f53df9f0}{one}} = \mbox{\hyperlink{class_vector2}{Vector2}}(1,1)
+\item 
+static const \mbox{\hyperlink{class_vector2}{Vector2}} \mbox{\hyperlink{class_vector2_a9aa94748954503505592a642090db39a}{up}} = \mbox{\hyperlink{class_vector2}{Vector2}}(0,1)
+\item 
+static const \mbox{\hyperlink{class_vector2}{Vector2}} \mbox{\hyperlink{class_vector2_aab952872b86248c37205269b78d974ea}{down}} = \mbox{\hyperlink{class_vector2}{Vector2}}(0,-\/1)
+\item 
+static const \mbox{\hyperlink{class_vector2}{Vector2}} \mbox{\hyperlink{class_vector2_ac7decaad2d60179654351bf897e2b80f}{left}} = \mbox{\hyperlink{class_vector2}{Vector2}}(-\/1,0)
+\item 
+static const \mbox{\hyperlink{class_vector2}{Vector2}} \mbox{\hyperlink{class_vector2_af54e3c33172bf49d6b8c974849201acf}{right}} = \mbox{\hyperlink{class_vector2}{Vector2}}(1,0)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+std\+::ostream \& \mbox{\hyperlink{class_vector2_ac3c3eb3938f1d9c2c7ea62339a0d8d7f}{operator$<$$<$}} (std\+::ostream \&os, const \mbox{\hyperlink{class_vector2}{Vector2}} \&dt)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_vector2_8h_source_l00010}{10}} of file \mbox{\hyperlink{_vector2_8h_source}{Vector2.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_vector2_a695ccc36d26cb5f950ed47bfc4e6cfe1}\label{class_vector2_a695ccc36d26cb5f950ed47bfc4e6cfe1} 
+\index{Vector2@{Vector2}!Vector2@{Vector2}}
+\index{Vector2@{Vector2}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{Vector2()}{Vector2()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily Vector2\+::\+Vector2 (\begin{DoxyParamCaption}\item[{double}]{x,  }\item[{double}]{y }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00025}{25}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+\Hypertarget{class_vector2_a321cf468f0b0caa050fc802f29af48ee}\label{class_vector2_a321cf468f0b0caa050fc802f29af48ee} 
+\index{Vector2@{Vector2}!Vector2@{Vector2}}
+\index{Vector2@{Vector2}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{Vector2()}{Vector2()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily Vector2\+::\+Vector2 (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00018}{18}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+\Hypertarget{class_vector2_ab5121be68bb6901b3ba92002a0f5fe58}\label{class_vector2_ab5121be68bb6901b3ba92002a0f5fe58} 
+\index{Vector2@{Vector2}!Vector2@{Vector2}}
+\index{Vector2@{Vector2}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{Vector2()}{Vector2()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily Vector2\+::\+Vector2 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_vector2}{Vector2}} \&}]{rhs }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00157}{157}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+\Hypertarget{class_vector2_a22104d1809be26a419ef1f959e3761bf}\label{class_vector2_a22104d1809be26a419ef1f959e3761bf} 
+\index{Vector2@{Vector2}!Vector2@{Vector2}}
+\index{Vector2@{Vector2}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{Vector2()}{Vector2()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily Vector2\+::\+Vector2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00032}{32}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_vector2_a67e1634ddf593983c145c93e2743771c}\label{class_vector2_a67e1634ddf593983c145c93e2743771c} 
+\index{Vector2@{Vector2}!angle@{angle}}
+\index{angle@{angle}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{angle()}{angle()}}
+{\footnotesize\ttfamily double Vector2\+::angle (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_vector2}{Vector2}} \&}]{v1,  }\item[{const \mbox{\hyperlink{class_vector2}{Vector2}} \&}]{v2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Returns the angle between the two given vectors. Given in radians 
+\begin{DoxyParams}{Parameters}
+{\em v1} & First vector \\
+\hline
+{\em v2} & Second vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Angle between the two given vectors in radians 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00126}{126}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+\Hypertarget{class_vector2_ab794df8d07d14866d366738da3e672c2}\label{class_vector2_ab794df8d07d14866d366738da3e672c2} 
+\index{Vector2@{Vector2}!angleBetween@{angleBetween}}
+\index{angleBetween@{angleBetween}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{angleBetween()}{angleBetween()}}
+{\footnotesize\ttfamily double Vector2\+::angle\+Between (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_vector2}{Vector2}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+Returns the angle between this vector and the given vector. Given in radians 
+\begin{DoxyParams}{Parameters}
+{\em rhs} & The vector to compare this vector to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The angle between this vector and the given vector in radians 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00170}{170}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+\Hypertarget{class_vector2_ae56b303c75b657baaaebe163c8d763c9}\label{class_vector2_ae56b303c75b657baaaebe163c8d763c9} 
+\index{Vector2@{Vector2}!distance@{distance}}
+\index{distance@{distance}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{distance()}{distance()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily double Vector2\+::distance (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_vector2}{Vector2}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+Returns the distance between this vector and the given vector 
+\begin{DoxyParams}{Parameters}
+{\em rhs} & The vector to compare this vector to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The distance between this vector and the given vector 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00194}{194}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+\Hypertarget{class_vector2_a853f751ea3e58eb16a06482bf708dc31}\label{class_vector2_a853f751ea3e58eb16a06482bf708dc31} 
+\index{Vector2@{Vector2}!distance@{distance}}
+\index{distance@{distance}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{distance()}{distance()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily double Vector2\+::distance (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_vector2}{Vector2}} \&}]{v1,  }\item[{const \mbox{\hyperlink{class_vector2}{Vector2}} \&}]{v2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Returns the distance between the two given vectors 
+\begin{DoxyParams}{Parameters}
+{\em v1} & First vector \\
+\hline
+{\em v2} & Second vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Distance between the two given vectors 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00120}{120}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+\Hypertarget{class_vector2_a0f2dc60dc0ccbf338f0702157e683432}\label{class_vector2_a0f2dc60dc0ccbf338f0702157e683432} 
+\index{Vector2@{Vector2}!dot@{dot}}
+\index{dot@{dot}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{dot()}{dot()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily double Vector2\+::dot (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_vector2}{Vector2}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+Returns the dot product of this vector and the given vector 
+\begin{DoxyParams}{Parameters}
+{\em rhs} & The vector to compare this vector to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Dot product of this vector and the given vector 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00164}{164}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+\Hypertarget{class_vector2_ad846267343fbc2fffab1e9e392911737}\label{class_vector2_ad846267343fbc2fffab1e9e392911737} 
+\index{Vector2@{Vector2}!dot@{dot}}
+\index{dot@{dot}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{dot()}{dot()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily double Vector2\+::dot (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_vector2}{Vector2}} \&}]{v1,  }\item[{const \mbox{\hyperlink{class_vector2}{Vector2}} \&}]{v2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Returns the dot product of the two given vectors. Order does not matter. 
+\begin{DoxyParams}{Parameters}
+{\em v1} & First vector \\
+\hline
+{\em v2} & Second vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Dot product of the two given vectors 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00114}{114}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+\Hypertarget{class_vector2_a546fe5669a930a7aba105764711eb045}\label{class_vector2_a546fe5669a930a7aba105764711eb045} 
+\index{Vector2@{Vector2}!getX@{getX}}
+\index{getX@{getX}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{getX()}{getX()}}
+{\footnotesize\ttfamily double Vector2\+::getX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the value of the x component of this vector \begin{DoxyReturn}{Returns}
+The x value of this vector 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00039}{39}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+\Hypertarget{class_vector2_ad5557e427cdee62e5700b3a7deaa1d8f}\label{class_vector2_ad5557e427cdee62e5700b3a7deaa1d8f} 
+\index{Vector2@{Vector2}!getY@{getY}}
+\index{getY@{getY}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{getY()}{getY()}}
+{\footnotesize\ttfamily double Vector2\+::getY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the value of the y component of this vector \begin{DoxyReturn}{Returns}
+The y value of this vector 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00045}{45}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+\Hypertarget{class_vector2_a84eb03e7d3099db60477bf0e33251877}\label{class_vector2_a84eb03e7d3099db60477bf0e33251877} 
+\index{Vector2@{Vector2}!magnitude@{magnitude}}
+\index{magnitude@{magnitude}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{magnitude()}{magnitude()}}
+{\footnotesize\ttfamily double Vector2\+::magnitude (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the magnitude (length) of this vector \begin{DoxyReturn}{Returns}
+The magnitude (length) of this vector 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00108}{108}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+\Hypertarget{class_vector2_abf921b268aff0012ec9b435fc35ad66a}\label{class_vector2_abf921b268aff0012ec9b435fc35ad66a} 
+\index{Vector2@{Vector2}!normalize@{normalize}}
+\index{normalize@{normalize}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{normalize()}{normalize()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vector2}{Vector2}} Vector2\+::normalize (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns a normalized version of this vector \begin{DoxyReturn}{Returns}
+A normalized version of this vector 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00178}{178}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+\Hypertarget{class_vector2_aafd49f60aa632ca5c47ea3c4f6c7575a}\label{class_vector2_aafd49f60aa632ca5c47ea3c4f6c7575a} 
+\index{Vector2@{Vector2}!normalized@{normalized}}
+\index{normalized@{normalized}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{normalized()}{normalized()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vector2}{Vector2}} Vector2\+::normalized (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_vector2}{Vector2}} \&}]{vector }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Returns a normalized version of the given vector 
+\begin{DoxyParams}{Parameters}
+{\em vector} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Normal vector. That is, a vector with the same direction but with magnitude (length) 1 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00137}{137}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+\Hypertarget{class_vector2_a2827a39f6bfd99502a2dffa79ec322a8}\label{class_vector2_a2827a39f6bfd99502a2dffa79ec322a8} 
+\index{Vector2@{Vector2}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}()}{operator*()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vector2}{Vector2}} Vector2\+::operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{const double \&}]{rhs }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00063}{63}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+\Hypertarget{class_vector2_a6bcf96e1c8273481d71474f26fe641d8}\label{class_vector2_a6bcf96e1c8273481d71474f26fe641d8} 
+\index{Vector2@{Vector2}!operator\texorpdfstring{$\ast$}{*}=@{operator\texorpdfstring{$\ast$}{*}=}}
+\index{operator\texorpdfstring{$\ast$}{*}=@{operator\texorpdfstring{$\ast$}{*}=}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}=()}{operator*=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vector2}{Vector2}} Vector2\+::operator\texorpdfstring{$\ast$}{*}= (\begin{DoxyParamCaption}\item[{const double \&}]{rhs }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00093}{93}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+\Hypertarget{class_vector2_a5464c61a439372714d4f7b6425c1b811}\label{class_vector2_a5464c61a439372714d4f7b6425c1b811} 
+\index{Vector2@{Vector2}!operator+@{operator+}}
+\index{operator+@{operator+}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{operator+()}{operator+()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vector2}{Vector2}} Vector2\+::operator+ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_vector2}{Vector2}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00051}{51}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+\Hypertarget{class_vector2_a4705e3f2121bceb798aba58bece8cb96}\label{class_vector2_a4705e3f2121bceb798aba58bece8cb96} 
+\index{Vector2@{Vector2}!operator+=@{operator+=}}
+\index{operator+=@{operator+=}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{operator+=()}{operator+=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vector2}{Vector2}} Vector2\+::operator+= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_vector2}{Vector2}} \&}]{rhs }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00069}{69}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+\Hypertarget{class_vector2_a2629910525dbc01e0401b57f2b5a3baa}\label{class_vector2_a2629910525dbc01e0401b57f2b5a3baa} 
+\index{Vector2@{Vector2}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{operator-\/()}{operator-()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vector2}{Vector2}} Vector2\+::operator-\/ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_vector2}{Vector2}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00057}{57}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+\Hypertarget{class_vector2_a0c9c68fad12ad356a41c016104d4e4b4}\label{class_vector2_a0c9c68fad12ad356a41c016104d4e4b4} 
+\index{Vector2@{Vector2}!operator-\/=@{operator-\/=}}
+\index{operator-\/=@{operator-\/=}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{operator-\/=()}{operator-=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vector2}{Vector2}} Vector2\+::operator-\/= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_vector2}{Vector2}} \&}]{rhs }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00077}{77}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+\Hypertarget{class_vector2_a694d40fe4dd8a86968b1a8d48b3a1c3f}\label{class_vector2_a694d40fe4dd8a86968b1a8d48b3a1c3f} 
+\index{Vector2@{Vector2}!operator=@{operator=}}
+\index{operator=@{operator=}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vector2}{Vector2}} \& Vector2\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_vector2}{Vector2}} \&}]{rhs }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00085}{85}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+\Hypertarget{class_vector2_a599f063cda8b371a8c215ca37ab65859}\label{class_vector2_a599f063cda8b371a8c215ca37ab65859} 
+\index{Vector2@{Vector2}!operator==@{operator==}}
+\index{operator==@{operator==}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool Vector2\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_vector2}{Vector2}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00151}{151}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+\Hypertarget{class_vector2_a745e39069bda61a8385aff6c92a255a4}\label{class_vector2_a745e39069bda61a8385aff6c92a255a4} 
+\index{Vector2@{Vector2}!parse@{parse}}
+\index{parse@{parse}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{parse()}{parse()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vector2}{Vector2}} Vector2\+::parse (\begin{DoxyParamCaption}\item[{std\+::string}]{point }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00200}{200}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+\Hypertarget{class_vector2_adc3073492103b3f90bba21e65c5fc5b4}\label{class_vector2_adc3073492103b3f90bba21e65c5fc5b4} 
+\index{Vector2@{Vector2}!rotate@{rotate}}
+\index{rotate@{rotate}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{rotate()}{rotate()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vector2}{Vector2}} Vector2\+::rotate (\begin{DoxyParamCaption}\item[{double}]{angle }\end{DoxyParamCaption})}
+
+Rotates this vector by the given angle 
+\begin{DoxyParams}{Parameters}
+{\em angle} & The angle to rotate this vector by \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The rotated vector 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00185}{185}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+\Hypertarget{class_vector2_a1200121c8c781dbea973a9ca837fed66}\label{class_vector2_a1200121c8c781dbea973a9ca837fed66} 
+\index{Vector2@{Vector2}!rotated@{rotated}}
+\index{rotated@{rotated}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{rotated()}{rotated()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vector2}{Vector2}} Vector2\+::rotated (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_vector2}{Vector2}} \&}]{vector,  }\item[{double}]{angle }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Returns a rotated version of the given vector 
+\begin{DoxyParams}{Parameters}
+{\em vector} & Vector to rotate \\
+\hline
+{\em angle} & Angle to rotate the vector by \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Rotated vector 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00143}{143}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{class_vector2_ac3c3eb3938f1d9c2c7ea62339a0d8d7f}\label{class_vector2_ac3c3eb3938f1d9c2c7ea62339a0d8d7f} 
+\index{Vector2@{Vector2}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily std\+::ostream \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os,  }\item[{const \mbox{\hyperlink{class_vector2}{Vector2}} \&}]{dt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Definition at line \mbox{\hyperlink{_vector2_8cpp_source_l00101}{101}} of file \mbox{\hyperlink{_vector2_8cpp_source}{Vector2.\+cpp}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_vector2_aab952872b86248c37205269b78d974ea}\label{class_vector2_aab952872b86248c37205269b78d974ea} 
+\index{Vector2@{Vector2}!down@{down}}
+\index{down@{down}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{down}{down}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vector2}{Vector2}} const Vector2\+::down = \mbox{\hyperlink{class_vector2}{Vector2}}(0,-\/1)\hspace{0.3cm}{\ttfamily [static]}}
+
+Shorthand for \doxylink{class_vector2}{Vector2}(0,-\/1) 
+
+Definition at line \mbox{\hyperlink{_vector2_8h_source_l00035}{35}} of file \mbox{\hyperlink{_vector2_8h_source}{Vector2.\+h}}.
+
+\Hypertarget{class_vector2_ac7decaad2d60179654351bf897e2b80f}\label{class_vector2_ac7decaad2d60179654351bf897e2b80f} 
+\index{Vector2@{Vector2}!left@{left}}
+\index{left@{left}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{left}{left}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vector2}{Vector2}} const Vector2\+::left = \mbox{\hyperlink{class_vector2}{Vector2}}(-\/1,0)\hspace{0.3cm}{\ttfamily [static]}}
+
+Shorthand for \doxylink{class_vector2}{Vector2}(-\/1,0) 
+
+Definition at line \mbox{\hyperlink{_vector2_8h_source_l00040}{40}} of file \mbox{\hyperlink{_vector2_8h_source}{Vector2.\+h}}.
+
+\Hypertarget{class_vector2_ad7d8c000e945748741b07f52f53df9f0}\label{class_vector2_ad7d8c000e945748741b07f52f53df9f0} 
+\index{Vector2@{Vector2}!one@{one}}
+\index{one@{one}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{one}{one}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vector2}{Vector2}} const Vector2\+::one = \mbox{\hyperlink{class_vector2}{Vector2}}(1,1)\hspace{0.3cm}{\ttfamily [static]}}
+
+Shorthand for \doxylink{class_vector2}{Vector2(1,1)} 
+
+Definition at line \mbox{\hyperlink{_vector2_8h_source_l00025}{25}} of file \mbox{\hyperlink{_vector2_8h_source}{Vector2.\+h}}.
+
+\Hypertarget{class_vector2_af54e3c33172bf49d6b8c974849201acf}\label{class_vector2_af54e3c33172bf49d6b8c974849201acf} 
+\index{Vector2@{Vector2}!right@{right}}
+\index{right@{right}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{right}{right}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vector2}{Vector2}} const Vector2\+::right = \mbox{\hyperlink{class_vector2}{Vector2}}(1,0)\hspace{0.3cm}{\ttfamily [static]}}
+
+Shorthand for \doxylink{class_vector2}{Vector2(1,0)} 
+
+Definition at line \mbox{\hyperlink{_vector2_8h_source_l00045}{45}} of file \mbox{\hyperlink{_vector2_8h_source}{Vector2.\+h}}.
+
+\Hypertarget{class_vector2_a9aa94748954503505592a642090db39a}\label{class_vector2_a9aa94748954503505592a642090db39a} 
+\index{Vector2@{Vector2}!up@{up}}
+\index{up@{up}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{up}{up}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vector2}{Vector2}} const Vector2\+::up = \mbox{\hyperlink{class_vector2}{Vector2}}(0,1)\hspace{0.3cm}{\ttfamily [static]}}
+
+Shorthand for \doxylink{class_vector2}{Vector2(0,1)} 
+
+Definition at line \mbox{\hyperlink{_vector2_8h_source_l00030}{30}} of file \mbox{\hyperlink{_vector2_8h_source}{Vector2.\+h}}.
+
+\Hypertarget{class_vector2_a4c23b7485e38c313652b1c0e0be0fef1}\label{class_vector2_a4c23b7485e38c313652b1c0e0be0fef1} 
+\index{Vector2@{Vector2}!zero@{zero}}
+\index{zero@{zero}!Vector2@{Vector2}}
+\doxysubsubsection{\texorpdfstring{zero}{zero}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vector2}{Vector2}} const Vector2\+::zero = \mbox{\hyperlink{class_vector2}{Vector2}}(0,0)\hspace{0.3cm}{\ttfamily [static]}}
+
+Shorhand for \doxylink{class_vector2}{Vector2(0,0)} 
+
+Definition at line \mbox{\hyperlink{_vector2_8h_source_l00020}{20}} of file \mbox{\hyperlink{_vector2_8h_source}{Vector2.\+h}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+E\+:/\+Code/\+Skola/\+Su/\+CProg/\+CProg-\/\+Project/include/springhawk/\mbox{\hyperlink{_vector2_8h}{Vector2.\+h}}\item 
+E\+:/\+Code/\+Skola/\+Su/\+CProg/\+CProg-\/\+Project/src/springhawk/\mbox{\hyperlink{_vector2_8cpp}{Vector2.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,116 @@
+\doxysection{Scene Class Reference}
+\hypertarget{class_scene}{}\label{class_scene}\index{Scene@{Scene}}
+
+
+{\ttfamily \#include $<$Scene.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_scene_a631eef7493cafce5d74739a2cad12a58}{\texorpdfstring{$\sim$}{\string~}\+Scene}} ()=default
+\item 
+\mbox{\hyperlink{class_scene_a9f46abc50660d1102fbef6ae843e9c68}{Scene}} ()=delete
+\item 
+\mbox{\hyperlink{class_scene_a540d391c8d77a3bfe56bb245914140b7}{Scene}} (\mbox{\hyperlink{class_player}{Player}} \&player, \mbox{\hyperlink{class_map}{Map}} \&incoming\+Map, std\+::vector$<$ \mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*} $>$ \&game\+Objects, \mbox{\hyperlink{namespacespringhawk_a6c616fb4e27863ab7cfc96bd538368f3}{springhawk\+::\+Render\+Tag}} render\+Tag)
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_scene_a2db6dc3318eca877d3130df769b95efc}{get\+Game\+Objects}} ()
+\item 
+\mbox{\hyperlink{class_player}{Player}} \& \mbox{\hyperlink{class_scene_a2ff694fab9755309798f911a64b4e9a5}{get\+Player}} ()
+\item 
+\mbox{\hyperlink{namespacespringhawk_a6c616fb4e27863ab7cfc96bd538368f3}{springhawk\+::\+Render\+Tag}} \mbox{\hyperlink{class_scene_a37e0cbd3792bcac3b6ae2f090db17417}{get\+Render\+Tag}} () const
+\item 
+\mbox{\hyperlink{class_map}{Map}} \& \mbox{\hyperlink{class_scene_af80c9490442c69156803f39b7eadb1bc}{get\+Map}} ()
+\item 
+void \mbox{\hyperlink{class_scene_aa3ca33f869c987a576577f24a561252c}{load\+Textures}} (SDL\+\_\+\+Renderer \&renderer)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_scene_8h_source_l00016}{16}} of file \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_scene_a631eef7493cafce5d74739a2cad12a58}\label{class_scene_a631eef7493cafce5d74739a2cad12a58} 
+\index{Scene@{Scene}!````~Scene@{\texorpdfstring{$\sim$}{\string~}Scene}}
+\index{````~Scene@{\texorpdfstring{$\sim$}{\string~}Scene}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Scene()}{\string~Scene()}}
+{\footnotesize\ttfamily Scene\+::\texorpdfstring{$\sim$}{\string~}\+Scene (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\Hypertarget{class_scene_a9f46abc50660d1102fbef6ae843e9c68}\label{class_scene_a9f46abc50660d1102fbef6ae843e9c68} 
+\index{Scene@{Scene}!Scene@{Scene}}
+\index{Scene@{Scene}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{Scene()}{Scene()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Scene\+::\+Scene (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\Hypertarget{class_scene_a540d391c8d77a3bfe56bb245914140b7}\label{class_scene_a540d391c8d77a3bfe56bb245914140b7} 
+\index{Scene@{Scene}!Scene@{Scene}}
+\index{Scene@{Scene}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{Scene()}{Scene()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Scene\+::\+Scene (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_player}{Player}} \&}]{player,  }\item[{\mbox{\hyperlink{class_map}{Map}} \&}]{incoming\+Map,  }\item[{std\+::vector$<$ \mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*} $>$ \&}]{game\+Objects,  }\item[{\mbox{\hyperlink{namespacespringhawk_a6c616fb4e27863ab7cfc96bd538368f3}{springhawk\+::\+Render\+Tag}}}]{render\+Tag }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_8cpp_source_l00008}{8}} of file \mbox{\hyperlink{_scene_8cpp_source}{Scene.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_scene_a2db6dc3318eca877d3130df769b95efc}\label{class_scene_a2db6dc3318eca877d3130df769b95efc} 
+\index{Scene@{Scene}!getGameObjects@{getGameObjects}}
+\index{getGameObjects@{getGameObjects}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{getGameObjects()}{getGameObjects()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*} $>$ Scene\+::get\+Game\+Objects (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_8cpp_source_l00017}{17}} of file \mbox{\hyperlink{_scene_8cpp_source}{Scene.\+cpp}}.
+
+\Hypertarget{class_scene_af80c9490442c69156803f39b7eadb1bc}\label{class_scene_af80c9490442c69156803f39b7eadb1bc} 
+\index{Scene@{Scene}!getMap@{getMap}}
+\index{getMap@{getMap}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{getMap()}{getMap()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_map}{Map}} \& Scene\+::get\+Map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_8cpp_source_l00035}{35}} of file \mbox{\hyperlink{_scene_8cpp_source}{Scene.\+cpp}}.
+
+\Hypertarget{class_scene_a2ff694fab9755309798f911a64b4e9a5}\label{class_scene_a2ff694fab9755309798f911a64b4e9a5} 
+\index{Scene@{Scene}!getPlayer@{getPlayer}}
+\index{getPlayer@{getPlayer}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{getPlayer()}{getPlayer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_player}{Player}} \& Scene\+::get\+Player (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_8cpp_source_l00023}{23}} of file \mbox{\hyperlink{_scene_8cpp_source}{Scene.\+cpp}}.
+
+\Hypertarget{class_scene_a37e0cbd3792bcac3b6ae2f090db17417}\label{class_scene_a37e0cbd3792bcac3b6ae2f090db17417} 
+\index{Scene@{Scene}!getRenderTag@{getRenderTag}}
+\index{getRenderTag@{getRenderTag}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{getRenderTag()}{getRenderTag()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacespringhawk_a6c616fb4e27863ab7cfc96bd538368f3}{springhawk\+::\+Render\+Tag}} Scene\+::get\+Render\+Tag (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_8cpp_source_l00029}{29}} of file \mbox{\hyperlink{_scene_8cpp_source}{Scene.\+cpp}}.
+
+\Hypertarget{class_scene_aa3ca33f869c987a576577f24a561252c}\label{class_scene_aa3ca33f869c987a576577f24a561252c} 
+\index{Scene@{Scene}!loadTextures@{loadTextures}}
+\index{loadTextures@{loadTextures}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{loadTextures()}{loadTextures()}}
+{\footnotesize\ttfamily void Scene\+::load\+Textures (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Renderer \&}]{renderer }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_8cpp_source_l00039}{39}} of file \mbox{\hyperlink{_scene_8cpp_source}{Scene.\+cpp}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+E\+:/\+Code/\+Skola/\+Su/\+CProg/\+CProg-\/\+Project/include/springhawk/\mbox{\hyperlink{_scene_8h}{Scene.\+h}}\item 
+E\+:/\+Code/\+Skola/\+Su/\+CProg/\+CProg-\/\+Project/src/springhawk/\mbox{\hyperlink{_scene_8cpp}{Scene.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,52 @@
+\doxysection{Engine.\+h}
+\hypertarget{_engine_8h_source}{}\label{_engine_8h_source}\index{E:/Code/Skola/Su/CProg/CProg-\/Project/include/springhawk/Engine.h@{E:/Code/Skola/Su/CProg/CProg-\/Project/include/springhawk/Engine.h}}
+\mbox{\hyperlink{_engine_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ CPROG\_PROJECT\_ENGINE\_H}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00002}00002\ \textcolor{preprocessor}{\#define\ CPROG\_PROJECT\_ENGINE\_H}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}SDL2/SDL.h"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00006}00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_game_object_8h}{scripts/GameObject.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_time_8h}{springhawk/Time.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_scene_8h}{springhawk/Scene.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_renderer_8h}{springhawk/renderers/Renderer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00011}\mbox{\hyperlink{namespacespringhawk}{00011}}\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacespringhawk}{springhawk}}\ \{}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00012}\mbox{\hyperlink{classspringhawk_1_1_engine}{00012}}\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classspringhawk_1_1_engine}{Engine}}:\ \mbox{\hyperlink{class_time}{Time}}\{}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00013}00013\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00014}00014\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classspringhawk_1_1_engine_aadf4fc79f5d5de0ee3915af2e414484a}{run}}(std::vector<Scene*>\&\ scenes);}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00015}00015\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00016}00016\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ SCREEN\_WIDTH;}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ SCREEN\_HEIGHT;}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00019}00019\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Might\ causes\ prefomance\ issues}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00020}00020\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ void\ (*render)(SDL\_Renderer\&,\ std::vector<GameObject*>\&,\ \mbox{\hyperlink{class_player}{Player}}\&,\ \mbox{\hyperlink{class_map}{Map}}\&,\ int,\ int);}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00022}00022\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ init();}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00023}00023\ \textcolor{comment}{//\ \ \ \ \ \ \ \ static\ bool\ isOutOfBounds(Vector2\ \&objectPosition,\ std::vector<std::vector<int>>\ \&map);}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ sleep(\textcolor{keywordtype}{int});}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00026}00026\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ draw(SDL\_Renderer\ \&renderer,\ std::vector<GameObject\ *>\ \&gameObjects,\ \mbox{\hyperlink{class_player}{Player}}\ \&camera,\ \mbox{\hyperlink{class_map}{Map}}\ \&map);}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ quit(SDL\_Window*\ window,\ SDL\_Renderer*\ renderer);}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ quit(SDL\_Window\ \&window,\ SDL\_Renderer\ \&renderer,\ std::vector<SDL\_Texture\ *>\ \&textures);}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ playScene(\mbox{\hyperlink{class_scene}{Scene}}\ \&scene,\ SDL\_Renderer\ \&sdlRenderer);}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00031}00031\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ keepOpen(SDL\_Renderer\ \&renderer,\ std::vector<GameObject\ *>\ \&gameObjects,\ \mbox{\hyperlink{class_player}{Player}}\ \&camera,\ \mbox{\hyperlink{class_map}{Map}}\ \&map);}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ handleEvent(SDL\_Event\ \&event);}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00035}00035\ \textcolor{comment}{//\ \ \ \ \ \ \ \ static\ Vector2\ getValidPos(std::vector<std::vector<int>>\ map);}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00036}00036\ \textcolor{comment}{//\ \ \ \ \ \ \ \ static\ std::vector<SDL\_Texture\ *>\ loadTextures(SDL\_Renderer\ \&pRenderer);}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00037}00037\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::map<TextureTag,\ SDL\_Texture*>\ loadTextures(SDL\_Renderer\ \&pRenderer);}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ isOutOfBounds(\mbox{\hyperlink{class_vector2}{Vector2}}\ \&objectPosition,\ \mbox{\hyperlink{class_map}{Map}}\ \&map);}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ keepOpen(SDL\_Renderer\ \&renderer,\ std::vector<GameObject\ *>\ \&gameObjects,\ \mbox{\hyperlink{class_player}{Player}}\ \&camera,\ \mbox{\hyperlink{class_map}{Map}}\ *map);}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00042}00042\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00043}00043\ \}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00046}00046\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//CPROG\_PROJECT\_ENGINE\_H}}
+
+\end{DoxyCode}

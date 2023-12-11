@@ -1,0 +1,393 @@
+\doxysection{16\+\_\+true\+\_\+type\+\_\+fonts.\+cpp}
+\hypertarget{16__true__type__fonts_8cpp_source}{}\label{16__true__type__fonts_8cpp_source}\index{E:/Code/Skola/Su/CProg/CProg-\/Project/\_exempelfiler/lazyFoo-\/Tutorials/16\_true\_type\_fonts/16\_true\_type\_fonts.cpp@{E:/Code/Skola/Su/CProg/CProg-\/Project/\_exempelfiler/lazyFoo-\/Tutorials/16\_true\_type\_fonts/16\_true\_type\_fonts.cpp}}
+\mbox{\hyperlink{16__true__type__fonts_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00001}00001\ \textcolor{comment}{/*This\ source\ code\ copyrighted\ by\ Lazy\ Foo'\ Productions\ 2004-\/2023}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00002}00002\ \textcolor{comment}{and\ may\ not\ be\ redistributed\ without\ written\ permission.*/}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00004}00004\ \textcolor{comment}{//Using\ SDL,\ SDL\_image,\ SDL\_ttf,\ standard\ IO,\ math,\ and\ strings}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <SDL.h>}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <SDL\_image.h>}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <SDL\_ttf.h>}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00012}00012\ \textcolor{comment}{//Screen\ dimension\ constants}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00013}\mbox{\hyperlink{16__true__type__fonts_8cpp_a3482785bd2a4c8b307f9e0b6f54e2c36}{00013}}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{16__true__type__fonts_8cpp_a3482785bd2a4c8b307f9e0b6f54e2c36}{SCREEN\_WIDTH}}\ =\ 640;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00014}\mbox{\hyperlink{16__true__type__fonts_8cpp_ab454541ae58bcf6555e8d723b1eb95e7}{00014}}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{16__true__type__fonts_8cpp_ab454541ae58bcf6555e8d723b1eb95e7}{SCREEN\_HEIGHT}}\ =\ 480;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00016}00016\ \textcolor{comment}{//Texture\ wrapper\ class}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00017}\mbox{\hyperlink{class_l_texture}{00017}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_l_texture}{LTexture}}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00018}00018\ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00019}00019\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00020}00020\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Initializes\ variables}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00021}00021\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_l_texture_a12fbc9278f97388cce5ce18863b462ff}{LTexture}}();}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Deallocates\ memory}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_l_texture_a49cfe57c36e58ad99c1ea73fc274b77b}{\string~LTexture}}();}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Loads\ image\ at\ specified\ path}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_l_texture_ae5b2b930a619203755988c16d6403665}{loadFromFile}}(\ std::string\ path\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Creates\ image\ from\ font\ string}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_l_texture_af0ea348d6f108c45372fc5ec5b9296bc}{loadFromRenderedText}}(\ std::string\ textureText,\ SDL\_Color\ textColor\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00032}00032\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Deallocates\ texture}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_l_texture_abef558f0b920270079925548a3976a06}{free}}();}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Set\ color\ modulation}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_l_texture_a4ccf201515ecb158b137394d41ed9077}{setColor}}(\ Uint8\ red,\ Uint8\ green,\ Uint8\ blue\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Set\ blending}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_l_texture_aa1fe07070f715bf3981c129ae1619a4e}{setBlendMode}}(\ SDL\_BlendMode\ blending\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Set\ alpha\ modulation}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_l_texture_ab4e51b54752ae7b54614078f9128a9c0}{setAlpha}}(\ Uint8\ alpha\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00043}00043\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00044}00044\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Renders\ texture\ at\ given\ point}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_l_texture_af0d1f2a1562a976acc795f39e813fe95}{render}}(\ \textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ SDL\_Rect*\ clip\ =\ NULL,\ \textcolor{keywordtype}{double}\ angle\ =\ 0.0,\ SDL\_Point*\ center\ =\ NULL,\ SDL\_RendererFlip\ flip\ =\ SDL\_FLIP\_NONE\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00047}00047\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Gets\ image\ dimensions}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00048}00048\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_l_texture_a542c1f81d98fd5659a04eb394d61a879}{getWidth}}();}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00049}00049\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_l_texture_a277f45af3dae7e35ca846a527039e59a}{getHeight}}();}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00051}00051\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00052}00052\ \ \ \ \ \ \ \ \ \textcolor{comment}{//The\ actual\ hardware\ texture}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00053}00053\ \ \ \ \ \ \ \ \ SDL\_Texture*\ mTexture;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Image\ dimensions}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ mWidth;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ mHeight;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00058}00058\ \};}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00060}00060\ \textcolor{comment}{//Starts\ up\ SDL\ and\ creates\ window}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00061}00061\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{16__true__type__fonts_8cpp_aee8048628ff2b5c026c9e15acdcaacb8}{init}}();}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00063}00063\ \textcolor{comment}{//Loads\ media}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00064}00064\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{16__true__type__fonts_8cpp_a24b0babc7c151f85567092a4c13fa743}{loadMedia}}();}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00066}00066\ \textcolor{comment}{//Frees\ media\ and\ shuts\ down\ SDL}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00067}00067\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{16__true__type__fonts_8cpp_a5ae591df94fc66ccb85cbb6565368bca}{close}}();}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00069}00069\ \textcolor{comment}{//The\ window\ we'll\ be\ rendering\ to}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00070}\mbox{\hyperlink{16__true__type__fonts_8cpp_a222f53a6a442d8f716dffd665e83528a}{00070}}\ SDL\_Window*\ \mbox{\hyperlink{16__true__type__fonts_8cpp_a222f53a6a442d8f716dffd665e83528a}{gWindow}}\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00072}00072\ \textcolor{comment}{//The\ window\ renderer}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00073}\mbox{\hyperlink{16__true__type__fonts_8cpp_a4735638969a524c4ac90a88f23c59a1f}{00073}}\ SDL\_Renderer*\ \mbox{\hyperlink{16__true__type__fonts_8cpp_a4735638969a524c4ac90a88f23c59a1f}{gRenderer}}\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00075}00075\ \textcolor{comment}{//Globally\ used\ font}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00076}\mbox{\hyperlink{16__true__type__fonts_8cpp_a88e76957ec56f067af762125afcac25f}{00076}}\ TTF\_Font*\ \mbox{\hyperlink{16__true__type__fonts_8cpp_a88e76957ec56f067af762125afcac25f}{gFont}}\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00078}00078\ \textcolor{comment}{//Rendered\ texture}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00079}\mbox{\hyperlink{16__true__type__fonts_8cpp_ae760315b83b70c03cd0d16756eebac24}{00079}}\ \mbox{\hyperlink{class_l_texture}{LTexture}}\ \mbox{\hyperlink{16__true__type__fonts_8cpp_ae760315b83b70c03cd0d16756eebac24}{gTextTexture}};}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00082}\mbox{\hyperlink{class_l_texture_a12fbc9278f97388cce5ce18863b462ff}{00082}}\ \mbox{\hyperlink{class_l_texture_a12fbc9278f97388cce5ce18863b462ff}{LTexture::LTexture}}()}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00083}00083\ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00084}00084\ \ \ \ \ \textcolor{comment}{//Initialize}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00085}00085\ \ \ \ \ mTexture\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00086}00086\ \ \ \ \ mWidth\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00087}00087\ \ \ \ \ mHeight\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00088}00088\ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00090}\mbox{\hyperlink{class_l_texture_a49cfe57c36e58ad99c1ea73fc274b77b}{00090}}\ \mbox{\hyperlink{class_l_texture_a49cfe57c36e58ad99c1ea73fc274b77b}{LTexture::\string~LTexture}}()}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00091}00091\ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00092}00092\ \ \ \ \ \textcolor{comment}{//Deallocate}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00093}00093\ \ \ \ \ \mbox{\hyperlink{class_l_texture_abef558f0b920270079925548a3976a06}{free}}();}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00094}00094\ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00096}\mbox{\hyperlink{class_l_texture_ae5b2b930a619203755988c16d6403665}{00096}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_l_texture_ae5b2b930a619203755988c16d6403665}{LTexture::loadFromFile}}(\ std::string\ path\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00097}00097\ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00098}00098\ \ \ \ \ \textcolor{comment}{//Get\ rid\ of\ preexisting\ texture}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00099}00099\ \ \ \ \ \mbox{\hyperlink{class_l_texture_abef558f0b920270079925548a3976a06}{free}}();}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00101}00101\ \ \ \ \ \textcolor{comment}{//The\ final\ texture}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00102}00102\ \ \ \ \ SDL\_Texture*\ newTexture\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00104}00104\ \ \ \ \ \textcolor{comment}{//Load\ image\ at\ specified\ path}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00105}00105\ \ \ \ \ SDL\_Surface*\ loadedSurface\ =\ IMG\_Load(\ path.c\_str()\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00106}00106\ \ \ \ \ \textcolor{keywordflow}{if}(\ loadedSurface\ ==\ NULL\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00107}00107\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00108}00108\ \ \ \ \ \ \ \ \ printf(\ \textcolor{stringliteral}{"{}Unable\ to\ load\ image\ \%s!\ SDL\_image\ Error:\ \%s\(\backslash\)n"{}},\ path.c\_str(),\ IMG\_GetError()\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00109}00109\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00110}00110\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00111}00111\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00112}00112\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Color\ key\ image}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00113}00113\ \ \ \ \ \ \ \ \ SDL\_SetColorKey(\ loadedSurface,\ SDL\_TRUE,\ SDL\_MapRGB(\ loadedSurface-\/>format,\ 0,\ 0xFF,\ 0xFF\ )\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00115}00115\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Create\ texture\ from\ surface\ pixels}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00116}00116\ \ \ \ \ \ \ \ \ newTexture\ =\ SDL\_CreateTextureFromSurface(\ \mbox{\hyperlink{16__true__type__fonts_8cpp_a4735638969a524c4ac90a88f23c59a1f}{gRenderer}},\ loadedSurface\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00117}00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ newTexture\ ==\ NULL\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00118}00118\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\ \textcolor{stringliteral}{"{}Unable\ to\ create\ texture\ from\ \%s!\ SDL\ Error:\ \%s\(\backslash\)n"{}},\ path.c\_str(),\ SDL\_GetError()\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00120}00120\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00121}00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00122}00122\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Get\ image\ dimensions}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ mWidth\ =\ loadedSurface-\/>w;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ mHeight\ =\ loadedSurface-\/>h;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00126}00126\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00128}00128\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Get\ rid\ of\ old\ loaded\ surface}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00129}00129\ \ \ \ \ \ \ \ \ SDL\_FreeSurface(\ loadedSurface\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00130}00130\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00132}00132\ \ \ \ \ \textcolor{comment}{//Return\ success}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00133}00133\ \ \ \ \ mTexture\ =\ newTexture;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00134}00134\ \ \ \ \ \textcolor{keywordflow}{return}\ mTexture\ !=\ NULL;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00135}00135\ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00137}\mbox{\hyperlink{class_l_texture_af0ea348d6f108c45372fc5ec5b9296bc}{00137}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_l_texture_af0ea348d6f108c45372fc5ec5b9296bc}{LTexture::loadFromRenderedText}}(\ std::string\ textureText,\ SDL\_Color\ textColor\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00138}00138\ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00139}00139\ \ \ \ \ \textcolor{comment}{//Get\ rid\ of\ preexisting\ texture}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00140}00140\ \ \ \ \ \mbox{\hyperlink{class_l_texture_abef558f0b920270079925548a3976a06}{free}}();}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00142}00142\ \ \ \ \ \textcolor{comment}{//Render\ text\ surface}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00143}00143\ \ \ \ \ SDL\_Surface*\ textSurface\ =\ TTF\_RenderText\_Solid(\ \mbox{\hyperlink{16__true__type__fonts_8cpp_a88e76957ec56f067af762125afcac25f}{gFont}},\ textureText.c\_str(),\ textColor\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00144}00144\ \ \ \ \ \textcolor{keywordflow}{if}(\ textSurface\ ==\ NULL\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00145}00145\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00146}00146\ \ \ \ \ \ \ \ \ printf(\ \textcolor{stringliteral}{"{}Unable\ to\ render\ text\ surface!\ SDL\_ttf\ Error:\ \%s\(\backslash\)n"{}},\ TTF\_GetError()\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00147}00147\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00148}00148\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00149}00149\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00150}00150\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Create\ texture\ from\ surface\ pixels}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00151}00151\ \ \ \ \ \ \ \ \ mTexture\ =\ SDL\_CreateTextureFromSurface(\ \mbox{\hyperlink{16__true__type__fonts_8cpp_a4735638969a524c4ac90a88f23c59a1f}{gRenderer}},\ textSurface\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00152}00152\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ mTexture\ ==\ NULL\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00153}00153\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\ \textcolor{stringliteral}{"{}Unable\ to\ create\ texture\ from\ rendered\ text!\ SDL\ Error:\ \%s\(\backslash\)n"{}},\ SDL\_GetError()\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00155}00155\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00156}00156\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00157}00157\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Get\ image\ dimensions}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ mWidth\ =\ textSurface-\/>w;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ mHeight\ =\ textSurface-\/>h;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00161}00161\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00163}00163\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Get\ rid\ of\ old\ surface}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00164}00164\ \ \ \ \ \ \ \ \ SDL\_FreeSurface(\ textSurface\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00165}00165\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00166}00166\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00167}00167\ \ \ \ \ \textcolor{comment}{//Return\ success}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00168}00168\ \ \ \ \ \textcolor{keywordflow}{return}\ mTexture\ !=\ NULL;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00169}00169\ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00171}\mbox{\hyperlink{class_l_texture_abef558f0b920270079925548a3976a06}{00171}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_l_texture_abef558f0b920270079925548a3976a06}{LTexture::free}}()}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00172}00172\ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00173}00173\ \ \ \ \ \textcolor{comment}{//Free\ texture\ if\ it\ exists}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00174}00174\ \ \ \ \ \textcolor{keywordflow}{if}(\ mTexture\ !=\ NULL\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00175}00175\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00176}00176\ \ \ \ \ \ \ \ \ SDL\_DestroyTexture(\ mTexture\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00177}00177\ \ \ \ \ \ \ \ \ mTexture\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00178}00178\ \ \ \ \ \ \ \ \ mWidth\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00179}00179\ \ \ \ \ \ \ \ \ mHeight\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00180}00180\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00181}00181\ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00183}\mbox{\hyperlink{class_l_texture_a4ccf201515ecb158b137394d41ed9077}{00183}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_l_texture_a4ccf201515ecb158b137394d41ed9077}{LTexture::setColor}}(\ Uint8\ red,\ Uint8\ green,\ Uint8\ blue\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00184}00184\ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00185}00185\ \ \ \ \ \textcolor{comment}{//Modulate\ texture\ rgb}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00186}00186\ \ \ \ \ SDL\_SetTextureColorMod(\ mTexture,\ red,\ green,\ blue\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00187}00187\ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00188}00188\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00189}\mbox{\hyperlink{class_l_texture_aa1fe07070f715bf3981c129ae1619a4e}{00189}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_l_texture_aa1fe07070f715bf3981c129ae1619a4e}{LTexture::setBlendMode}}(\ SDL\_BlendMode\ blending\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00190}00190\ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00191}00191\ \ \ \ \ \textcolor{comment}{//Set\ blending\ function}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00192}00192\ \ \ \ \ SDL\_SetTextureBlendMode(\ mTexture,\ blending\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00193}00193\ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00194}00194\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00195}\mbox{\hyperlink{class_l_texture_ab4e51b54752ae7b54614078f9128a9c0}{00195}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_l_texture_ab4e51b54752ae7b54614078f9128a9c0}{LTexture::setAlpha}}(\ Uint8\ alpha\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00196}00196\ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00197}00197\ \ \ \ \ \textcolor{comment}{//Modulate\ texture\ alpha}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00198}00198\ \ \ \ \ SDL\_SetTextureAlphaMod(\ mTexture,\ alpha\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00199}00199\ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00200}00200\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00201}\mbox{\hyperlink{class_l_texture_af0d1f2a1562a976acc795f39e813fe95}{00201}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_l_texture_af0d1f2a1562a976acc795f39e813fe95}{LTexture::render}}(\ \textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ SDL\_Rect*\ clip,\ \textcolor{keywordtype}{double}\ angle,\ SDL\_Point*\ center,\ SDL\_RendererFlip\ flip\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00202}00202\ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00203}00203\ \ \ \ \ \textcolor{comment}{//Set\ rendering\ space\ and\ render\ to\ screen}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00204}00204\ \ \ \ \ SDL\_Rect\ renderQuad\ =\ \{\ x,\ y,\ mWidth,\ mHeight\ \};}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00205}00205\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00206}00206\ \ \ \ \ \textcolor{comment}{//Set\ clip\ rendering\ dimensions}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00207}00207\ \ \ \ \ \textcolor{keywordflow}{if}(\ clip\ !=\ NULL\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00208}00208\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00209}00209\ \ \ \ \ \ \ \ \ renderQuad.w\ =\ clip-\/>w;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00210}00210\ \ \ \ \ \ \ \ \ renderQuad.h\ =\ clip-\/>h;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00211}00211\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00212}00212\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00213}00213\ \ \ \ \ \textcolor{comment}{//Render\ to\ screen}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00214}00214\ \ \ \ \ SDL\_RenderCopyEx(\ \mbox{\hyperlink{16__true__type__fonts_8cpp_a4735638969a524c4ac90a88f23c59a1f}{gRenderer}},\ mTexture,\ clip,\ \&renderQuad,\ angle,\ center,\ flip\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00215}00215\ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00216}00216\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00217}\mbox{\hyperlink{class_l_texture_a542c1f81d98fd5659a04eb394d61a879}{00217}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_l_texture_a542c1f81d98fd5659a04eb394d61a879}{LTexture::getWidth}}()}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00218}00218\ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00219}00219\ \ \ \ \ \textcolor{keywordflow}{return}\ mWidth;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00220}00220\ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00221}00221\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00222}\mbox{\hyperlink{class_l_texture_a277f45af3dae7e35ca846a527039e59a}{00222}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_l_texture_a277f45af3dae7e35ca846a527039e59a}{LTexture::getHeight}}()}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00223}00223\ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00224}00224\ \ \ \ \ \textcolor{keywordflow}{return}\ mHeight;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00225}00225\ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00226}00226\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00227}\mbox{\hyperlink{16__true__type__fonts_8cpp_aee8048628ff2b5c026c9e15acdcaacb8}{00227}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{16__true__type__fonts_8cpp_aee8048628ff2b5c026c9e15acdcaacb8}{init}}()}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00228}00228\ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00229}00229\ \ \ \ \ \textcolor{comment}{//Initialization\ flag}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00230}00230\ \ \ \ \ \textcolor{keywordtype}{bool}\ success\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00231}00231\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00232}00232\ \ \ \ \ \textcolor{comment}{//Initialize\ SDL}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00233}00233\ \ \ \ \ \textcolor{keywordflow}{if}(\ SDL\_Init(\ SDL\_INIT\_VIDEO\ )\ <\ 0\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00234}00234\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00235}00235\ \ \ \ \ \ \ \ \ printf(\ \textcolor{stringliteral}{"{}SDL\ could\ not\ initialize!\ SDL\ Error:\ \%s\(\backslash\)n"{}},\ SDL\_GetError()\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00236}00236\ \ \ \ \ \ \ \ \ success\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00237}00237\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00238}00238\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00239}00239\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00240}00240\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Set\ texture\ filtering\ to\ linear}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00241}00241\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !SDL\_SetHint(\ SDL\_HINT\_RENDER\_SCALE\_QUALITY,\ \textcolor{stringliteral}{"{}1"{}}\ )\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00242}00242\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\ \textcolor{stringliteral}{"{}Warning:\ Linear\ texture\ filtering\ not\ enabled!"{}}\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00244}00244\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00245}00245\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00246}00246\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Create\ window}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00247}00247\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{16__true__type__fonts_8cpp_a222f53a6a442d8f716dffd665e83528a}{gWindow}}\ =\ SDL\_CreateWindow(\ \textcolor{stringliteral}{"{}SDL\ Tutorial"{}},\ SDL\_WINDOWPOS\_UNDEFINED,\ SDL\_WINDOWPOS\_UNDEFINED,\ \mbox{\hyperlink{16__true__type__fonts_8cpp_a3482785bd2a4c8b307f9e0b6f54e2c36}{SCREEN\_WIDTH}},\ \mbox{\hyperlink{16__true__type__fonts_8cpp_ab454541ae58bcf6555e8d723b1eb95e7}{SCREEN\_HEIGHT}},\ SDL\_WINDOW\_SHOWN\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00248}00248\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{16__true__type__fonts_8cpp_a222f53a6a442d8f716dffd665e83528a}{gWindow}}\ ==\ NULL\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00249}00249\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00250}00250\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\ \textcolor{stringliteral}{"{}Window\ could\ not\ be\ created!\ SDL\ Error:\ \%s\(\backslash\)n"{}},\ SDL\_GetError()\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00251}00251\ \ \ \ \ \ \ \ \ \ \ \ \ success\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00252}00252\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00253}00253\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00254}00254\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00255}00255\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Create\ vsynced\ renderer\ for\ window}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{16__true__type__fonts_8cpp_a4735638969a524c4ac90a88f23c59a1f}{gRenderer}}\ =\ SDL\_CreateRenderer(\ \mbox{\hyperlink{16__true__type__fonts_8cpp_a222f53a6a442d8f716dffd665e83528a}{gWindow}},\ -\/1,\ SDL\_RENDERER\_ACCELERATED\ |\ SDL\_RENDERER\_PRESENTVSYNC\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00257}00257\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{16__true__type__fonts_8cpp_a4735638969a524c4ac90a88f23c59a1f}{gRenderer}}\ ==\ NULL\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00258}00258\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00259}00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ printf(\ \textcolor{stringliteral}{"{}Renderer\ could\ not\ be\ created!\ SDL\ Error:\ \%s\(\backslash\)n"{}},\ SDL\_GetError()\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00260}00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ success\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00261}00261\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00262}00262\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00263}00263\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00264}00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Initialize\ renderer\ color}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00265}00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SDL\_SetRenderDrawColor(\ \mbox{\hyperlink{16__true__type__fonts_8cpp_a4735638969a524c4ac90a88f23c59a1f}{gRenderer}},\ 0xFF,\ 0xFF,\ 0xFF,\ 0xFF\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00266}00266\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00267}00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Initialize\ PNG\ loading}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00268}00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ imgFlags\ =\ IMG\_INIT\_PNG;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00269}00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !(\ IMG\_Init(\ imgFlags\ )\ \&\ imgFlags\ )\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00270}00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00271}00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ printf(\ \textcolor{stringliteral}{"{}SDL\_image\ could\ not\ initialize!\ SDL\_image\ Error:\ \%s\(\backslash\)n"{}},\ IMG\_GetError()\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00272}00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ success\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00273}00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00274}00274\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Initialize\ SDL\_ttf}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00276}00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ TTF\_Init()\ ==\ -\/1\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00277}00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00278}00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ printf(\ \textcolor{stringliteral}{"{}SDL\_ttf\ could\ not\ initialize!\ SDL\_ttf\ Error:\ \%s\(\backslash\)n"{}},\ TTF\_GetError()\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00279}00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ success\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00280}00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00281}00281\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00282}00282\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00283}00283\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00284}00284\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00285}00285\ \ \ \ \ \textcolor{keywordflow}{return}\ success;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00286}00286\ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00287}00287\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00288}\mbox{\hyperlink{16__true__type__fonts_8cpp_a24b0babc7c151f85567092a4c13fa743}{00288}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{16__true__type__fonts_8cpp_a24b0babc7c151f85567092a4c13fa743}{loadMedia}}()}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00289}00289\ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00290}00290\ \ \ \ \ \textcolor{comment}{//Loading\ success\ flag}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00291}00291\ \ \ \ \ \textcolor{keywordtype}{bool}\ success\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00292}00292\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00293}00293\ \ \ \ \ \textcolor{comment}{//Open\ the\ font}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00294}00294\ \ \ \ \ \mbox{\hyperlink{16__true__type__fonts_8cpp_a88e76957ec56f067af762125afcac25f}{gFont}}\ =\ TTF\_OpenFont(\ \textcolor{stringliteral}{"{}16\_true\_type\_fonts/lazy.ttf"{}},\ 28\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00295}00295\ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{16__true__type__fonts_8cpp_a88e76957ec56f067af762125afcac25f}{gFont}}\ ==\ NULL\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00296}00296\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00297}00297\ \ \ \ \ \ \ \ \ printf(\ \textcolor{stringliteral}{"{}Failed\ to\ load\ lazy\ font!\ SDL\_ttf\ Error:\ \%s\(\backslash\)n"{}},\ TTF\_GetError()\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00298}00298\ \ \ \ \ \ \ \ \ success\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00299}00299\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00300}00300\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00301}00301\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00302}00302\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Render\ text}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00303}00303\ \ \ \ \ \ \ \ \ SDL\_Color\ textColor\ =\ \{\ 0,\ 0,\ 0\ \};}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00304}00304\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !\mbox{\hyperlink{16__true__type__fonts_8cpp_ae760315b83b70c03cd0d16756eebac24}{gTextTexture}}.\mbox{\hyperlink{class_l_texture_af0ea348d6f108c45372fc5ec5b9296bc}{loadFromRenderedText}}(\ \textcolor{stringliteral}{"{}The\ quick\ brown\ fox\ jumps\ over\ the\ lazy\ dog"{}},\ textColor\ )\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00305}00305\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00306}00306\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\ \textcolor{stringliteral}{"{}Failed\ to\ render\ text\ texture!\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00307}00307\ \ \ \ \ \ \ \ \ \ \ \ \ success\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00308}00308\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00309}00309\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00310}00310\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00311}00311\ \ \ \ \ \textcolor{keywordflow}{return}\ success;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00312}00312\ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00313}00313\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00314}\mbox{\hyperlink{16__true__type__fonts_8cpp_a5ae591df94fc66ccb85cbb6565368bca}{00314}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{16__true__type__fonts_8cpp_a5ae591df94fc66ccb85cbb6565368bca}{close}}()}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00315}00315\ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00316}00316\ \ \ \ \ \textcolor{comment}{//Free\ loaded\ images}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00317}00317\ \ \ \ \ \mbox{\hyperlink{16__true__type__fonts_8cpp_ae760315b83b70c03cd0d16756eebac24}{gTextTexture}}.\mbox{\hyperlink{class_l_texture_abef558f0b920270079925548a3976a06}{free}}();}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00318}00318\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00319}00319\ \ \ \ \ \textcolor{comment}{//Free\ global\ font}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00320}00320\ \ \ \ \ TTF\_CloseFont(\ \mbox{\hyperlink{16__true__type__fonts_8cpp_a88e76957ec56f067af762125afcac25f}{gFont}}\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00321}00321\ \ \ \ \ \mbox{\hyperlink{16__true__type__fonts_8cpp_a88e76957ec56f067af762125afcac25f}{gFont}}\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00322}00322\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00323}00323\ \ \ \ \ \textcolor{comment}{//Destroy\ window\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00324}00324\ \ \ \ \ SDL\_DestroyRenderer(\ \mbox{\hyperlink{16__true__type__fonts_8cpp_a4735638969a524c4ac90a88f23c59a1f}{gRenderer}}\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00325}00325\ \ \ \ \ SDL\_DestroyWindow(\ \mbox{\hyperlink{16__true__type__fonts_8cpp_a222f53a6a442d8f716dffd665e83528a}{gWindow}}\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00326}00326\ \ \ \ \ \mbox{\hyperlink{16__true__type__fonts_8cpp_a222f53a6a442d8f716dffd665e83528a}{gWindow}}\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00327}00327\ \ \ \ \ \mbox{\hyperlink{16__true__type__fonts_8cpp_a4735638969a524c4ac90a88f23c59a1f}{gRenderer}}\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00328}00328\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00329}00329\ \ \ \ \ \textcolor{comment}{//Quit\ SDL\ subsystems}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00330}00330\ \ \ \ \ TTF\_Quit();}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00331}00331\ \ \ \ \ IMG\_Quit();}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00332}00332\ \ \ \ \ SDL\_Quit();}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00333}00333\ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00334}00334\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00335}\mbox{\hyperlink{16__true__type__fonts_8cpp_a700a0caa5b70a06d1064e576f9f3cf65}{00335}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}}(\ \textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}*\ args[]\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00336}00336\ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00337}00337\ \ \ \ \ \textcolor{comment}{//Start\ up\ SDL\ and\ create\ window}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00338}00338\ \ \ \ \ \textcolor{keywordflow}{if}(\ !\mbox{\hyperlink{16__true__type__fonts_8cpp_aee8048628ff2b5c026c9e15acdcaacb8}{init}}()\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00339}00339\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00340}00340\ \ \ \ \ \ \ \ \ printf(\ \textcolor{stringliteral}{"{}Failed\ to\ initialize!\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00341}00341\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00342}00342\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00343}00343\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00344}00344\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Load\ media}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00345}00345\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !\mbox{\hyperlink{16__true__type__fonts_8cpp_a24b0babc7c151f85567092a4c13fa743}{loadMedia}}()\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00346}00346\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00347}00347\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\ \textcolor{stringliteral}{"{}Failed\ to\ load\ media!\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00348}00348\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00349}00349\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00350}00350\ \ \ \ \ \ \ \ \ \{\ \ \ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00351}00351\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Main\ loop\ flag}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00352}00352\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ quit\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00353}00353\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00354}00354\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Event\ handler}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00355}00355\ \ \ \ \ \ \ \ \ \ \ \ \ SDL\_Event\ e;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00356}00356\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00357}00357\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//While\ application\ is\ running}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00358}00358\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\ !quit\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00359}00359\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00360}00360\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Handle\ events\ on\ queue}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00361}00361\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\ SDL\_PollEvent(\ \&e\ )\ !=\ 0\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00362}00362\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00363}00363\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//User\ requests\ quit}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00364}00364\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ e.type\ ==\ SDL\_QUIT\ )}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00365}00365\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00366}00366\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ quit\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00367}00367\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00368}00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00369}00369\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00370}00370\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Clear\ screen}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00371}00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SDL\_SetRenderDrawColor(\ \mbox{\hyperlink{16__true__type__fonts_8cpp_a4735638969a524c4ac90a88f23c59a1f}{gRenderer}},\ 0xFF,\ 0xFF,\ 0xFF,\ 0xFF\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00372}00372\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SDL\_RenderClear(\ \mbox{\hyperlink{16__true__type__fonts_8cpp_a4735638969a524c4ac90a88f23c59a1f}{gRenderer}}\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00373}00373\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00374}00374\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Render\ current\ frame}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00375}00375\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{16__true__type__fonts_8cpp_ae760315b83b70c03cd0d16756eebac24}{gTextTexture}}.\mbox{\hyperlink{class_l_texture_af0d1f2a1562a976acc795f39e813fe95}{render}}(\ (\ \mbox{\hyperlink{16__true__type__fonts_8cpp_a3482785bd2a4c8b307f9e0b6f54e2c36}{SCREEN\_WIDTH}}\ -\/\ \mbox{\hyperlink{16__true__type__fonts_8cpp_ae760315b83b70c03cd0d16756eebac24}{gTextTexture}}.\mbox{\hyperlink{class_l_texture_a542c1f81d98fd5659a04eb394d61a879}{getWidth}}()\ )\ /\ 2,\ (\ \mbox{\hyperlink{16__true__type__fonts_8cpp_ab454541ae58bcf6555e8d723b1eb95e7}{SCREEN\_HEIGHT}}\ -\/\ \mbox{\hyperlink{16__true__type__fonts_8cpp_ae760315b83b70c03cd0d16756eebac24}{gTextTexture}}.\mbox{\hyperlink{class_l_texture_a277f45af3dae7e35ca846a527039e59a}{getHeight}}()\ )\ /\ 2\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00376}00376\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00377}00377\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Update\ screen}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00378}00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SDL\_RenderPresent(\ \mbox{\hyperlink{16__true__type__fonts_8cpp_a4735638969a524c4ac90a88f23c59a1f}{gRenderer}}\ );}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00379}00379\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00380}00380\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00381}00381\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00382}00382\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00383}00383\ \ \ \ \ \textcolor{comment}{//Free\ resources\ and\ close\ SDL}}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00384}00384\ \ \ \ \ \mbox{\hyperlink{16__true__type__fonts_8cpp_a5ae591df94fc66ccb85cbb6565368bca}{close}}();}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00385}00385\ }
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00386}00386\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{16__true__type__fonts_8cpp_source_l00387}00387\ \}}
+
+\end{DoxyCode}

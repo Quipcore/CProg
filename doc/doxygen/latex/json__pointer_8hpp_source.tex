@@ -1,0 +1,849 @@
+\doxysection{json\+\_\+pointer.\+hpp}
+\hypertarget{json__pointer_8hpp_source}{}\label{json__pointer_8hpp_source}\index{E:/Code/Skola/Su/CProg/CProg-\/Project/include/nlohmann/detail/json\_pointer.hpp@{E:/Code/Skola/Su/CProg/CProg-\/Project/include/nlohmann/detail/json\_pointer.hpp}}
+\mbox{\hyperlink{json__pointer_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00001}00001\ \textcolor{comment}{//\ \ \ \ \ \_\_\ \_\_\_\_\_\ \_\_\_\_\_\ \_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00002}00002\ \textcolor{comment}{//\ \ \_\_|\ \ |\ \ \ \_\_|\ \ \ \ \ |\ \ \ |\ |\ \ JSON\ for\ Modern\ C++}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00003}00003\ \textcolor{comment}{//\ |\ \ |\ \ |\_\_\ \ \ |\ \ |\ \ |\ |\ |\ |\ \ version\ 3.11.2}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00004}00004\ \textcolor{comment}{//\ |\_\_\_\_\_|\_\_\_\_\_|\_\_\_\_\_|\_|\_\_\_|\ \ https://github.com/nlohmann/json}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00005}00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00006}00006\ \textcolor{comment}{//\ SPDX-\/FileCopyrightText:\ 2013-\/2022\ Niels\ Lohmann\ <https://nlohmann.me>}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00007}00007\ \textcolor{comment}{//\ SPDX-\/License-\/Identifier:\ MIT}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00009}00009\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <algorithm>}\ \textcolor{comment}{//\ all\_of}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <cctype>}\ \textcolor{comment}{//\ isdigit}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <cerrno>}\ \textcolor{comment}{//\ errno,\ ERANGE}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <cstdlib>}\ \textcolor{comment}{//\ strtoull}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00015}00015\ \textcolor{preprocessor}{\#ifndef\ JSON\_NO\_IO}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00016}00016\ \textcolor{preprocessor}{\ \ \ \ \#include\ <iosfwd>}\ \textcolor{comment}{//\ ostream}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00017}00017\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ JSON\_NO\_IO}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00018}00018\ \textcolor{preprocessor}{\#include\ <limits>}\ \textcolor{comment}{//\ max}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00019}00019\ \textcolor{preprocessor}{\#include\ <numeric>}\ \textcolor{comment}{//\ accumulate}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00020}00020\ \textcolor{preprocessor}{\#include\ <string>}\ \textcolor{comment}{//\ string}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00021}00021\ \textcolor{preprocessor}{\#include\ <utility>}\ \textcolor{comment}{//\ move}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00022}00022\ \textcolor{preprocessor}{\#include\ <vector>}\ \textcolor{comment}{//\ vector}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00024}00024\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{exceptions_8hpp}{nlohmann/detail/exceptions.hpp}}>}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00025}00025\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{macro__scope_8hpp}{nlohmann/detail/macro\_scope.hpp}}>}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00026}00026\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{string__concat_8hpp}{nlohmann/detail/string\_concat.hpp}}>}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00027}00027\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{string__escape_8hpp}{nlohmann/detail/string\_escape.hpp}}>}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00028}00028\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{value__t_8hpp}{nlohmann/detail/value\_t.hpp}}>}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00030}00030\ \mbox{\hyperlink{abi__macros_8hpp_ac7a66dcd7a3ddd51927365b7f804d95e}{NLOHMANN\_JSON\_NAMESPACE\_BEGIN}}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00034}00034\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ RefStringType>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00035}\mbox{\hyperlink{classjson__pointer}{00035}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classjson__pointer}{json\_pointer}}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00036}00036\ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00037}00037\ \ \ \ \ \textcolor{comment}{//\ allow\ basic\_json\ to\ access\ private\ members}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00038}00038\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a0643bd74c2dc6f0e4e420b8190ea8f0f}{NLOHMANN\_BASIC\_JSON\_TPL\_DECLARATION}}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00039}\mbox{\hyperlink{classjson__pointer_ada3100cdb8700566051828f1355fa745}{00039}}\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classbasic__json}{basic\_json}};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00041}00041\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00042}\mbox{\hyperlink{classjson__pointer_ab0a623288bc1272870149ad50f799a73}{00042}}\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classjson__pointer}{json\_pointer}};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00044}00044\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00045}00045\ \ \ \ \ \textcolor{keyword}{struct\ }string\_t\_helper}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00046}00046\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00047}00047\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }type\ =\ \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00048}00048\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00050}00050\ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a0643bd74c2dc6f0e4e420b8190ea8f0f}{NLOHMANN\_BASIC\_JSON\_TPL\_DECLARATION}}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00051}00051\ \ \ \ \ \textcolor{keyword}{struct\ }string\_t\_helper<\mbox{\hyperlink{macro__scope_8hpp_a80b7254e63f199a1f656f07ae551f632}{NLOHMANN\_BASIC\_JSON\_TPL}}>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00052}00052\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00053}00053\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }type\ =\ StringType;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00054}00054\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00056}00056\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00057}00057\ \ \ \ \ \textcolor{comment}{//\ for\ backwards\ compatibility\ accept\ BasicJsonType}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00058}\mbox{\hyperlink{classjson__pointer_a21dae78c5120aa3044d4c0fa1d970291}{00058}}\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classjson__pointer_a21dae78c5120aa3044d4c0fa1d970291}{string\_t}}\ =\ \textcolor{keyword}{typename}\ string\_t\_helper<RefStringType>::type;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00062}\mbox{\hyperlink{classjson__pointer_a5288b8f5d6ff6faca37f664b98a16ecd}{00062}}\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classjson__pointer_a5288b8f5d6ff6faca37f664b98a16ecd}{json\_pointer}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer_a21dae78c5120aa3044d4c0fa1d970291}{string\_t}}\&\ s\ =\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00063}00063\ \ \ \ \ \ \ \ \ :\ reference\_tokens(split(s))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00064}00064\ \ \ \ \ \{\}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00068}\mbox{\hyperlink{classjson__pointer_a6b94e2003be4cd72c4f145bcea2578ec}{00068}}\ \ \ \ \ \mbox{\hyperlink{classjson__pointer_a21dae78c5120aa3044d4c0fa1d970291}{string\_t}}\ \mbox{\hyperlink{classjson__pointer_a6b94e2003be4cd72c4f145bcea2578ec}{to\_string}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00069}00069\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::accumulate(reference\_tokens.begin(),\ reference\_tokens.end(),}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classjson__pointer_a21dae78c5120aa3044d4c0fa1d970291}{string\_t}}\{\},}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer_a21dae78c5120aa3044d4c0fa1d970291}{string\_t}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer_a21dae78c5120aa3044d4c0fa1d970291}{string\_t}}\&\ b)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ return\ detail::concat(a,\ \textcolor{stringliteral}{'/'},\ detail::escape(b));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00075}00075\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00076}00076\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00080}00080\ \ \ \ \ \mbox{\hyperlink{hedley_8hpp_af0469b867b0ec3a1c4b229ce9d087620}{JSON\_HEDLEY\_DEPRECATED\_FOR}}(3.11.0,\ \mbox{\hyperlink{classjson__pointer_a6b94e2003be4cd72c4f145bcea2578ec}{to\_string}}())}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00081}\mbox{\hyperlink{classjson__pointer_a97364e516620b02f1049f847b2ad43c9}{00081}}\ \ \ \ \ operator\ \mbox{\hyperlink{classjson__pointer_a21dae78c5120aa3044d4c0fa1d970291}{string\_t}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00082}00082\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00083}00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classjson__pointer_a6b94e2003be4cd72c4f145bcea2578ec}{to\_string}}();}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00084}00084\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00086}00086\ \textcolor{preprocessor}{\#ifndef\ JSON\_NO\_IO}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00089}\mbox{\hyperlink{classjson__pointer_ad4140db2dd2f347f46f3abae0fc2156f}{00089}}\ \ \ \ \ \textcolor{keyword}{friend}\ std::ostream\&\ \mbox{\hyperlink{classjson__pointer_ad4140db2dd2f347f46f3abae0fc2156f}{operator<<}}(std::ostream\&\ o,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer}}\&\ ptr)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00090}00090\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00091}00091\ \ \ \ \ \ \ \ \ o\ <<\ ptr.\mbox{\hyperlink{classjson__pointer_a6b94e2003be4cd72c4f145bcea2578ec}{to\_string}}();}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00092}00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ o;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00093}00093\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00094}00094\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00098}\mbox{\hyperlink{classjson__pointer_a8bb8e43c6e01a6370cd49ba130171219}{00098}}\ \ \ \ \ \mbox{\hyperlink{classjson__pointer}{json\_pointer}}\&\ \mbox{\hyperlink{classjson__pointer_a8bb8e43c6e01a6370cd49ba130171219}{operator/=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer}}\&\ ptr)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00099}00099\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00100}00100\ \ \ \ \ \ \ \ \ reference\_tokens.insert(reference\_tokens.end(),}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ptr.reference\_tokens.begin(),}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ptr.reference\_tokens.end());}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00103}00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00104}00104\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00108}\mbox{\hyperlink{classjson__pointer_aa810a9db8c1d6e67c4a3703dc66a18d4}{00108}}\ \ \ \ \ \mbox{\hyperlink{classjson__pointer}{json\_pointer}}\&\ \mbox{\hyperlink{classjson__pointer_aa810a9db8c1d6e67c4a3703dc66a18d4}{operator/=}}(\mbox{\hyperlink{classjson__pointer_a21dae78c5120aa3044d4c0fa1d970291}{string\_t}}\ token)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00109}00109\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00110}00110\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classjson__pointer_adbe97f9c00a221fb7be88d940b39a24f}{push\_back}}(std::move(token));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00111}00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00112}00112\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00116}\mbox{\hyperlink{classjson__pointer_a6c2bffffbf08b77259e0b658c841703c}{00116}}\ \ \ \ \ \mbox{\hyperlink{classjson__pointer}{json\_pointer}}\&\ \mbox{\hyperlink{classjson__pointer_a6c2bffffbf08b77259e0b658c841703c}{operator/=}}(std::size\_t\ array\_idx)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00117}00117\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00118}00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this}\ /=\ std::to\_string(array\_idx);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00119}00119\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00123}\mbox{\hyperlink{classjson__pointer_a90a11fe6c7f37b1746a3ff9cb24b0d53}{00123}}\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer}}\ \mbox{\hyperlink{classjson__pointer_a90a11fe6c7f37b1746a3ff9cb24b0d53}{operator/}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer}}\&\ lhs,}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer}}\&\ rhs)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00125}00125\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00126}00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classjson__pointer_ab0a623288bc1272870149ad50f799a73}{json\_pointer}}(lhs)\ /=\ rhs;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00127}00127\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00131}\mbox{\hyperlink{classjson__pointer_a116956f4487af44732dd685e970679b0}{00131}}\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer}}\ \mbox{\hyperlink{classjson__pointer_a116956f4487af44732dd685e970679b0}{operator/}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer}}\&\ lhs,\ \mbox{\hyperlink{classjson__pointer_a21dae78c5120aa3044d4c0fa1d970291}{string\_t}}\ token)\ \textcolor{comment}{//\ NOLINT(performance-\/unnecessary-\/value-\/param)}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00132}00132\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00133}00133\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classjson__pointer_ab0a623288bc1272870149ad50f799a73}{json\_pointer}}(lhs)\ /=\ std::move(token);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00134}00134\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00138}\mbox{\hyperlink{classjson__pointer_a29f6d4b492e784b9d196b05a4048c289}{00138}}\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer}}\ \mbox{\hyperlink{classjson__pointer_a29f6d4b492e784b9d196b05a4048c289}{operator/}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer}}\&\ lhs,\ std::size\_t\ array\_idx)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00139}00139\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00140}00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classjson__pointer_ab0a623288bc1272870149ad50f799a73}{json\_pointer}}(lhs)\ /=\ array\_idx;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00141}00141\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00145}\mbox{\hyperlink{classjson__pointer_aa03c0c1206e171342d27a4583258858b}{00145}}\ \ \ \ \ \mbox{\hyperlink{classjson__pointer}{json\_pointer}}\ \mbox{\hyperlink{classjson__pointer_aa03c0c1206e171342d27a4583258858b}{parent\_pointer}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00146}00146\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00147}00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{classjson__pointer_a5c3d08bd0a0e99c3377db33600c68a64}{empty}}())}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00148}00148\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00150}00150\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00151}00151\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00152}00152\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classjson__pointer}{json\_pointer}}\ res\ =\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00153}00153\ \ \ \ \ \ \ \ \ res.\mbox{\hyperlink{classjson__pointer_a662118b470c87a1b564946c2602c49ce}{pop\_back}}();}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00154}00154\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00155}00155\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00156}00156\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00159}\mbox{\hyperlink{classjson__pointer_a662118b470c87a1b564946c2602c49ce}{00159}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classjson__pointer_a662118b470c87a1b564946c2602c49ce}{pop\_back}}()}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00160}00160\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00161}00161\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{hedley_8hpp_a8df7de76ab3c9445f46f6994ec205bcd}{JSON\_HEDLEY\_UNLIKELY}}(\mbox{\hyperlink{classjson__pointer_a5c3d08bd0a0e99c3377db33600c68a64}{empty}}()))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00162}00162\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a6c274f6db2e65c1b66c7d41b06ad690f}{JSON\_THROW}}(\mbox{\hyperlink{classdetail_1_1out__of__range_a79ea0d3ec02a853629dc827e045ecff5}{detail::out\_of\_range::create}}(405,\ \textcolor{stringliteral}{"{}JSON\ pointer\ has\ no\ parent"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00164}00164\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00166}00166\ \ \ \ \ \ \ \ \ reference\_tokens.pop\_back();}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00167}00167\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00168}00168\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00171}\mbox{\hyperlink{classjson__pointer_aba71e63e4032cfc46dd90aeb09e5cb0f}{00171}}\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer_a21dae78c5120aa3044d4c0fa1d970291}{string\_t}}\&\ \mbox{\hyperlink{classjson__pointer_aba71e63e4032cfc46dd90aeb09e5cb0f}{back}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00172}00172\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00173}00173\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{hedley_8hpp_a8df7de76ab3c9445f46f6994ec205bcd}{JSON\_HEDLEY\_UNLIKELY}}(\mbox{\hyperlink{classjson__pointer_a5c3d08bd0a0e99c3377db33600c68a64}{empty}}()))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00174}00174\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a6c274f6db2e65c1b66c7d41b06ad690f}{JSON\_THROW}}(\mbox{\hyperlink{classdetail_1_1out__of__range_a79ea0d3ec02a853629dc827e045ecff5}{detail::out\_of\_range::create}}(405,\ \textcolor{stringliteral}{"{}JSON\ pointer\ has\ no\ parent"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00176}00176\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00177}00177\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00178}00178\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ reference\_tokens.back();}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00179}00179\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00183}\mbox{\hyperlink{classjson__pointer_adbe97f9c00a221fb7be88d940b39a24f}{00183}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classjson__pointer_adbe97f9c00a221fb7be88d940b39a24f}{push\_back}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer_a21dae78c5120aa3044d4c0fa1d970291}{string\_t}}\&\ token)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00184}00184\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00185}00185\ \ \ \ \ \ \ \ \ reference\_tokens.push\_back(token);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00186}00186\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00187}00187\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00190}\mbox{\hyperlink{classjson__pointer_a6fa4848eafc232ae1af91c3d2696897e}{00190}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classjson__pointer_a6fa4848eafc232ae1af91c3d2696897e}{push\_back}}(\mbox{\hyperlink{classjson__pointer_a21dae78c5120aa3044d4c0fa1d970291}{string\_t}}\&\&\ token)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00191}00191\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00192}00192\ \ \ \ \ \ \ \ \ reference\_tokens.push\_back(std::move(token));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00193}00193\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00194}00194\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00197}\mbox{\hyperlink{classjson__pointer_a5c3d08bd0a0e99c3377db33600c68a64}{00197}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classjson__pointer_a5c3d08bd0a0e99c3377db33600c68a64}{empty}}()\ const\ noexcept}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00198}00198\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00199}00199\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ reference\_tokens.empty();}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00200}00200\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00201}00201\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00202}00202\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00213}00213\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00214}00214\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{typename}\ BasicJsonType::size\_type\ array\_index(\textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer_a21dae78c5120aa3044d4c0fa1d970291}{string\_t}}\&\ s)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00215}00215\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00216}00216\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }size\_type\ =\ \textcolor{keyword}{typename}\ BasicJsonType::size\_type;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00217}00217\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00218}00218\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ error\ condition\ (cf.\ RFC\ 6901,\ Sect.\ 4)}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00219}00219\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{hedley_8hpp_a8df7de76ab3c9445f46f6994ec205bcd}{JSON\_HEDLEY\_UNLIKELY}}(s.size()\ >\ 1\ \&\&\ s[0]\ ==\ \textcolor{charliteral}{'0'}))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00220}00220\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00221}00221\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a6c274f6db2e65c1b66c7d41b06ad690f}{JSON\_THROW}}(\mbox{\hyperlink{classdetail_1_1parse__error_a07046ea9f33d28f120af188ed674d6df}{detail::parse\_error::create}}(106,\ 0,\ \mbox{\hyperlink{namespacedetail_a266fb3d4bf633ad6c506434cc91164da}{detail::concat}}(\textcolor{stringliteral}{"{}array\ index\ '"{}},\ s,\ \textcolor{stringliteral}{"{}'\ must\ not\ begin\ with\ '0'"{}}),\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00222}00222\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00223}00223\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00224}00224\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ error\ condition\ (cf.\ RFC\ 6901,\ Sect.\ 4)}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00225}00225\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{hedley_8hpp_a8df7de76ab3c9445f46f6994ec205bcd}{JSON\_HEDLEY\_UNLIKELY}}(s.size()\ >\ 1\ \&\&\ !(s[0]\ >=\ \textcolor{charliteral}{'1'}\ \&\&\ s[0]\ <=\ \textcolor{charliteral}{'9'})))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00226}00226\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a6c274f6db2e65c1b66c7d41b06ad690f}{JSON\_THROW}}(\mbox{\hyperlink{classdetail_1_1parse__error_a07046ea9f33d28f120af188ed674d6df}{detail::parse\_error::create}}(109,\ 0,\ \mbox{\hyperlink{namespacedetail_a266fb3d4bf633ad6c506434cc91164da}{detail::concat}}(\textcolor{stringliteral}{"{}array\ index\ '"{}},\ s,\ \textcolor{stringliteral}{"{}'\ is\ not\ a\ number"{}}),\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00228}00228\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00229}00229\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00230}00230\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ p\ =\ s.c\_str();}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00231}00231\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}*\ p\_end\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00232}00232\ \ \ \ \ \ \ \ \ errno\ =\ 0;\ \textcolor{comment}{//\ strtoull\ doesn't\ reset\ errno}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00233}00233\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ res\ =\ std::strtoull(p,\ \&p\_end,\ 10);\ \textcolor{comment}{//\ NOLINT(runtime/int)}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00234}00234\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (p\ ==\ p\_end\ \textcolor{comment}{//\ invalid\ input\ or\ empty\ string}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00235}00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ errno\ ==\ ERANGE\ \textcolor{comment}{//\ out\ of\ range}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00236}00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ \mbox{\hyperlink{hedley_8hpp_a8df7de76ab3c9445f46f6994ec205bcd}{JSON\_HEDLEY\_UNLIKELY}}(\textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(p\_end\ -\/\ p)\ !=\ s.size()))\ \textcolor{comment}{//\ incomplete\ read}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00237}00237\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00238}00238\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a6c274f6db2e65c1b66c7d41b06ad690f}{JSON\_THROW}}(\mbox{\hyperlink{classdetail_1_1out__of__range_a79ea0d3ec02a853629dc827e045ecff5}{detail::out\_of\_range::create}}(404,\ \mbox{\hyperlink{namespacedetail_a266fb3d4bf633ad6c506434cc91164da}{detail::concat}}(\textcolor{stringliteral}{"{}unresolved\ reference\ token\ '"{}},\ s,\ \textcolor{stringliteral}{"{}'"{}}),\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00239}00239\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00240}00240\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00241}00241\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ only\ triggered\ on\ special\ platforms\ (like\ 32bit),\ see\ also}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00242}00242\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ https://github.com/nlohmann/json/pull/2203}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00243}00243\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (res\ >=\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\textcolor{keyword}{>}((std::numeric\_limits<size\_type>::max)()))\ \ \textcolor{comment}{//\ NOLINT(runtime/int)}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00244}00244\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a6c274f6db2e65c1b66c7d41b06ad690f}{JSON\_THROW}}(\mbox{\hyperlink{classdetail_1_1out__of__range_a79ea0d3ec02a853629dc827e045ecff5}{detail::out\_of\_range::create}}(410,\ \mbox{\hyperlink{namespacedetail_a266fb3d4bf633ad6c506434cc91164da}{detail::concat}}(\textcolor{stringliteral}{"{}array\ index\ "{}},\ s,\ \textcolor{stringliteral}{"{}\ exceeds\ size\_type"{}}),\ \textcolor{keyword}{nullptr}));\ \ \ \textcolor{comment}{//\ LCOV\_EXCL\_LINE}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00246}00246\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00247}00247\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00248}00248\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}size\_type\textcolor{keyword}{>}(res);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00249}00249\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00250}00250\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00251}00251\ \ \ \mbox{\hyperlink{macro__scope_8hpp_a2cf645f34610e7f7d6e09ab88a2ab917}{JSON\_PRIVATE\_UNLESS\_TESTED}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00252}00252\ \ \ \ \ \mbox{\hyperlink{classjson__pointer}{json\_pointer}}\ top()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00253}00253\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00254}00254\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{hedley_8hpp_a8df7de76ab3c9445f46f6994ec205bcd}{JSON\_HEDLEY\_UNLIKELY}}(\mbox{\hyperlink{classjson__pointer_a5c3d08bd0a0e99c3377db33600c68a64}{empty}}()))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00255}00255\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a6c274f6db2e65c1b66c7d41b06ad690f}{JSON\_THROW}}(\mbox{\hyperlink{classdetail_1_1out__of__range_a79ea0d3ec02a853629dc827e045ecff5}{detail::out\_of\_range::create}}(405,\ \textcolor{stringliteral}{"{}JSON\ pointer\ has\ no\ parent"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00257}00257\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00258}00258\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00259}00259\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classjson__pointer}{json\_pointer}}\ result\ =\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00260}00260\ \ \ \ \ \ \ \ \ result.reference\_tokens\ =\ \{reference\_tokens[0]\};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00261}00261\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00262}00262\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00263}00263\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00264}00264\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00273}00273\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00274}00274\ \ \ \ \ BasicJsonType\&\ get\_and\_create(BasicJsonType\&\ j)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00275}00275\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00276}00276\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ result\ =\ \&j;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00277}00277\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00278}00278\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ in\ case\ no\ reference\ tokens\ exist,\ return\ a\ reference\ to\ the\ JSON\ value}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00279}00279\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ j\ which\ will\ be\ overwritten\ by\ a\ primitive\ value}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00280}00280\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ reference\_token\ :\ reference\_tokens)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00281}00281\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00282}00282\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (result-\/>type())}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00283}00283\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00284}00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a37a6259cc0c1dae299a7866489dff0bd}{detail::value\_t::null}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00285}00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00286}00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (reference\_token\ ==\ \textcolor{stringliteral}{"{}0"{}})}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00287}00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00288}00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ start\ a\ new\ array\ if\ reference\ token\ is\ 0}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00289}00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ \&result-\/>operator[](0);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00290}00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00291}00291\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00292}00292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00293}00293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ start\ a\ new\ object\ otherwise}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00294}00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ \&result-\/>operator[](reference\_token);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00295}00295\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00296}00296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00297}00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00298}00298\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00299}00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632aa8cfde6331bd59eb2ac96f8911c4b666}{detail::value\_t::object}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00300}00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00301}00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ create\ an\ entry\ in\ the\ object}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00302}00302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ \&result-\/>operator[](reference\_token);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00303}00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00304}00304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00305}00305\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00306}00306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632af1f713c9e000f5d3f280adbd124df4f5}{detail::value\_t::array}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00307}00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00308}00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ create\ an\ entry\ in\ the\ array}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00309}00309\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ \&result-\/>operator[](array\_index<BasicJsonType>(reference\_token));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00310}00310\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00311}00311\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00312}00312\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00313}00313\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00314}00314\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ The\ following\ code\ is\ only\ reached\ if\ there\ exists\ a\ reference}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00315}00315\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ token\ \_and\_\ the\ current\ value\ is\ primitive.\ In\ this\ case,\ we\ have}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00316}00316\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ an\ error\ situation,\ because\ primitive\ values\ may\ only\ occur\ as}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00317}00317\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ single\ value;\ that\ is,\ with\ an\ empty\ list\ of\ reference\ tokens.}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00318}00318\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00319}00319\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ab45cffe084dd3d20d928bee85e7b0f21}{detail::value\_t::string}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00320}00320\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a84e2c64f38f78ba3ea5c905ab5a2da27}{detail::value\_t::boolean}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00321}00321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a5763da164f8659d94a56e29df64b4bcc}{detail::value\_t::number\_integer}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00322}00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632adce7cc8ec29055c4158828921f2f265e}{detail::value\_t::number\_unsigned}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00323}00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ad9966ecb59667235a57b4b999a649eef}{detail::value\_t::number\_float}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00324}00324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a9d7183f16acce70658f686ae7f1a4d20}{detail::value\_t::binary}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00325}00325\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a94708897ec9db8647dfe695714c98e46}{detail::value\_t::discarded}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00326}00326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00327}00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a6c274f6db2e65c1b66c7d41b06ad690f}{JSON\_THROW}}(\mbox{\hyperlink{classdetail_1_1type__error_a2d25372628cf1e09ec67718f4bc42762}{detail::type\_error::create}}(313,\ \textcolor{stringliteral}{"{}invalid\ value\ to\ unflatten"{}},\ \&j));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00328}00328\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00329}00329\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00330}00330\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00331}00331\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *result;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00332}00332\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00333}00333\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00353}00353\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00354}00354\ \ \ \ \ BasicJsonType\&\ get\_unchecked(BasicJsonType*\ ptr)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00355}00355\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00356}00356\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ reference\_token\ :\ reference\_tokens)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00357}00357\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00358}00358\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ convert\ null\ values\ to\ arrays\ or\ objects\ before\ continuing}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00359}00359\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ptr-\/>is\_null())}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00360}00360\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00361}00361\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ if\ reference\ token\ is\ a\ number}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00362}00362\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ nums\ =}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00363}00363\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::all\_of(reference\_token.begin(),\ reference\_token.end(),}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00364}00364\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ x)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00365}00365\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00366}00366\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ std::isdigit(x);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00367}00367\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00368}00368\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00369}00369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ change\ value\ to\ array\ for\ numbers\ or\ "{}-\/"{}\ or\ to\ object\ otherwise}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00370}00370\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *ptr\ =\ (nums\ ||\ reference\_token\ ==\ \textcolor{stringliteral}{"{}-\/"{}})}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00371}00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ?\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632af1f713c9e000f5d3f280adbd124df4f5}{detail::value\_t::array}}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00372}00372\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{namespacedetail}{detail}}::\mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632}{value\_t}}::\mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632aa8cfde6331bd59eb2ac96f8911c4b666}{object}};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00373}00373\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00374}00374\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00375}00375\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (ptr-\/>type())}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00376}00376\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00377}00377\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632aa8cfde6331bd59eb2ac96f8911c4b666}{detail::value\_t::object}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00378}00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00379}00379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ use\ unchecked\ object\ access}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00380}00380\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ptr\ =\ \&ptr-\/>operator[](reference\_token);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00381}00381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00382}00382\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00383}00383\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00384}00384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632af1f713c9e000f5d3f280adbd124df4f5}{detail::value\_t::array}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00385}00385\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00386}00386\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (reference\_token\ ==\ \textcolor{stringliteral}{"{}-\/"{}})}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00387}00387\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00388}00388\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ explicitly\ treat\ "{}-\/"{}\ as\ index\ beyond\ the\ end}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00389}00389\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ptr\ =\ \&ptr-\/>operator[](ptr-\/>m\_value.array-\/>size());}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00390}00390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00391}00391\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00392}00392\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00393}00393\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ convert\ array\ index\ to\ number;\ unchecked\ access}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00394}00394\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ptr\ =\ \&ptr-\/>operator[](array\_index<BasicJsonType>(reference\_token));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00395}00395\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00396}00396\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00397}00397\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00398}00398\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00399}00399\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a37a6259cc0c1dae299a7866489dff0bd}{detail::value\_t::null}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00400}00400\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ab45cffe084dd3d20d928bee85e7b0f21}{detail::value\_t::string}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00401}00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a84e2c64f38f78ba3ea5c905ab5a2da27}{detail::value\_t::boolean}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00402}00402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a5763da164f8659d94a56e29df64b4bcc}{detail::value\_t::number\_integer}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00403}00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632adce7cc8ec29055c4158828921f2f265e}{detail::value\_t::number\_unsigned}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00404}00404\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ad9966ecb59667235a57b4b999a649eef}{detail::value\_t::number\_float}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00405}00405\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a9d7183f16acce70658f686ae7f1a4d20}{detail::value\_t::binary}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00406}00406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a94708897ec9db8647dfe695714c98e46}{detail::value\_t::discarded}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00407}00407\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00408}00408\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a6c274f6db2e65c1b66c7d41b06ad690f}{JSON\_THROW}}(\mbox{\hyperlink{classdetail_1_1out__of__range_a79ea0d3ec02a853629dc827e045ecff5}{detail::out\_of\_range::create}}(404,\ \mbox{\hyperlink{namespacedetail_a266fb3d4bf633ad6c506434cc91164da}{detail::concat}}(\textcolor{stringliteral}{"{}unresolved\ reference\ token\ '"{}},\ reference\_token,\ \textcolor{stringliteral}{"{}'"{}}),\ ptr));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00409}00409\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00410}00410\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00411}00411\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00412}00412\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *ptr;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00413}00413\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00414}00414\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00421}00421\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00422}00422\ \ \ \ \ BasicJsonType\&\ get\_checked(BasicJsonType*\ ptr)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00423}00423\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00424}00424\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ reference\_token\ :\ reference\_tokens)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00425}00425\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00426}00426\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (ptr-\/>type())}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00427}00427\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00428}00428\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632aa8cfde6331bd59eb2ac96f8911c4b666}{detail::value\_t::object}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00429}00429\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00430}00430\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ note:\ at\ performs\ range\ check}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00431}00431\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ptr\ =\ \&ptr-\/>at(reference\_token);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00432}00432\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00433}00433\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00434}00434\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00435}00435\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632af1f713c9e000f5d3f280adbd124df4f5}{detail::value\_t::array}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00436}00436\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00437}00437\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{hedley_8hpp_a8df7de76ab3c9445f46f6994ec205bcd}{JSON\_HEDLEY\_UNLIKELY}}(reference\_token\ ==\ \textcolor{stringliteral}{"{}-\/"{}}))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00438}00438\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00439}00439\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ "{}-\/"{}\ always\ fails\ the\ range\ check}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00440}00440\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a6c274f6db2e65c1b66c7d41b06ad690f}{JSON\_THROW}}(\mbox{\hyperlink{classdetail_1_1out__of__range_a79ea0d3ec02a853629dc827e045ecff5}{detail::out\_of\_range::create}}(402,\ \mbox{\hyperlink{namespacedetail_a266fb3d4bf633ad6c506434cc91164da}{detail::concat}}(}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00441}00441\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}array\ index\ '-\/'\ ("{}},\ std::to\_string(ptr-\/>m\_value.array-\/>size()),}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00442}00442\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{})\ is\ out\ of\ range"{}}),\ ptr));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00443}00443\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00444}00444\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00445}00445\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ note:\ at\ performs\ range\ check}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00446}00446\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ptr\ =\ \&ptr-\/>at(array\_index<BasicJsonType>(reference\_token));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00447}00447\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00448}00448\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00449}00449\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00450}00450\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a37a6259cc0c1dae299a7866489dff0bd}{detail::value\_t::null}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00451}00451\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ab45cffe084dd3d20d928bee85e7b0f21}{detail::value\_t::string}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00452}00452\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a84e2c64f38f78ba3ea5c905ab5a2da27}{detail::value\_t::boolean}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00453}00453\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a5763da164f8659d94a56e29df64b4bcc}{detail::value\_t::number\_integer}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00454}00454\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632adce7cc8ec29055c4158828921f2f265e}{detail::value\_t::number\_unsigned}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00455}00455\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ad9966ecb59667235a57b4b999a649eef}{detail::value\_t::number\_float}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00456}00456\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a9d7183f16acce70658f686ae7f1a4d20}{detail::value\_t::binary}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00457}00457\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a94708897ec9db8647dfe695714c98e46}{detail::value\_t::discarded}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00458}00458\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00459}00459\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a6c274f6db2e65c1b66c7d41b06ad690f}{JSON\_THROW}}(\mbox{\hyperlink{classdetail_1_1out__of__range_a79ea0d3ec02a853629dc827e045ecff5}{detail::out\_of\_range::create}}(404,\ \mbox{\hyperlink{namespacedetail_a266fb3d4bf633ad6c506434cc91164da}{detail::concat}}(\textcolor{stringliteral}{"{}unresolved\ reference\ token\ '"{}},\ reference\_token,\ \textcolor{stringliteral}{"{}'"{}}),\ ptr));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00460}00460\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00461}00461\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00462}00462\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00463}00463\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *ptr;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00464}00464\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00465}00465\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00479}00479\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00480}00480\ \ \ \ \ \textcolor{keyword}{const}\ BasicJsonType\&\ get\_unchecked(\textcolor{keyword}{const}\ BasicJsonType*\ ptr)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00481}00481\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00482}00482\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ reference\_token\ :\ reference\_tokens)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00483}00483\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00484}00484\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (ptr-\/>type())}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00485}00485\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00486}00486\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632aa8cfde6331bd59eb2ac96f8911c4b666}{detail::value\_t::object}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00487}00487\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00488}00488\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ use\ unchecked\ object\ access}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00489}00489\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ptr\ =\ \&ptr-\/>operator[](reference\_token);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00490}00490\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00491}00491\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00492}00492\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00493}00493\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632af1f713c9e000f5d3f280adbd124df4f5}{detail::value\_t::array}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00494}00494\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00495}00495\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{hedley_8hpp_a8df7de76ab3c9445f46f6994ec205bcd}{JSON\_HEDLEY\_UNLIKELY}}(reference\_token\ ==\ \textcolor{stringliteral}{"{}-\/"{}}))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00496}00496\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00497}00497\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ "{}-\/"{}\ cannot\ be\ used\ for\ const\ access}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00498}00498\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a6c274f6db2e65c1b66c7d41b06ad690f}{JSON\_THROW}}(\mbox{\hyperlink{classdetail_1_1out__of__range_a79ea0d3ec02a853629dc827e045ecff5}{detail::out\_of\_range::create}}(402,\ \mbox{\hyperlink{namespacedetail_a266fb3d4bf633ad6c506434cc91164da}{detail::concat}}(\textcolor{stringliteral}{"{}array\ index\ '-\/'\ ("{}},\ std::to\_string(ptr-\/>m\_value.array-\/>size()),\ \textcolor{stringliteral}{"{})\ is\ out\ of\ range"{}}),\ ptr));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00499}00499\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00500}00500\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00501}00501\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ use\ unchecked\ array\ access}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00502}00502\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ptr\ =\ \&ptr-\/>operator[](array\_index<BasicJsonType>(reference\_token));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00503}00503\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00504}00504\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00505}00505\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00506}00506\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a37a6259cc0c1dae299a7866489dff0bd}{detail::value\_t::null}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00507}00507\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ab45cffe084dd3d20d928bee85e7b0f21}{detail::value\_t::string}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00508}00508\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a84e2c64f38f78ba3ea5c905ab5a2da27}{detail::value\_t::boolean}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00509}00509\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a5763da164f8659d94a56e29df64b4bcc}{detail::value\_t::number\_integer}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00510}00510\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632adce7cc8ec29055c4158828921f2f265e}{detail::value\_t::number\_unsigned}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00511}00511\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ad9966ecb59667235a57b4b999a649eef}{detail::value\_t::number\_float}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00512}00512\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a9d7183f16acce70658f686ae7f1a4d20}{detail::value\_t::binary}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00513}00513\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a94708897ec9db8647dfe695714c98e46}{detail::value\_t::discarded}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00514}00514\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00515}00515\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a6c274f6db2e65c1b66c7d41b06ad690f}{JSON\_THROW}}(\mbox{\hyperlink{classdetail_1_1out__of__range_a79ea0d3ec02a853629dc827e045ecff5}{detail::out\_of\_range::create}}(404,\ \mbox{\hyperlink{namespacedetail_a266fb3d4bf633ad6c506434cc91164da}{detail::concat}}(\textcolor{stringliteral}{"{}unresolved\ reference\ token\ '"{}},\ reference\_token,\ \textcolor{stringliteral}{"{}'"{}}),\ ptr));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00516}00516\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00517}00517\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00518}00518\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00519}00519\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *ptr;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00520}00520\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00521}00521\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00528}00528\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00529}00529\ \ \ \ \ \textcolor{keyword}{const}\ BasicJsonType\&\ get\_checked(\textcolor{keyword}{const}\ BasicJsonType*\ ptr)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00530}00530\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00531}00531\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ reference\_token\ :\ reference\_tokens)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00532}00532\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00533}00533\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (ptr-\/>type())}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00534}00534\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00535}00535\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632aa8cfde6331bd59eb2ac96f8911c4b666}{detail::value\_t::object}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00536}00536\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00537}00537\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ note:\ at\ performs\ range\ check}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00538}00538\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ptr\ =\ \&ptr-\/>at(reference\_token);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00539}00539\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00540}00540\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00541}00541\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00542}00542\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632af1f713c9e000f5d3f280adbd124df4f5}{detail::value\_t::array}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00543}00543\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00544}00544\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{hedley_8hpp_a8df7de76ab3c9445f46f6994ec205bcd}{JSON\_HEDLEY\_UNLIKELY}}(reference\_token\ ==\ \textcolor{stringliteral}{"{}-\/"{}}))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00545}00545\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00546}00546\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ "{}-\/"{}\ always\ fails\ the\ range\ check}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00547}00547\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a6c274f6db2e65c1b66c7d41b06ad690f}{JSON\_THROW}}(\mbox{\hyperlink{classdetail_1_1out__of__range_a79ea0d3ec02a853629dc827e045ecff5}{detail::out\_of\_range::create}}(402,\ \mbox{\hyperlink{namespacedetail_a266fb3d4bf633ad6c506434cc91164da}{detail::concat}}(}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00548}00548\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}array\ index\ '-\/'\ ("{}},\ std::to\_string(ptr-\/>m\_value.array-\/>size()),}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00549}00549\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{})\ is\ out\ of\ range"{}}),\ ptr));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00550}00550\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00551}00551\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00552}00552\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ note:\ at\ performs\ range\ check}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00553}00553\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ptr\ =\ \&ptr-\/>at(array\_index<BasicJsonType>(reference\_token));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00554}00554\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00555}00555\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00556}00556\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00557}00557\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a37a6259cc0c1dae299a7866489dff0bd}{detail::value\_t::null}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00558}00558\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ab45cffe084dd3d20d928bee85e7b0f21}{detail::value\_t::string}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00559}00559\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a84e2c64f38f78ba3ea5c905ab5a2da27}{detail::value\_t::boolean}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00560}00560\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a5763da164f8659d94a56e29df64b4bcc}{detail::value\_t::number\_integer}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00561}00561\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632adce7cc8ec29055c4158828921f2f265e}{detail::value\_t::number\_unsigned}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00562}00562\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ad9966ecb59667235a57b4b999a649eef}{detail::value\_t::number\_float}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00563}00563\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a9d7183f16acce70658f686ae7f1a4d20}{detail::value\_t::binary}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00564}00564\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a94708897ec9db8647dfe695714c98e46}{detail::value\_t::discarded}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00565}00565\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00566}00566\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a6c274f6db2e65c1b66c7d41b06ad690f}{JSON\_THROW}}(\mbox{\hyperlink{classdetail_1_1out__of__range_a79ea0d3ec02a853629dc827e045ecff5}{detail::out\_of\_range::create}}(404,\ \mbox{\hyperlink{namespacedetail_a266fb3d4bf633ad6c506434cc91164da}{detail::concat}}(\textcolor{stringliteral}{"{}unresolved\ reference\ token\ '"{}},\ reference\_token,\ \textcolor{stringliteral}{"{}'"{}}),\ ptr));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00567}00567\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00568}00568\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00569}00569\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00570}00570\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *ptr;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00571}00571\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00572}00572\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00577}00577\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00578}00578\ \ \ \ \ \textcolor{keywordtype}{bool}\ contains(\textcolor{keyword}{const}\ BasicJsonType*\ ptr)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00579}00579\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00580}00580\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ reference\_token\ :\ reference\_tokens)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00581}00581\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00582}00582\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (ptr-\/>type())}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00583}00583\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00584}00584\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632aa8cfde6331bd59eb2ac96f8911c4b666}{detail::value\_t::object}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00585}00585\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00586}00586\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ptr-\/>contains(reference\_token))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00587}00587\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00588}00588\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ we\ did\ not\ find\ the\ key\ in\ the\ object}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00589}00589\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00590}00590\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00591}00591\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00592}00592\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ptr\ =\ \&ptr-\/>operator[](reference\_token);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00593}00593\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00594}00594\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00595}00595\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00596}00596\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632af1f713c9e000f5d3f280adbd124df4f5}{detail::value\_t::array}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00597}00597\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00598}00598\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{hedley_8hpp_a8df7de76ab3c9445f46f6994ec205bcd}{JSON\_HEDLEY\_UNLIKELY}}(reference\_token\ ==\ \textcolor{stringliteral}{"{}-\/"{}}))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00599}00599\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00600}00600\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ "{}-\/"{}\ always\ fails\ the\ range\ check}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00601}00601\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00602}00602\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00603}00603\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{hedley_8hpp_a8df7de76ab3c9445f46f6994ec205bcd}{JSON\_HEDLEY\_UNLIKELY}}(reference\_token.size()\ ==\ 1\ \&\&\ !(\textcolor{stringliteral}{"{}0"{}}\ <=\ reference\_token\ \&\&\ reference\_token\ <=\ \textcolor{stringliteral}{"{}9"{}})))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00604}00604\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00605}00605\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ invalid\ char}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00606}00606\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00607}00607\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00608}00608\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{hedley_8hpp_a8df7de76ab3c9445f46f6994ec205bcd}{JSON\_HEDLEY\_UNLIKELY}}(reference\_token.size()\ >\ 1))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00609}00609\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00610}00610\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{hedley_8hpp_a8df7de76ab3c9445f46f6994ec205bcd}{JSON\_HEDLEY\_UNLIKELY}}(!(\textcolor{charliteral}{'1'}\ <=\ reference\_token[0]\ \&\&\ reference\_token[0]\ <=\ \textcolor{charliteral}{'9'})))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00611}00611\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00612}00612\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ first\ char\ should\ be\ between\ '1'\ and\ '9'}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00613}00613\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00614}00614\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00615}00615\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ i\ =\ 1;\ i\ <\ reference\_token.size();\ i++)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00616}00616\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00617}00617\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{hedley_8hpp_a8df7de76ab3c9445f46f6994ec205bcd}{JSON\_HEDLEY\_UNLIKELY}}(!(\textcolor{charliteral}{'0'}\ <=\ reference\_token[i]\ \&\&\ reference\_token[i]\ <=\ \textcolor{charliteral}{'9'})))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00618}00618\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00619}00619\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ other\ char\ should\ be\ between\ '0'\ and\ '9'}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00620}00620\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00621}00621\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00622}00622\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00623}00623\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00624}00624\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00625}00625\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ idx\ =\ array\_index<BasicJsonType>(reference\_token);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00626}00626\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (idx\ >=\ ptr-\/>size())}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00627}00627\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00628}00628\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ index\ out\ of\ range}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00629}00629\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00630}00630\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00631}00631\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00632}00632\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ptr\ =\ \&ptr-\/>operator[](idx);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00633}00633\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00634}00634\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00635}00635\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00636}00636\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a37a6259cc0c1dae299a7866489dff0bd}{detail::value\_t::null}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00637}00637\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ab45cffe084dd3d20d928bee85e7b0f21}{detail::value\_t::string}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00638}00638\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a84e2c64f38f78ba3ea5c905ab5a2da27}{detail::value\_t::boolean}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00639}00639\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a5763da164f8659d94a56e29df64b4bcc}{detail::value\_t::number\_integer}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00640}00640\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632adce7cc8ec29055c4158828921f2f265e}{detail::value\_t::number\_unsigned}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00641}00641\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ad9966ecb59667235a57b4b999a649eef}{detail::value\_t::number\_float}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00642}00642\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a9d7183f16acce70658f686ae7f1a4d20}{detail::value\_t::binary}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00643}00643\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a94708897ec9db8647dfe695714c98e46}{detail::value\_t::discarded}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00644}00644\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00645}00645\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00646}00646\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ we\ do\ not\ expect\ primitive\ values\ if\ there\ is\ still\ a}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00647}00647\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ reference\ token\ to\ process}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00648}00648\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00649}00649\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00650}00650\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00651}00651\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00652}00652\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00653}00653\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ no\ reference\ token\ left\ means\ we\ found\ a\ primitive\ value}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00654}00654\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00655}00655\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00656}00656\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00666}00666\ \ \ \ \ \textcolor{keyword}{static}\ std::vector<string\_t>\ split(\textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer_a21dae78c5120aa3044d4c0fa1d970291}{string\_t}}\&\ reference\_string)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00667}00667\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00668}00668\ \ \ \ \ \ \ \ \ std::vector<string\_t>\ result;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00669}00669\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00670}00670\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ special\ case:\ empty\ reference\ string\ -\/>\ no\ reference\ tokens}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00671}00671\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (reference\_string.empty())}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00672}00672\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00673}00673\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00674}00674\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00675}00675\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00676}00676\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ if\ nonempty\ reference\ string\ begins\ with\ slash}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00677}00677\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{hedley_8hpp_a8df7de76ab3c9445f46f6994ec205bcd}{JSON\_HEDLEY\_UNLIKELY}}(reference\_string[0]\ !=\ \textcolor{charliteral}{'/'}))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00678}00678\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00679}00679\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a6c274f6db2e65c1b66c7d41b06ad690f}{JSON\_THROW}}(\mbox{\hyperlink{classdetail_1_1parse__error_a07046ea9f33d28f120af188ed674d6df}{detail::parse\_error::create}}(107,\ 1,\ \mbox{\hyperlink{namespacedetail_a266fb3d4bf633ad6c506434cc91164da}{detail::concat}}(\textcolor{stringliteral}{"{}JSON\ pointer\ must\ be\ empty\ or\ begin\ with\ '/'\ -\/\ was:\ '"{}},\ reference\_string,\ \textcolor{stringliteral}{"{}'"{}}),\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00680}00680\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00681}00681\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00682}00682\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ extract\ the\ reference\ tokens:}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00683}00683\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/\ slash:\ position\ of\ the\ last\ read\ slash\ (or\ end\ of\ string)}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00684}00684\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/\ start:\ position\ after\ the\ previous\ slash}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00685}00685\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00686}00686\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ search\ for\ the\ first\ slash\ after\ the\ first\ character}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00687}00687\ \ \ \ \ \ \ \ \ \ \ \ \ std::size\_t\ slash\ =\ reference\_string.find\_first\_of(\textcolor{charliteral}{'/'},\ 1),}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00688}00688\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ the\ beginning\ of\ the\ first\ reference\ token}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00689}00689\ \ \ \ \ \ \ \ \ \ \ \ \ start\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00690}00690\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ we\ can\ stop\ if\ start\ ==\ 0\ (if\ slash\ ==\ string\_t::npos)}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00691}00691\ \ \ \ \ \ \ \ \ \ \ \ \ start\ !=\ 0;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00692}00692\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ the\ beginning\ of\ the\ next\ reference\ token}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00693}00693\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ (will\ eventually\ be\ 0\ if\ slash\ ==\ string\_t::npos)}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00694}00694\ \ \ \ \ \ \ \ \ \ \ \ \ start\ =\ (slash\ ==\ string\_t::npos)\ ?\ 0\ :\ slash\ +\ 1,}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00695}00695\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ find\ next\ slash}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00696}00696\ \ \ \ \ \ \ \ \ \ \ \ \ slash\ =\ reference\_string.find\_first\_of(\textcolor{stringliteral}{'/'},\ start))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00697}00697\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00698}00698\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ use\ the\ text\ between\ the\ beginning\ of\ the\ reference\ token}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00699}00699\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ (start)\ and\ the\ last\ slash\ (slash).}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00700}00700\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ reference\_token\ =\ reference\_string.substr(start,\ slash\ -\/\ start);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00701}00701\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00702}00702\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ reference\ tokens\ are\ properly\ escaped}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00703}00703\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ pos\ =\ reference\_token.find\_first\_of(\textcolor{charliteral}{'\string~'});}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00704}00704\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pos\ !=\ string\_t::npos;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00705}00705\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pos\ =\ reference\_token.find\_first\_of(\textcolor{charliteral}{'\string~'},\ pos\ +\ 1))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00706}00706\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00707}00707\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a69f131cff49da1989667220173fbeae6}{JSON\_ASSERT}}(reference\_token[pos]\ ==\ \textcolor{charliteral}{'\string~'});}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00708}00708\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00709}00709\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \string~\ must\ be\ followed\ by\ 0\ or\ 1}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00710}00710\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{hedley_8hpp_a8df7de76ab3c9445f46f6994ec205bcd}{JSON\_HEDLEY\_UNLIKELY}}(pos\ ==\ reference\_token.size()\ -\/\ 1\ ||}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00711}00711\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (reference\_token[pos\ +\ 1]\ !=\ \textcolor{charliteral}{'0'}\ \&\&}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00712}00712\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ reference\_token[pos\ +\ 1]\ !=\ \textcolor{charliteral}{'1'})))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00713}00713\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00714}00714\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a6c274f6db2e65c1b66c7d41b06ad690f}{JSON\_THROW}}(\mbox{\hyperlink{classdetail_1_1parse__error_a07046ea9f33d28f120af188ed674d6df}{detail::parse\_error::create}}(108,\ 0,\ \textcolor{stringliteral}{"{}escape\ character\ '\string~'\ must\ be\ followed\ with\ '0'\ or\ '1'"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00715}00715\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00716}00716\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00717}00717\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00718}00718\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ finally,\ store\ the\ reference\ token}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00719}00719\ \ \ \ \ \ \ \ \ \ \ \ \ detail::unescape(reference\_token);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00720}00720\ \ \ \ \ \ \ \ \ \ \ \ \ result.push\_back(reference\_token);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00721}00721\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00722}00722\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00723}00723\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00724}00724\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00725}00725\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00726}00726\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00734}00734\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00735}00735\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ flatten(\textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer_a21dae78c5120aa3044d4c0fa1d970291}{string\_t}}\&\ reference\_string,}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00736}00736\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ BasicJsonType\&\ value,}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00737}00737\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BasicJsonType\&\ result)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00738}00738\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00739}00739\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}}.type())}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00740}00740\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00741}00741\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632af1f713c9e000f5d3f280adbd124df4f5}{detail::value\_t::array}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00742}00742\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00743}00743\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}}.m\_value.array-\/>empty())}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00744}00744\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00745}00745\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ flatten\ empty\ array\ as\ null}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00746}00746\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result[reference\_string]\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00747}00747\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00748}00748\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00749}00749\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00750}00750\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ iterate\ array\ and\ use\ index\ as\ reference\ string}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00751}00751\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}}.m\_value.array-\/>size();\ ++i)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00752}00752\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00753}00753\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ flatten(\mbox{\hyperlink{namespacedetail_a266fb3d4bf633ad6c506434cc91164da}{detail::concat}}(reference\_string,\ \textcolor{charliteral}{'/'},\ std::to\_string(i)),}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00754}00754\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}}.m\_value.array-\/>operator[](i),\ result);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00755}00755\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00756}00756\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00757}00757\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00758}00758\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00759}00759\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00760}00760\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632aa8cfde6331bd59eb2ac96f8911c4b666}{detail::value\_t::object}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00761}00761\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00762}00762\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}}.m\_value.object-\/>empty())}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00763}00763\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00764}00764\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ flatten\ empty\ object\ as\ null}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00765}00765\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result[reference\_string]\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00766}00766\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00767}00767\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00768}00768\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00769}00769\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ iterate\ object\ and\ use\ keys\ as\ reference\ string}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00770}00770\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ element\ :\ *\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}}.m\_value.\mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632aa8cfde6331bd59eb2ac96f8911c4b666}{object}})}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00771}00771\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00772}00772\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ flatten(\mbox{\hyperlink{namespacedetail_a266fb3d4bf633ad6c506434cc91164da}{detail::concat}}(reference\_string,\ \textcolor{charliteral}{'/'},\ \mbox{\hyperlink{namespacedetail_af2a9ce4740e0b45d33129e2c8e53a0a8}{detail::escape}}(element.first)),\ element.second,\ result);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00773}00773\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00774}00774\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00775}00775\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00776}00776\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00777}00777\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00778}00778\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a37a6259cc0c1dae299a7866489dff0bd}{detail::value\_t::null}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00779}00779\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ab45cffe084dd3d20d928bee85e7b0f21}{detail::value\_t::string}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00780}00780\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a84e2c64f38f78ba3ea5c905ab5a2da27}{detail::value\_t::boolean}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00781}00781\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a5763da164f8659d94a56e29df64b4bcc}{detail::value\_t::number\_integer}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00782}00782\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632adce7cc8ec29055c4158828921f2f265e}{detail::value\_t::number\_unsigned}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00783}00783\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ad9966ecb59667235a57b4b999a649eef}{detail::value\_t::number\_float}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00784}00784\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a9d7183f16acce70658f686ae7f1a4d20}{detail::value\_t::binary}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00785}00785\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a94708897ec9db8647dfe695714c98e46}{detail::value\_t::discarded}}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00786}00786\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00787}00787\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00788}00788\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ add\ primitive\ value\ with\ its\ reference\ string}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00789}00789\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result[reference\_string]\ =\ \mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00790}00790\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00791}00791\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00792}00792\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00793}00793\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00794}00794\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00805}00805\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00806}00806\ \ \ \ \ \textcolor{keyword}{static}\ BasicJsonType}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00807}00807\ \ \ \ \ unflatten(\textcolor{keyword}{const}\ BasicJsonType\&\ value)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00808}00808\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00809}00809\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{hedley_8hpp_a8df7de76ab3c9445f46f6994ec205bcd}{JSON\_HEDLEY\_UNLIKELY}}(!\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}}.is\_object()))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00810}00810\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00811}00811\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a6c274f6db2e65c1b66c7d41b06ad690f}{JSON\_THROW}}(\mbox{\hyperlink{classdetail_1_1type__error_a2d25372628cf1e09ec67718f4bc42762}{detail::type\_error::create}}(314,\ \textcolor{stringliteral}{"{}only\ objects\ can\ be\ unflattened"{}},\ \&value));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00812}00812\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00813}00813\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00814}00814\ \ \ \ \ \ \ \ \ BasicJsonType\ result;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00815}00815\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00816}00816\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ iterate\ the\ JSON\ object\ values}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00817}00817\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ element\ :\ *\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}}.m\_value.\mbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632aa8cfde6331bd59eb2ac96f8911c4b666}{object}})}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00818}00818\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00819}00819\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{hedley_8hpp_a8df7de76ab3c9445f46f6994ec205bcd}{JSON\_HEDLEY\_UNLIKELY}}(!element.second.is\_primitive()))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00820}00820\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00821}00821\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{macro__scope_8hpp_a6c274f6db2e65c1b66c7d41b06ad690f}{JSON\_THROW}}(\mbox{\hyperlink{classdetail_1_1type__error_a2d25372628cf1e09ec67718f4bc42762}{detail::type\_error::create}}(315,\ \textcolor{stringliteral}{"{}values\ in\ object\ must\ be\ primitive"{}},\ \&element.second));}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00822}00822\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00823}00823\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00824}00824\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ assign\ value\ to\ reference\ pointed\ to\ by\ JSON\ pointer;\ Note\ that\ if}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00825}00825\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ JSON\ pointer\ is\ "{}"{}\ (i.e.,\ points\ to\ the\ whole\ value),\ function}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00826}00826\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\_and\_create\ returns\ a\ reference\ to\ result\ itself.\ An\ assignment}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00827}00827\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ will\ then\ create\ a\ primitive\ value.}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00828}00828\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classjson__pointer_ab0a623288bc1272870149ad50f799a73}{json\_pointer}}(element.first).get\_and\_create(result)\ =\ element.second;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00829}00829\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00830}00830\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00831}00831\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00832}00832\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00833}00833\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00834}00834\ \ \ \ \ \textcolor{comment}{//\ can't\ use\ conversion\ operator\ because\ of\ ambiguity}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00835}00835\ \ \ \ \ \mbox{\hyperlink{classjson__pointer}{json\_pointer<string\_t>}}\ convert()\ const\&}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00836}00836\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00837}00837\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classjson__pointer}{json\_pointer<string\_t>}}\ result;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00838}00838\ \ \ \ \ \ \ \ \ result.reference\_tokens\ =\ reference\_tokens;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00839}00839\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00840}00840\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00841}00841\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00842}00842\ \ \ \ \ \mbox{\hyperlink{classjson__pointer}{json\_pointer<string\_t>}}\ convert()\&\&}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00843}00843\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00844}00844\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classjson__pointer}{json\_pointer<string\_t>}}\ result;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00845}00845\ \ \ \ \ \ \ \ \ result.reference\_tokens\ =\ std::move(reference\_tokens);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00846}00846\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00847}00847\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00848}00848\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00849}00849\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00850}00850\ \textcolor{preprocessor}{\#if\ JSON\_HAS\_THREE\_WAY\_COMPARISON}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00853}00853\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ RefStringTypeRhs>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00854}00854\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classjson__pointer_a613a4889154f7ab2ee4efbe0fe147cf2}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer<RefStringTypeRhs>}}\&\ rhs)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00855}00855\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00856}00856\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ reference\_tokens\ ==\ rhs.reference\_tokens;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00857}00857\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00858}00858\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00861}00861\ \ \ \ \ \mbox{\hyperlink{hedley_8hpp_af0469b867b0ec3a1c4b229ce9d087620}{JSON\_HEDLEY\_DEPRECATED\_FOR}}(3.11.2,\ \textcolor{keyword}{operator}==(\mbox{\hyperlink{classjson__pointer}{json\_pointer}}))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00862}00862\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classjson__pointer_a613a4889154f7ab2ee4efbe0fe147cf2}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer_a21dae78c5120aa3044d4c0fa1d970291}{string\_t}}\&\ rhs)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00863}00863\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00864}00864\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this}\ ==\ \mbox{\hyperlink{classjson__pointer_ab0a623288bc1272870149ad50f799a73}{json\_pointer}}(rhs);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00865}00865\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00866}00866\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00868}00868\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ RefStringTypeRhs>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00869}00869\ \ \ \ \ std::strong\_ordering\ operator<=>(\textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer<RefStringTypeRhs>}}\&\ rhs)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \textcolor{comment}{//\ *NOPAD*}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00870}00870\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00871}00871\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \ reference\_tokens\ <=>\ rhs.reference\_tokens;\ \textcolor{comment}{//\ *NOPAD*}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00872}00872\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00873}00873\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00876}00876\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ RefStringTypeLhs,\ \textcolor{keyword}{typename}\ RefStringTypeRhs>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00877}00877\ \ \ \ \ \textcolor{comment}{//\ NOLINTNEXTLINE(readability-\/redundant-\/declaration)}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00878}00878\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classjson__pointer_a613a4889154f7ab2ee4efbe0fe147cf2}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer<RefStringTypeLhs>}}\&\ lhs,}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00879}00879\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer<RefStringTypeRhs>}}\&\ rhs)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00880}00880\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00883}00883\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ RefStringTypeLhs,\ \textcolor{keyword}{typename}\ StringType>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00884}00884\ \ \ \ \ \textcolor{comment}{//\ NOLINTNEXTLINE(readability-\/redundant-\/declaration)}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00885}00885\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classjson__pointer_a613a4889154f7ab2ee4efbe0fe147cf2}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer<RefStringTypeLhs>}}\&\ lhs,}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00886}00886\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ StringType\&\ rhs);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00887}00887\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00890}00890\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ RefStringTypeRhs,\ \textcolor{keyword}{typename}\ StringType>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00891}00891\ \ \ \ \ \textcolor{comment}{//\ NOLINTNEXTLINE(readability-\/redundant-\/declaration)}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00892}00892\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classjson__pointer_a613a4889154f7ab2ee4efbe0fe147cf2}{operator==}}(\textcolor{keyword}{const}\ StringType\&\ lhs,}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00893}00893\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer<RefStringTypeRhs>}}\&\ rhs);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00894}00894\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00897}00897\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ RefStringTypeLhs,\ \textcolor{keyword}{typename}\ RefStringTypeRhs>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00898}00898\ \ \ \ \ \textcolor{comment}{//\ NOLINTNEXTLINE(readability-\/redundant-\/declaration)}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00899}00899\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classjson__pointer_aa72a84c70e970b738f1262cfd8a66b4d}{operator!=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer<RefStringTypeLhs>}}\&\ lhs,}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00900}00900\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer<RefStringTypeRhs>}}\&\ rhs)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00901}00901\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00904}00904\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ RefStringTypeLhs,\ \textcolor{keyword}{typename}\ StringType>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00905}00905\ \ \ \ \ \textcolor{comment}{//\ NOLINTNEXTLINE(readability-\/redundant-\/declaration)}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00906}00906\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classjson__pointer_aa72a84c70e970b738f1262cfd8a66b4d}{operator!=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer<RefStringTypeLhs>}}\&\ lhs,}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00907}00907\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ StringType\&\ rhs);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00908}00908\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00911}00911\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ RefStringTypeRhs,\ \textcolor{keyword}{typename}\ StringType>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00912}00912\ \ \ \ \ \textcolor{comment}{//\ NOLINTNEXTLINE(readability-\/redundant-\/declaration)}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00913}00913\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classjson__pointer_aa72a84c70e970b738f1262cfd8a66b4d}{operator!=}}(\textcolor{keyword}{const}\ StringType\&\ lhs,}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00914}00914\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer<RefStringTypeRhs>}}\&\ rhs);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00915}00915\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00917}00917\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ RefStringTypeLhs,\ \textcolor{keyword}{typename}\ RefStringTypeRhs>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00918}00918\ \ \ \ \ \textcolor{comment}{//\ NOLINTNEXTLINE(readability-\/redundant-\/declaration)}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00919}00919\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classjson__pointer_af8c9bbaed20be0634a2e522f54265d96}{operator<}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer<RefStringTypeLhs>}}\&\ lhs,}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00920}00920\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer<RefStringTypeRhs>}}\&\ rhs)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00921}00921\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00922}00922\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00923}00923\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00925}00925\ \ \ \ \ std::vector<string\_t>\ reference\_tokens;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00926}00926\ \};}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00927}00927\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00928}00928\ \textcolor{preprocessor}{\#if\ !JSON\_HAS\_THREE\_WAY\_COMPARISON}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00929}00929\ \textcolor{comment}{//\ functions\ cannot\ be\ defined\ inside\ class\ due\ to\ ODR\ violations}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00930}00930\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ RefStringTypeLhs,\ \textcolor{keyword}{typename}\ RefStringTypeRhs>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00931}\mbox{\hyperlink{classjson__pointer_a613a4889154f7ab2ee4efbe0fe147cf2}{00931}}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{json__pointer_8hpp_a613a4889154f7ab2ee4efbe0fe147cf2}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer<RefStringTypeLhs>}}\&\ lhs,}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00932}00932\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer<RefStringTypeRhs>}}\&\ rhs)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00933}00933\ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00934}00934\ \ \ \ \ \textcolor{keywordflow}{return}\ lhs.reference\_tokens\ ==\ rhs.reference\_tokens;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00935}00935\ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00936}00936\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00937}00937\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ RefStringTypeLhs,}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00938}00938\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ StringType\ =\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{classjson__pointer_a21dae78c5120aa3044d4c0fa1d970291}{json\_pointer<RefStringTypeLhs>::string\_t}}>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00939}00939\ \mbox{\hyperlink{hedley_8hpp_af0469b867b0ec3a1c4b229ce9d087620}{JSON\_HEDLEY\_DEPRECATED\_FOR}}(3.11.2,\ \textcolor{keyword}{operator}==(\mbox{\hyperlink{classjson__pointer}{json\_pointer}},\ \mbox{\hyperlink{classjson__pointer}{json\_pointer}}))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00940}\mbox{\hyperlink{classjson__pointer_af6bf727798ad49870a709094e5ff981c}{00940}}\ inline\ \textcolor{keywordtype}{bool}\ operator==(const\ \mbox{\hyperlink{classjson__pointer}{json\_pointer}}<RefStringTypeLhs>\&\ lhs,}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00941}00941\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ const\ StringType\&\ rhs)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00942}00942\ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00943}00943\ \ \ \ \ \textcolor{keywordflow}{return}\ lhs\ ==\ \mbox{\hyperlink{classjson__pointer}{json\_pointer<RefStringTypeLhs>}}(rhs);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00944}00944\ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00945}00945\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00946}00946\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ RefStringTypeRhs,}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00947}00947\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ StringType\ =\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{classjson__pointer_a21dae78c5120aa3044d4c0fa1d970291}{json\_pointer<RefStringTypeRhs>::string\_t}}>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00948}00948\ \mbox{\hyperlink{hedley_8hpp_af0469b867b0ec3a1c4b229ce9d087620}{JSON\_HEDLEY\_DEPRECATED\_FOR}}(3.11.2,\ \textcolor{keyword}{operator}==(\mbox{\hyperlink{classjson__pointer}{json\_pointer}},\ \mbox{\hyperlink{classjson__pointer}{json\_pointer}}))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00949}\mbox{\hyperlink{classjson__pointer_ae7aabbb2a365ddaac5192ccea3226bfb}{00949}}\ inline\ \textcolor{keywordtype}{bool}\ operator==(const\ StringType\&\ lhs,}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00950}00950\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ const\ \mbox{\hyperlink{classjson__pointer}{json\_pointer}}<RefStringTypeRhs>\&\ rhs)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00951}00951\ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00952}00952\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer<RefStringTypeRhs>}}(lhs)\ ==\ rhs;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00953}00953\ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00954}00954\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00955}00955\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ RefStringTypeLhs,\ \textcolor{keyword}{typename}\ RefStringTypeRhs>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00956}\mbox{\hyperlink{classjson__pointer_aa72a84c70e970b738f1262cfd8a66b4d}{00956}}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{json__pointer_8hpp_aa72a84c70e970b738f1262cfd8a66b4d}{operator!=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer<RefStringTypeLhs>}}\&\ lhs,}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00957}00957\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer<RefStringTypeRhs>}}\&\ rhs)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00958}00958\ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00959}00959\ \ \ \ \ \textcolor{keywordflow}{return}\ !(lhs\ ==\ rhs);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00960}00960\ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00961}00961\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00962}00962\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ RefStringTypeLhs,}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00963}00963\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ StringType\ =\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{classjson__pointer_a21dae78c5120aa3044d4c0fa1d970291}{json\_pointer<RefStringTypeLhs>::string\_t}}>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00964}00964\ \mbox{\hyperlink{hedley_8hpp_af0469b867b0ec3a1c4b229ce9d087620}{JSON\_HEDLEY\_DEPRECATED\_FOR}}(3.11.2,\ \textcolor{keyword}{operator}!=(\mbox{\hyperlink{classjson__pointer}{json\_pointer}},\ \mbox{\hyperlink{classjson__pointer}{json\_pointer}}))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00965}\mbox{\hyperlink{classjson__pointer_ae0bb92b1f034ac1738d44eb7540f8f66}{00965}}\ inline\ \textcolor{keywordtype}{bool}\ operator!=(const\ \mbox{\hyperlink{classjson__pointer}{json\_pointer}}<RefStringTypeLhs>\&\ lhs,}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00966}00966\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ const\ StringType\&\ rhs)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00967}00967\ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00968}00968\ \ \ \ \ \textcolor{keywordflow}{return}\ !(lhs\ ==\ rhs);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00969}00969\ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00970}00970\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00971}00971\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ RefStringTypeRhs,}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00972}00972\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ StringType\ =\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{classjson__pointer_a21dae78c5120aa3044d4c0fa1d970291}{json\_pointer<RefStringTypeRhs>::string\_t}}>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00973}00973\ \mbox{\hyperlink{hedley_8hpp_af0469b867b0ec3a1c4b229ce9d087620}{JSON\_HEDLEY\_DEPRECATED\_FOR}}(3.11.2,\ \textcolor{keyword}{operator}!=(\mbox{\hyperlink{classjson__pointer}{json\_pointer}},\ \mbox{\hyperlink{classjson__pointer}{json\_pointer}}))}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00974}\mbox{\hyperlink{classjson__pointer_a32b28c0ef5f1c96b646817a0c360d7e6}{00974}}\ inline\ \textcolor{keywordtype}{bool}\ operator!=(const\ StringType\&\ lhs,}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00975}00975\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ const\ \mbox{\hyperlink{classjson__pointer}{json\_pointer}}<RefStringTypeRhs>\&\ rhs)}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00976}00976\ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00977}00977\ \ \ \ \ \textcolor{keywordflow}{return}\ !(lhs\ ==\ rhs);}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00978}00978\ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00979}00979\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00980}00980\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ RefStringTypeLhs,\ \textcolor{keyword}{typename}\ RefStringTypeRhs>}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00981}\mbox{\hyperlink{classjson__pointer_af8c9bbaed20be0634a2e522f54265d96}{00981}}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{json__pointer_8hpp_af8c9bbaed20be0634a2e522f54265d96}{operator<}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer<RefStringTypeLhs>}}\&\ lhs,}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00982}00982\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classjson__pointer}{json\_pointer<RefStringTypeRhs>}}\&\ rhs)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00983}00983\ \{}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00984}00984\ \ \ \ \ \textcolor{keywordflow}{return}\ lhs.reference\_tokens\ <\ rhs.reference\_tokens;}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00985}00985\ \}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00986}00986\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00987}00987\ }
+\DoxyCodeLine{\Hypertarget{json__pointer_8hpp_source_l00988}00988\ \mbox{\hyperlink{abi__macros_8hpp_a9a4005b8c985f1d04dcc87918cab2019}{NLOHMANN\_JSON\_NAMESPACE\_END}}}
+
+\end{DoxyCode}

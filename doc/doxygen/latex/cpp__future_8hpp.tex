@@ -1,0 +1,57 @@
+\doxysection{E\+:/\+Code/\+Skola/\+Su/\+CProg/\+CProg-\/\+Project/include/nlohmann/detail/meta/cpp\+\_\+future.hpp File Reference}
+\hypertarget{cpp__future_8hpp}{}\label{cpp__future_8hpp}\index{E:/Code/Skola/Su/CProg/CProg-\/Project/include/nlohmann/detail/meta/cpp\_future.hpp@{E:/Code/Skola/Su/CProg/CProg-\/Project/include/nlohmann/detail/meta/cpp\_future.hpp}}
+{\ttfamily \#include $<$array$>$}\newline
+{\ttfamily \#include $<$cstddef$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$nlohmann/detail/macro\+\_\+scope.\+hpp$>$}\newline
+Include dependency graph for cpp\+\_\+future.\+hpp\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1integer__sequence}{detail\+::integer\+\_\+sequence$<$ T, Ints $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1utility__internal_1_1_extend_3_01integer__sequence_3_01_t_00_01_ints_8_8_8_01_4_00_01_seq_size_00_010_01_4}{detail\+::utility\+\_\+internal\+::\+Extend$<$ integer\+\_\+sequence$<$ T, Ints... $>$, Seq\+Size, 0 $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1utility__internal_1_1_extend_3_01integer__sequence_3_01_t_00_01_ints_8_8_8_01_4_00_01_seq_size_00_011_01_4}{detail\+::utility\+\_\+internal\+::\+Extend$<$ integer\+\_\+sequence$<$ T, Ints... $>$, Seq\+Size, 1 $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1utility__internal_1_1_gen}{detail\+::utility\+\_\+internal\+::\+Gen$<$ T, N $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1utility__internal_1_1_gen_3_01_t_00_010_01_4}{detail\+::utility\+\_\+internal\+::\+Gen$<$ T, 0 $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1priority__tag}{detail\+::priority\+\_\+tag$<$ N $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1priority__tag_3_010_01_4}{detail\+::priority\+\_\+tag$<$ 0 $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1static__const}{detail\+::static\+\_\+const$<$ T $>$}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacedetail}{detail}}
+\begin{DoxyCompactList}\small\item\em detail namespace with internal helper functions \end{DoxyCompactList}\item 
+namespace \mbox{\hyperlink{namespacedetail_1_1utility__internal}{detail\+::utility\+\_\+internal}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} $>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_ad76afb2c3a23eb88e7efb7c5d5499574}{detail\+::uncvref\+\_\+t}} = \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} std\+::remove\+\_\+cv$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} std\+::remove\+\_\+reference$<$ \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} $>$\+::type $>$\+::type
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{bool}} B, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}}  = void$>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{detail\+::enable\+\_\+if\+\_\+t}} = \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} std\+::enable\+\_\+if$<$ \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a3f2a77ecd272aa6d6b5902faa5e5fc68}{B}}, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} $>$\+::type
+\item 
+{\footnotesize template$<$size\+\_\+t... Ints$>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_a4e6f1f2e94159041593901afc8f0c9b0}{detail\+::index\+\_\+sequence}} = \mbox{\hyperlink{structdetail_1_1integer__sequence}{integer\+\_\+sequence}}$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{size\+\_\+t}}, Ints... $>$
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} , \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} N$>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_a517a072d9de78dcbc9c44c39f75a0d92}{detail\+::make\+\_\+integer\+\_\+sequence}} = \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{structdetail_1_1utility__internal_1_1_gen}{utility\+\_\+internal\+::\+Gen}}$<$ \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}}, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a2c63acbe79d9f41ba6bb7766e9c37702}{N}} $>$\+::type
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{size\+\_\+t}} N$>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_a82dd889f447e7a1383b8757be27f66e9}{detail\+::make\+\_\+index\+\_\+sequence}} = \mbox{\hyperlink{namespacedetail_a517a072d9de78dcbc9c44c39f75a0d92}{make\+\_\+integer\+\_\+sequence}}$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{size\+\_\+t}}, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a2c63acbe79d9f41ba6bb7766e9c37702}{N}} $>$
+\item 
+{\footnotesize template$<$typename... Ts$>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_ad2cab3320b7c6d98af3ddf06c1a6b112}{detail\+::index\+\_\+sequence\+\_\+for}} = \mbox{\hyperlink{namespacedetail_a82dd889f447e7a1383b8757be27f66e9}{make\+\_\+index\+\_\+sequence}}$<$ sizeof...(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Ts}})$>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} , typename... Args$>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{constexpr}} std\+::array$<$ \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}}, sizeof...(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Args}})$>$ \mbox{\hyperlink{namespacedetail_a346dced829a9a2b98a722a31c62b3f7a}{detail\+::make\+\_\+array}} (\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Args}} \&\&... \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{args}})
+\end{DoxyCompactItemize}

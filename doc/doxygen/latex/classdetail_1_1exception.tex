@@ -1,0 +1,146 @@
+\doxysection{detail\+::exception Class Reference}
+\hypertarget{classdetail_1_1exception}{}\label{classdetail_1_1exception}\index{detail::exception@{detail::exception}}
+
+
+general exception of the \doxylink{classbasic__json}{basic\+\_\+json} class  
+
+
+
+
+{\ttfamily \#include $<$exceptions.\+hpp$>$}
+
+
+
+Inheritance diagram for detail\+::exception\+:
+% FIG 0
+
+
+Collaboration diagram for detail\+::exception\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{const}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{char}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classdetail_1_1exception_ae75d7315f5f2d85958da6d961375caf0}{what}} () \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{const}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{noexcept}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{override}}
+\begin{DoxyCompactList}\small\item\em returns the explanatory string \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{const}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{int}} \mbox{\hyperlink{classdetail_1_1exception_a63b819fbb2ef34df9dad1e309207fa24}{id}}
+\begin{DoxyCompactList}\small\item\em the id of the exception \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetail_1_1exception_a528d6bc77e88490bbb84cde2222b7ff0}{exception}} (\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{int}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{id\+\_\+}}, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{const}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{what\+\_\+arg}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{static}} std\+::string \mbox{\hyperlink{classdetail_1_1exception_a8f1eb56b9964c8dd84d89d0da98d883b}{name}} (\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{const}} std\+::string \&\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{ename}}, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{int}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{id\+\_\+}})
+\item 
+\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{static}} std\+::string \mbox{\hyperlink{classdetail_1_1exception_a6b4a786b5c1c25dd3edaceb1bf2d5120}{diagnostics}} (std\+::nullptr\+\_\+t)
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} Basic\+Json\+Type $>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{static}} std\+::string \mbox{\hyperlink{classdetail_1_1exception_af3739c53fe56a1712754d13dfa561f80}{diagnostics}} (\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{const}} Basic\+Json\+Type \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{leaf\+\_\+element}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+general exception of the \doxylink{classbasic__json}{basic\+\_\+json} class 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://json.nlohmann.me/api/basic_json/exception/}{\texttt{ https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/exception/}} 
+\end{DoxySeeAlso}
+
+
+Definition at line \mbox{\hyperlink{exceptions_8hpp_source_l00036}{36}} of file \mbox{\hyperlink{exceptions_8hpp_source}{exceptions.\+hpp}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classdetail_1_1exception_a528d6bc77e88490bbb84cde2222b7ff0}\label{classdetail_1_1exception_a528d6bc77e88490bbb84cde2222b7ff0} 
+\index{detail::exception@{detail::exception}!exception@{exception}}
+\index{exception@{exception}!detail::exception@{detail::exception}}
+\doxysubsubsection{\texorpdfstring{exception()}{exception()}}
+{\footnotesize\ttfamily detail\+::exception\+::exception (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{int}}}]{id\+\_\+,  }\item[{\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{const}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{char}} \texorpdfstring{$\ast$}{*}}]{what\+\_\+arg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{exceptions_8hpp_source_l00050}{50}} of file \mbox{\hyperlink{exceptions_8hpp_source}{exceptions.\+hpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetail_1_1exception_af3739c53fe56a1712754d13dfa561f80}\label{classdetail_1_1exception_af3739c53fe56a1712754d13dfa561f80} 
+\index{detail::exception@{detail::exception}!diagnostics@{diagnostics}}
+\index{diagnostics@{diagnostics}!detail::exception@{detail::exception}}
+\doxysubsubsection{\texorpdfstring{diagnostics()}{diagnostics()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} Basic\+Json\+Type $>$ \\
+\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{static}} std\+::string detail\+::exception\+::diagnostics (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{const}} Basic\+Json\+Type \texorpdfstring{$\ast$}{*}}]{leaf\+\_\+element }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{exceptions_8hpp_source_l00063}{63}} of file \mbox{\hyperlink{exceptions_8hpp_source}{exceptions.\+hpp}}.
+
+Here is the call graph for this function\+:
+% FIG 2
+\Hypertarget{classdetail_1_1exception_a6b4a786b5c1c25dd3edaceb1bf2d5120}\label{classdetail_1_1exception_a6b4a786b5c1c25dd3edaceb1bf2d5120} 
+\index{detail::exception@{detail::exception}!diagnostics@{diagnostics}}
+\index{diagnostics@{diagnostics}!detail::exception@{detail::exception}}
+\doxysubsubsection{\texorpdfstring{diagnostics()}{diagnostics()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{static}} std\+::string detail\+::exception\+::diagnostics (\begin{DoxyParamCaption}\item[{std\+::nullptr\+\_\+t}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{exceptions_8hpp_source_l00057}{57}} of file \mbox{\hyperlink{exceptions_8hpp_source}{exceptions.\+hpp}}.
+
+Here is the caller graph for this function\+:
+% FIG 3
+\Hypertarget{classdetail_1_1exception_a8f1eb56b9964c8dd84d89d0da98d883b}\label{classdetail_1_1exception_a8f1eb56b9964c8dd84d89d0da98d883b} 
+\index{detail::exception@{detail::exception}!name@{name}}
+\index{name@{name}!detail::exception@{detail::exception}}
+\doxysubsubsection{\texorpdfstring{name()}{name()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{static}} std\+::string detail\+::exception\+::name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{const}} std\+::string \&}]{ename,  }\item[{\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{int}}}]{id\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{exceptions_8hpp_source_l00052}{52}} of file \mbox{\hyperlink{exceptions_8hpp_source}{exceptions.\+hpp}}.
+
+Here is the call graph for this function\+:
+% FIG 4
+Here is the caller graph for this function\+:
+% FIG 5
+\Hypertarget{classdetail_1_1exception_ae75d7315f5f2d85958da6d961375caf0}\label{classdetail_1_1exception_ae75d7315f5f2d85958da6d961375caf0} 
+\index{detail::exception@{detail::exception}!what@{what}}
+\index{what@{what}!detail::exception@{detail::exception}}
+\doxysubsubsection{\texorpdfstring{what()}{what()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{const}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{char}} \texorpdfstring{$\ast$}{*} detail\+::exception\+::what (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [noexcept]}}
+
+
+
+returns the explanatory string 
+
+
+
+Definition at line \mbox{\hyperlink{exceptions_8hpp_source_l00040}{40}} of file \mbox{\hyperlink{exceptions_8hpp_source}{exceptions.\+hpp}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classdetail_1_1exception_a63b819fbb2ef34df9dad1e309207fa24}\label{classdetail_1_1exception_a63b819fbb2ef34df9dad1e309207fa24} 
+\index{detail::exception@{detail::exception}!id@{id}}
+\index{id@{id}!detail::exception@{detail::exception}}
+\doxysubsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{const}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{int}} detail\+::exception\+::id}
+
+
+
+the id of the exception 
+
+
+
+Definition at line \mbox{\hyperlink{exceptions_8hpp_source_l00046}{46}} of file \mbox{\hyperlink{exceptions_8hpp_source}{exceptions.\+hpp}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+E\+:/\+Code/\+Skola/\+Su/\+CProg/\+CProg-\/\+Project/include/nlohmann/detail/\mbox{\hyperlink{exceptions_8hpp}{exceptions.\+hpp}}\end{DoxyCompactItemize}

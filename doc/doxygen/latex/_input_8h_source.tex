@@ -1,0 +1,35 @@
+\doxysection{Input.\+h}
+\hypertarget{_input_8h_source}{}\label{_input_8h_source}\index{E:/Code/Skola/Su/CProg/CProg-\/Project/include/springhawk/Input.h@{E:/Code/Skola/Su/CProg/CProg-\/Project/include/springhawk/Input.h}}
+\mbox{\hyperlink{_input_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00001}00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00002}00002\ \textcolor{comment}{//\ Created\ by\ felix\ on\ 2023-\/11-\/11.}}
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00005}00005\ \textcolor{preprocessor}{\#ifndef\ CPROG\_PROJECT\_INPUT\_H}}
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00006}00006\ \textcolor{preprocessor}{\#define\ CPROG\_PROJECT\_INPUT\_H}}
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}SDL2/SDL.h"{}}}
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00014}\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142}{00014}}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142}{Keycode}}\{}
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00015}\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a42a4ade1acd55a49164099104990e09f}{00015}}\ \ \ \ \ \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a42a4ade1acd55a49164099104990e09f}{A}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a3f2a77ecd272aa6d6b5902faa5e5fc68}{B}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a739ce3f516592d245d16fd8a3893472c}{C}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a77a6b11f9898c052926f1d49765861e8}{D}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ab199e021998d49b1f09338d8b9b18ecb}{E}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142af382a63cc3d6491bf26b59e66f46826d}{F}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a2fe993340f6abb2234e543cd427df70b}{G}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a5008b1179f399a2273fd3f6a7fc3b292}{H}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ad091b8e376f7cf432dc367e1eda65e85}{I}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a03605500b0c55f3d95874e8edfcf4e30}{J}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a660a38111995acbeb2820648e82f0d8c}{K}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142aef31cc6fe9479955961311ee18ac205f}{L}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a51ca6c63d97347ee58cc7da59ab6994b}{M}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a2c63acbe79d9f41ba6bb7766e9c37702}{N}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142af4b8b7698dfedf5562a7db2bdb07010a}{O}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a82f05f38f6a17b117cdd2b83227912c6}{P}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142aa53ab217f1572250a530c8c2b3c820cf}{Q}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a1784b1a3d7cbd43c45ff82c72d05e4ae}{R}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142af1ce01387d2348f8b858721a7db81670}{S}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ac461e84f27bbb236874e1011cd66031f}{U}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a28f41f1144eee94834387e9a6a088bc1}{V}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ab722ceeb601c72cd78fbd35f3581fdf7}{W}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a58833a3110c570fb05130d40c365d1e4}{X}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a5596231eabd6cf29050967d5ac83ad84}{Y}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142aa70478ce277ffc322f8e1e3418e07355}{Z}},}
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00016}\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a951ab68bb8f7daafb78951107080904e}{00016}}\ \ \ \ \ \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ac08dae7edcb5c5bb959fee5971fbad95}{SPACE}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a951ab68bb8f7daafb78951107080904e}{ENTER}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a0a311695a4f6c56869245418bebeb33d}{ESCAPE}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a920380215591395ea33ee5df8e293e19}{TAB}},}
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00017}\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ac2356116ba1e129b15ca1e29da738e6c}{00017}}\ \ \ \ \ \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ac2356116ba1e129b15ca1e29da738e6c}{NUM\_PLUS}},\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a3e660ede510b6aa2de158c360ac780f8}{NUM\_MINUS}}}
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00018}\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a3e660ede510b6aa2de158c360ac780f8}{00018}}\ \};}
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00020}\mbox{\hyperlink{class_input}{00020}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_input}{Input}}\{}
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00021}00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00022}00022\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_input_ae7cb802daedaa1c567985515c686bf5a}{bufferContains}}(\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142}{Keycode}});}
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00024}00024\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00025}00025\ \ \ \ \ \textcolor{keyword}{static}\ std::map<Keycode,\ SDL\_Scancode>\ keyMap;}
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00026}00026\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ Uint8*\ currentKeyState;}
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00027}00027\ \};}
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{_input_8h_source_l00029}00029\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//CPROG\_PROJECT\_INPUT\_H}}
+
+\end{DoxyCode}

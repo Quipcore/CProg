@@ -1,0 +1,65 @@
+\doxysection{detail\+::span\+\_\+input\+\_\+adapter Class Reference}
+\hypertarget{classdetail_1_1span__input__adapter}{}\label{classdetail_1_1span__input__adapter}\index{detail::span\_input\_adapter@{detail::span\_input\_adapter}}
+
+
+{\ttfamily \#include $<$input\+\_\+adapters.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{CharT}} , \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} std\+::enable\+\_\+if$<$ std\+::is\+\_\+pointer$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{CharT}} $>$\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{\+::value}} \&\&std\+::is\+\_\+integral$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} std\+::remove\+\_\+pointer$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{CharT}} $>$\+::type $>$\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{\+::value}} \&\&\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{sizeof}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} std\+::remove\+\_\+pointer$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{CharT}} $>$\+::type)==1, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{int}} $>$\+::type  = 0$>$ }\\\mbox{\hyperlink{classdetail_1_1span__input__adapter_a100cb2415f6ad4fb60e3848569ed20dc}{span\+\_\+input\+\_\+adapter}} (\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{CharT}} b, std\+::size\+\_\+t \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{l}})
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{class}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Iterator\+Type}} , \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} std\+::enable\+\_\+if$<$ std\+::is\+\_\+same$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{structdetail_1_1iterator__traits}{iterator\+\_\+traits}}$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Iterator\+Type}} $>$\+::iterator\+\_\+category, std\+::random\+\_\+access\+\_\+iterator\+\_\+tag $>$\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{\+::value}}, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{int}} $>$\+::type  = 0$>$ }\\\mbox{\hyperlink{classdetail_1_1span__input__adapter_a8f3a694242ffd71722d292ffa9156e79}{span\+\_\+input\+\_\+adapter}} (\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Iterator\+Type}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{first}}, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Iterator\+Type}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{last}})
+\item 
+\mbox{\hyperlink{namespacedetail_a809ec57ce6ae319867de3f432b84d2e0}{contiguous\+\_\+bytes\+\_\+input\+\_\+adapter}} \&\& \mbox{\hyperlink{classdetail_1_1span__input__adapter_adaf5823194cdd254da0ba4f550e77904}{get}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{input__adapters_8hpp_source_l00465}{465}} of file \mbox{\hyperlink{input__adapters_8hpp_source}{input\+\_\+adapters.\+hpp}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classdetail_1_1span__input__adapter_a100cb2415f6ad4fb60e3848569ed20dc}\label{classdetail_1_1span__input__adapter_a100cb2415f6ad4fb60e3848569ed20dc} 
+\index{detail::span\_input\_adapter@{detail::span\_input\_adapter}!span\_input\_adapter@{span\_input\_adapter}}
+\index{span\_input\_adapter@{span\_input\_adapter}!detail::span\_input\_adapter@{detail::span\_input\_adapter}}
+\doxysubsubsection{\texorpdfstring{span\_input\_adapter()}{span\_input\_adapter()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{CharT}} , \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} std\+::enable\+\_\+if$<$ std\+::is\+\_\+pointer$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{CharT}} $>$\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{\+::value}} \&\&std\+::is\+\_\+integral$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} std\+::remove\+\_\+pointer$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{CharT}} $>$\+::type $>$\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{\+::value}} \&\&\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{sizeof}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} std\+::remove\+\_\+pointer$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{CharT}} $>$\+::type)==1, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{int}} $>$\+::type  = 0$>$ \\
+detail\+::span\+\_\+input\+\_\+adapter\+::span\+\_\+input\+\_\+adapter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{CharT}}}]{b,  }\item[{std\+::size\+\_\+t}]{l }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{input__adapters_8hpp_source_l00474}{474}} of file \mbox{\hyperlink{input__adapters_8hpp_source}{input\+\_\+adapters.\+hpp}}.
+
+\Hypertarget{classdetail_1_1span__input__adapter_a8f3a694242ffd71722d292ffa9156e79}\label{classdetail_1_1span__input__adapter_a8f3a694242ffd71722d292ffa9156e79} 
+\index{detail::span\_input\_adapter@{detail::span\_input\_adapter}!span\_input\_adapter@{span\_input\_adapter}}
+\index{span\_input\_adapter@{span\_input\_adapter}!detail::span\_input\_adapter@{detail::span\_input\_adapter}}
+\doxysubsubsection{\texorpdfstring{span\_input\_adapter()}{span\_input\_adapter()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{class}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Iterator\+Type}} , \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} std\+::enable\+\_\+if$<$ std\+::is\+\_\+same$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{structdetail_1_1iterator__traits}{iterator\+\_\+traits}}$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Iterator\+Type}} $>$\+::iterator\+\_\+category, std\+::random\+\_\+access\+\_\+iterator\+\_\+tag $>$\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{\+::value}}, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{int}} $>$\+::type  = 0$>$ \\
+detail\+::span\+\_\+input\+\_\+adapter\+::span\+\_\+input\+\_\+adapter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Iterator\+Type}}}]{first,  }\item[{\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Iterator\+Type}}}]{last }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{input__adapters_8hpp_source_l00481}{481}} of file \mbox{\hyperlink{input__adapters_8hpp_source}{input\+\_\+adapters.\+hpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetail_1_1span__input__adapter_adaf5823194cdd254da0ba4f550e77904}\label{classdetail_1_1span__input__adapter_adaf5823194cdd254da0ba4f550e77904} 
+\index{detail::span\_input\_adapter@{detail::span\_input\_adapter}!get@{get}}
+\index{get@{get}!detail::span\_input\_adapter@{detail::span\_input\_adapter}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacedetail_a809ec57ce6ae319867de3f432b84d2e0}{contiguous\+\_\+bytes\+\_\+input\+\_\+adapter}} \&\& detail\+::span\+\_\+input\+\_\+adapter\+::get (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{input__adapters_8hpp_source_l00484}{484}} of file \mbox{\hyperlink{input__adapters_8hpp_source}{input\+\_\+adapters.\+hpp}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+E\+:/\+Code/\+Skola/\+Su/\+CProg/\+CProg-\/\+Project/include/nlohmann/detail/input/\mbox{\hyperlink{input__adapters_8hpp}{input\+\_\+adapters.\+hpp}}\end{DoxyCompactItemize}

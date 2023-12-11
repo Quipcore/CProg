@@ -1,0 +1,241 @@
+\doxysection{E\+:/\+Code/\+Skola/\+Su/\+CProg/\+CProg-\/\+Project/include/nlohmann/detail/meta/type\+\_\+traits.hpp File Reference}
+\hypertarget{type__traits_8hpp}{}\label{type__traits_8hpp}\index{E:/Code/Skola/Su/CProg/CProg-\/Project/include/nlohmann/detail/meta/type\_traits.hpp@{E:/Code/Skola/Su/CProg/CProg-\/Project/include/nlohmann/detail/meta/type\_traits.hpp}}
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$tuple$>$}\newline
+{\ttfamily \#include $<$nlohmann/detail/iterators/iterator\+\_\+traits.\+hpp$>$}\newline
+{\ttfamily \#include $<$nlohmann/detail/macro\+\_\+scope.\+hpp$>$}\newline
+{\ttfamily \#include $<$nlohmann/detail/meta/call\+\_\+std/begin.\+hpp$>$}\newline
+{\ttfamily \#include $<$nlohmann/detail/meta/call\+\_\+std/end.\+hpp$>$}\newline
+{\ttfamily \#include $<$nlohmann/detail/meta/cpp\+\_\+future.\+hpp$>$}\newline
+{\ttfamily \#include $<$nlohmann/detail/meta/detected.\+hpp$>$}\newline
+{\ttfamily \#include $<$nlohmann/json\+\_\+fwd.\+hpp$>$}\newline
+Include dependency graph for type\+\_\+traits.\+hpp\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__basic__json}{detail\+::is\+\_\+basic\+\_\+json$<$ typename $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__basic__json_3_01_n_l_o_h_m_a_n_n___b_a_s_i_c___j_s_o_n___t_p_l_01_4}{detail\+::is\+\_\+basic\+\_\+json$<$ NLOHMANN\+\_\+\+BASIC\+\_\+\+JSON\+\_\+\+TPL $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__basic__json__context}{detail\+::is\+\_\+basic\+\_\+json\+\_\+context$<$ Basic\+Json\+Context $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__json__ref}{detail\+::is\+\_\+json\+\_\+ref$<$ typename $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__json__ref_3_01json__ref_3_01_t_01_4_01_4}{detail\+::is\+\_\+json\+\_\+ref$<$ json\+\_\+ref$<$ T $>$ $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1has__from__json}{detail\+::has\+\_\+from\+\_\+json$<$ Basic\+Json\+Type, T, typename $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__getable}{detail\+::is\+\_\+getable$<$ Basic\+Json\+Type, T $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1has__from__json_3_01_basic_json_type_00_01_t_00_01enable__if__t_3_01_9is__basic_fce8b8f93d45fb838eee91b696633019}{detail\+::has\+\_\+from\+\_\+json$<$ Basic\+Json\+Type, T, enable\+\_\+if\+\_\+t$<$ !is\+\_\+basic\+\_\+json$<$ T $>$\+::value $>$ $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1has__non__default__from__json}{detail\+::has\+\_\+non\+\_\+default\+\_\+from\+\_\+json$<$ Basic\+Json\+Type, T, typename $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1has__non__default__from__json_3_01_basic_json_type_00_01_t_00_01enable__if__t_3_2d17f33a54f009ebd0a99d19cdccdb1f}{detail\+::has\+\_\+non\+\_\+default\+\_\+from\+\_\+json$<$ Basic\+Json\+Type, T, enable\+\_\+if\+\_\+t$<$ !is\+\_\+basic\+\_\+json$<$ T $>$\+::value $>$ $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1has__to__json}{detail\+::has\+\_\+to\+\_\+json$<$ Basic\+Json\+Type, T, typename $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1has__to__json_3_01_basic_json_type_00_01_t_00_01enable__if__t_3_01_9is__basic__j28a68f7ad118503a2d1e9663db2d9323}{detail\+::has\+\_\+to\+\_\+json$<$ Basic\+Json\+Type, T, enable\+\_\+if\+\_\+t$<$ !is\+\_\+basic\+\_\+json$<$ T $>$\+::value $>$ $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1has__key__compare}{detail\+::has\+\_\+key\+\_\+compare$<$ T $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1actual__object__comparator}{detail\+::actual\+\_\+object\+\_\+comparator$<$ Basic\+Json\+Type $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1conjunction}{detail\+::conjunction$<$... $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1conjunction_3_01_b_01_4}{detail\+::conjunction$<$ B $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1conjunction_3_01_b_00_01_bn_8_8_8_01_4}{detail\+::conjunction$<$ B, Bn... $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1negation}{detail\+::negation$<$ B $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__default__constructible}{detail\+::is\+\_\+default\+\_\+constructible$<$ T $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__default__constructible_3_01std_1_1pair_3_01_t1_00_01_t2_01_4_01_4}{detail\+::is\+\_\+default\+\_\+constructible$<$ std\+::pair$<$ T1, T2 $>$ $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__default__constructible_3_01const_01std_1_1pair_3_01_t1_00_01_t2_01_4_01_4}{detail\+::is\+\_\+default\+\_\+constructible$<$ const std\+::pair$<$ T1, T2 $>$ $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__default__constructible_3_01std_1_1tuple_3_01_ts_8_8_8_01_4_01_4}{detail\+::is\+\_\+default\+\_\+constructible$<$ std\+::tuple$<$ Ts... $>$ $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__default__constructible_3_01const_01std_1_1tuple_3_01_ts_8_8_8_01_4_01_4}{detail\+::is\+\_\+default\+\_\+constructible$<$ const std\+::tuple$<$ Ts... $>$ $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__constructible}{detail\+::is\+\_\+constructible$<$ T, Args $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__constructible_3_01std_1_1pair_3_01_t1_00_01_t2_01_4_01_4}{detail\+::is\+\_\+constructible$<$ std\+::pair$<$ T1, T2 $>$ $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__constructible_3_01const_01std_1_1pair_3_01_t1_00_01_t2_01_4_01_4}{detail\+::is\+\_\+constructible$<$ const std\+::pair$<$ T1, T2 $>$ $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__constructible_3_01std_1_1tuple_3_01_ts_8_8_8_01_4_01_4}{detail\+::is\+\_\+constructible$<$ std\+::tuple$<$ Ts... $>$ $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__constructible_3_01const_01std_1_1tuple_3_01_ts_8_8_8_01_4_01_4}{detail\+::is\+\_\+constructible$<$ const std\+::tuple$<$ Ts... $>$ $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__iterator__traits}{detail\+::is\+\_\+iterator\+\_\+traits$<$ T, typename $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__iterator__traits_3_01iterator__traits_3_01_t_01_4_01_4}{detail\+::is\+\_\+iterator\+\_\+traits$<$ iterator\+\_\+traits$<$ T $>$ $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__range}{detail\+::is\+\_\+range$<$ T $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__complete__type}{detail\+::is\+\_\+complete\+\_\+type$<$ T, typename $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__complete__type_3_01_t_00_01decltype_07void_07sizeof_07_t_08_08_08_4}{detail\+::is\+\_\+complete\+\_\+type$<$ T, decltype(void(sizeof(\+T)))$>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__compatible__object__type__impl}{detail\+::is\+\_\+compatible\+\_\+object\+\_\+type\+\_\+impl$<$ Basic\+Json\+Type, Compatible\+Object\+Type, typename $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__compatible__object__type__impl_3_01_basic_json_type_00_01_compatible_object_c9788cfc69b1e1eda6ea05aee660649a}{detail\+::is\+\_\+compatible\+\_\+object\+\_\+type\+\_\+impl$<$ Basic\+Json\+Type, Compatible\+Object\+Type, enable\+\_\+if\+\_\+t$<$ is\+\_\+detected$<$ mapped\+\_\+type\+\_\+t, Compatible\+Object\+Type $>$\+::value \&\&is\+\_\+detected$<$ key\+\_\+type\+\_\+t, Compatible\+Object\+Type $>$\+::value $>$ $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__compatible__object__type}{detail\+::is\+\_\+compatible\+\_\+object\+\_\+type$<$ Basic\+Json\+Type, Compatible\+Object\+Type $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__constructible__object__type__impl}{detail\+::is\+\_\+constructible\+\_\+object\+\_\+type\+\_\+impl$<$ Basic\+Json\+Type, Constructible\+Object\+Type, typename $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__constructible__object__type__impl_3_01_basic_json_type_00_01_constructible_oe3af2486927b63ecadb7a7d2ea385f2a}{detail\+::is\+\_\+constructible\+\_\+object\+\_\+type\+\_\+impl$<$ Basic\+Json\+Type, Constructible\+Object\+Type, enable\+\_\+if\+\_\+t$<$ is\+\_\+detected$<$ mapped\+\_\+type\+\_\+t, Constructible\+Object\+Type $>$\+::value \&\&is\+\_\+detected$<$ key\+\_\+type\+\_\+t, Constructible\+Object\+Type $>$\+::value $>$ $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__constructible__object__type}{detail\+::is\+\_\+constructible\+\_\+object\+\_\+type$<$ Basic\+Json\+Type, Constructible\+Object\+Type $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__compatible__string__type}{detail\+::is\+\_\+compatible\+\_\+string\+\_\+type$<$ Basic\+Json\+Type, Compatible\+String\+Type $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__constructible__string__type}{detail\+::is\+\_\+constructible\+\_\+string\+\_\+type$<$ Basic\+Json\+Type, Constructible\+String\+Type $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__compatible__array__type__impl}{detail\+::is\+\_\+compatible\+\_\+array\+\_\+type\+\_\+impl$<$ Basic\+Json\+Type, Compatible\+Array\+Type, typename $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__compatible__array__type__impl_3_01_basic_json_type_00_01_compatible_array_ty5a05c25fff6f823ac88824a10a386dcf}{detail\+::is\+\_\+compatible\+\_\+array\+\_\+type\+\_\+impl$<$ Basic\+Json\+Type, Compatible\+Array\+Type, enable\+\_\+if\+\_\+t$<$ is\+\_\+detected$<$ iterator\+\_\+t, Compatible\+Array\+Type $>$\+::value \&\&is\+\_\+iterator\+\_\+traits$<$ iterator\+\_\+traits$<$ detected\+\_\+t$<$ iterator\+\_\+t, Compatible\+Array\+Type $>$ $>$ $>$\+::value \&\&!std\+::is\+\_\+same$<$ Compatible\+Array\+Type, detected\+\_\+t$<$ range\+\_\+value\+\_\+t, Compatible\+Array\+Type $>$ $>$\+::value $>$ $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__compatible__array__type}{detail\+::is\+\_\+compatible\+\_\+array\+\_\+type$<$ Basic\+Json\+Type, Compatible\+Array\+Type $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__constructible__array__type__impl}{detail\+::is\+\_\+constructible\+\_\+array\+\_\+type\+\_\+impl$<$ Basic\+Json\+Type, Constructible\+Array\+Type, typename $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__constructible__array__type__impl_3_01_basic_json_type_00_01_constructible_ar18eb1802aca5c2f462bc2d940e11156a}{detail\+::is\+\_\+constructible\+\_\+array\+\_\+type\+\_\+impl$<$ Basic\+Json\+Type, Constructible\+Array\+Type, enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+same$<$ Constructible\+Array\+Type, typename Basic\+Json\+Type\+::value\+\_\+type $>$\+::value $>$ $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__constructible__array__type__impl_3_01_basic_json_type_00_01_constructible_ar54e545c8083fe861c90a40ff938a22b7}{detail\+::is\+\_\+constructible\+\_\+array\+\_\+type\+\_\+impl$<$ Basic\+Json\+Type, Constructible\+Array\+Type, enable\+\_\+if\+\_\+t$<$ !std\+::is\+\_\+same$<$ Constructible\+Array\+Type, typename Basic\+Json\+Type\+::value\+\_\+type $>$\+::value \&\&!is\+\_\+compatible\+\_\+string\+\_\+type$<$ Basic\+Json\+Type, Constructible\+Array\+Type $>$\+::value \&\&is\+\_\+default\+\_\+constructible$<$ Constructible\+Array\+Type $>$\+::value \&\&(std\+::is\+\_\+move\+\_\+assignable$<$ Constructible\+Array\+Type $>$\+::value\texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|}std\+::is\+\_\+copy\+\_\+assignable$<$ Constructible\+Array\+Type $>$\+::value)\&\&is\+\_\+detected$<$ iterator\+\_\+t, Constructible\+Array\+Type $>$\+::value \&\&is\+\_\+iterator\+\_\+traits$<$ iterator\+\_\+traits$<$ detected\+\_\+t$<$ iterator\+\_\+t, Constructible\+Array\+Type $>$ $>$ $>$\+::value \&\&is\+\_\+detected$<$ range\+\_\+value\+\_\+t, Constructible\+Array\+Type $>$\+::value \&\&!std\+::is\+\_\+same$<$ Constructible\+Array\+Type, detected\+\_\+t$<$ range\+\_\+value\+\_\+t, Constructible\+Array\+Type $>$ $>$\+::value \&\&is\+\_\+complete\+\_\+type$<$ detected\+\_\+t$<$ range\+\_\+value\+\_\+t, Constructible\+Array\+Type $>$ $>$\+::value $>$ $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__constructible__array__type}{detail\+::is\+\_\+constructible\+\_\+array\+\_\+type$<$ Basic\+Json\+Type, Constructible\+Array\+Type $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__compatible__integer__type__impl}{detail\+::is\+\_\+compatible\+\_\+integer\+\_\+type\+\_\+impl$<$ Real\+Integer\+Type, Compatible\+Number\+Integer\+Type, typename $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__compatible__integer__type__impl_3_01_real_integer_type_00_01_compatible_numb0041c726545da1e9f9d50a47e3f940c2}{detail\+::is\+\_\+compatible\+\_\+integer\+\_\+type\+\_\+impl$<$ Real\+Integer\+Type, Compatible\+Number\+Integer\+Type, enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+integral$<$ Real\+Integer\+Type $>$\+::value \&\&std\+::is\+\_\+integral$<$ Compatible\+Number\+Integer\+Type $>$\+::value \&\&!std\+::is\+\_\+same$<$ bool, Compatible\+Number\+Integer\+Type $>$\+::value $>$ $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__compatible__integer__type}{detail\+::is\+\_\+compatible\+\_\+integer\+\_\+type$<$ Real\+Integer\+Type, Compatible\+Number\+Integer\+Type $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__compatible__type__impl}{detail\+::is\+\_\+compatible\+\_\+type\+\_\+impl$<$ Basic\+Json\+Type, Compatible\+Type, typename $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__compatible__type__impl_3_01_basic_json_type_00_01_compatible_type_00_01enablc5e6eb56f10e073702c6c152991f15b9}{detail\+::is\+\_\+compatible\+\_\+type\+\_\+impl$<$ Basic\+Json\+Type, Compatible\+Type, enable\+\_\+if\+\_\+t$<$ is\+\_\+complete\+\_\+type$<$ Compatible\+Type $>$\+::value $>$ $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__compatible__type}{detail\+::is\+\_\+compatible\+\_\+type$<$ Basic\+Json\+Type, Compatible\+Type $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__constructible__tuple}{detail\+::is\+\_\+constructible\+\_\+tuple$<$ T1, T2 $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__constructible__tuple_3_01_t1_00_01std_1_1tuple_3_01_args_8_8_8_01_4_01_4}{detail\+::is\+\_\+constructible\+\_\+tuple$<$ T1, std\+::tuple$<$ Args... $>$ $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__json__iterator__of}{detail\+::is\+\_\+json\+\_\+iterator\+\_\+of$<$ Basic\+Json\+Type, T $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__json__iterator__of_3_01_basic_json_type_00_01typename_01_basic_json_type_1_1iterator_01_4}{detail\+::is\+\_\+json\+\_\+iterator\+\_\+of$<$ Basic\+Json\+Type, typename Basic\+Json\+Type\+::iterator $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__json__iterator__of_3_01_basic_json_type_00_01typename_01_basic_json_type_1_1const__iterator_01_4}{detail\+::is\+\_\+json\+\_\+iterator\+\_\+of$<$ Basic\+Json\+Type, typename Basic\+Json\+Type\+::const\+\_\+iterator $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__specialization__of}{detail\+::is\+\_\+specialization\+\_\+of$<$ Primary, T $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__specialization__of_3_01_primary_00_01_primary_3_01_args_8_8_8_01_4_01_4}{detail\+::is\+\_\+specialization\+\_\+of$<$ Primary, Primary$<$ Args... $>$ $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__comparable}{detail\+::is\+\_\+comparable$<$ Compare, A, B, typename $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__comparable_3_01_compare_00_01_a_00_01_b_00_01void__t_3_01decltype_07std_1_1d1335caac8ed6d774dd842c8360097f7d}{detail\+::is\+\_\+comparable$<$ Compare, A, B, void\+\_\+t$<$ decltype(std\+::declval$<$ Compare $>$()(std\+::declval$<$ A $>$(), std\+::declval$<$ B $>$())), decltype(std\+::declval$<$ Compare $>$()(std\+::declval$<$ B $>$(), std\+::declval$<$ A $>$()))$>$ $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__ordered__map}{detail\+::is\+\_\+ordered\+\_\+map$<$ T $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__ordered__map_1_1two}{detail\+::is\+\_\+ordered\+\_\+map$<$ T $>$\+::two}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1value__in__range__of__impl2_3_01_of_type_00_01_t_00_01false_00_01false_01_4}{detail\+::value\+\_\+in\+\_\+range\+\_\+of\+\_\+impl2$<$ Of\+Type, T, false, false $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1value__in__range__of__impl2_3_01_of_type_00_01_t_00_01true_00_01false_01_4}{detail\+::value\+\_\+in\+\_\+range\+\_\+of\+\_\+impl2$<$ Of\+Type, T, true, false $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1value__in__range__of__impl2_3_01_of_type_00_01_t_00_01false_00_01true_01_4}{detail\+::value\+\_\+in\+\_\+range\+\_\+of\+\_\+impl2$<$ Of\+Type, T, false, true $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1value__in__range__of__impl2_3_01_of_type_00_01_t_00_01true_00_01true_01_4}{detail\+::value\+\_\+in\+\_\+range\+\_\+of\+\_\+impl2$<$ Of\+Type, T, true, true $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1value__in__range__of__impl1_3_01_of_type_00_01_t_00_01false_01_4}{detail\+::value\+\_\+in\+\_\+range\+\_\+of\+\_\+impl1$<$ Of\+Type, T, false $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1value__in__range__of__impl1_3_01_of_type_00_01_t_00_01true_01_4}{detail\+::value\+\_\+in\+\_\+range\+\_\+of\+\_\+impl1$<$ Of\+Type, T, true $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__c__string}{detail\+::is\+\_\+c\+\_\+string$<$ T $>$}}
+\item 
+struct \mbox{\hyperlink{structdetail_1_1is__transparent}{detail\+::is\+\_\+transparent$<$ T $>$}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacedetail}{detail}}
+\begin{DoxyCompactList}\small\item\em detail namespace with internal helper functions \end{DoxyCompactList}\item 
+namespace \mbox{\hyperlink{namespacedetail_1_1impl}{detail\+::impl}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} $>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_a6f0f5d9b1fa1f5ed1be64165f3cf887f}{detail\+::mapped\+\_\+type\+\_\+t}} = \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} T\+::mapped\+\_\+type
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} $>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_a8e60ec97eaa2afdff62c6217cbbbd747}{detail\+::key\+\_\+type\+\_\+t}} = \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} T\+::key\+\_\+type
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} $>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_a53f74b6382403d25215a9433897255b4}{detail\+::value\+\_\+type\+\_\+t}} = \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} T\+::value\+\_\+type
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} $>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_ad4e225ffcce63aef0a259e2c6bd839c1}{detail\+::difference\+\_\+type\+\_\+t}} = \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} T\+::difference\+\_\+type
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} $>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_a41f3f767ccb40a3a5db595b172207340}{detail\+::pointer\+\_\+t}} = \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} T\+::pointer
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} $>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_ae10a42b2797e1b62417091ff3d330832}{detail\+::reference\+\_\+t}} = \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} T\+::reference
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} $>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_aa2e68a64b10d08b88f50a96c4f968be2}{detail\+::iterator\+\_\+category\+\_\+t}} = \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} T\+::iterator\+\_\+category
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} , typename... Args$>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_a30a52995475a3d1522a15e7a8200c59e}{detail\+::to\+\_\+json\+\_\+function}} = \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{decltype}}(T\+::to\+\_\+json(std\+::declval$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Args}} $>$()...))
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} , typename... Args$>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_a7d0993334c14a7e8055e1ec5ff237133}{detail\+::from\+\_\+json\+\_\+function}} = \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{decltype}}(T\+::from\+\_\+json(std\+::declval$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Args}} $>$()...))
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} , \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ac461e84f27bbb236874e1011cd66031f}{U}} $>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_a34780011ee13a3ede041ddcee288f484}{detail\+::get\+\_\+template\+\_\+function}} = \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{decltype}}(std\+::declval$<$ \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} $>$().\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{template}} \mbox{\hyperlink{namespacedetail_a7116703ea757fe9821bf2e903b91c160}{get}}$<$ \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ac461e84f27bbb236874e1011cd66031f}{U}} $>$())
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} $>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_aeb149366faaa55aa6bf1e510900353ea}{detail\+::detect\+\_\+key\+\_\+compare}} = \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} T\+::key\+\_\+compare
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} Basic\+Json\+Type $>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_acf3e5af512080ec5b71496dde9e0651c}{detail\+::actual\+\_\+object\+\_\+comparator\+\_\+t}} = \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{structdetail_1_1actual__object__comparator}{actual\+\_\+object\+\_\+comparator}}$<$ Basic\+Json\+Type $>$\+::type
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a1784b1a3d7cbd43c45ff82c72d05e4ae}{R}} $>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_a70f53d4fa21096275fc0e3016e27daf1}{detail\+::iterator\+\_\+t}} = \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{enable\+\_\+if\+\_\+t}}$<$ \mbox{\hyperlink{structdetail_1_1is__range}{is\+\_\+range}}$<$ \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a1784b1a3d7cbd43c45ff82c72d05e4ae}{R}} $>$\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{\+::value}}, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{result\+\_\+of\+\_\+begin}}$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{decltype}}(std\+::declval$<$ \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a1784b1a3d7cbd43c45ff82c72d05e4ae}{R}} \& $>$())$>$ $>$
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} $>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_ac2653c739e3ac41529a35735397b4f41}{detail\+::range\+\_\+value\+\_\+t}} = \mbox{\hyperlink{namespacedetail_a53f74b6382403d25215a9433897255b4}{value\+\_\+type\+\_\+t}}$<$ \mbox{\hyperlink{structdetail_1_1iterator__traits}{iterator\+\_\+traits}}$<$ \mbox{\hyperlink{namespacedetail_a70f53d4fa21096275fc0e3016e27daf1}{iterator\+\_\+t}}$<$ \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} $>$ $>$ $>$
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} $>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_a6d62ae589bb3ae01d156629c0b58b0f2}{detail\+::is\+\_\+json\+\_\+pointer}} = \mbox{\hyperlink{structdetail_1_1is__specialization__of}{is\+\_\+specialization\+\_\+of}}$<$\+::nlohmann\+::json\+\_\+pointer, \mbox{\hyperlink{namespacedetail_ad76afb2c3a23eb88e7efb7c5d5499574}{uncvref\+\_\+t}}$<$ \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} $>$ $>$
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} $>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_add6a1fa89738d39f7f123db6bad96101}{detail\+::detect\+\_\+is\+\_\+transparent}} = \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} T\+::is\+\_\+transparent
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Comparator}} , \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Object\+Key\+Type}} , \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Key\+Type\+CVRef}} , \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{bool}} Require\+Transparent\+Comparator = true, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{bool}} Exclude\+Object\+Key\+Type = Require\+Transparent\+Comparator, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Key\+Type}}  = uncvref\+\_\+t$<$\+Key\+Type\+CVRef$>$$>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_a9d80ed747c2ea999c378519a7a6d6d31}{detail\+::is\+\_\+usable\+\_\+as\+\_\+key\+\_\+type}} = \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} std\+::conditional$<$ \mbox{\hyperlink{structdetail_1_1is__comparable}{is\+\_\+comparable}}$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Comparator}}, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Object\+Key\+Type}}, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Key\+Type\+CVRef}} $>$\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{\+::value}} \&\&!(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Exclude\+Object\+Key\+Type}} \&\&std\+::is\+\_\+same$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Key\+Type}}, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Object\+Key\+Type}} $>$\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{\+::value}}) \&\&(!\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Require\+Transparent\+Comparator}}\texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|}\mbox{\hyperlink{namespacedetail_af040ff7b29d4c7ebd4dc6062bb3db008}{is\+\_\+detected}}$<$ \mbox{\hyperlink{namespacedetail_add6a1fa89738d39f7f123db6bad96101}{detect\+\_\+is\+\_\+transparent}}, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Comparator}} $>$\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{\+::value}}) \&\&!\mbox{\hyperlink{namespacedetail_a6d62ae589bb3ae01d156629c0b58b0f2}{is\+\_\+json\+\_\+pointer}}$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Key\+Type}} $>$\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{\+::value}}, std\+::true\+\_\+type, std\+::false\+\_\+type $>$\+::type
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} Basic\+Json\+Type , \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Key\+Type\+CVRef}} , \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{bool}} Require\+Transparent\+Comparator = true, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{bool}} Exclude\+Object\+Key\+Type = Require\+Transparent\+Comparator, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Key\+Type}}  = uncvref\+\_\+t$<$\+Key\+Type\+CVRef$>$$>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_a394f5970957ff03ced71ce77b9417b00}{detail\+::is\+\_\+usable\+\_\+as\+\_\+basic\+\_\+json\+\_\+key\+\_\+type}} = \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} std\+::conditional$<$ \mbox{\hyperlink{namespacedetail_a9d80ed747c2ea999c378519a7a6d6d31}{is\+\_\+usable\+\_\+as\+\_\+key\+\_\+type}}$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} Basic\+Json\+Type\+::object\+\_\+comparator\+\_\+t, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} Basic\+Json\+Type\+::object\+\_\+t\+::key\+\_\+type, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Key\+Type\+CVRef}}, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Require\+Transparent\+Comparator}}, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Exclude\+Object\+Key\+Type}} $>$\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{\+::value}} \&\&!\mbox{\hyperlink{structdetail_1_1is__json__iterator__of}{is\+\_\+json\+\_\+iterator\+\_\+of}}$<$ Basic\+Json\+Type, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Key\+Type}} $>$\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{\+::value}}, std\+::true\+\_\+type, std\+::false\+\_\+type $>$\+::type
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Object\+Type}} , \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Key\+Type}} $>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_ae8fd4ed53e2a6c71fe1fa557e1923b9f}{detail\+::detect\+\_\+erase\+\_\+with\+\_\+key\+\_\+type}} = \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{decltype}}(std\+::declval$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Object\+Type}} \& $>$().erase(std\+::declval$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Key\+Type}} $>$()))
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} Basic\+Json\+Type , \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Key\+Type}} $>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_abd4a9f5dc3f5e2b43c8dc87698d6d689}{detail\+::has\+\_\+erase\+\_\+with\+\_\+key\+\_\+type}} = \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} std\+::conditional$<$ \mbox{\hyperlink{namespacedetail_af040ff7b29d4c7ebd4dc6062bb3db008}{is\+\_\+detected}}$<$ \mbox{\hyperlink{namespacedetail_ae8fd4ed53e2a6c71fe1fa557e1923b9f}{detect\+\_\+erase\+\_\+with\+\_\+key\+\_\+type}}, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} Basic\+Json\+Type\+::object\+\_\+t, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Key\+Type}} $>$\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{\+::value}}, std\+::true\+\_\+type, std\+::false\+\_\+type $>$\+::type
+\item 
+{\footnotesize template$<$typename... Types$>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_a76f25f590a08b4a0e4c26e515471003d}{detail\+::all\+\_\+integral}} = \mbox{\hyperlink{structdetail_1_1conjunction}{conjunction}}$<$ std\+::is\+\_\+integral$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Types}} $>$... $>$
+\item 
+{\footnotesize template$<$typename... Types$>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_ac78ba866159e98c93c50a9a1140901dc}{detail\+::all\+\_\+signed}} = \mbox{\hyperlink{structdetail_1_1conjunction}{conjunction}}$<$ std\+::is\+\_\+signed$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Types}} $>$... $>$
+\item 
+{\footnotesize template$<$typename... Types$>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_a804e13d43be14f983b738e18f0bb8eb9}{detail\+::all\+\_\+unsigned}} = \mbox{\hyperlink{structdetail_1_1conjunction}{conjunction}}$<$ std\+::is\+\_\+unsigned$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Types}} $>$... $>$
+\item 
+{\footnotesize template$<$typename... Types$>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_a91e73e1b9fba3c45b9ad1b0b7f4f1c9b}{detail\+::same\+\_\+sign}} = std\+::integral\+\_\+constant$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{bool}}, \mbox{\hyperlink{namespacedetail_ac78ba866159e98c93c50a9a1140901dc}{all\+\_\+signed}}$<$ Types... $>$\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{\+::value}}\texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|}\mbox{\hyperlink{namespacedetail_a804e13d43be14f983b738e18f0bb8eb9}{all\+\_\+unsigned}}$<$ Types... $>$\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{\+::value}} $>$
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Of\+Type}} , \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} $>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_af80e4e59be493e62842fb40354351e8b}{detail\+::never\+\_\+out\+\_\+of\+\_\+range}} = std\+::integral\+\_\+constant$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{bool}},(std\+::is\+\_\+signed$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Of\+Type}} $>$\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{\+::value}} \&\&(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{sizeof}}(\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}})$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{sizeof}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Of\+Type}})))\texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|}(\mbox{\hyperlink{namespacedetail_a91e73e1b9fba3c45b9ad1b0b7f4f1c9b}{same\+\_\+sign}}$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Of\+Type}}, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} $>$\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{\+::value}} \&\&\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{sizeof}}(\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Of\+Type}})==\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{sizeof}}(\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}})) $>$
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{bool}} Value$>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_a867b6755c86931c5824f5c97cba3b470}{detail\+::bool\+\_\+constant}} = std\+::integral\+\_\+constant$<$ \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{bool}}, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Value}} $>$
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} $>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{using}} \mbox{\hyperlink{namespacedetail_a9d99cdff6fa6a48145e5f7209d60db5a}{detail\+::is\+\_\+c\+\_\+string\+\_\+uncvref}} = \mbox{\hyperlink{structdetail_1_1is__c__string}{is\+\_\+c\+\_\+string}}$<$ \mbox{\hyperlink{namespacedetail_ad76afb2c3a23eb88e7efb7c5d5499574}{uncvref\+\_\+t}}$<$ \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} $>$ $>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} , \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ac461e84f27bbb236874e1011cd66031f}{U}} , \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{enable\+\_\+if\+\_\+t}}$<$ !std\+::is\+\_\+same$<$ \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}}, \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ac461e84f27bbb236874e1011cd66031f}{U}} $>$\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{\+::value}}, \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{int}} $>$  = 0$>$ }\\\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} \mbox{\hyperlink{namespacedetail_a5d17f1d261bd9fec64c08343c9f809fc}{detail\+::conditional\+\_\+static\+\_\+cast}} (\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142ac461e84f27bbb236874e1011cd66031f}{U}} \mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{value}})
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{Of\+Type}} , \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} $>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{constexpr}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{bool}} \mbox{\hyperlink{namespacedetail_a8e7a4119c6c8e86cef8f1c904c8bf040}{detail\+::value\+\_\+in\+\_\+range\+\_\+of}} (\mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{val}})
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} $>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{constexpr}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{bool}} \mbox{\hyperlink{namespacedetail_1_1impl_ac7d52b8817f5a5d4147a8b39dc31a8f1}{detail\+::impl\+::is\+\_\+c\+\_\+string}} ()
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{typename}} \mbox{\hyperlink{_input_8h_a90ed3c9028a7fa45665d10b5210fa142a21f40778b7db9343a6ca75ec2c41ccce}{T}} $>$ }\\\mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{constexpr}} \mbox{\hyperlink{namespacedetail_a66bbcd629c83a87ba9cbc72a675cf84a}{bool}} \mbox{\hyperlink{namespacedetail_1_1impl_a4d80d22e33fe18699115e86773075879}{detail\+::impl\+::is\+\_\+transparent}} ()
+\end{DoxyCompactItemize}

@@ -1,0 +1,196 @@
+\doxysection{Game\+Object Class Reference}
+\hypertarget{class_game_object}{}\label{class_game_object}\index{GameObject@{GameObject}}
+
+
+{\ttfamily \#include $<$Game\+Object.\+h$>$}
+
+Inheritance diagram for Game\+Object\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_game_object}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_game_object_a49f0fc91c3048ec583044e7a1b9c2518}{Game\+Object}} ()=default
+\item 
+\mbox{\hyperlink{class_game_object_aac8336499118faec34e0f406c022a25a}{\texorpdfstring{$\sim$}{\string~}\+Game\+Object}} ()=default
+\item 
+virtual void \mbox{\hyperlink{class_game_object_a3892a2215f99c5b76e95130a3a21254c}{update}} ()=0
+\item 
+virtual \mbox{\hyperlink{struct_color}{Color}} \mbox{\hyperlink{class_game_object_ac550fca5812334bc562532edf91e79af}{get\+Color}} ()=0
+\item 
+double \mbox{\hyperlink{class_game_object_abbd45990e855fd14fab7dfc974ec09d4}{get\+Angle}} () const
+\item 
+\mbox{\hyperlink{class_vector2}{Vector2}} \& \mbox{\hyperlink{class_game_object_aa5058297336152deeec335b923ca821a}{get\+Position}} ()
+\item 
+void \mbox{\hyperlink{class_game_object_af6c8a969ef030f8eeb3275ca39432453}{set\+Position}} (\mbox{\hyperlink{class_vector2}{Vector2}} \&\mbox{\hyperlink{class_game_object_a7b3fe962887a1512fade34a2d9427be6}{position}})
+\item 
+void \mbox{\hyperlink{class_game_object_aba330524a508b880bce6822b0746d900}{set\+Texture}} (SDL\+\_\+\+Renderer \&renderer, std\+::string path)
+\item 
+SDL\+\_\+\+Texture \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_game_object_af5a5f97ec626cbd7724fa0bea7c62399}{get\+Texture}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_vector2}{Vector2}} \mbox{\hyperlink{class_game_object_a7b3fe962887a1512fade34a2d9427be6}{position}}
+\item 
+\mbox{\hyperlink{struct_color}{Color}} \mbox{\hyperlink{class_game_object_a1427a7ea145b8306b59d623d7e20fa6e}{color}}
+\item 
+double \mbox{\hyperlink{class_game_object_ac7ea0b9874b8ee9f1dbfbb5d95393338}{angle}} = 0
+\item 
+SDL\+\_\+\+Texture \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_game_object_a01accf16dabf8b1006e3df597dc1728a}{texture}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_game_object_8h_source_l00012}{12}} of file \mbox{\hyperlink{_game_object_8h_source}{Game\+Object.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_game_object_a49f0fc91c3048ec583044e7a1b9c2518}\label{class_game_object_a49f0fc91c3048ec583044e7a1b9c2518} 
+\index{GameObject@{GameObject}!GameObject@{GameObject}}
+\index{GameObject@{GameObject}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{GameObject()}{GameObject()}}
+{\footnotesize\ttfamily Game\+Object\+::\+Game\+Object (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\Hypertarget{class_game_object_aac8336499118faec34e0f406c022a25a}\label{class_game_object_aac8336499118faec34e0f406c022a25a} 
+\index{GameObject@{GameObject}!````~GameObject@{\texorpdfstring{$\sim$}{\string~}GameObject}}
+\index{````~GameObject@{\texorpdfstring{$\sim$}{\string~}GameObject}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}GameObject()}{\string~GameObject()}}
+{\footnotesize\ttfamily Game\+Object\+::\texorpdfstring{$\sim$}{\string~}\+Game\+Object (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_game_object_abbd45990e855fd14fab7dfc974ec09d4}\label{class_game_object_abbd45990e855fd14fab7dfc974ec09d4} 
+\index{GameObject@{GameObject}!getAngle@{getAngle}}
+\index{getAngle@{getAngle}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{getAngle()}{getAngle()}}
+{\footnotesize\ttfamily double Game\+Object\+::get\+Angle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{_game_object_8cpp_source_l00027}{27}} of file \mbox{\hyperlink{_game_object_8cpp_source}{Game\+Object.\+cpp}}.
+
+\Hypertarget{class_game_object_ac550fca5812334bc562532edf91e79af}\label{class_game_object_ac550fca5812334bc562532edf91e79af} 
+\index{GameObject@{GameObject}!getColor@{getColor}}
+\index{getColor@{getColor}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{getColor()}{getColor()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_color}{Color}} Game\+Object\+::get\+Color (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{class_player_af5bc51db8ef9aaa7a3b529e7a3e90a89}{Player}}.
+
+
+
+Definition at line \mbox{\hyperlink{_game_object_8cpp_source_l00015}{15}} of file \mbox{\hyperlink{_game_object_8cpp_source}{Game\+Object.\+cpp}}.
+
+\Hypertarget{class_game_object_aa5058297336152deeec335b923ca821a}\label{class_game_object_aa5058297336152deeec335b923ca821a} 
+\index{GameObject@{GameObject}!getPosition@{getPosition}}
+\index{getPosition@{getPosition}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{getPosition()}{getPosition()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vector2}{Vector2}} \& Game\+Object\+::get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_game_object_8cpp_source_l00021}{21}} of file \mbox{\hyperlink{_game_object_8cpp_source}{Game\+Object.\+cpp}}.
+
+\Hypertarget{class_game_object_af5a5f97ec626cbd7724fa0bea7c62399}\label{class_game_object_af5a5f97ec626cbd7724fa0bea7c62399} 
+\index{GameObject@{GameObject}!getTexture@{getTexture}}
+\index{getTexture@{getTexture}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{getTexture()}{getTexture()}}
+{\footnotesize\ttfamily SDL\+\_\+\+Texture \texorpdfstring{$\ast$}{*} Game\+Object\+::get\+Texture (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_game_object_8cpp_source_l00047}{47}} of file \mbox{\hyperlink{_game_object_8cpp_source}{Game\+Object.\+cpp}}.
+
+\Hypertarget{class_game_object_af6c8a969ef030f8eeb3275ca39432453}\label{class_game_object_af6c8a969ef030f8eeb3275ca39432453} 
+\index{GameObject@{GameObject}!setPosition@{setPosition}}
+\index{setPosition@{setPosition}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{setPosition()}{setPosition()}}
+{\footnotesize\ttfamily void Game\+Object\+::set\+Position (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_vector2}{Vector2}} \&}]{position }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_game_object_8cpp_source_l00033}{33}} of file \mbox{\hyperlink{_game_object_8cpp_source}{Game\+Object.\+cpp}}.
+
+\Hypertarget{class_game_object_aba330524a508b880bce6822b0746d900}\label{class_game_object_aba330524a508b880bce6822b0746d900} 
+\index{GameObject@{GameObject}!setTexture@{setTexture}}
+\index{setTexture@{setTexture}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{setTexture()}{setTexture()}}
+{\footnotesize\ttfamily void Game\+Object\+::set\+Texture (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Renderer \&}]{renderer,  }\item[{std\+::string}]{path }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_game_object_8cpp_source_l00037}{37}} of file \mbox{\hyperlink{_game_object_8cpp_source}{Game\+Object.\+cpp}}.
+
+\Hypertarget{class_game_object_a3892a2215f99c5b76e95130a3a21254c}\label{class_game_object_a3892a2215f99c5b76e95130a3a21254c} 
+\index{GameObject@{GameObject}!update@{update}}
+\index{update@{update}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Game\+Object\+::update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{class_player_a6912bb6e48efb5845d59f0f4582827ef}{Player}}, and \mbox{\hyperlink{class_scripts_1_1_square_ae0983537a1b2a0a56660a501e1e570b4}{Scripts\+::\+Square}}.
+
+
+
+Definition at line \mbox{\hyperlink{_game_object_8cpp_source_l00009}{9}} of file \mbox{\hyperlink{_game_object_8cpp_source}{Game\+Object.\+cpp}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_game_object_ac7ea0b9874b8ee9f1dbfbb5d95393338}\label{class_game_object_ac7ea0b9874b8ee9f1dbfbb5d95393338} 
+\index{GameObject@{GameObject}!angle@{angle}}
+\index{angle@{angle}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{angle}{angle}}
+{\footnotesize\ttfamily double Game\+Object\+::angle = 0\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_game_object_8h_source_l00031}{31}} of file \mbox{\hyperlink{_game_object_8h_source}{Game\+Object.\+h}}.
+
+\Hypertarget{class_game_object_a1427a7ea145b8306b59d623d7e20fa6e}\label{class_game_object_a1427a7ea145b8306b59d623d7e20fa6e} 
+\index{GameObject@{GameObject}!color@{color}}
+\index{color@{color}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{color}{color}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_color}{Color}} Game\+Object\+::color\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_game_object_8h_source_l00030}{30}} of file \mbox{\hyperlink{_game_object_8h_source}{Game\+Object.\+h}}.
+
+\Hypertarget{class_game_object_a7b3fe962887a1512fade34a2d9427be6}\label{class_game_object_a7b3fe962887a1512fade34a2d9427be6} 
+\index{GameObject@{GameObject}!position@{position}}
+\index{position@{position}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{position}{position}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vector2}{Vector2}} Game\+Object\+::position\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_game_object_8h_source_l00029}{29}} of file \mbox{\hyperlink{_game_object_8h_source}{Game\+Object.\+h}}.
+
+\Hypertarget{class_game_object_a01accf16dabf8b1006e3df597dc1728a}\label{class_game_object_a01accf16dabf8b1006e3df597dc1728a} 
+\index{GameObject@{GameObject}!texture@{texture}}
+\index{texture@{texture}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{texture}{texture}}
+{\footnotesize\ttfamily SDL\+\_\+\+Texture\texorpdfstring{$\ast$}{*} Game\+Object\+::texture\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_game_object_8h_source_l00032}{32}} of file \mbox{\hyperlink{_game_object_8h_source}{Game\+Object.\+h}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+E\+:/\+Code/\+Skola/\+Su/\+CProg/\+CProg-\/\+Project/include/scripts/\mbox{\hyperlink{_game_object_8h}{Game\+Object.\+h}}\item 
+E\+:/\+Code/\+Skola/\+Su/\+CProg/\+CProg-\/\+Project/src/scripts/\mbox{\hyperlink{_game_object_8cpp}{Game\+Object.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,136 @@
+\doxysection{springhawk\+::Scene\+Builder Class Reference}
+\hypertarget{classspringhawk_1_1_scene_builder}{}\label{classspringhawk_1_1_scene_builder}\index{springhawk::SceneBuilder@{springhawk::SceneBuilder}}
+
+
+{\ttfamily \#include $<$Scene\+Builder.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classspringhawk_1_1_scene_builder_aee225c581d5d112b096e17141c974316}{Scene\+Builder}} ()=default
+\item 
+\mbox{\hyperlink{classspringhawk_1_1_scene_builder_a7d1fdfe1826c1833a937077911f06b31}{Scene\+Builder}} (const \mbox{\hyperlink{classspringhawk_1_1_scene_builder}{Scene\+Builder}} \&)=default
+\item 
+\mbox{\hyperlink{classspringhawk_1_1_scene_builder_aad652ddc3758fdc4df14643d401a601b}{\texorpdfstring{$\sim$}{\string~}\+Scene\+Builder}} ()=default
+\item 
+\mbox{\hyperlink{classspringhawk_1_1_scene_builder}{Scene\+Builder}} \& \mbox{\hyperlink{classspringhawk_1_1_scene_builder_aa93462b5c0c137047576686bbfea510c}{add\+Scene}} ()
+\item 
+\mbox{\hyperlink{classspringhawk_1_1_scene_builder}{Scene\+Builder}} \& \mbox{\hyperlink{classspringhawk_1_1_scene_builder_a8ec8fd6bd4b0239c767fdae16f4f1669}{set\+Map}} (\mbox{\hyperlink{classspringhawk_1_1_tilemap}{Tilemap}} \texorpdfstring{$\ast$}{*}map)
+\item 
+\mbox{\hyperlink{classspringhawk_1_1_scene_builder}{Scene\+Builder}} \& \mbox{\hyperlink{classspringhawk_1_1_scene_builder_a805de68d910f470497b1494ea7abc468}{add\+Game\+Objects}} (std\+::vector$<$ \mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*} $>$ \&game\+Objects)
+\item 
+\mbox{\hyperlink{classspringhawk_1_1_scene_builder}{Scene\+Builder}} \& \mbox{\hyperlink{classspringhawk_1_1_scene_builder_add809eb84e0f836dc1e818253dc06608}{set\+Render\+Tag}} (\mbox{\hyperlink{namespacespringhawk_a6c616fb4e27863ab7cfc96bd538368f3}{Render\+Tag}} render\+Tag)
+\item 
+\mbox{\hyperlink{classspringhawk_1_1_scene_builder}{Scene\+Builder}} \& \mbox{\hyperlink{classspringhawk_1_1_scene_builder_a2079a069a60268850612006d2757819f}{set\+Player}} (\mbox{\hyperlink{class_player}{Player}} \texorpdfstring{$\ast$}{*}player)
+\item 
+\mbox{\hyperlink{classspringhawk_1_1_scene_builder}{Scene\+Builder}} \& \mbox{\hyperlink{classspringhawk_1_1_scene_builder_a65754004c21fcb5768a621c80a4b78a0}{add\+From\+JSON}} (std\+::string path)
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_scene}{Scene}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{classspringhawk_1_1_scene_builder_ab884288d4e31eaa1db5638f99690c8c1}{build\+Scenes}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_scene_builder_8h_source_l00015}{15}} of file \mbox{\hyperlink{_scene_builder_8h_source}{Scene\+Builder.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classspringhawk_1_1_scene_builder_aee225c581d5d112b096e17141c974316}\label{classspringhawk_1_1_scene_builder_aee225c581d5d112b096e17141c974316} 
+\index{springhawk::SceneBuilder@{springhawk::SceneBuilder}!SceneBuilder@{SceneBuilder}}
+\index{SceneBuilder@{SceneBuilder}!springhawk::SceneBuilder@{springhawk::SceneBuilder}}
+\doxysubsubsection{\texorpdfstring{SceneBuilder()}{SceneBuilder()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily springhawk\+::\+Scene\+Builder\+::\+Scene\+Builder (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\Hypertarget{classspringhawk_1_1_scene_builder_a7d1fdfe1826c1833a937077911f06b31}\label{classspringhawk_1_1_scene_builder_a7d1fdfe1826c1833a937077911f06b31} 
+\index{springhawk::SceneBuilder@{springhawk::SceneBuilder}!SceneBuilder@{SceneBuilder}}
+\index{SceneBuilder@{SceneBuilder}!springhawk::SceneBuilder@{springhawk::SceneBuilder}}
+\doxysubsubsection{\texorpdfstring{SceneBuilder()}{SceneBuilder()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily springhawk\+::\+Scene\+Builder\+::\+Scene\+Builder (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classspringhawk_1_1_scene_builder}{Scene\+Builder}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\Hypertarget{classspringhawk_1_1_scene_builder_aad652ddc3758fdc4df14643d401a601b}\label{classspringhawk_1_1_scene_builder_aad652ddc3758fdc4df14643d401a601b} 
+\index{springhawk::SceneBuilder@{springhawk::SceneBuilder}!````~SceneBuilder@{\texorpdfstring{$\sim$}{\string~}SceneBuilder}}
+\index{````~SceneBuilder@{\texorpdfstring{$\sim$}{\string~}SceneBuilder}!springhawk::SceneBuilder@{springhawk::SceneBuilder}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}SceneBuilder()}{\string~SceneBuilder()}}
+{\footnotesize\ttfamily springhawk\+::\+Scene\+Builder\+::\texorpdfstring{$\sim$}{\string~}\+Scene\+Builder (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classspringhawk_1_1_scene_builder_a65754004c21fcb5768a621c80a4b78a0}\label{classspringhawk_1_1_scene_builder_a65754004c21fcb5768a621c80a4b78a0} 
+\index{springhawk::SceneBuilder@{springhawk::SceneBuilder}!addFromJSON@{addFromJSON}}
+\index{addFromJSON@{addFromJSON}!springhawk::SceneBuilder@{springhawk::SceneBuilder}}
+\doxysubsubsection{\texorpdfstring{addFromJSON()}{addFromJSON()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classspringhawk_1_1_scene_builder}{springhawk\+::\+Scene\+Builder}} \& springhawk\+::\+Scene\+Builder\+::add\+From\+JSON (\begin{DoxyParamCaption}\item[{std\+::string}]{path }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_builder_8cpp_source_l00006}{6}} of file \mbox{\hyperlink{_scene_builder_8cpp_source}{Scene\+Builder.\+cpp}}.
+
+\Hypertarget{classspringhawk_1_1_scene_builder_a805de68d910f470497b1494ea7abc468}\label{classspringhawk_1_1_scene_builder_a805de68d910f470497b1494ea7abc468} 
+\index{springhawk::SceneBuilder@{springhawk::SceneBuilder}!addGameObjects@{addGameObjects}}
+\index{addGameObjects@{addGameObjects}!springhawk::SceneBuilder@{springhawk::SceneBuilder}}
+\doxysubsubsection{\texorpdfstring{addGameObjects()}{addGameObjects()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classspringhawk_1_1_scene_builder}{springhawk\+::\+Scene\+Builder}} \& springhawk\+::\+Scene\+Builder\+::add\+Game\+Objects (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*} $>$ \&}]{game\+Objects }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_builder_8cpp_source_l00074}{74}} of file \mbox{\hyperlink{_scene_builder_8cpp_source}{Scene\+Builder.\+cpp}}.
+
+\Hypertarget{classspringhawk_1_1_scene_builder_aa93462b5c0c137047576686bbfea510c}\label{classspringhawk_1_1_scene_builder_aa93462b5c0c137047576686bbfea510c} 
+\index{springhawk::SceneBuilder@{springhawk::SceneBuilder}!addScene@{addScene}}
+\index{addScene@{addScene}!springhawk::SceneBuilder@{springhawk::SceneBuilder}}
+\doxysubsubsection{\texorpdfstring{addScene()}{addScene()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classspringhawk_1_1_scene_builder}{springhawk\+::\+Scene\+Builder}} \& springhawk\+::\+Scene\+Builder\+::add\+Scene (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_builder_8cpp_source_l00040}{40}} of file \mbox{\hyperlink{_scene_builder_8cpp_source}{Scene\+Builder.\+cpp}}.
+
+\Hypertarget{classspringhawk_1_1_scene_builder_ab884288d4e31eaa1db5638f99690c8c1}\label{classspringhawk_1_1_scene_builder_ab884288d4e31eaa1db5638f99690c8c1} 
+\index{springhawk::SceneBuilder@{springhawk::SceneBuilder}!buildScenes@{buildScenes}}
+\index{buildScenes@{buildScenes}!springhawk::SceneBuilder@{springhawk::SceneBuilder}}
+\doxysubsubsection{\texorpdfstring{buildScenes()}{buildScenes()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_scene}{Scene}} \texorpdfstring{$\ast$}{*} $>$ springhawk\+::\+Scene\+Builder\+::build\+Scenes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_builder_8cpp_source_l00061}{61}} of file \mbox{\hyperlink{_scene_builder_8cpp_source}{Scene\+Builder.\+cpp}}.
+
+\Hypertarget{classspringhawk_1_1_scene_builder_a8ec8fd6bd4b0239c767fdae16f4f1669}\label{classspringhawk_1_1_scene_builder_a8ec8fd6bd4b0239c767fdae16f4f1669} 
+\index{springhawk::SceneBuilder@{springhawk::SceneBuilder}!setMap@{setMap}}
+\index{setMap@{setMap}!springhawk::SceneBuilder@{springhawk::SceneBuilder}}
+\doxysubsubsection{\texorpdfstring{setMap()}{setMap()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classspringhawk_1_1_scene_builder}{springhawk\+::\+Scene\+Builder}} \& springhawk\+::\+Scene\+Builder\+::set\+Map (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classspringhawk_1_1_tilemap}{Tilemap}} \texorpdfstring{$\ast$}{*}}]{map }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_builder_8cpp_source_l00067}{67}} of file \mbox{\hyperlink{_scene_builder_8cpp_source}{Scene\+Builder.\+cpp}}.
+
+\Hypertarget{classspringhawk_1_1_scene_builder_a2079a069a60268850612006d2757819f}\label{classspringhawk_1_1_scene_builder_a2079a069a60268850612006d2757819f} 
+\index{springhawk::SceneBuilder@{springhawk::SceneBuilder}!setPlayer@{setPlayer}}
+\index{setPlayer@{setPlayer}!springhawk::SceneBuilder@{springhawk::SceneBuilder}}
+\doxysubsubsection{\texorpdfstring{setPlayer()}{setPlayer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classspringhawk_1_1_scene_builder}{springhawk\+::\+Scene\+Builder}} \& springhawk\+::\+Scene\+Builder\+::set\+Player (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_player}{Player}} \texorpdfstring{$\ast$}{*}}]{player }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_builder_8cpp_source_l00047}{47}} of file \mbox{\hyperlink{_scene_builder_8cpp_source}{Scene\+Builder.\+cpp}}.
+
+\Hypertarget{classspringhawk_1_1_scene_builder_add809eb84e0f836dc1e818253dc06608}\label{classspringhawk_1_1_scene_builder_add809eb84e0f836dc1e818253dc06608} 
+\index{springhawk::SceneBuilder@{springhawk::SceneBuilder}!setRenderTag@{setRenderTag}}
+\index{setRenderTag@{setRenderTag}!springhawk::SceneBuilder@{springhawk::SceneBuilder}}
+\doxysubsubsection{\texorpdfstring{setRenderTag()}{setRenderTag()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classspringhawk_1_1_scene_builder}{springhawk\+::\+Scene\+Builder}} \& springhawk\+::\+Scene\+Builder\+::set\+Render\+Tag (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacespringhawk_a6c616fb4e27863ab7cfc96bd538368f3}{Render\+Tag}}}]{render\+Tag }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_builder_8cpp_source_l00054}{54}} of file \mbox{\hyperlink{_scene_builder_8cpp_source}{Scene\+Builder.\+cpp}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+E\+:/\+Code/\+Skola/\+Su/\+CProg/\+CProg-\/\+Project/include/springhawk/\mbox{\hyperlink{_scene_builder_8h}{Scene\+Builder.\+h}}\item 
+E\+:/\+Code/\+Skola/\+Su/\+CProg/\+CProg-\/\+Project/src/springhawk/\mbox{\hyperlink{_scene_builder_8cpp}{Scene\+Builder.\+cpp}}\end{DoxyCompactItemize}
