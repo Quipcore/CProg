@@ -19,6 +19,7 @@ SET(SOURCE_FILES
         src/springhawk/maps/Tile.cpp
 
         src/springhawk/renderers/Renderer.cpp
+        src/springhawk/renderers/PlaneRenderer.cpp
         src/springhawk/renderers/DoomRender.cpp
         src/springhawk/renderers/Raycaster.cpp
         src/springhawk/renderers/ui/UIRenderer.cpp
@@ -27,14 +28,13 @@ SET(SOURCE_FILES
 
         src/scripts/GameObject.cpp
         src/scripts/Player.cpp
+        src/scripts/Wall.cpp
+        src/scripts/PacmanController.cpp
+        src/scripts/WolfensteinController.cpp
 
         src/games/Wolfenstein.cpp
         src/games/Tetris.cpp
         src/games/PacMan.cpp
-        src/scripts/Wall.cpp
-        src/springhawk/renderers/PlaneRenderer.cpp
-        src/scripts/PacmanController.cpp
-        src/scripts/WolfensteinController.cpp
 )
 
 include_directories(include)
