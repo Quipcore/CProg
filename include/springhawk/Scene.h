@@ -17,24 +17,23 @@ class Scene {
 public:
     ~Scene() = default;
     Scene()= delete;
-    Scene(Player &player, Map &incomingMap, std::vector<GameObject *> &gameObjects, springhawk::RenderTag renderTag);
+    Scene(Map &incomingMap, std::vector<GameObject *> &gameObjects, springhawk::RenderTag renderTag);
 
     std::vector<GameObject *> getGameObjects();
-    Player &getPlayer();
 
-    [[nodiscard("Need to render scene!")]] springhawk::RenderTag getRenderTag() const;
+    [[nodiscard("Needed to render scene!")]] springhawk::RenderTag getRenderTag() const;
 
     Map & getMap();
 
     void loadTextures(SDL_Renderer &renderer);
+
+    void destroyTextures();
+
 private:
-    Player player;
     Map* map;
     std::vector<GameObject*> gameObjects;
     std::map<int,SDL_Texture*> textureMap;
     springhawk::RenderTag renderTag;
-
-
 };
 
 

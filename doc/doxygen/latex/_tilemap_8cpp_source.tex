@@ -89,7 +89,7 @@
 \DoxyCodeLine{\Hypertarget{_tilemap_8cpp_source_l00085}00085\ }
 \DoxyCodeLine{\Hypertarget{_tilemap_8cpp_source_l00086}\mbox{\hyperlink{classspringhawk_1_1_tilemap_a580293874c1757f1c7b46961bc1bbade}{00086}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classspringhawk_1_1_tilemap_a580293874c1757f1c7b46961bc1bbade}{springhawk::Tilemap::loadTextures}}(SDL\_Renderer\&\ renderer)\ \{}
 \DoxyCodeLine{\Hypertarget{_tilemap_8cpp_source_l00087}00087\ \ \ \ \ \textcolor{comment}{//TODO:\ Create\ Textures\ with\ renderer\ and\ texturePaths}}
-\DoxyCodeLine{\Hypertarget{_tilemap_8cpp_source_l00088}00088\ \ \ \ \ std::string\ path\ =\ \mbox{\hyperlink{namespaceconstants_a966fa351244153c70a75ef5f6b12e5b3}{constants::gResPath}}\ +\ \textcolor{stringliteral}{"{}images/"{}};}
+\DoxyCodeLine{\Hypertarget{_tilemap_8cpp_source_l00088}00088\ \ \ \ \ std::string\ path\ =\ \mbox{\hyperlink{namespaceconstants_a966fa351244153c70a75ef5f6b12e5b3}{constants::resourcePath}}\ +\ \textcolor{stringliteral}{"{}images/"{}};}
 \DoxyCodeLine{\Hypertarget{_tilemap_8cpp_source_l00089}00089\ }
 \DoxyCodeLine{\Hypertarget{_tilemap_8cpp_source_l00090}00090\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ [key,\ pair]\ :\ texturesMap)\{}
 \DoxyCodeLine{\Hypertarget{_tilemap_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ SDL\_Surface\ *surface\ =\ IMG\_Load((path\ +\ pair.first).c\_str());}

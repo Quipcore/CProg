@@ -7,15 +7,12 @@
 #include "springhawk/Scene.h"
 
 //----------------------------------------------------------------------------------------------------------------------
-//TODO: Convert to interface
+
 class Game {
 public:
     Game() = default;
-    ~Game()  =default;
+    ~Game() = default;
     virtual void run() = 0;
-private:
-    std::vector<Scene*> scenes;
 };
-
 
 #endif //CPROG_PROJECT_GAME_H

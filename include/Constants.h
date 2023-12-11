@@ -5,9 +5,11 @@
 
 namespace constants
 {
-    const std::string gResPath = "resources/";
-    const std::string gFontPath = gResPath + "fonts/";
-    const std::string gMapPath = gResPath + "maps/";
+    const std::string resourcePath = "resources/";
+    const std::string fontPath = resourcePath + "fonts/";
+    const std::string mapPath = resourcePath + "maps/";
+    const std::string imagePath = resourcePath + "images/";
+    const std::string jsonPath = resourcePath + "json/";
 }
 
 #endif

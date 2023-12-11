@@ -13,18 +13,16 @@
 
 class PlaneRenderer {
 public:
-    static void render(SDL_Renderer&, std::vector<GameObject*>&, Player&, Map&, int,int);
+    static void render(SDL_Renderer&, std::vector<GameObject*>&, Map&, int,int);
+
 private:
     static int SCREEN_WIDTH;
     static int SCREEN_HEIGHT;
 
     static void clearLastFrame(SDL_Renderer &renderer);
-
     static void drawDebugText(SDL_Renderer &renderer);
-
     static void drawMap(Map &map, int drawingOffset, SDL_Renderer &renderer, int &rectW, int &rectH);
-
-    static void drawPlayer(SDL_Renderer &renderer, Player &player, int rectW, int rectH, int drawingOffset);
+    static void drawGameObjects(SDL_Renderer &renderer, std::vector<GameObject *> &vector, int w, int h, int offset);
 };
 
 

@@ -12,12 +12,6 @@ void GameObject::update() {
 
 //----------------------------------------------------------------------------------------------------------------------
 
-Color GameObject::getColor() {
-    return color;
-}
-
-//----------------------------------------------------------------------------------------------------------------------
-
 Vector2& GameObject::getPosition(){
     return position;
 }
@@ -36,7 +30,7 @@ void GameObject::setPosition(Vector2 &position) {
 
 void GameObject::setTexture(SDL_Renderer &renderer, std::string path){
 
-    std::string pathToImage = constants::gResPath + "images/" + path;
+    std::string pathToImage = constants::imagePath + path;
 
     SDL_Surface *surface = IMG_Load(pathToImage.c_str());
     SDL_Texture *pTexture = SDL_CreateTextureFromSurface(&renderer, surface);

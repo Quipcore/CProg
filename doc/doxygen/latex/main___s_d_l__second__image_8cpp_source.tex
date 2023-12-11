@@ -8,7 +8,7 @@
 \DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00004}00004\ }
 \DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <iostream>}}
 \DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <string>}}
-\DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_constants_8h}{Constants.h}}"{}}\ \textcolor{comment}{//gResPath-\/contains\ the\ path\ to\ your\ resources.}}
+\DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_constants_8h}{Constants.h}}"{}}\ \textcolor{comment}{//resourcePath-\/contains\ the\ path\ to\ your\ resources.}}
 \DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00008}00008\ }
 \DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00009}00009\ \textcolor{comment}{//\ Alla\ dessa\ SDL\ inkluderingsfiler\ används\ inte\ i\ detta\ testprogram.}}
 \DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00010}00010\ \textcolor{comment}{//\ Bifogas\ endast\ för\ test\ av\ SDL\ installation!\ }}
@@ -19,17 +19,17 @@
 \DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00015}00015\ \textcolor{preprocessor}{\#include\ <SDL2/SDL\_ttf.h>}}
 \DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00016}00016\ }
 \DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00017}00017\ \textcolor{comment}{/*\ \ PATH\ TO\ YOUR\ RESOURCE\ FOLDER\ 'resources'}}
-\DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00018}00018\ \textcolor{comment}{*\ \ \ 'gResPath'\ is\ a\ global\ constant\ defined\ in\ "{}Constants.h"{},\ }}
+\DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00018}00018\ \textcolor{comment}{*\ \ \ 'resourcePath'\ is\ a\ global\ constant\ defined\ in\ "{}Constants.h"{},\ }}
 \DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00019}00019\ \textcolor{comment}{*\ \ \ representing\ the\ relative\ path\ to\ your\ resource\ folders\ as\ a\ string,}}
-\DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00020}00020\ \textcolor{comment}{*\ \ \ i.e.\ '\ const\ std::string\ gResPath\ =\ "{}../../resources/"{}\ '}}
-\DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00021}00021\ \textcolor{comment}{*\ \ \ Use\ it\ through\ its\ namespace,\ 'constants::gResPath'.}}
+\DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00020}00020\ \textcolor{comment}{*\ \ \ i.e.\ '\ const\ std::string\ resourcePath\ =\ "{}../../resources/"{}\ '}}
+\DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00021}00021\ \textcolor{comment}{*\ \ \ Use\ it\ through\ its\ namespace,\ 'constants::resourcePath'.}}
 \DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00022}00022\ \textcolor{comment}{*}}
 \DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00023}00023\ \textcolor{comment}{*\ \ \ Change\ to\ your\ own\ path\ if\ you\ choose\ a\ different\ approach!}}
 \DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00024}00024\ \textcolor{comment}{*\ \ \ Absolut\ Path(Second\ choice)}}
-\DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00025}00025\ \textcolor{comment}{*\ \ \ gResPath\ =\ "{}/Users/kjellna/dev/cpp/sdl2\_second/resources/"{};}}
+\DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00025}00025\ \textcolor{comment}{*\ \ \ resourcePath\ =\ "{}/Users/kjellna/dev/cpp/sdl2\_second/resources/"{};}}
 \DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00026}00026\ \textcolor{comment}{*}}
 \DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00027}00027\ \textcolor{comment}{*\ \ \ If\ you\ need\ to\ copy\ your\ 'resources'\ folder\ into\ directory}}
-\DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00028}00028\ \textcolor{comment}{*\ \ \ '/build/debug/',\ in\ that\ case\ change\ gResPath="{}./resources/"{}}}
+\DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00028}00028\ \textcolor{comment}{*\ \ \ '/build/debug/',\ in\ that\ case\ change\ resourcePath="{}./resources/"{}}}
 \DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00029}00029\ \textcolor{comment}{*/}}
 \DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00030}00030\ }
 \DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00031}00031\ \textcolor{comment}{//\#define\ FPS\ 60}}
@@ -51,7 +51,7 @@
 \DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00047}00047\ \ \ \ \ SDL\_Window*\ window\ \ \ \ \ \ =\ SDL\_CreateWindow(\textcolor{stringliteral}{"{}Window"{}},\ 100,\ 100,\ 800,\ 600,\ 0);}
 \DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00048}00048\ \ \ \ \ SDL\_Renderer*\ renderer\ \ =\ SDL\_CreateRenderer(window,\ -\/1,\ 0);}
 \DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00049}00049\ }
-\DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00050}00050\ \ \ \ \ SDL\_Surface*\ bg\_sur\ =\ IMG\_Load(\ (\mbox{\hyperlink{namespaceconstants_a966fa351244153c70a75ef5f6b12e5b3}{constants::gResPath}}\ +\ \textcolor{stringliteral}{"{}images/bg.jpg"{}}).c\_str()\ );}
+\DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00050}00050\ \ \ \ \ SDL\_Surface*\ bg\_sur\ =\ IMG\_Load(\ (\mbox{\hyperlink{namespaceconstants_a966fa351244153c70a75ef5f6b12e5b3}{constants::resourcePath}}\ +\ \textcolor{stringliteral}{"{}images/bg.jpg"{}}).c\_str()\ );}
 \DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00051}00051\ }
 \DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00052}00052\ \ \ \ \ SDL\_Texture*\ bg\_tex\ =\ SDL\_CreateTextureFromSurface(renderer,\ bg\_sur);}
 \DoxyCodeLine{\Hypertarget{main___s_d_l__second__image_8cpp_source_l00053}00053\ \ \ \ \ SDL\_FreeSurface(bg\_sur);}

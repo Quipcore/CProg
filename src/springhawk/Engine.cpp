@@ -13,7 +13,7 @@
 
 #include <iostream>
 #include <string>
-#include "Constants.h" //gResPath-contains the path to your resources.
+#include "Constants.h" //resourcePath-contains the path to your resources.
 #include "chrono"
 #include "thread"
 
@@ -26,7 +26,7 @@ const int Engine::SCREEN_HEIGHT = 680;
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void (*Engine::render)(SDL_Renderer &, std::vector<GameObject *> &, Player &, Map &, int, int) = nullptr;
+void (*Engine::render)(SDL_Renderer &, std::vector<GameObject *> &, Map &, int, int) = nullptr;
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -40,7 +40,6 @@ int Engine::run(std::vector<Scene *> &scenes) {
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0);
 
     Scene *startScene = scenes.at(0);
-    startScene->loadTextures(*renderer);
     playScene(*startScene, *renderer);
     quit(window, renderer);
     return EXIT_SUCCESS;
@@ -63,16 +62,6 @@ bool Engine::init() {
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void Engine::quit(SDL_Window &window, SDL_Renderer &renderer, std::vector<SDL_Texture *> &textures) {
-    for (SDL_Texture *texture: textures) {
-        SDL_DestroyTexture(texture);
-    }
-
-    quit(&window, &renderer);
-}
-
-//----------------------------------------------------------------------------------------------------------------------
-
 void Engine::quit(SDL_Window *window, SDL_Renderer *renderer) {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
@@ -84,8 +73,8 @@ void Engine::quit(SDL_Window *window, SDL_Renderer *renderer) {
 //----------------------------------------------------------------------------------------------------------------------
 
 void Engine::playScene(Scene &scene, SDL_Renderer &sdlRenderer) {
+    scene.loadTextures(sdlRenderer);
     std::vector<GameObject *> gameObjects = scene.getGameObjects();
-    Player player = scene.getPlayer();
     Map& map = scene.getMap();
 
     RenderTag renderTag = scene.getRenderTag();
@@ -95,7 +84,8 @@ void Engine::playScene(Scene &scene, SDL_Renderer &sdlRenderer) {
             Engine::render = PlaneRenderer::render;
             break;
         case Raycaster:
-            Engine::render = Raycaster::render;
+//            Engine::render = Raycaster::render;
+            tagFound = false;
             break;
         case Doom:
             std::cout << "No doom style render available yet" << std::endl;
@@ -108,22 +98,16 @@ void Engine::playScene(Scene &scene, SDL_Renderer &sdlRenderer) {
     }
 
     if (tagFound) {
-        keepOpen(sdlRenderer, gameObjects, player,map);
+        startGameLoop(sdlRenderer, gameObjects, map);
     }
+
+    scene.destroyTextures();
 
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-
-//TODO Player should be renamed to Camera!
-void Engine::keepOpen(SDL_Renderer &renderer, std::vector<GameObject *> &gameObjects, Player &camera, Map &map) {
+void Engine::startGameLoop(SDL_Renderer &renderer, std::vector<GameObject *> &gameObjects, Map &map){
     Uint64 startTime = SDL_GetTicks();
-
-    if (isOutOfBounds(camera.getPosition(), map)) {
-        Vector2 spaceMid = Vector2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-        camera.setPosition(spaceMid);
-    }
-    Vector2 lastValidCameraPosition = camera.getPosition(); //Assuming the player spawns i valid space
 
     bool running = true;
     while (running) {
@@ -141,18 +125,11 @@ void Engine::keepOpen(SDL_Renderer &renderer, std::vector<GameObject *> &gameObj
 
         for (const auto &gameObject: gameObjects) {
             gameObject->update();
-            if (isOutOfBounds(gameObject->getPosition(), map)) {
-
-            }
+            checkForMapCollision(gameObject->getPosition(), map);
         }
 
-        camera.update();
-        if (isOutOfBounds(camera.getPosition(), map)) {
-            camera.setPosition(lastValidCameraPosition);
-        }
-        lastValidCameraPosition = camera.getPosition();
 
-        Engine::render(renderer, gameObjects, camera, map, SCREEN_WIDTH, SCREEN_HEIGHT);
+        Engine::render(renderer, gameObjects, map, SCREEN_WIDTH, SCREEN_HEIGHT);
 
         float deltaTime = (SDL_GetTicks64() - startTime) / 1000.0f;
         //Needs to be looked at, dont know if this is the best way to do it. Should probably not use inheritance.
@@ -180,15 +157,6 @@ void Engine::sleep(int duration_ms) {
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void Engine::draw(SDL_Renderer &renderer, std::vector<GameObject *> &gameObjects, Player &camera, Map &map) {
-
-
-    //Draw scene
-
-}
-
-//----------------------------------------------------------------------------------------------------------------------
-
 bool Engine::isOutOfBounds(Vector2 &objectPosition, Map &map) {
     if (objectPosition.getX() < 0 || objectPosition.getX() > SCREEN_WIDTH) {
         return true;
@@ -203,6 +171,10 @@ bool Engine::isOutOfBounds(Vector2 &objectPosition, Map &map) {
     int currentYCell = static_cast<int>(objectPosition.getY() * mapHeight / SCREEN_HEIGHT);
     Vector2 objectMapPos = {currentXCell, currentYCell};
     return map.isOutOfBounds(objectMapPos);
+}
+
+void Engine::checkForMapCollision(Vector2 &position, Map &map) {
+
 }
 
 

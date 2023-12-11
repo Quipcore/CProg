@@ -40,7 +40,7 @@
 \DoxyCodeLine{\Hypertarget{_game_object_8cpp_source_l00036}00036\ }
 \DoxyCodeLine{\Hypertarget{_game_object_8cpp_source_l00037}\mbox{\hyperlink{class_game_object_aba330524a508b880bce6822b0746d900}{00037}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_game_object_aba330524a508b880bce6822b0746d900}{GameObject::setTexture}}(SDL\_Renderer\ \&renderer,\ std::string\ path)\{}
 \DoxyCodeLine{\Hypertarget{_game_object_8cpp_source_l00038}00038\ }
-\DoxyCodeLine{\Hypertarget{_game_object_8cpp_source_l00039}00039\ \ \ \ \ std::string\ pathToImage\ =\ \mbox{\hyperlink{namespaceconstants_a966fa351244153c70a75ef5f6b12e5b3}{constants::gResPath}}\ +\ \textcolor{stringliteral}{"{}images/"{}}\ +\ path;}
+\DoxyCodeLine{\Hypertarget{_game_object_8cpp_source_l00039}00039\ \ \ \ \ std::string\ pathToImage\ =\ \mbox{\hyperlink{namespaceconstants_a966fa351244153c70a75ef5f6b12e5b3}{constants::resourcePath}}\ +\ \textcolor{stringliteral}{"{}images/"{}}\ +\ path;}
 \DoxyCodeLine{\Hypertarget{_game_object_8cpp_source_l00040}00040\ }
 \DoxyCodeLine{\Hypertarget{_game_object_8cpp_source_l00041}00041\ \ \ \ \ SDL\_Surface\ *surface\ =\ IMG\_Load(pathToImage.c\_str());}
 \DoxyCodeLine{\Hypertarget{_game_object_8cpp_source_l00042}00042\ \ \ \ \ SDL\_Texture\ *pTexture\ =\ SDL\_CreateTextureFromSurface(\&renderer,\ surface);}

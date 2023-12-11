@@ -15,22 +15,20 @@ public:
     ~GameObject() = default;
 
     virtual void update() = 0;
-    virtual Color getColor() = 0;
 
     double getAngle() const;
+
     Vector2& getPosition();
     void setPosition(Vector2 &position);
 
-    void setTexture(SDL_Renderer &renderer, std::string path);
-
     SDL_Texture* getTexture();
+    void setTexture(SDL_Renderer &renderer, std::string path);
 
 protected:
     Vector2 position;
     Color color;
     double angle = 0;
-    SDL_Texture* texture;
-
+    SDL_Texture* texture{};
 };
 
 

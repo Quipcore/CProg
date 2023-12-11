@@ -8,11 +8,9 @@
 #include "SDL2/SDL.h"
 
 class Tile {
-
-    Tile(SDL_Texture &texture);
-
 public:
     Tile();
+    explicit Tile(SDL_Texture &texture);
 
     SDL_Texture* getTexture();
 
@@ -24,7 +22,6 @@ public:
 private:
     SDL_Texture* texture{};
     char id;
-
 };
 
 

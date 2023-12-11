@@ -5,6 +5,7 @@
 #ifndef CPROG_PROJECT_RENDERER_H
 #define CPROG_PROJECT_RENDERER_H
 
+//TODO: Decide if this interface is needed
 namespace springhawk{
     class Renderer {
 

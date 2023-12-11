@@ -8,7 +8,7 @@
 
 #include "Player.h"
 
-class PacmanController : public Player{
+class PacmanController : public GameObject{
 
 };
 

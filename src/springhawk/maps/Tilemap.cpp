@@ -9,7 +9,6 @@
 
 #include "springhawk/maps/Tilemap.h"
 #include "Constants.h"
-#include "springhawk/TextureTag.h"
 #include "nlohmann/json.hpp"
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -85,7 +84,7 @@ SDL_Texture* springhawk::Tilemap::getTextureAt(Vector2 position){
 
 void springhawk::Tilemap::loadTextures(SDL_Renderer& renderer) {
     //TODO: Create Textures with renderer and texturePaths
-    std::string path = constants::gResPath + "images/";
+    std::string path = constants::imagePath;
 
     for(const auto& [key, pair] : texturesMap){
         SDL_Surface *surface = IMG_Load((path + pair.first).c_str());

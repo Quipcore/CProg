@@ -27,7 +27,6 @@ SET(FILES
 
         src/scripts/GameObject.cpp
         src/scripts/Player.cpp
-        src/scripts/Square.cpp
 
         src/games/Wolfenstein.cpp
         src/games/Tetris.cpp

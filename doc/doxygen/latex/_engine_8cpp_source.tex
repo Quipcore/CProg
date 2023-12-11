@@ -17,7 +17,7 @@
 \DoxyCodeLine{\Hypertarget{_engine_8cpp_source_l00013}00013\ }
 \DoxyCodeLine{\Hypertarget{_engine_8cpp_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <iostream>}}
 \DoxyCodeLine{\Hypertarget{_engine_8cpp_source_l00015}00015\ \textcolor{preprocessor}{\#include\ <string>}}
-\DoxyCodeLine{\Hypertarget{_engine_8cpp_source_l00016}00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_constants_8h}{Constants.h}}"{}}\ \textcolor{comment}{//gResPath-\/contains\ the\ path\ to\ your\ resources.}}
+\DoxyCodeLine{\Hypertarget{_engine_8cpp_source_l00016}00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_constants_8h}{Constants.h}}"{}}\ \textcolor{comment}{//resourcePath-\/contains\ the\ path\ to\ your\ resources.}}
 \DoxyCodeLine{\Hypertarget{_engine_8cpp_source_l00017}00017\ \textcolor{preprocessor}{\#include\ "{}chrono"{}}}
 \DoxyCodeLine{\Hypertarget{_engine_8cpp_source_l00018}00018\ \textcolor{preprocessor}{\#include\ "{}thread"{}}}
 \DoxyCodeLine{\Hypertarget{_engine_8cpp_source_l00019}00019\ }
@@ -120,7 +120,7 @@
 \DoxyCodeLine{\Hypertarget{_engine_8cpp_source_l00116}00116\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
 \DoxyCodeLine{\Hypertarget{_engine_8cpp_source_l00117}00117\ }
 \DoxyCodeLine{\Hypertarget{_engine_8cpp_source_l00118}00118\ \textcolor{comment}{//TODO\ Player\ should\ be\ renamed\ to\ Camera!}}
-\DoxyCodeLine{\Hypertarget{_engine_8cpp_source_l00119}00119\ \textcolor{keywordtype}{void}\ Engine::keepOpen(SDL\_Renderer\ \&renderer,\ std::vector<GameObject\ *>\ \&gameObjects,\ \mbox{\hyperlink{class_player}{Player}}\ \&camera,\ \mbox{\hyperlink{class_map}{Map}}\ \&map)\ \{}
+\DoxyCodeLine{\Hypertarget{_engine_8cpp_source_l00119}00119\ \textcolor{keywordtype}{void}\ Engine::startGameLoop(SDL\_Renderer\ \&renderer,\ std::vector<GameObject\ *>\ \&gameObjects,\ \mbox{\hyperlink{class_player}{Player}}\ \&camera,\ \mbox{\hyperlink{class_map}{Map}}\ \&map)\ \{}
 \DoxyCodeLine{\Hypertarget{_engine_8cpp_source_l00120}00120\ \ \ \ \ Uint64\ startTime\ =\ SDL\_GetTicks();}
 \DoxyCodeLine{\Hypertarget{_engine_8cpp_source_l00121}00121\ }
 \DoxyCodeLine{\Hypertarget{_engine_8cpp_source_l00122}00122\ \ \ \ \ \textcolor{keywordflow}{if}\ (isOutOfBounds(camera.\mbox{\hyperlink{class_game_object_aa5058297336152deeec335b923ca821a}{getPosition}}(),\ map))\ \{}

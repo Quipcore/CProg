@@ -10,19 +10,17 @@ class Player : public GameObject{
 public:
     Player();
     Player(const Player&);
-
     explicit Player(Map *map);
 
-    virtual void update() override;
-    virtual Color getColor() override;
-
-    int getLineCount();
+    void update() override;
+    int getLineCount() const;
 
 private:
-    void input();
     double velocity = 100;
     int lineCount = 250;
     Map* map;
+
+    void input();
 };
 
 #endif //CPROG_PROJECT_PLAYER_H

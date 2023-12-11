@@ -5,8 +5,7 @@
 
 //----------------------------------------------------------------------------------------------------------------------
 
-Scene::Scene(Player &player, Map &incomingMap, std::vector<GameObject *> &gameObjects, springhawk::RenderTag renderTag) {
-    this->player = player;
+Scene::Scene(Map &incomingMap, std::vector<GameObject *> &gameObjects, springhawk::RenderTag renderTag) {
     this->map = &incomingMap;
     this->gameObjects = std::move(gameObjects);
     this->renderTag = renderTag;
@@ -16,12 +15,6 @@ Scene::Scene(Player &player, Map &incomingMap, std::vector<GameObject *> &gameOb
 
 std::vector<GameObject *> Scene::getGameObjects() {
     return gameObjects;
-}
-
-//----------------------------------------------------------------------------------------------------------------------
-
-Player &Scene::getPlayer() {
-    return player;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -36,7 +29,19 @@ Map & Scene::getMap() {
     return *map;
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 void Scene::loadTextures(SDL_Renderer& renderer) {
     map->loadTextures(renderer);
-    player.setTexture(renderer,"pac.png");
+    for(GameObject* gameObject : gameObjects){
+        gameObject->setTexture(renderer, "pac.png");
+    }
 }
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void Scene::destroyTextures() {
+    //TODO: Destory textures in the same places they were created!
+}
+
+

@@ -1,12 +1,7 @@
-//
-// Created by felix on 2023-12-11.
-//
+#include "scripts/WolfensteinController.h"
 
-#include "scripts/WolfensteinPlayerController.h"
+//----------------------------------------------------------------------------------------------------------------------
 
+void WolfensteinController::update() {
 
-
-
-void WolfensteinPlayerController::update() {
-    Player::update();
 }

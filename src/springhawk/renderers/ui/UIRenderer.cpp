@@ -19,7 +19,7 @@ void UIRenderer::drawText(const std::string& text, const Vector2& position, TTF_
     SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
 
     SDL_Rect Message_rect = {0,0,500,100}; //create a rect
-    SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
+    SDL_RenderCopy(renderer, Message, nullptr, &Message_rect);
 
     // Don't forget to free your surface and texture
     SDL_FreeSurface(surfaceMessage);
@@ -29,7 +29,7 @@ void UIRenderer::drawText(const std::string& text, const Vector2& position, TTF_
 //----------------------------------------------------------------------------------------------------------------------
 
 void UIRenderer::drawText(const std::string& text, const Vector2& position, const std::string& fontName, int fontSize, Color color, SDL_Renderer *renderer) {
-    std::string pathToFont = constants::gFontPath + fontName;
+    std::string pathToFont = constants::fontPath + fontName;
 
     TTF_Font *font = TTF_OpenFont(pathToFont.c_str(), fontSize);
     if(font == nullptr){

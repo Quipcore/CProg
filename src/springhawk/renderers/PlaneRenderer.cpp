@@ -1,12 +1,10 @@
 #include <iostream>
-#include <map>
 #include "springhawk/renderers/PlaneRenderer.h"
 #include "SDL2/SDL.h"
 #include "springhawk/Time.h"
 #include "springhawk/renderers/ui/UIRenderer.h"
 
-void PlaneRenderer::render(SDL_Renderer &renderer, std::vector<GameObject *> &gameObjects, Player &player, Map &map, int screenWidth, int screenHeight) {
-
+void PlaneRenderer::render(SDL_Renderer &renderer, std::vector<GameObject *> &gameObjects, Map &map, int screenWidth, int screenHeight) {
     clearLastFrame(renderer);
 
     int rectW = 20;
@@ -14,17 +12,10 @@ void PlaneRenderer::render(SDL_Renderer &renderer, std::vector<GameObject *> &ga
     int drawingOffset = (screenWidth-map.getWidth()*rectW)/2;
 
     drawMap(map, drawingOffset, renderer, rectW, rectH);
-    drawPlayer(renderer, player, rectW, rectH, drawingOffset);
+    drawGameObjects(renderer,gameObjects,rectW,rectH,drawingOffset);
     drawDebugText(renderer);
 
     SDL_RenderPresent(&renderer);
-}
-
-void PlaneRenderer::drawPlayer(SDL_Renderer &renderer, Player &player, int rectW, int rectH, int drawingOffset) {
-    SDL_Texture* playerTexture = player.getTexture();
-    Vector2 playerPosition = player.getPosition();
-    SDL_Rect playerRect = {(int)playerPosition.getX() + drawingOffset, (int)playerPosition.getY(), rectW, rectH};
-    SDL_RenderCopy(&renderer, playerTexture, nullptr, &playerRect);
 }
 
 void PlaneRenderer::drawMap(Map &map, int drawingOffset, SDL_Renderer &renderer, int &rectW, int &rectH) {
@@ -52,4 +43,13 @@ void PlaneRenderer::clearLastFrame(SDL_Renderer &renderer) {
     Color backgroundColor = {0, 0, 0, 255};
     SDL_SetRenderDrawColor(&renderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
     SDL_RenderClear(&renderer);
+}
+
+void PlaneRenderer::drawGameObjects(SDL_Renderer &renderer, std::vector<GameObject *> &vector, int w, int h, int offset) {
+    for(GameObject* gameObject : vector){
+        SDL_Texture* playerTexture = gameObject->getTexture();
+        Vector2 playerPosition = gameObject->getPosition();
+        SDL_Rect playerRect = {(int)playerPosition.getX() + offset, (int)playerPosition.getY(), w, h};
+        SDL_RenderCopy(&renderer, playerTexture, nullptr, &playerRect);
+    }
 }

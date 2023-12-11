@@ -8,7 +8,7 @@
 #include <string>
 #include "springhawk/Vector2.h"
 
-
+//TODO: Might want to act as a gameObject or just do similiar stuff with UI elements as game objects
 class TextField {
     TextField(std::string text, Vector2 &position);
     ~TextField() = default;
