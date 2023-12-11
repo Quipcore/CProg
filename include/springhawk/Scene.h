@@ -26,12 +26,14 @@ public:
 
     Map & getMap();
 
+    void loadTextures(SDL_Renderer &renderer);
 private:
     Player player;
-    Map& map;
+    Map* map;
     std::vector<GameObject*> gameObjects;
     std::map<int,SDL_Texture*> textureMap;
     springhawk::RenderTag renderTag;
+
 
 };
 

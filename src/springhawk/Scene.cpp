@@ -1,11 +1,13 @@
 #include <iostream>
 #include <utility>
 #include "springhawk/Scene.h"
+#include "SDL2/SDL.h"
 
 //----------------------------------------------------------------------------------------------------------------------
 
-Scene::Scene(Player &player, Map &incomingMap, std::vector<GameObject *> &gameObjects, springhawk::RenderTag renderTag)  : map(incomingMap) {
+Scene::Scene(Player &player, Map &incomingMap, std::vector<GameObject *> &gameObjects, springhawk::RenderTag renderTag) {
     this->player = player;
+    this->map = &incomingMap;
     this->gameObjects = std::move(gameObjects);
     this->renderTag = renderTag;
 }
@@ -31,5 +33,10 @@ springhawk::RenderTag Scene::getRenderTag() const {
 //----------------------------------------------------------------------------------------------------------------------
 
 Map & Scene::getMap() {
-    return map;
+    return *map;
+}
+
+void Scene::loadTextures(SDL_Renderer& renderer) {
+    map->loadTextures(renderer);
+    player.setTexture(renderer,"pac.png");
 }

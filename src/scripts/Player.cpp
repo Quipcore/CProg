@@ -11,11 +11,12 @@
 Player::Player() {
     color = {0,0xcf,0x50,0xff};
     position = {500,500};
+    this->map = nullptr;
 }
 
 //TODO: REMOVE THIS!
-Player::Player(Map& incomingMap) : Player() {
-    this->map = &incomingMap;
+Player::Player(Map* incomingMap) : Player() {
+    this->map = incomingMap;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -26,6 +27,7 @@ Player::Player(const Player &player)  : GameObject(player) {
     this->position = player.position;
     this->color = player.color;
     this->velocity = player.velocity;
+    this->map = player.map;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -67,10 +69,7 @@ void Player::input() {
     }
 
     if(Input::bufferContains(SPACE)){
-        if(map == nullptr){
-            std::cout << "MAP IS NULL!" << std::endl;
-        }else{
-            std::cout << "MAP EXISTS!" << std::endl;
+        if(map != nullptr){
             map->setValueAt({0,0},'=');
         }
     }

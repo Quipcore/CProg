@@ -40,7 +40,7 @@ int Engine::run(std::vector<Scene *> &scenes) {
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0);
 
     Scene *startScene = scenes.at(0);
-    startScene->getMap().loadTextures(*renderer);
+    startScene->loadTextures(*renderer);
     playScene(*startScene, *renderer);
     quit(window, renderer);
     return EXIT_SUCCESS;

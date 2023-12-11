@@ -25,11 +25,11 @@ springhawk::SceneBuilder &springhawk::SceneBuilder::addFromJSON(std::string path
 
     //Map
     nlohmann::json map = data["scenes"][0]["gameScene"]["map"];
-    auto tilemap = *new Tilemap(map);
+    auto* tilemap = new Tilemap(map);
     setMap(tilemap);
 
     //Player
-    setPlayer(*new Player(tilemap));
+    setPlayer(new Player(tilemap));
 
     addScene();
     return *this;
@@ -44,8 +44,8 @@ springhawk::SceneBuilder& springhawk::SceneBuilder::addScene() {
 
 //----------------------------------------------------------------------------------------------------------------------
 
-springhawk::SceneBuilder& springhawk::SceneBuilder::setPlayer(Player& player) {
-    this->currentPlayer = player;
+springhawk::SceneBuilder& springhawk::SceneBuilder::setPlayer(Player* player) {
+    this->currentPlayer = *player;
     return *this;
 }
 
@@ -64,8 +64,8 @@ std::vector<Scene *> springhawk::SceneBuilder::buildScenes() {
 
 //----------------------------------------------------------------------------------------------------------------------
 
-springhawk::SceneBuilder & springhawk::SceneBuilder::setMap(Map& map) {
-    this->currentMap = &map;
+springhawk::SceneBuilder & springhawk::SceneBuilder::setMap(Tilemap *map) {
+    this->currentMap = map;
     return *this;
 }
 

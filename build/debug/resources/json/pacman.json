@@ -9,7 +9,7 @@
       "gameScene": {
         "player": {
           "speed": 0.1,
-          "texture": "player.png"
+          "texture": "pac.png"
         },
         "map": {
           "data":[
