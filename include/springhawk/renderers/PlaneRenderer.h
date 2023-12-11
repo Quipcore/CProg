@@ -17,6 +17,14 @@ public:
 private:
     static int SCREEN_WIDTH;
     static int SCREEN_HEIGHT;
+
+    static void clearLastFrame(SDL_Renderer &renderer);
+
+    static void drawDebugText(SDL_Renderer &renderer);
+
+    static void drawMap(Map &map, int drawingOffset, SDL_Renderer &renderer, int &rectW, int &rectH);
+
+    static void drawPlayer(SDL_Renderer &renderer, Player &player, int rectW, int rectH, int drawingOffset);
 };
 
 

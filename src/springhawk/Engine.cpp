@@ -152,7 +152,7 @@ void Engine::keepOpen(SDL_Renderer &renderer, std::vector<GameObject *> &gameObj
         }
         lastValidCameraPosition = camera.getPosition();
 
-        draw(renderer, gameObjects, camera, map);
+        Engine::render(renderer, gameObjects, camera, map, SCREEN_WIDTH, SCREEN_HEIGHT);
 
         float deltaTime = (SDL_GetTicks64() - startTime) / 1000.0f;
         //Needs to be looked at, dont know if this is the best way to do it. Should probably not use inheritance.
@@ -181,19 +181,10 @@ void Engine::sleep(int duration_ms) {
 //----------------------------------------------------------------------------------------------------------------------
 
 void Engine::draw(SDL_Renderer &renderer, std::vector<GameObject *> &gameObjects, Player &camera, Map &map) {
-    Color backgroundColor = {0,0,0,255};
-    SDL_SetRenderDrawColor(&renderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
-    SDL_RenderClear(&renderer);
+
 
     //Draw scene
-    Engine::render(renderer, gameObjects, camera, map, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-    //Draw debug text
-    std::string text = "FPS: " + std::to_string((int) (1 / Time::getDeltaTime()));
-    UIRenderer::drawText(text, {0, 0}, "ComicSans/comic.ttf", 20, {255, 255, 0, 255}, &renderer);
-
-    //Rendering drawing
-    SDL_RenderPresent(&renderer);
 }
 
 //----------------------------------------------------------------------------------------------------------------------

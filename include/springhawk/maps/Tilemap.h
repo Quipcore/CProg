@@ -19,7 +19,7 @@ namespace springhawk {
         explicit Tilemap(nlohmann::json_abi_v3_11_2::basic_json<> &mapdata);
 
         //TODO: Implement freeing of textures
-        Tilemap() = default;
+        Tilemap() = delete;
         ~Tilemap() override = default;
 
         bool isOutOfBounds(Vector2 &position) override;
