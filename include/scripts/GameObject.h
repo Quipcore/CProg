@@ -7,6 +7,7 @@
 
 #include "springhawk/Color.h"
 #include "springhawk/Vector2.h"
+#include "SDL2/SDL.h"
 
 class GameObject {
 public:
@@ -19,11 +20,16 @@ public:
     double getAngle() const;
     Vector2& getPosition();
     void setPosition(Vector2 &position);
+
+    void setTexture(SDL_Renderer &renderer, std::string path);
+
+    SDL_Texture* getTexture();
+
 protected:
     Vector2 position;
     Color color;
     double angle = 0;
-
+    SDL_Texture* texture;
 
 };
 

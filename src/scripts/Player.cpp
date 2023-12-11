@@ -1,14 +1,22 @@
 #include <cmath>
+#include "springhawk/maps/Map.h"
 #include "scripts/Player.h"
 #include "springhawk/Input.h"
 #include "springhawk/Time.h"
 #include "iostream"
+
 
 //----------------------------------------------------------------------------------------------------------------------
 
 Player::Player() {
     color = {0,0xcf,0x50,0xff};
     position = {500,500};
+    this->map = nullptr;
+}
+
+//TODO: REMOVE THIS!
+Player::Player(Map* incomingMap) : Player() {
+    this->map = incomingMap;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -19,6 +27,7 @@ Player::Player(const Player &player)  : GameObject(player) {
     this->position = player.position;
     this->color = player.color;
     this->velocity = player.velocity;
+    this->map = player.map;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -57,6 +66,12 @@ void Player::input() {
 
     if(Input::bufferContains(NUM_PLUS)){
         lineCount++;
+    }
+
+    if(Input::bufferContains(SPACE)){
+        if(map != nullptr){
+            map->setValueAt({0,0},'=');
+        }
     }
 
     if(Input::bufferContains(NUM_MINUS)){

@@ -29,6 +29,8 @@ public:
 
     //SHOULD ONLY BE USED BY ENGINE!
     virtual void loadTextures(SDL_Renderer&) = 0;
+
+    virtual void setValueAt(Vector2, char) = 0;
 };
 
 

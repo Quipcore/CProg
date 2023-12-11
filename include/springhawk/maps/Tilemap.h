@@ -19,6 +19,7 @@ namespace springhawk {
         explicit Tilemap(nlohmann::json_abi_v3_11_2::basic_json<> &mapdata);
 
         //TODO: Implement freeing of textures
+        Tilemap() = default;
         ~Tilemap() override = default;
 
         bool isOutOfBounds(Vector2 &position) override;
@@ -30,13 +31,15 @@ namespace springhawk {
 
         SDL_Texture *getTextureAt(Vector2 position) override;
         void loadTextures(SDL_Renderer&) override;
+        void setValueAt(Vector2, char) override;
 
     private:
+
         int width;
         int height;
 
-        std::vector<std::vector<Tile*>> *tiles;
-        std::map<char, std::string> texturePaths;
+        std::vector<std::vector<Tile*>> tiles;
+        std::map<char, std::pair<std::string,SDL_Texture*>> texturesMap;
         std::vector<std::string> map;
 
         void generateTiles();
