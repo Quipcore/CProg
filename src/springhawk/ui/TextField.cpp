@@ -16,7 +16,6 @@ Vector2 TextField::getPosition() const{
 //----------------------------------------------------------------------------------------------------------------------
 
 void TextField::setPosition(Vector2 position) {
-    delete &this->position;
     this->position = position;
 }
 

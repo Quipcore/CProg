@@ -1,5 +1,3 @@
-#define SDL_MAIN_HANDLED
-
 #include <vector>
 #include <iostream>
 #include "games/Wolfenstein.h"

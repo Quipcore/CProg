@@ -13,8 +13,8 @@ public:
 
     explicit Player(Map *map);
 
-    void update() override;
-    Color getColor() override;
+    virtual void update() override;
+    virtual Color getColor() override;
 
     int getLineCount();
 
