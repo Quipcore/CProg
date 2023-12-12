@@ -14,6 +14,7 @@ public:
     GameObject() = default;
     ~GameObject() = default;
 
+    void updateObject();
     virtual void update() = 0;
 
     double getAngle() const;
@@ -22,10 +23,13 @@ public:
     void setPosition(Vector2 &position);
 
     SDL_Texture* getTexture();
-    void setTexture(SDL_Renderer &renderer, std::string path);
+    void setTexture(SDL_Renderer &renderer, const std::string& path);
+
+    void resetPosition();
 
 protected:
     Vector2 position;
+    Vector2 oldPosition;
     Color color;
     double angle = 0;
     SDL_Texture* texture{};

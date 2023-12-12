@@ -8,12 +8,11 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include <SDL2/SDL_mixer.h>
+//#include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_ttf.h>
 
 #include <iostream>
 #include <string>
-#include "Constants.h" //resourcePath-contains the path to your resources.
 #include "chrono"
 #include "thread"
 
@@ -124,10 +123,11 @@ void Engine::startGameLoop(SDL_Renderer &renderer, std::vector<GameObject *> &ga
         }
 
         for (const auto &gameObject: gameObjects) {
-            gameObject->update();
-            checkForMapCollision(gameObject->getPosition(), map);
+            gameObject->updateObject();
+            if(!map.isEmptyAt(gameObject->getPosition())){
+                gameObject->resetPosition();
+            }
         }
-
 
         Engine::render(renderer, gameObjects, map, SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -171,10 +171,6 @@ bool Engine::isOutOfBounds(Vector2 &objectPosition, Map &map) {
     int currentYCell = static_cast<int>(objectPosition.getY() * mapHeight / SCREEN_HEIGHT);
     Vector2 objectMapPos = {currentXCell, currentYCell};
     return map.isOutOfBounds(objectMapPos);
-}
-
-void Engine::checkForMapCollision(Vector2 &position, Map &map) {
-
 }
 
 

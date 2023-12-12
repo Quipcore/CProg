@@ -30,6 +30,7 @@ public:
     virtual void loadTextures(SDL_Renderer&) = 0;
 
     virtual void setValueAt(Vector2, char) = 0;
+    virtual bool isEmptyAt(Vector2&) = 0;
 };
 
 

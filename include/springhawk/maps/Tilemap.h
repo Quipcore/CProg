@@ -31,11 +31,13 @@ namespace springhawk {
         SDL_Texture *getTextureAt(Vector2 position) override;
         void loadTextures(SDL_Renderer&) override;
         void setValueAt(Vector2, char) override;
-
+        bool isEmptyAt(Vector2 &postion) override;
     private:
 
         int width;
         int height;
+        int tileWidth;
+        int tileHeight;
 
         std::vector<std::vector<Tile*>> tiles;
         std::map<char, std::pair<std::string,SDL_Texture*>> texturesMap;

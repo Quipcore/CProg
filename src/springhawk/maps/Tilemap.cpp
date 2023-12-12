@@ -11,14 +11,21 @@
 #include "Constants.h"
 #include "nlohmann/json.hpp"
 
+#define EPSILON 0.0001
+
 //----------------------------------------------------------------------------------------------------------------------
 springhawk::Tilemap::Tilemap(nlohmann::json &mapdata) {
     std::vector<std::string> jsonMapData = mapdata["data"];
     this->map = jsonMapData;
-    this->height = jsonMapData.size();
-    this->width = jsonMapData[0].length();
 
+    nlohmann::json properties = mapdata["properties"];
+    tileWidth = properties["tileWidth"];
+    tileHeight = properties["tileHeight"];
+
+    this->height = tileHeight * jsonMapData.size();
+    this->width = tileWidth * jsonMapData[0].length();
     generateTiles();
+
 
     nlohmann::json textureKey = mapdata["textureKey"];
     for (const auto& entry : textureKey.items()) {
@@ -105,9 +112,9 @@ void springhawk::Tilemap::loadTextures(SDL_Renderer& renderer) {
 void springhawk::Tilemap::generateTiles() {
     tiles = *new std::vector<std::vector<Tile*>>;
 
-    for(int y = 0; y < height; y++){
+    for(int y = 0; y < height/tileHeight; y++){
         std::vector<Tile*> vec;
-        for(int x = 0; x < width; x++){
+        for(int x = 0; x < width/tileWidth; x++){
             Tile* tile = new Tile();
             tile->setId(map[y][x]);
             vec.push_back(tile);
@@ -120,4 +127,31 @@ void springhawk::Tilemap::setValueAt(Vector2 pos, char value) {
     Tile* tile = tiles.at((int)pos.getY()).at((int)pos.getX());
     tile->setId(value);
     tile->setTexture(*texturesMap[value].second);
+}
+
+bool springhawk::Tilemap::isEmptyAt(Vector2 &postion) {
+
+    if (isOutOfBounds(postion)) {
+        return false;
+    }
+
+    std::vector<Vector2> positionsToCheck = {
+        {postion.getX()/tileWidth + 1 - EPSILON, postion.getY()/tileHeight + EPSILON},
+        {postion.getX()/tileWidth + 1 - EPSILON, postion.getY()/tileHeight + 1 - EPSILON},
+        {postion.getX()/tileWidth + EPSILON, postion.getY()/tileHeight + 1 - EPSILON},
+        {postion.getX()/tileWidth + EPSILON, postion.getY()/tileHeight + EPSILON}
+    };
+
+
+    std::string emptyId = "._-+"; //Temporarly taken from pacman.json
+    for(auto& pos : positionsToCheck){
+        if (isOutOfBounds(pos)) {
+            return false;
+        }
+        char tileId = tiles.at((int) pos.getY()).at((int) pos.getX())->getId();
+        if (emptyId.find(tileId) == std::string::npos) {
+            return false;
+        }
+    }
+    return true;
 }

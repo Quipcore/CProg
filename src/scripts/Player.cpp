@@ -10,8 +10,10 @@
 
 Player::Player() {
     color = {0,0xcf,0x50,0xff};
-    position = {500,500};
+    this->position = {280,280};
+    this->oldPosition = this->position;
     this->map = nullptr;
+
 }
 
 //TODO: REMOVE THIS!
@@ -25,6 +27,7 @@ Player::Player(const Player &player)  : GameObject(player) {
     this->lineCount = player.lineCount;
     this->angle = player.angle;
     this->position = player.position;
+    this->oldPosition = player.oldPosition;
     this->color = player.color;
     this->velocity = player.velocity;
     this->map = player.map;
@@ -40,20 +43,23 @@ void Player::update(){
 
 void Player::input() {
     if(Input::bufferContains(A)){
-        position +=Vector2{cos(angle + M_PI/2),sin(angle + M_PI/2)} * velocity  * Time::getDeltaTime();
-        std::cout << "A" << std::endl;
+//        position +=Vector2{cos(angle + M_PI/2),sin(angle + M_PI/2)} * velocity  * Time::getDeltaTime();
+        position += Vector2::left * velocity * Time::getDeltaTime();
     }
 
     if(Input::bufferContains(D)){
-        position -= Vector2{cos(angle + M_PI/2),sin(angle + M_PI/2)} * velocity * Time::getDeltaTime();
+        position += Vector2::right * velocity * Time::getDeltaTime();
+//        position -= Vector2{cos(angle + M_PI/2),sin(angle + M_PI/2)} * velocity * Time::getDeltaTime();
     }
 
     if(Input::bufferContains(S)){
-        position -=Vector2{cos(angle),sin(angle)} * velocity * Time::getDeltaTime();
+        position -= Vector2::down * velocity * Time::getDeltaTime();
+//        position -=Vector2{cos(angle),sin(angle)} * velocity * Time::getDeltaTime();
     }
 
     if(Input::bufferContains(W)){
-        position += Vector2{cos(angle),sin(angle)} * velocity * Time::getDeltaTime();
+        position -= Vector2::up * velocity * Time::getDeltaTime();
+//        position += Vector2{cos(angle),sin(angle)} * velocity * Time::getDeltaTime();
     }
 
     if(Input::bufferContains(E)){
@@ -72,6 +78,10 @@ void Player::input() {
         if(map != nullptr){
             map->setValueAt({0,0},'=');
         }
+    }
+
+    if(Input::bufferContains(ENTER)){
+        std::cout << position << std::endl;
     }
 
     if(Input::bufferContains(NUM_MINUS)){

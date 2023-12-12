@@ -3,12 +3,10 @@
 #include "Constants.h"
 #include <SDL2/SDL_image.h>
 
-
-//----------------------------------------------------------------------------------------------------------------------
-
-void GameObject::update() {
-
-}
+void GameObject::updateObject(){
+    oldPosition = position;
+    update();
+};
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -28,7 +26,7 @@ void GameObject::setPosition(Vector2 &position) {
     this->position = position;
 }
 
-void GameObject::setTexture(SDL_Renderer &renderer, std::string path){
+void GameObject::setTexture(SDL_Renderer &renderer, const std::string& path){
 
     std::string pathToImage = constants::imagePath + path;
 
@@ -40,4 +38,8 @@ void GameObject::setTexture(SDL_Renderer &renderer, std::string path){
 
 SDL_Texture* GameObject::getTexture(){
     return texture;
+}
+
+void GameObject::resetPosition() {
+    setPosition(oldPosition);
 }
