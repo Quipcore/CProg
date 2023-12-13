@@ -6,7 +6,5 @@
 		Text/UI
 		Object Instantiation
 
-		Collision
-        Mimic unity onCollision(Collider collider) method
 	ENGINE:
 		Raycasting

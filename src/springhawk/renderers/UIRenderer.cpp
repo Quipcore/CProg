@@ -1,5 +1,5 @@
 #include <iostream>
-#include "springhawk/renderers/ui/UIRenderer.h"
+#include "springhawk/renderers/UIRenderer.h"
 #include "Constants.h"
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -39,4 +39,8 @@ void UIRenderer::drawText(const std::string& text, const Vector2& position, cons
     }
     drawText(text, position, font, color, renderer);
     TTF_CloseFont(font);
+}
+
+void UIRenderer::render(SDL_Renderer &renderer, std::vector<UIComponent *> &vector, int width, int height) {
+
 }

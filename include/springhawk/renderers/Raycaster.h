@@ -7,8 +7,8 @@
 
 #include <SDL2/SDL.h>
 #include <vector>
-#include "scripts/GameObject.h"
-#include "scripts/Player.h"
+#include "components/Gamecomponents/GameObject.h"
+#include "components/Gamecomponents/Player.h"
 #include "springhawk/renderers/Renderer.h"
 #include "springhawk/maps/Map.h"
 #include "springhawk/Scene.h"

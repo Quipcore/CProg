@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "SDL2/SDL.h"
-#include "scripts/GameObject.h"
+#include "components/gamecomponents/GameObject.h"
 #include "springhawk/Time.h"
 #include "springhawk/Scene.h"
 #include "springhawk/renderers/Renderer.h"
@@ -27,7 +27,7 @@ namespace springhawk {
         static void quit(SDL_Window* window, SDL_Renderer* renderer);
         static void playScene(Scene &scene, SDL_Renderer &sdlRenderer);
         static void handleEvent(SDL_Event &event);
-        static void startGameLoop(SDL_Renderer &renderer, std::vector<GameObject *> &gameObjects, Map &map);
+        static void startGameLoop(SDL_Renderer &, std::vector<GameObject *>&,std::vector<UIComponent*>&, Map &);
     };
 }
 

@@ -2,7 +2,7 @@
 #include "springhawk/SceneBuilder.h"
 #include "springhawk/maps/Tilemap.h"
 #include "springhawk/Engine.h"
-#include "scripts/PacmanController.h"
+#include "components/gamecomponents/PacmanController.h"
 #include "Constants.h"
 
 void PacMan::run() {

@@ -3,6 +3,7 @@
 #include "springhawk/Scene.h"
 #include "SDL2/SDL.h"
 
+
 //----------------------------------------------------------------------------------------------------------------------
 
 Scene::Scene(Map &incomingMap, std::vector<GameObject *> &gameObjects, springhawk::RenderTag renderTag) {
@@ -42,6 +43,10 @@ void Scene::loadTextures(SDL_Renderer& renderer) {
 
 void Scene::destroyTextures() {
     //TODO: Destory textures in the same places they were created!
+}
+
+std::vector<UIComponent *> Scene::getUIComponents() {
+    return {};
 }
 
 

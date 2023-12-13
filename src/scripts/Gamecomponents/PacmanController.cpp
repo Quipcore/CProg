@@ -1,5 +1,5 @@
 #include <iostream>
-#include "scripts/PacmanController.h"
+#include "components/gamecomponents/PacmanController.h"
 #include "springhawk/Input.h"
 #include "springhawk/Time.h"
 
@@ -34,7 +34,6 @@ void PacmanController::update() {
 
 void PacmanController::onCollision(GameObject &other) {
     if(other.getTag() == "Pellet"){
-        std::cout << "Pacman collided with a pellet!" << std::endl;
         map->setValueAt(other.getPosition(), '_');
     }
 }

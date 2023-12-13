@@ -2,7 +2,7 @@
 #define CPROG_PROJECT_TILE_H
 
 #include "SDL2/SDL.h"
-#include "scripts/GameObject.h"
+#include "components/Gamecomponents/GameObject.h"
 
 class Tile : public GameObject{
 public:

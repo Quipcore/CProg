@@ -1,34 +1,35 @@
-#include "scripts/Wall.h"
+#include "components/uiComponents/TextField.h"
 
 //----------------------------------------------------------------------------------------------------------------------
 
-Wall::Wall(const Vector2& startPosition, const Vector2& endPosition) {
-    this->startPosition = startPosition;
-    this->endPosition = endPosition;
+TextField::TextField(std::string text, Vector2 &position) {
+    setText(text);
+    setPosition(position);
 }
 
 //----------------------------------------------------------------------------------------------------------------------
 
-Vector2 Wall::getStartPosition() {
-    return this->startPosition;
+Vector2 TextField::getPosition() const{
+    return position;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
 
-Vector2 Wall::getEndPosition() {
-    return  this->endPosition;
+void TextField::setPosition(Vector2 position) {
+    this->position = position;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
 
-std::ostream &operator<<(std::ostream &os, const Wall &wall) {
-    os << "(" << wall.startPosition << ", " << wall.endPosition << ")";
-    return os;
+std::string TextField::getText() const{
+    return text;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
 
-Wall::Wall(const Wall &wall) {
-    this->startPosition = wall.startPosition;
-    this->endPosition = wall.endPosition;
+void TextField::setText(std::string text) {
+    delete &this->text;
+    this->text = text;
 }
+
+

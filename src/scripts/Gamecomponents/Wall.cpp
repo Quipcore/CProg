@@ -1,35 +1,34 @@
-#include "springhawk/ui/TextField.h"
+#include "components/gamecomponents/Wall.h"
 
 //----------------------------------------------------------------------------------------------------------------------
 
-TextField::TextField(std::string text, Vector2 &position) {
-    setText(text);
-    setPosition(position);
+Wall::Wall(const Vector2& startPosition, const Vector2& endPosition) {
+    this->startPosition = startPosition;
+    this->endPosition = endPosition;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
 
-Vector2 TextField::getPosition() const{
-    return position;
+Vector2 Wall::getStartPosition() {
+    return this->startPosition;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void TextField::setPosition(Vector2 position) {
-    this->position = position;
+Vector2 Wall::getEndPosition() {
+    return  this->endPosition;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
 
-std::string TextField::getText() const{
-    return text;
+std::ostream &operator<<(std::ostream &os, const Wall &wall) {
+    os << "(" << wall.startPosition << ", " << wall.endPosition << ")";
+    return os;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void TextField::setText(std::string text) {
-    delete &this->text;
-    this->text = text;
+Wall::Wall(const Wall &wall) {
+    this->startPosition = wall.startPosition;
+    this->endPosition = wall.endPosition;
 }
-
-

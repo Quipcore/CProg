@@ -22,19 +22,21 @@ SET(SOURCE_FILES
         src/springhawk/renderers/PlaneRenderer.cpp
         src/springhawk/renderers/DoomRender.cpp
         src/springhawk/renderers/Raycaster.cpp
-        src/springhawk/renderers/ui/UIRenderer.cpp
+        src/springhawk/renderers/UIRenderer.cpp
 
-        src/springhawk/ui/TextField.cpp
+        src/scripts/UIComponents/TextField.cpp
 
-        src/scripts/GameObject.cpp
-        src/scripts/Player.cpp
-        src/scripts/Wall.cpp
-        src/scripts/PacmanController.cpp
-        src/scripts/WolfensteinController.cpp
+        src/scripts/Gamecomponents/GameObject.cpp
+        src/scripts/Gamecomponents/Player.cpp
+        src/scripts/Gamecomponents/Wall.cpp
+        src/scripts/Gamecomponents/PacmanController.cpp
+        src/scripts/Gamecomponents/WolfensteinController.cpp
 
         src/games/Wolfenstein.cpp
         src/games/Tetris.cpp
         src/games/PacMan.cpp
+        src/scripts/UIComponents/UIComponent.cpp
+        include/components/uiComponents/UIComponent.h
 )
 
 include_directories(include)

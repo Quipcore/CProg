@@ -1,4 +1,4 @@
-#include "scripts/GameObject.h"
+#include "components/Gamecomponents/GameObject.h"
 #include "iostream"
 #include "Constants.h"
 #include <SDL2/SDL_image.h>

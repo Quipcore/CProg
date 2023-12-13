@@ -5,7 +5,7 @@
 #ifndef CPROG_PROJECT_WOLFENSTEINCONTROLLER_H
 #define CPROG_PROJECT_WOLFENSTEINCONTROLLER_H
 
-#include "scripts/Player.h"
+#include "Player.h"
 
 class WolfensteinController : public GameObject{
 

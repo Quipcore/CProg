@@ -8,9 +8,10 @@
 #include <vector>
 #include <map>
 #include "Map.h"
-#include "scripts/Wall.h"
+#include "components/Gamecomponents/Wall.h"
+#include "components/Gamecomponents/GameObject.h"
 #include "Tile.h"
-#include "scripts/GameObject.h"
+
 #include "nlohmann/json.hpp"
 
 namespace springhawk {

@@ -7,8 +7,8 @@
 
 #include <vector>
 #include "SDL2/SDL.h"
-#include "scripts/GameObject.h"
-#include "scripts/Player.h"
+#include "components/Gamecomponents/GameObject.h"
+#include "components/Gamecomponents/Player.h"
 #include "springhawk/maps/Map.h"
 
 class PlaneRenderer {

@@ -1,4 +1,4 @@
-#include "scripts/Player.h"
+#include "components/gamecomponents/Player.h"
 #include "games/Wolfenstein.h"
 
 #include "iostream"

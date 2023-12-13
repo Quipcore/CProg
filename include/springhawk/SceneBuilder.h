@@ -8,7 +8,7 @@
 #include <vector>
 #include <memory>
 #include "springhawk/Scene.h"
-#include "scripts/Player.h"
+#include "components/gamecomponents/Player.h"
 
 
 namespace springhawk{

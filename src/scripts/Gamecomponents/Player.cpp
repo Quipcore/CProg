@@ -1,5 +1,5 @@
 #include <cmath>
-#include "scripts/Player.h"
+#include "components/gamecomponents/Player.h"
 #include "springhawk/Input.h"
 #include "springhawk/Time.h"
 #include "iostream"

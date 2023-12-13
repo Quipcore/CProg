@@ -2,7 +2,7 @@
 #include "springhawk/renderers/PlaneRenderer.h"
 #include "SDL2/SDL.h"
 #include "springhawk/Time.h"
-#include "springhawk/renderers/ui/UIRenderer.h"
+#include "springhawk/renderers/UIRenderer.h"
 
 void PlaneRenderer::render(SDL_Renderer &renderer, std::vector<GameObject *> &gameObjects, Map &map, int screenWidth, int screenHeight) {
     clearLastFrame(renderer);

@@ -5,8 +5,9 @@
 #ifndef CPROG_PROJECT_SCENE_H
 #define CPROG_PROJECT_SCENE_H
 
-#include "scripts/Player.h"
-#include "scripts/GameObject.h"
+#include "components/gamecomponents/Player.h"
+#include "components/gamecomponents/GameObject.h"
+#include "components/uiComponents/UIComponent.h"
 #include "springhawk/renderers/RenderTag.h"
 #include "springhawk/maps/Map.h"
 #include "springhawk/maps/Tilemap.h"
@@ -28,6 +29,8 @@ public:
     void loadTextures(SDL_Renderer &renderer);
 
     void destroyTextures();
+
+    std::vector<UIComponent *> getUIComponents();
 
 private:
     Map* map;

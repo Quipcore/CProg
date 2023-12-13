@@ -1,4 +1,4 @@
-#include "scripts/WolfensteinController.h"
+#include "components/gamecomponents/WolfensteinController.h"
 
 //----------------------------------------------------------------------------------------------------------------------
 

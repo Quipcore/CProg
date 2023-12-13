@@ -8,7 +8,7 @@
 
 #include <map>
 #include "springhawk/Vector2.h"
-#include "scripts/GameObject.h"
+#include "components/gamecomponents/GameObject.h"
 #include "SDL2/SDL.h"
 #include "vector"
 

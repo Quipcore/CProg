@@ -3,12 +3,13 @@
 #include "springhawk/Input.h"
 #include "springhawk/renderers/Raycaster.h"
 #include "springhawk/renderers/PlaneRenderer.h"
-#include "springhawk/renderers/ui/UIRenderer.h"
+#include "springhawk/renderers/UIRenderer.h"
+#include "components/uiComponents/UIComponent.h"
 
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-//#include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_ttf.h>
 
 #include <iostream>
@@ -74,6 +75,7 @@ void Engine::quit(SDL_Window *window, SDL_Renderer *renderer) {
 void Engine::playScene(Scene &scene, SDL_Renderer &sdlRenderer) {
     scene.loadTextures(sdlRenderer);
     std::vector<GameObject *> gameObjects = scene.getGameObjects();
+    std::vector<UIComponent *> guiComponents = scene.getUIComponents();
     Map& map = scene.getMap();
 
     bool tagFound = true;
@@ -96,7 +98,7 @@ void Engine::playScene(Scene &scene, SDL_Renderer &sdlRenderer) {
     }
 
     if (tagFound) {
-        startGameLoop(sdlRenderer, gameObjects, map);
+        startGameLoop(sdlRenderer, gameObjects,guiComponents, map);
     }
 
     scene.destroyTextures();
@@ -104,7 +106,7 @@ void Engine::playScene(Scene &scene, SDL_Renderer &sdlRenderer) {
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Engine::startGameLoop(SDL_Renderer &renderer, std::vector<GameObject *> &gameObjects, Map &map){
+void Engine::startGameLoop(SDL_Renderer &renderer, std::vector<GameObject *> &gameObjects, std::vector<UIComponent*>& uiComponents, Map &map){
     Uint64 startTime = SDL_GetTicks();
 
     bool running = true;
@@ -132,6 +134,8 @@ void Engine::startGameLoop(SDL_Renderer &renderer, std::vector<GameObject *> &ga
         }
 
         Engine::render(renderer, gameObjects, map, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+        UIRenderer::render(renderer, uiComponents, SCREEN_WIDTH, SCREEN_HEIGHT);
 
         float deltaTime = (SDL_GetTicks64() - startTime) / 1000.0f;
         //Needs to be looked at, dont know if this is the best way to do it. Should probably not use inheritance.

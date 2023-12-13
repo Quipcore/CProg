@@ -2,7 +2,7 @@
 #define CPROG_PROJECT_PACMANCONTROLLER_H
 
 
-#include "scripts/GameObject.h"
+#include "GameObject.h"
 #include "springhawk/maps/Map.h"
 
 

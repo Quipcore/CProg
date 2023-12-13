@@ -1,0 +1,10 @@
+#ifndef CPROG_PROJECT_UICOMPONENT_H
+#define CPROG_PROJECT_UICOMPONENT_H
+
+
+class UIComponent {
+
+};
+
+
+#endif //CPROG_PROJECT_UICOMPONENT_H

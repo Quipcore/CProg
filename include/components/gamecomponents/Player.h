@@ -1,7 +1,7 @@
 #ifndef CPROG_PROJECT_PLAYER_H
 #define CPROG_PROJECT_PLAYER_H
 
-#include "scripts/GameObject.h"
+#include "GameObject.h"
 #include "springhawk/Color.h"
 #include "springhawk/maps/Map.h"
 #include "springhawk/maps/Tilemap.h"
