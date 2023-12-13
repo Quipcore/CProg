@@ -27,11 +27,16 @@ namespace springhawk{
 
         std::vector<Scene*> buildScenes();
 
+        SceneBuilder &addGameObjects(std::initializer_list<GameObject *> gameObjects);
+
+        Map *getMap();
+
     private:
         std::vector<Scene*> scenes;
         Map* currentMap;
         std::vector<GameObject*> currentGameObjects;
         springhawk::RenderTag currentRenderTag;
+
     };
 }
 

@@ -11,7 +11,9 @@
 #include "Constants.h"
 #include "nlohmann/json.hpp"
 
-#define EPSILON 0.0001
+//----------------------------------------------------------------------------------------------------------------------
+
+#define EPSILON 0.25 //Used to shrink hitbox. Used to prevent frustation. set to zero to disable
 
 //----------------------------------------------------------------------------------------------------------------------
 springhawk::Tilemap::Tilemap(nlohmann::json &mapdata) {
@@ -124,9 +126,13 @@ void springhawk::Tilemap::generateTiles() {
 }
 
 void springhawk::Tilemap::setValueAt(Vector2 pos, char value) {
-    Tile* tile = tiles.at((int)pos.getY()).at((int)pos.getX());
+    Tile* tile = tiles.at((int)pos.getY()/tileHeight).at((int)pos.getX()/tileWidth);
     tile->setId(value);
     tile->setTexture(*texturesMap[value].second);
+}
+
+char springhawk::Tilemap::getValueAt(Vector2 pos) {
+    return tiles.at((int)pos.getY()/tileHeight).at((int)pos.getX()/tileWidth)->getId();
 }
 
 bool springhawk::Tilemap::isEmptyAt(Vector2 &postion) {
@@ -135,6 +141,7 @@ bool springhawk::Tilemap::isEmptyAt(Vector2 &postion) {
         return false;
     }
 
+    //Generate hitbox
     std::vector<Vector2> positionsToCheck = {
         {postion.getX()/tileWidth + 1 - EPSILON, postion.getY()/tileHeight + EPSILON},
         {postion.getX()/tileWidth + 1 - EPSILON, postion.getY()/tileHeight + 1 - EPSILON},

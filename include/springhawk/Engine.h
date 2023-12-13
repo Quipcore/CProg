@@ -22,14 +22,12 @@ namespace springhawk {
         static void (*render)(SDL_Renderer &, std::vector<GameObject *> &, Map &, int, int);
 
         static bool init();
-        static bool isOutOfBounds(Vector2 &objectPosition, Map &map);
 
         static void sleep(int);
         static void quit(SDL_Window* window, SDL_Renderer* renderer);
         static void playScene(Scene &scene, SDL_Renderer &sdlRenderer);
         static void handleEvent(SDL_Event &event);
         static void startGameLoop(SDL_Renderer &renderer, std::vector<GameObject *> &gameObjects, Map &map);
-        static void checkForMapCollision(Vector2 &vector2, Map &map);
     };
 }
 

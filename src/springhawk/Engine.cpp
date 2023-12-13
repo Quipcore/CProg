@@ -76,9 +76,8 @@ void Engine::playScene(Scene &scene, SDL_Renderer &sdlRenderer) {
     std::vector<GameObject *> gameObjects = scene.getGameObjects();
     Map& map = scene.getMap();
 
-    RenderTag renderTag = scene.getRenderTag();
     bool tagFound = true;
-    switch (renderTag) {
+    switch (scene.getRenderTag()) {
         case Plane:
             Engine::render = PlaneRenderer::render;
             break;
@@ -154,23 +153,3 @@ void Engine::handleEvent(SDL_Event &event) {
 void Engine::sleep(int duration_ms) {
     std::this_thread::sleep_for(std::chrono::milliseconds(duration_ms));
 }
-
-//----------------------------------------------------------------------------------------------------------------------
-
-bool Engine::isOutOfBounds(Vector2 &objectPosition, Map &map) {
-    if (objectPosition.getX() < 0 || objectPosition.getX() > SCREEN_WIDTH) {
-        return true;
-    }
-    if (objectPosition.getY() < 0 || objectPosition.getY() > SCREEN_HEIGHT) {
-        return true;
-    }
-
-    int mapWidth = map.getWidth();
-    int mapHeight = map.getHeight();
-    int currentXCell = static_cast<int>(objectPosition.getX() * mapWidth / SCREEN_WIDTH);
-    int currentYCell = static_cast<int>(objectPosition.getY() * mapHeight / SCREEN_HEIGHT);
-    Vector2 objectMapPos = {currentXCell, currentYCell};
-    return map.isOutOfBounds(objectMapPos);
-}
-
-

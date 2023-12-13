@@ -16,7 +16,6 @@ Player::Player() {
 
 }
 
-//TODO: REMOVE THIS!
 Player::Player(Map* incomingMap) : Player() {
     this->map = incomingMap;
 }

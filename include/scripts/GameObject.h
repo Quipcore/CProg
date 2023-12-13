@@ -15,7 +15,8 @@ public:
     ~GameObject() = default;
 
     void updateObject();
-    virtual void update() = 0;
+    virtual void update(){};
+    virtual void OnCollision(GameObject& other){};
 
     double getAngle() const;
 

@@ -29,13 +29,12 @@ springhawk::SceneBuilder &springhawk::SceneBuilder::addFromJSON(std::string path
     setMap(tilemap);
 
 
-    //Add gameobjects
-    auto gameObjects = new std::vector<GameObject*>{
-        new Player(tilemap)
-    };
-    addGameObjects(*gameObjects);
+//    //Add gameobjects
+//    auto gameObjects = new std::vector<GameObject*>{
+//        new Player(tilemap)
+//    };
+//    addGameObjects(*gameObjects);
 
-    addScene();
     return *this;
 }
 
@@ -73,4 +72,14 @@ springhawk::SceneBuilder &springhawk::SceneBuilder::addGameObjects(std::vector<G
         currentGameObjects.push_back(gameObject);
     }
     return *this;
+}
+springhawk::SceneBuilder &springhawk::SceneBuilder::addGameObjects(std::initializer_list<GameObject*> gameObjects) {
+    for(GameObject* gameObject : gameObjects){
+        currentGameObjects.push_back(gameObject);
+    }
+    return *this;
+}
+
+Map *springhawk::SceneBuilder::getMap() {
+    return currentMap;
 }

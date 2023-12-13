@@ -31,6 +31,7 @@ namespace springhawk {
         SDL_Texture *getTextureAt(Vector2 position) override;
         void loadTextures(SDL_Renderer&) override;
         void setValueAt(Vector2, char) override;
+        char getValueAt(Vector2 pos) override;
         bool isEmptyAt(Vector2 &postion) override;
     private:
 
@@ -44,6 +45,8 @@ namespace springhawk {
         std::vector<std::string> map;
 
         void generateTiles();
+
+
     };
 }
 
