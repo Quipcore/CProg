@@ -13,7 +13,7 @@
 
 //----------------------------------------------------------------------------------------------------------------------
 
-#define EPSILON 0.25 //Used to shrink hitbox. Used to prevent frustation. set to zero to disable
+#define EPSILON 0.1 //Used to shrink hitbox. Used to prevent frustation. set to zero to disable
 
 //----------------------------------------------------------------------------------------------------------------------
 springhawk::Tilemap::Tilemap(nlohmann::json &mapdata) {
@@ -107,6 +107,7 @@ void springhawk::Tilemap::loadTextures(SDL_Renderer& renderer) {
         for(Tile* tile : row){
             SDL_Texture* c = texturesMap[tile->getId()].second;
             tile->setTexture(*c);
+            setTagAt(tile->getPosition(), tile->getId());
         }
     }
 }
@@ -119,6 +120,10 @@ void springhawk::Tilemap::generateTiles() {
         for(int x = 0; x < width/tileWidth; x++){
             Tile* tile = new Tile();
             tile->setId(map[y][x]);
+
+            Vector2 tilePos = {x*tileWidth, y*tileHeight};
+            tile->setPosition(tilePos);
+
             vec.push_back(tile);
         }
         tiles.push_back(vec);
@@ -126,13 +131,13 @@ void springhawk::Tilemap::generateTiles() {
 }
 
 void springhawk::Tilemap::setValueAt(Vector2 pos, char value) {
-    Tile* tile = tiles.at((int)pos.getY()/tileHeight).at((int)pos.getX()/tileWidth);
+    Tile* tile = getTileAt(pos);
     tile->setId(value);
     tile->setTexture(*texturesMap[value].second);
 }
 
 char springhawk::Tilemap::getValueAt(Vector2 pos) {
-    return tiles.at((int)pos.getY()/tileHeight).at((int)pos.getX()/tileWidth)->getId();
+    return getTileAt(pos)->getId();
 }
 
 bool springhawk::Tilemap::isEmptyAt(Vector2 &postion) {
@@ -150,15 +155,48 @@ bool springhawk::Tilemap::isEmptyAt(Vector2 &postion) {
     };
 
 
-    std::string emptyId = "._-+"; //Temporarly taken from pacman.json
+    std::string emptyId = "._-+P"; //Temporarly taken from pacman.json
     for(auto& pos : positionsToCheck){
         if (isOutOfBounds(pos)) {
             return false;
         }
-        char tileId = tiles.at((int) pos.getY()).at((int) pos.getX())->getId();
+        Vector2 scaledPos = {pos.getX() * tileWidth, pos.getY() * tileHeight};
+        char tileId = getValueAt(scaledPos);
         if (emptyId.find(tileId) == std::string::npos) {
             return false;
         }
     }
     return true;
+}
+
+GameObject* springhawk::Tilemap::getObjectAt(Vector2 &vector2) {
+
+    Vector2 center = {vector2.getX() + tileWidth/2, vector2.getY() + tileHeight/2};
+    Tile* tile = getTileAt(center);
+    return tile;
+}
+
+Tile* springhawk::Tilemap::getTileAt(Vector2 &vector2) {
+    return tiles.at((int)vector2.getY()/tileHeight).at((int)vector2.getX()/tileWidth);
+}
+
+void springhawk::Tilemap::setTagAt(Vector2 pos, char id) {
+    Tile* tile = getTileAt(pos);
+    switch (id) {
+        case 'P':
+            tile->setTag("PowerPellet");
+            break;
+        case '.':
+            tile->setTag("Pellet");
+            break;
+        case '#':
+            tile->setTag("Wall");
+            break;
+
+        case '_':
+        case '-':
+        default:
+            tile->setTag("Empty");
+            break;
+    }
 }

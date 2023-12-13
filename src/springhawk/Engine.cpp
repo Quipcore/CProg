@@ -123,6 +123,9 @@ void Engine::startGameLoop(SDL_Renderer &renderer, std::vector<GameObject *> &ga
 
         for (const auto &gameObject: gameObjects) {
             gameObject->updateObject();
+
+            GameObject* collisionObject = map.getObjectAt(gameObject->getPosition());
+            gameObject->onCollision(*collisionObject);
             if(!map.isEmptyAt(gameObject->getPosition())){
                 gameObject->resetPosition();
             }

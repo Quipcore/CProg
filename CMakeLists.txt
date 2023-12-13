@@ -35,8 +35,6 @@ SET(SOURCE_FILES
         src/games/Wolfenstein.cpp
         src/games/Tetris.cpp
         src/games/PacMan.cpp
-        src/springhawk/Collider.cpp
-        include/springhawk/Collider.h
 )
 
 include_directories(include)

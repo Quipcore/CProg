@@ -14,6 +14,7 @@ public:
     PacmanController(const PacmanController&) = default;
 
     void update() override;
+    void onCollision(GameObject& other) override;
 private:
     double velocity = 100;
     Map* map;

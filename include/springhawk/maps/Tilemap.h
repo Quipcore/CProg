@@ -10,6 +10,7 @@
 #include "Map.h"
 #include "scripts/Wall.h"
 #include "Tile.h"
+#include "scripts/GameObject.h"
 #include "nlohmann/json.hpp"
 
 namespace springhawk {
@@ -33,6 +34,8 @@ namespace springhawk {
         void setValueAt(Vector2, char) override;
         char getValueAt(Vector2 pos) override;
         bool isEmptyAt(Vector2 &postion) override;
+        GameObject* getObjectAt(Vector2 &vector2) override;
+
     private:
 
         int width;
@@ -47,6 +50,9 @@ namespace springhawk {
         void generateTiles();
 
 
+        void setTagAt(Vector2 pos, char id);
+
+        Tile *getTileAt(Vector2 &vector2);
     };
 }
 

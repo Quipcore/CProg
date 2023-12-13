@@ -1,18 +1,14 @@
-//
-// Created by felix on 2023-12-07.
-//
-
 #ifndef CPROG_PROJECT_TILE_H
 #define CPROG_PROJECT_TILE_H
 
 #include "SDL2/SDL.h"
+#include "scripts/GameObject.h"
 
-class Tile {
+class Tile : public GameObject{
 public:
     Tile();
     explicit Tile(SDL_Texture &texture);
 
-    SDL_Texture* getTexture();
 
     void setTexture(SDL_Texture &texture);
 
@@ -20,7 +16,6 @@ public:
     void setId(char id);
 
 private:
-    SDL_Texture* texture{};
     char id;
 };
 

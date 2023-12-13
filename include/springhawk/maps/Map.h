@@ -8,6 +8,7 @@
 
 #include <map>
 #include "springhawk/Vector2.h"
+#include "scripts/GameObject.h"
 #include "SDL2/SDL.h"
 #include "vector"
 
@@ -32,7 +33,7 @@ public:
     virtual void setValueAt(Vector2, char) = 0;
     virtual char getValueAt(Vector2) = 0;
     virtual bool isEmptyAt(Vector2&) = 0;
-
+    virtual GameObject* getObjectAt(Vector2 &vector2) = 0;
 };
 
 

@@ -16,19 +16,23 @@ public:
 
     void updateObject();
     virtual void update(){};
-    virtual void OnCollision(GameObject& other){};
+    virtual void onCollision(GameObject& other){};
+
+    std::string getTag(){return tag;};
+    void setTag(std::string tag){this->tag = tag;};
+
+    SDL_Texture* getTexture();
+    void setTexture(SDL_Renderer &renderer, const std::string& path);
 
     double getAngle() const;
 
     Vector2& getPosition();
     void setPosition(Vector2 &position);
 
-    SDL_Texture* getTexture();
-    void setTexture(SDL_Renderer &renderer, const std::string& path);
-
     void resetPosition();
 
 protected:
+    std::string tag = "GameObject";
     Vector2 position;
     Vector2 oldPosition;
     Color color;

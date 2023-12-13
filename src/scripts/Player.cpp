@@ -1,5 +1,4 @@
 #include <cmath>
-#include "springhawk/maps/Map.h"
 #include "scripts/Player.h"
 #include "springhawk/Input.h"
 #include "springhawk/Time.h"
