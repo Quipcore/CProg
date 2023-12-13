@@ -13,21 +13,37 @@
 namespace springhawk {
     class Engine: Time{
     public:
-        static int run(std::vector<Scene*>& scenes);
+
+//        Engine() = delete;
+//        ~Engine();
+//        Engine(const Engine&) = delete;
+//
+//        explicit Engine(std::vector<Scene*>&scenes);
+
+        static void instantiate(GameObject* gameObject);
+        static void instantiate(UIComponent* uiComponent);
+        static int run(std::vector<Scene *>& giveScenes);
+
     private:
-        static const int SCREEN_WIDTH;
-        static const int SCREEN_HEIGHT;
+        static const int SCREEN_WIDTH = 1500;
+        static const int SCREEN_HEIGHT = 680;
+
+        static const std::vector<Scene *> *scenes;
+        static std::vector<GameObject *> gameObjects;
+        static std::vector<UIComponent *> uiComponents;
+
 
         //Might causes prefomance issues
         static void (*render)(SDL_Renderer &, std::vector<GameObject *> &, Map &, int, int);
 
         static bool init();
-
-        static void sleep(int);
-        static void quit(SDL_Window* window, SDL_Renderer* renderer);
-        static void playScene(Scene &scene, SDL_Renderer &sdlRenderer);
+        static void quit(SDL_Renderer *renderer, SDL_Window *window);
+        void sleep(int);
         static void handleEvent(SDL_Event &event);
-        static void startGameLoop(SDL_Renderer &, std::vector<GameObject *>&,std::vector<UIComponent*>&, Map &);
+
+        static void startNextScene(SDL_Renderer &renderer);
+        static void startGameLoop(SDL_Renderer &, Map&);
+        static void renderScene(SDL_Renderer&, Map&);
     };
 }
 

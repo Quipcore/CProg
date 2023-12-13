@@ -1,18 +1,28 @@
 #include <iostream>
 #include "springhawk/renderers/UIRenderer.h"
 #include "Constants.h"
+#include "springhawk/Time.h"
+
+void UIRenderer::render(SDL_Renderer &renderer, std::vector<UIComponent *> &uiComponents, int width, int height) {
+    drawDebugText(renderer);
+
+//    std::string text = "Hello World!";
+//    drawText(text,
+//             {0, 0},
+//             "ComicSans/comic.ttf",
+//             20,
+//             {255, 255, 0, 255},
+//             &renderer
+//    );
+
+}
 
 //----------------------------------------------------------------------------------------------------------------------
 
 void UIRenderer::drawText(const std::string& text, const Vector2& position, TTF_Font* font, Color color, SDL_Renderer *renderer) {
     //Modified from https://stackoverflow.com/a/22889483
 
-    // this is the color in rgb format,
-    // maxing out all would give you the color white,
-    // and it will be your text's color
-    SDL_Color sdl_color = { static_cast<Uint8>(color.r), static_cast<Uint8>(color.g), static_cast<Uint8>(color.b),255 };
-
-    sdl_color = {255,255,0,255};
+    SDL_Color sdl_color = {255,255,0,255};
 
     SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, text.c_str(), sdl_color);
 
@@ -41,6 +51,13 @@ void UIRenderer::drawText(const std::string& text, const Vector2& position, cons
     TTF_CloseFont(font);
 }
 
-void UIRenderer::render(SDL_Renderer &renderer, std::vector<UIComponent *> &vector, int width, int height) {
-
+void UIRenderer::drawDebugText(SDL_Renderer &renderer) {
+    std::string text = "FPS: " + std::to_string((int) (1 / Time::getDeltaTime()));
+    drawText(text,
+             {0, 0},
+             "ComicSans/comic.ttf",
+             20,
+             {255, 255, 0, 255},
+             &renderer
+    );
 }

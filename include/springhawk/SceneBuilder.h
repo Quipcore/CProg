@@ -20,23 +20,28 @@ namespace springhawk{
         ~SceneBuilder() = default;
 
         SceneBuilder& addScene();
+
         SceneBuilder& setMap(Tilemap *map);
+        Map *getMap();
+
         SceneBuilder& addGameObjects(std::vector<GameObject *>& gameObjects);
-        SceneBuilder& setRenderTag(RenderTag renderTag);
-        SceneBuilder& addFromJSON(std::string path);
-
-        std::vector<Scene*> buildScenes();
-
         SceneBuilder &addGameObjects(std::initializer_list<GameObject *> gameObjects);
 
-        Map *getMap();
+        SceneBuilder& setRenderTag(RenderTag renderTag);
+
+        SceneBuilder& addFromJSON(std::string path);
+
+        SceneBuilder &addUIComponents(std::vector<UIComponent *> &uiComponents);
+        SceneBuilder &addUIComponents(std::initializer_list<UIComponent *> uiComponents);
+
+        std::vector<Scene*> buildScenes();
 
     private:
         std::vector<Scene*> scenes;
         Map* currentMap;
         std::vector<GameObject*> currentGameObjects;
+        std::vector<UIComponent*> currentUIComponents;
         springhawk::RenderTag currentRenderTag;
-
     };
 }
 

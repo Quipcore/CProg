@@ -41,7 +41,7 @@ springhawk::SceneBuilder &springhawk::SceneBuilder::addFromJSON(std::string path
 //----------------------------------------------------------------------------------------------------------------------
 
 springhawk::SceneBuilder& springhawk::SceneBuilder::addScene() {
-    scenes.push_back(new Scene(*currentMap, currentGameObjects,currentRenderTag));
+    scenes.push_back(new Scene(*currentMap, currentGameObjects,currentUIComponents,currentRenderTag));
     return *this;
 }
 
@@ -73,12 +73,35 @@ springhawk::SceneBuilder &springhawk::SceneBuilder::addGameObjects(std::vector<G
     }
     return *this;
 }
+
+//----------------------------------------------------------------------------------------------------------------------
+
 springhawk::SceneBuilder &springhawk::SceneBuilder::addGameObjects(std::initializer_list<GameObject*> gameObjects) {
     for(GameObject* gameObject : gameObjects){
         currentGameObjects.push_back(gameObject);
     }
     return *this;
 }
+
+//----------------------------------------------------------------------------------------------------------------------
+
+springhawk::SceneBuilder &springhawk::SceneBuilder::addUIComponents(std::vector<UIComponent *> &uiComponents) {
+    for(UIComponent* uiComponent : uiComponents){
+        currentUIComponents.push_back(uiComponent);
+    }
+    return *this;
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+springhawk::SceneBuilder &springhawk::SceneBuilder::addUIComponents(std::initializer_list<UIComponent *> uiComponents) {
+    for(UIComponent* uiComponent : uiComponents){
+        currentUIComponents.push_back(uiComponent);
+    }
+    return *this;
+}
+
+//----------------------------------------------------------------------------------------------------------------------
 
 Map *springhawk::SceneBuilder::getMap() {
     return currentMap;

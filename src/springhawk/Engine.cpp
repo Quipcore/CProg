@@ -20,29 +20,75 @@
 using namespace springhawk;
 
 
-//Screen dimension constants
-const int Engine::SCREEN_WIDTH = 1500;
-const int Engine::SCREEN_HEIGHT = 680;
-
 //----------------------------------------------------------------------------------------------------------------------
 
+std::vector<GameObject *> Engine::gameObjects = {};
+std::vector<UIComponent *> Engine::uiComponents = {};
+const std::vector<Scene *> *Engine::scenes = {};
 void (*Engine::render)(SDL_Renderer &, std::vector<GameObject *> &, Map &, int, int) = nullptr;
 
 //----------------------------------------------------------------------------------------------------------------------
 
-int Engine::run(std::vector<Scene *> &scenes) {
-
+int Engine::run(std::vector<Scene *>& giveScenes) {
     if (init()) {
         throw std::runtime_error("Failed to initialize!");
     }
 
-    SDL_Window *window = SDL_CreateWindow("Springhawk", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
-    SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0);
+    SDL_Window* window = SDL_CreateWindow("Springhawk", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 
-    Scene *startScene = scenes.at(0);
-    playScene(*startScene, *renderer);
-    quit(window, renderer);
+    scenes = &giveScenes;
+
+    startNextScene(*renderer);
+
+    quit(renderer, window);
     return EXIT_SUCCESS;
+}
+
+void Engine::quit(SDL_Renderer *renderer, SDL_Window *window) {
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+
+    TTF_Quit();
+    SDL_Quit();
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void Engine::startNextScene(SDL_Renderer &renderer){
+    Scene *scene = scenes->at(0);
+
+    scene->loadTextures(renderer);
+
+    gameObjects = scene->getGameObjects();
+    uiComponents = scene->getUIComponents();
+    Map* map = &scene->getMap();
+
+    bool tagFound = true;
+    switch (scene->getRenderTag()) {
+        case Plane:
+            Engine::render = PlaneRenderer::render;
+            break;
+        case Raycaster:
+//            Engine::render = Raycaster::render;
+            std::cout << "Raycaster currently out of commission" << std::endl;
+            tagFound = false;
+            break;
+        case Doom:
+            std::cout << "No doom style render available yet" << std::endl;
+            tagFound = false;
+            break;
+        default:
+            std::cout << "No render tag found" << std::endl;
+            tagFound = false;
+            break;
+    }
+
+    if (tagFound) {
+        startGameLoop(renderer, *map);
+    }
+
+    scene->destroyTextures();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -62,51 +108,7 @@ bool Engine::init() {
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void Engine::quit(SDL_Window *window, SDL_Renderer *renderer) {
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-
-    TTF_Quit();
-    SDL_Quit();
-}
-
-//----------------------------------------------------------------------------------------------------------------------
-
-void Engine::playScene(Scene &scene, SDL_Renderer &sdlRenderer) {
-    scene.loadTextures(sdlRenderer);
-    std::vector<GameObject *> gameObjects = scene.getGameObjects();
-    std::vector<UIComponent *> guiComponents = scene.getUIComponents();
-    Map& map = scene.getMap();
-
-    bool tagFound = true;
-    switch (scene.getRenderTag()) {
-        case Plane:
-            Engine::render = PlaneRenderer::render;
-            break;
-        case Raycaster:
-//            Engine::render = Raycaster::render;
-            tagFound = false;
-            break;
-        case Doom:
-            std::cout << "No doom style render available yet" << std::endl;
-            tagFound = false;
-            break;
-        default:
-            std::cout << "No render tag found" << std::endl;
-            tagFound = false;
-            break;
-    }
-
-    if (tagFound) {
-        startGameLoop(sdlRenderer, gameObjects,guiComponents, map);
-    }
-
-    scene.destroyTextures();
-
-}
-
-//----------------------------------------------------------------------------------------------------------------------
-void Engine::startGameLoop(SDL_Renderer &renderer, std::vector<GameObject *> &gameObjects, std::vector<UIComponent*>& uiComponents, Map &map){
+void Engine::startGameLoop(SDL_Renderer &renderer, Map &map) {
     Uint64 startTime = SDL_GetTicks();
 
     bool running = true;
@@ -133,9 +135,7 @@ void Engine::startGameLoop(SDL_Renderer &renderer, std::vector<GameObject *> &ga
             }
         }
 
-        Engine::render(renderer, gameObjects, map, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-        UIRenderer::render(renderer, uiComponents, SCREEN_WIDTH, SCREEN_HEIGHT);
+        renderScene(renderer, map);
 
         float deltaTime = (SDL_GetTicks64() - startTime) / 1000.0f;
         //Needs to be looked at, dont know if this is the best way to do it. Should probably not use inheritance.
@@ -143,6 +143,17 @@ void Engine::startGameLoop(SDL_Renderer &renderer, std::vector<GameObject *> &ga
         Time::setDeltaTime(deltaTime);
         startTime = SDL_GetTicks();
     }
+}
+
+void Engine::renderScene(SDL_Renderer &renderer, Map& map) {
+    Color backgroundColor = {0, 0, 0, 255};
+    SDL_SetRenderDrawColor(&renderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
+    SDL_RenderClear(&renderer);
+
+    Engine::render(renderer, gameObjects, map, SCREEN_WIDTH, SCREEN_HEIGHT);
+    UIRenderer::render(renderer, uiComponents, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+    SDL_RenderPresent(&renderer);
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -160,3 +171,23 @@ void Engine::handleEvent(SDL_Event &event) {
 void Engine::sleep(int duration_ms) {
     std::this_thread::sleep_for(std::chrono::milliseconds(duration_ms));
 }
+//----------------------------------------------------------------------------------------------------------------------
+
+void Engine::instantiate(GameObject *gameObject) {
+
+}
+
+void Engine::instantiate(UIComponent *uiComponent) {
+
+}
+
+
+
+
+
+
+
+
+
+
+

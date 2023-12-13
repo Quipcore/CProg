@@ -8,10 +8,12 @@
 void PacMan::run() {
     auto* sceneBuilder = new springhawk::SceneBuilder();
     sceneBuilder->addFromJSON(constants::jsonPath + "pacman.json");
+
     sceneBuilder->addGameObjects({
         new PacmanController(sceneBuilder->getMap())
     });
     sceneBuilder->addScene();
     std::vector<Scene*> scenes = sceneBuilder->buildScenes();
+
     springhawk::Engine::run(scenes);
 }

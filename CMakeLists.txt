@@ -37,6 +37,8 @@ SET(SOURCE_FILES
         src/games/PacMan.cpp
         src/scripts/UIComponents/UIComponent.cpp
         include/components/uiComponents/UIComponent.h
+        src/scripts/UIComponents/ScoreField.cpp
+        include/components/uiComponents/ScoreField.h
 )
 
 include_directories(include)

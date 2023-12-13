@@ -5,7 +5,6 @@
 #include "springhawk/renderers/UIRenderer.h"
 
 void PlaneRenderer::render(SDL_Renderer &renderer, std::vector<GameObject *> &gameObjects, Map &map, int screenWidth, int screenHeight) {
-    clearLastFrame(renderer);
 
     //TODO: Change to be dynamic with maps tile size
     int rectW = 20;
@@ -14,9 +13,6 @@ void PlaneRenderer::render(SDL_Renderer &renderer, std::vector<GameObject *> &ga
 
     drawMap(map, drawingOffset, renderer, rectW, rectH);
     drawGameObjects(renderer,gameObjects,rectW,rectH,drawingOffset);
-    drawDebugText(renderer);
-
-    SDL_RenderPresent(&renderer);
 }
 
 void PlaneRenderer::drawMap(Map &map, int drawingOffset, SDL_Renderer &renderer, int &rectW, int &rectH) {
@@ -27,23 +23,6 @@ void PlaneRenderer::drawMap(Map &map, int drawingOffset, SDL_Renderer &renderer,
             SDL_RenderCopy(&renderer,tileTexture, nullptr, &rect);
         }
     }
-}
-
-void PlaneRenderer::drawDebugText(SDL_Renderer &renderer) {
-    std::string text = "FPS: " + std::to_string((int) (1 / Time::getDeltaTime()));
-    UIRenderer::drawText(text,
-                         {0, 0},
-                         "ComicSans/comic.ttf",
-                         20,
-                         {255, 255, 0, 255},
-                         &renderer
-                         );
-}
-
-void PlaneRenderer::clearLastFrame(SDL_Renderer &renderer) {
-    Color backgroundColor = {0, 0, 0, 255};
-    SDL_SetRenderDrawColor(&renderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
-    SDL_RenderClear(&renderer);
 }
 
 void PlaneRenderer::drawGameObjects(SDL_Renderer &renderer, std::vector<GameObject *> &vector, int w, int h, int offset) {

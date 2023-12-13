@@ -4,11 +4,10 @@
 #include "SDL2/SDL.h"
 
 
-//----------------------------------------------------------------------------------------------------------------------
-
-Scene::Scene(Map &incomingMap, std::vector<GameObject *> &gameObjects, springhawk::RenderTag renderTag) {
+Scene::Scene(Map &incomingMap, std::vector<GameObject *> &gameObjects, std::vector<UIComponent *>, springhawk::RenderTag renderTag) {
     this->map = &incomingMap;
     this->gameObjects = std::move(gameObjects);
+    this->uiComponents = std::move(uiComponents);
     this->renderTag = renderTag;
 }
 
@@ -46,7 +45,9 @@ void Scene::destroyTextures() {
 }
 
 std::vector<UIComponent *> Scene::getUIComponents() {
-    return {};
+    return uiComponents;
 }
+
+
 
 

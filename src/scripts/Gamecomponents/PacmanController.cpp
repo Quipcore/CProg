@@ -2,6 +2,7 @@
 #include "components/gamecomponents/PacmanController.h"
 #include "springhawk/Input.h"
 #include "springhawk/Time.h"
+#include "springhawk/Engine.h"
 
 PacmanController::PacmanController() {
     color = {0,0xcf,0x50,0xff};
@@ -12,6 +13,8 @@ PacmanController::PacmanController() {
 
 PacmanController::PacmanController(Map* map) : PacmanController(){
     this->map = map;
+    this->scoreField = new ScoreField();
+//    springhawk::Engine::instantiate(scoreField);
 }
 
 void PacmanController::update() {
@@ -37,6 +40,8 @@ void PacmanController::onCollision(GameObject &other) {
         map->setValueAt(other.getPosition(), '_');
     }
 }
+
+
 
 
 
