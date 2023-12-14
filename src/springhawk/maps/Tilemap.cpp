@@ -34,11 +34,8 @@ springhawk::Tilemap::Tilemap(nlohmann::json &mapdata) {
 
         nlohmann::json texture = entry.value();
 
-        std::string texturePath = texture["texture"];
-        this->texturesMap[key].first = texturePath;
-
-        bool isWall = texture["isWall"];
-        wallTiles[key] = isWall;
+        this->texturesMap[key].first = texture["texture"];
+        wallTiles[key] = texture["isWall"];
     }
 }
 
