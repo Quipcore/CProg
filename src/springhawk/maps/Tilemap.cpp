@@ -28,10 +28,17 @@ springhawk::Tilemap::Tilemap(nlohmann::json &mapdata) {
     this->width = tileWidth * jsonMapData[0].length();
     generateTiles();
 
+    nlohmann::json textures = mapdata["textures"];
+    for (const auto& entry : textures.items()) {
+        char key = entry.key().at(0);
 
-    nlohmann::json textureKey = mapdata["textureKey"];
-    for (const auto& entry : textureKey.items()) {
-        this->texturesMap.insert({entry.key().at(0),{entry.value(), nullptr}});
+        nlohmann::json texture = entry.value();
+
+        std::string texturePath = texture["texture"];
+        this->texturesMap[key].first = texturePath;
+
+        bool isWall = texture["isWall"];
+        wallTiles[key] = isWall;
     }
 }
 
@@ -155,14 +162,14 @@ bool springhawk::Tilemap::isEmptyAt(Vector2 &postion) {
     };
 
 
-    std::string emptyId = "._-+P"; //Temporarly taken from pacman.json
+//    std::string emptyId = "._-P"; //Temporarly taken from pacman.json
     for(auto& pos : positionsToCheck){
         if (isOutOfBounds(pos)) {
             return false;
         }
         Vector2 scaledPos = {pos.getX() * tileWidth, pos.getY() * tileHeight};
         char tileId = getValueAt(scaledPos);
-        if (emptyId.find(tileId) == std::string::npos) {
+        if (wallTiles[tileId]) {
             return false;
         }
     }
