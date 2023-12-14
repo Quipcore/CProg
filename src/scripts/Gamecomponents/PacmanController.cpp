@@ -5,16 +5,24 @@
 #include "springhawk/Engine.h"
 
 PacmanController::PacmanController() {
-    color = {0,0xcf,0x50,0xff};
-    this->position = {280,280};
+    this->color = {0,0xcf,0x50,0xff};
+    this->position = {290,480};
     this->oldPosition = this->position;
     this->map = nullptr;
+    this->tag = "Pacman";
+    this->texturePath = "pac.png";
+
+    this->scoreField = new ScoreField("Score");
+    this->scoreField->setSize({100, 50});
+    this->scoreField->setPosition({0, 400});
+    this->scoreField->setColor({255,0,0,255});
+    this->scoreField->setFontName("ComicSans/comic.ttf");
+    this->scoreField->setFontSize(20);
+    springhawk::Engine::instantiate(scoreField);
 }
 
 PacmanController::PacmanController(Map* map) : PacmanController(){
     this->map = map;
-    this->scoreField = new ScoreField();
-//    springhawk::Engine::instantiate(scoreField);
 }
 
 void PacmanController::update() {
@@ -33,11 +41,16 @@ void PacmanController::update() {
     if(Input::bufferContains(W)){
         position -= Vector2::up * velocity * Time::getDeltaTime();
     }
+
+    if(Input::bufferContains(SPACE)){
+        std::cout << position << std::endl;
+    }
 }
 
 void PacmanController::onCollision(GameObject &other) {
     if(other.getTag() == "Pellet"){
         map->setValueAt(other.getPosition(), '_');
+        scoreField->incrementScore();
     }
 }
 

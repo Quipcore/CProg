@@ -19,7 +19,6 @@ public:
 
 private:
     static void drawText(const std::string& text, const Vector2& position, TTF_Font* font, Color color, SDL_Renderer *renderer);
-    static void drawText(const std::string& text, const Vector2& position, const std::string& fontName, int fontSize, Color color, SDL_Renderer *renderer);
     static void drawDebugText(SDL_Renderer &renderer);
 };
 

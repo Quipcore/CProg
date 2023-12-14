@@ -34,7 +34,7 @@ Map & Scene::getMap() {
 void Scene::loadTextures(SDL_Renderer& renderer) {
     map->loadTextures(renderer);
     for(GameObject* gameObject : gameObjects){
-        gameObject->setTexture(renderer, "pac.png");
+        gameObject->setTexture(renderer, gameObject->getTexturePath());
     }
 }
 

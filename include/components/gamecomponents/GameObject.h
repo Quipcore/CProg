@@ -30,12 +30,14 @@ public:
     void setPosition(Vector2 &position);
 
     void resetPosition();
+    std::string getTexturePath() const{ return texturePath; };
 
 protected:
     std::string tag = "GameObject";
-    Vector2 position;
-    Vector2 oldPosition;
-    Color color;
+    std::string texturePath = "";
+    Vector2 position {0,0};
+    Vector2 oldPosition = position;
+    Color color = {255,255,255,255};
     double angle = 0;
     SDL_Texture* texture{};
 };

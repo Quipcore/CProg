@@ -39,6 +39,8 @@ SET(SOURCE_FILES
         include/components/uiComponents/UIComponent.h
         src/scripts/UIComponents/ScoreField.cpp
         include/components/uiComponents/ScoreField.h
+        src/scripts/Gamecomponents/Blinky.cpp
+        include/components/gamecomponents/Blinky.h
 )
 
 include_directories(include)

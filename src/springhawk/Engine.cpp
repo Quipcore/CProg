@@ -16,6 +16,7 @@
 #include <string>
 #include "chrono"
 #include "thread"
+#include "Constants.h"
 
 using namespace springhawk;
 
@@ -25,19 +26,33 @@ using namespace springhawk;
 std::vector<GameObject *> Engine::gameObjects = {};
 std::vector<UIComponent *> Engine::uiComponents = {};
 const std::vector<Scene *> *Engine::scenes = {};
+
+bool Engine::beenInitialized = false;
+
 void (*Engine::render)(SDL_Renderer &, std::vector<GameObject *> &, Map &, int, int) = nullptr;
 
 //----------------------------------------------------------------------------------------------------------------------
 
-int Engine::run(std::vector<Scene *>& giveScenes) {
-    if (init()) {
-        throw std::runtime_error("Failed to initialize!");
+int Engine::initilize() {
+    if (beenInitialized) {
+        return EXIT_SUCCESS;
     }
+    return init();
+}
+
+
+int Engine::run(std::vector<Scene *>& incomingScenes) {
+    if(!beenInitialized){
+        if (init()) {
+            throw std::runtime_error("Failed to initialize!");
+        }
+    }
+
 
     SDL_Window* window = SDL_CreateWindow("Springhawk", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 
-    scenes = &giveScenes;
+    scenes = &incomingScenes;
 
     startNextScene(*renderer);
 
@@ -60,8 +75,14 @@ void Engine::startNextScene(SDL_Renderer &renderer){
 
     scene->loadTextures(renderer);
 
-    gameObjects = scene->getGameObjects();
-    uiComponents = scene->getUIComponents();
+    for(GameObject* gameObject : scene->getGameObjects()){
+        gameObjects.push_back(gameObject);
+    }
+
+    for(UIComponent* uiComponent : scene->getUIComponents()){
+        uiComponents.push_back(uiComponent);
+    }
+
     Map* map = &scene->getMap();
 
     bool tagFound = true;
@@ -103,6 +124,7 @@ bool Engine::init() {
         std::cout << "Error SDL_ttf Initialization : " << SDL_GetError();
         return EXIT_FAILURE;
     }
+    beenInitialized = true;
     return EXIT_SUCCESS;
 }
 
@@ -174,11 +196,22 @@ void Engine::sleep(int duration_ms) {
 //----------------------------------------------------------------------------------------------------------------------
 
 void Engine::instantiate(GameObject *gameObject) {
-
+    gameObjects.push_back(gameObject);
 }
 
 void Engine::instantiate(UIComponent *uiComponent) {
 
+    if(uiComponent->getFont() == nullptr){
+        std::string pathToFont = constants::fontPath + "ComicSans/comic.ttf";
+        TTF_Font *font = TTF_OpenFont(pathToFont.c_str(), 20);
+        if(font == nullptr){
+            std::cout << "Failed to load font: " << uiComponent->getFontName() << std::endl;
+            std::cout << "Error: " << TTF_GetError() << std::endl;
+            return;
+        }
+        uiComponent->setFont(font);
+    }
+    uiComponents.push_back(uiComponent);
 }
 
 

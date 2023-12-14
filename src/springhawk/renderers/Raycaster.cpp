@@ -24,7 +24,7 @@ void Raycaster::render(SDL_Renderer &renderer, std::vector<GameObject *> &gameOb
     //VERY INEFFICIENT. Copies the map to the tileMap array every frame.
     for(int x = 0; x < map.getWidth(); x++){
         for(int y = 0; y < map.getHeight(); y++){
-            Raycaster::tileMap[x][y] = map[{x,y}];;
+            Raycaster::tileMap[x][y] = map[{x,y}];
         }
     }
 

@@ -13,16 +13,10 @@
 namespace springhawk {
     class Engine: Time{
     public:
-
-//        Engine() = delete;
-//        ~Engine();
-//        Engine(const Engine&) = delete;
-//
-//        explicit Engine(std::vector<Scene*>&scenes);
-
         static void instantiate(GameObject* gameObject);
         static void instantiate(UIComponent* uiComponent);
-        static int run(std::vector<Scene *>& giveScenes);
+        static int run(std::vector<Scene *>& incomingScenes);
+        static int initilize();
 
     private:
         static const int SCREEN_WIDTH = 1500;
@@ -32,8 +26,9 @@ namespace springhawk {
         static std::vector<GameObject *> gameObjects;
         static std::vector<UIComponent *> uiComponents;
 
+        static bool beenInitialized;
 
-        //Might causes prefomance issues
+        //Might causes performance issues
         static void (*render)(SDL_Renderer &, std::vector<GameObject *> &, Map &, int, int);
 
         static bool init();
@@ -44,6 +39,8 @@ namespace springhawk {
         static void startNextScene(SDL_Renderer &renderer);
         static void startGameLoop(SDL_Renderer &, Map&);
         static void renderScene(SDL_Renderer&, Map&);
+
+
     };
 }
 
