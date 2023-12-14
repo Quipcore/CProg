@@ -47,6 +47,7 @@ namespace springhawk {
         std::vector<std::vector<Tile*>> tiles;
         std::map<char, std::pair<std::string,SDL_Texture*>> texturesMap;
         std::map<char, bool> wallTiles;
+        std::map<char, std::string> tileTags;
         std::vector<std::string> map;
 
         void generateTiles();
@@ -55,6 +56,8 @@ namespace springhawk {
         void setTagAt(Vector2 pos, char id);
 
         Tile *getTileAt(Vector2 &vector2);
+
+
     };
 }
 

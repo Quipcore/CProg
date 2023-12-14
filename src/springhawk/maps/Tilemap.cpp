@@ -35,7 +35,8 @@ springhawk::Tilemap::Tilemap(nlohmann::json &mapdata) {
         nlohmann::json texture = entry.value();
 
         this->texturesMap[key].first = texture["texture"];
-        wallTiles[key] = texture["isWall"];
+        this->wallTiles[key] = texture["isWall"];
+        this->tileTags[key] = texture["tag"];
     }
 }
 
@@ -185,22 +186,5 @@ Tile* springhawk::Tilemap::getTileAt(Vector2 &vector2) {
 }
 
 void springhawk::Tilemap::setTagAt(Vector2 pos, char id) {
-    Tile* tile = getTileAt(pos);
-    switch (id) {
-        case 'P':
-            tile->setTag("PowerPellet");
-            break;
-        case '.':
-            tile->setTag("Pellet");
-            break;
-        case '#':
-            tile->setTag("Wall");
-            break;
-
-        case '_':
-        case '-':
-        default:
-            tile->setTag("Empty");
-            break;
-    }
+    getTileAt(pos)->setTag(tileTags[id]);
 }
