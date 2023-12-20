@@ -36,16 +36,16 @@
             "id": "pinky",
             "type": "Ghost",
             "properties": {
-            "speed": 0.1,
-            "texture": "pinky.png"
+              "speed": 0.1,
+              "texture": "pinky.png"
             }
           },
           {
             "id": "clyde",
             "type": "Ghost",
             "properties": {
-            "speed": 0.1,
-            "texture": "clyde.png"
+              "speed": 0.1,
+              "texture": "clyde.png"
             }
           }
         ],

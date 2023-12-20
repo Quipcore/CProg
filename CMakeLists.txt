@@ -50,14 +50,14 @@ set(SOURCE_DIR ${CMAKE_SOURCE_DIR}/resources)
 set(DESTINATION_DIR ${CMAKE_SOURCE_DIR}/build/debug/resources)
 
 # Add a custom command to copy the entire directory
-add_custom_command(
-        OUTPUT ${DESTINATION_DIR}  # Specify the output directory of the command
-        COMMAND ${CMAKE_COMMAND} -E copy_directory ${SOURCE_DIR} ${DESTINATION_DIR}
-        COMMENT "Copying directory to destination"
-)
+#add_custom_command(
+#        OUTPUT ${DESTINATION_DIR}  # Specify the output directory of the command
+#        COMMAND ${CMAKE_COMMAND} -E copy_directory ${SOURCE_DIR} ${DESTINATION_DIR}
+#        COMMENT "Copying directory to destination"
+#)
 
 # Add a custom target to make sure the custom command is executed before building the main target
-add_custom_target(CopyDirectoryTarget DEPENDS ${DESTINATION_DIR})
+#add_custom_target(CopyDirectoryTarget DEPENDS ${DESTINATION_DIR})
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
@@ -82,4 +82,4 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build/debug)
 
 # Add dependencies so that CopyDirectoryTarget is built before YourExecutable
-add_dependencies(${PROJECT_NAME} CopyDirectoryTarget)
+#add_dependencies(${PROJECT_NAME} CopyDirectoryTarget)
