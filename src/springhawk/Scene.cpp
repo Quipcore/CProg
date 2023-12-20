@@ -2,6 +2,7 @@
 #include <utility>
 #include "springhawk/Scene.h"
 #include "SDL2/SDL.h"
+#include "springhawk/Engine.h"
 
 
 Scene::Scene(Map &incomingMap, std::vector<GameObject *> &gameObjects, std::vector<UIComponent *>, springhawk::RenderTag renderTag) {
@@ -34,7 +35,8 @@ Map & Scene::getMap() {
 void Scene::loadTextures(SDL_Renderer& renderer) {
     map->loadTextures(renderer);
     for(GameObject* gameObject : gameObjects){
-        gameObject->setTexture(renderer, gameObject->getTexturePath());
+        springhawk::Engine::swapTexture(gameObject, gameObject->getTexturePath());
+//        gameObject->setTexture(renderer, gameObject->getTexturePath());
     }
 }
 

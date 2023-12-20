@@ -3,6 +3,7 @@
 #include "springhawk/Input.h"
 #include "springhawk/Time.h"
 #include "springhawk/Engine.h"
+#include "components/gamecomponents/Blinky.h"
 
 PacmanController::PacmanController() {
     this->color = {0,0xcf,0x50,0xff};
@@ -51,6 +52,14 @@ void PacmanController::onCollision(GameObject &other) {
     if(other.getTag() == "Pellet"){
         map->setValueAt(other.getPosition(), '_');
         scoreField->incrementScore();
+    }
+
+    if(other.getTag() == "PowerPellet"){
+        map->setValueAt(other.getPosition(), '_');
+        std::vector<Blinky*> ghosts = springhawk::Engine::getObjects<Blinky>();
+        for(Blinky* ghost : ghosts){
+            ghost->powerPelletActivated();
+        }
     }
 }
 

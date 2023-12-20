@@ -12,6 +12,9 @@
 class Blinky : public GameObject{
 public:
     explicit Blinky(Map *map);
+
+    void powerPelletActivated();
+
 private:
     Blinky();
 

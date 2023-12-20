@@ -1,7 +1,4 @@
-//
-// Created by felix on 2023-12-14.
-//
-
+#include <iostream>
 #include "components/gamecomponents/Blinky.h"
 
 Blinky::Blinky() {
@@ -15,4 +12,8 @@ Blinky::Blinky() {
 
 Blinky::Blinky(Map *map) : Blinky(){
     this->map = map;
+}
+
+void Blinky::powerPelletActivated() {
+    position += {0, 100};
 }

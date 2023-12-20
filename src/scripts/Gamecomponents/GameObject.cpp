@@ -1,6 +1,7 @@
 #include "components/Gamecomponents/GameObject.h"
 #include "iostream"
 #include "Constants.h"
+#include "springhawk/Engine.h"
 #include <SDL2/SDL_image.h>
 
 void GameObject::updateObject(){
@@ -28,12 +29,18 @@ void GameObject::setPosition(Vector2 &position) {
 
 void GameObject::setTexture(SDL_Renderer &renderer, const std::string& path){
 
+//    springhawk::Engine::swapTexture(texture, path);
+
     std::string pathToImage = constants::imagePath + path;
 
     SDL_Surface *surface = IMG_Load(pathToImage.c_str());
     SDL_Texture *pTexture = SDL_CreateTextureFromSurface(&renderer, surface);
     SDL_FreeSurface(surface);
     this->texture = pTexture;
+}
+
+void GameObject::setTexture(SDL_Texture* texture){
+    this->texture = texture;
 }
 
 SDL_Texture* GameObject::getTexture(){

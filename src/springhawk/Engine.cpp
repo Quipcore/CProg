@@ -26,6 +26,8 @@ using namespace springhawk;
 std::vector<GameObject *> Engine::gameObjects = {};
 std::vector<UIComponent *> Engine::uiComponents = {};
 const std::vector<Scene *> *Engine::scenes = {};
+SDL_Window *Engine::window = nullptr;
+SDL_Renderer *Engine::renderer = nullptr;
 
 bool Engine::beenInitialized = false;
 
@@ -37,20 +39,20 @@ int Engine::initilize() {
     if (beenInitialized) {
         return EXIT_SUCCESS;
     }
-    return init();
+
+    if (init()) {
+        throw std::runtime_error("Failed to initialize!");
+    }
+
+    window = SDL_CreateWindow("Springhawk", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+    renderer = SDL_CreateRenderer(window, -1, 0);
+
+    return EXIT_SUCCESS;
 }
 
 
 int Engine::run(std::vector<Scene *>& incomingScenes) {
-    if(!beenInitialized){
-        if (init()) {
-            throw std::runtime_error("Failed to initialize!");
-        }
-    }
-
-
-    SDL_Window* window = SDL_CreateWindow("Springhawk", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
+    initilize();
 
     scenes = &incomingScenes;
 
@@ -214,13 +216,6 @@ void Engine::instantiate(UIComponent *uiComponent) {
     uiComponents.push_back(uiComponent);
 }
 
-
-
-
-
-
-
-
-
-
-
+void Engine::swapTexture(GameObject *gameObject, std::string path) {
+    gameObject->setTexture(*renderer, path);
+}

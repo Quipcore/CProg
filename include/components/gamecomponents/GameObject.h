@@ -22,6 +22,7 @@ public:
     void setTag(std::string tag){this->tag = tag;};
 
     SDL_Texture* getTexture();
+    void setTexture(SDL_Texture *texture);
     void setTexture(SDL_Renderer &renderer, const std::string& path);
 
     double getAngle() const;
