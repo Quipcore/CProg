@@ -68,6 +68,8 @@ void Engine::quit(SDL_Renderer *renderer, SDL_Window *window) {
 
     TTF_Quit();
     SDL_Quit();
+
+    beenInitialized = false;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -93,9 +95,8 @@ void Engine::startNextScene(SDL_Renderer &renderer){
             Engine::render = PlaneRenderer::render;
             break;
         case Raycaster:
-//            Engine::render = Raycaster::render;
-            std::cout << "Raycaster currently out of commission" << std::endl;
-            tagFound = false;
+            Engine::render = Raycaster::render;
+//            std::cout << "Raycaster currently out of commission" << std::endl;
             break;
         case Doom:
             std::cout << "No doom style render available yet" << std::endl;
@@ -209,7 +210,11 @@ void Engine::instantiate(UIComponent *uiComponent) {
 }
 
 void Engine::swapTexture(GameObject *gameObject, std::string path) {
-    gameObject->setTexture(*renderer, path);
+    std::string pathToImage = constants::imagePath + path;
+    SDL_Surface *surface = IMG_Load(pathToImage.c_str());
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_FreeSurface(surface);
+    gameObject->setTexture(texture);
 }
 
 void Engine::updateObjects() {
@@ -234,8 +239,4 @@ void Engine::updateObjects() {
             }
         }
     }
-
-
-
-
 }

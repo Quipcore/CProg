@@ -6,31 +6,20 @@
 #include "springhawk/Engine.h"
 #include "springhawk/SceneBuilder.h"
 #include "springhawk/maps/Tilemap.h"
+#include "Constants.h"
 
 void Wolfenstein::run() {
-//    springhawk::SceneBuilder sceneBuilder;
-//
-    std::vector<std::vector<int>> mapVector = {
-            {1, 1, 1, 1, 1, 1, 1, 1},
-            {3, 0, 2, 0, 0, 0, 0, 5},
-            {3, 0, 2, 0, 0, 0, 0, 5},
-            {3, 0, 2, 0, 0, 0, 0, 5},
-            {3, 0, 0, 0, 0, 0, 0, 5},
-            {3, 0, 0, 0, 0, 2, 0, 5},
-            {3, 0, 0, 0, 0, 0, 0, 5},
-            {3, 4, 4, 4, 4, 4, 4, 4}
-    };
-//    sceneBuilder.setMap(*new springhawk::Tilemap(mapVector));
-//
-//    sceneBuilder.setPlayer(*new Player());
-//
-//    //sceneBuilder.addGameObjects();
-//
-//    sceneBuilder.setRenderTag(springhawk::RenderTag::Raycaster);
-//
-//    sceneBuilder.addScene();
-//    std::vector<Scene*> scenes = sceneBuilder.buildScenes();
-//
-//    springhawk::Engine::run(scenes);
-//    std::cout << "Wolfenstein 3D!" << std::endl;
+
+    springhawk::Engine::initilize();
+
+    auto* sceneBuilder = new springhawk::SceneBuilder();
+    sceneBuilder->addFromJSON(constants::jsonPath + "wolfenstein.json");
+
+    sceneBuilder->addGameObjects({
+        new Player(),
+    });
+    sceneBuilder->setRenderTag(springhawk::RenderTag::Raycaster);
+    sceneBuilder->addScene();
+    std::vector<Scene*> scenes = sceneBuilder->buildScenes();
+    springhawk::Engine::run(scenes);
 }

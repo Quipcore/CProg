@@ -4,6 +4,7 @@
 #include "Math.h"
 #include "springhawk/maps/Map.h"
 #include "springhawk/Scene.h"
+#include "springhawk/Engine.h"
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -13,20 +14,33 @@ using namespace springhawk;
 
 int Raycaster::SCREEN_WIDTH = 0;
 int Raycaster::SCREEN_HEIGHT = 0;
-int Raycaster::tileMap[mapWidth][mapHeight];
+int Raycaster::tileMap[mapWidth][mapHeight] = {
+        {1,1,1,1,1,1,1,1},
+        {3,0,2,0,0,0,0,5},
+        {3,0,2,0,0,0,0,5},
+        {3,0,2,0,0,0,0,5},
+        {3,0,0,0,0,0,0,5},
+        {3,0,0,0,0,2,0,5},
+        {3,0,0,0,0,0,0,5},
+        {3,4,4,4,4,4,4,4}
+};
 
 //----------------------------------------------------------------------------------------------------------------------
+void Raycaster::render(SDL_Renderer &renderer, std::vector<GameObject *> &gameObjects, Map &map, int screenWidth, int screenHeight) {
+    Player* player = Engine::getObjects<Player>()[0];
+    render(renderer, gameObjects, *player, map, screenWidth, screenHeight);
+}
 
 void Raycaster::render(SDL_Renderer &renderer, std::vector<GameObject *> &gameObjects, Player &player, Map &map, int screenWidth, int screenHeight) {
     SCREEN_WIDTH = screenWidth;
     SCREEN_HEIGHT = screenHeight;
 
-    //VERY INEFFICIENT. Copies the map to the tileMap array every frame.
-    for(int x = 0; x < map.getWidth(); x++){
-        for(int y = 0; y < map.getHeight(); y++){
-            Raycaster::tileMap[x][y] = map[{x,y}];
-        }
-    }
+//    //VERY INEFFICIENT. Copies the map to the tileMap array every frame.
+//    for(int x = 0; x < map.getWidth(); x++){
+//        for(int y = 0; y < map.getHeight(); y++){
+//            Raycaster::tileMap[x][y] = map[{x,y}];
+//        }
+//    }
 
     if(!Input::bufferContains(TAB)){
         //Draw ceiling

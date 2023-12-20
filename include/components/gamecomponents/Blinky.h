@@ -13,6 +13,7 @@ class Blinky : public GameObject{
 public:
     explicit Blinky(Map *map);
 
+    void update() override;
     void powerPelletActivated();
 
 private:

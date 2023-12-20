@@ -13,7 +13,7 @@
 
 //----------------------------------------------------------------------------------------------------------------------
 
-#define EPSILON 0.1 //Used to shrink hitbox. Used to prevent frustation. set to zero to disable
+#define EPSILON 0.0001 //Used to shrink hitbox. Used to prevent frustation. set to zero to disable
 
 //----------------------------------------------------------------------------------------------------------------------
 springhawk::Tilemap::Tilemap(nlohmann::json &mapdata) {
@@ -192,16 +192,3 @@ void springhawk::Tilemap::setTagAt(Vector2 pos, char id) {
 bool springhawk::Tilemap::collidesWithWall(GameObject *pObject) {
     return !isEmptyAt(pObject->getPosition());
 }
-
-//bool springhawk::Tilemap::checkCollisions(std::vector<GameObject *>gameObjects) {
-//    for (const auto &gameObject: gameObjects) {
-//        gameObject->updateObject();
-//
-//        GameObject* collisionObject = getObjectAt(gameObject->getPosition());
-//        gameObject->onCollision(*collisionObject);
-//        if(!isEmptyAt(gameObject->getPosition())){
-//            gameObject->resetPosition();
-//        }
-//    }
-//}
-

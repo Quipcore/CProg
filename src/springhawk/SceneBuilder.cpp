@@ -12,7 +12,7 @@ springhawk::SceneBuilder &springhawk::SceneBuilder::addFromJSON(std::string path
     nlohmann::json properties = data["properties"];
     std::map<std::string,RenderTag> renderTags{
             {"Plane", RenderTag::Plane},
-            {"Raycast", RenderTag::Raycaster},
+            {"Raycaster", RenderTag::Raycaster},
             {"Doom", RenderTag::Doom}
     };
     RenderTag renderTag;

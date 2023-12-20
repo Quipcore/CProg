@@ -22,12 +22,41 @@
             "30000005",
             "34444444"
           ],
-          "textureKey": {
-            "1": "ns_wall.png",
-            "2": "pellet.png",
-            "3": "empty.png",
-            "4": "power_pellet.png",
-            "5": "empty.png"
+          "textures": {
+            "0": {
+              "texture": "empty.png",
+              "isWall": false,
+              "tag": "Floor"
+            },
+            "1": {
+              "texture": "pellet.png",
+              "isWall": true,
+              "tag": "Wall"
+            },
+            "2": {
+              "texture": "pellet.png",
+              "isWall": true,
+              "tag": "Wall"
+            },
+            "3": {
+              "texture": "power_pellet.png",
+              "isWall": true,
+              "tag": "Wall"
+            },
+            "4": {
+              "texture": "ns_wall.png",
+              "isWall": true,
+              "tag": "Wall"
+            },
+            "5": {
+              "texture": "ns_wall.png",
+              "isWall": true,
+              "tag": "Wall"
+            }
+          },
+          "properties": {
+            "tileWidth": 64,
+            "tileHeight": 64
           }
         }
       }

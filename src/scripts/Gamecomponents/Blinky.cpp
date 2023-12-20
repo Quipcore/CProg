@@ -1,5 +1,6 @@
 #include <iostream>
 #include "components/gamecomponents/Blinky.h"
+#include "springhawk/Engine.h"
 
 Blinky::Blinky() {
     this->color = {0,0xcf,0x50,0xff};
@@ -16,6 +17,10 @@ Blinky::Blinky(Map *map) : Blinky(){
     this->map = map;
 }
 
+void Blinky::update() {
+    position += Vector2::left * 50 * Time::getDeltaTime();
+}
+
 void Blinky::powerPelletActivated() {
-    position += {0, 100};
+    springhawk::Engine::swapTexture(this, "ghost_active.png");
 }
