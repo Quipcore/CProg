@@ -8,7 +8,9 @@ Blinky::Blinky() {
     this->map = nullptr;
     this->tag = "Blinky";
     this->texturePath = "blinky.png";
+    this->objectIsTrigger = true;
 }
+
 
 Blinky::Blinky(Map *map) : Blinky(){
     this->map = map;

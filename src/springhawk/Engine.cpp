@@ -226,13 +226,11 @@ void Engine::updateObjects() {
         }
 
         for(const auto &other : gameObjects){
-            if(gameObject != other){
-                if(gameObject->intersects(*other)){
-                    if(!gameObject->isTrigger()){
-                        gameObject->resetPosition();
-                    }
-                    gameObject->onCollision(*other);
+            if(gameObject != other && gameObject->intersects(*other)){
+                if(!other->isTrigger() && !gameObject->isTrigger()){
+                    gameObject->resetPosition();
                 }
+                gameObject->onCollision(*other);
             }
         }
     }
