@@ -36,6 +36,7 @@ namespace springhawk {
         char getValueAt(Vector2 pos) override;
         bool isEmptyAt(Vector2 &postion) override;
         GameObject* getObjectAt(Vector2 &vector2) override;
+        bool collidesWithWall(GameObject *pObject) override;
 
     private:
 

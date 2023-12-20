@@ -28,7 +28,7 @@ std::vector<UIComponent *> Engine::uiComponents = {};
 const std::vector<Scene *> *Engine::scenes = {};
 SDL_Window *Engine::window = nullptr;
 SDL_Renderer *Engine::renderer = nullptr;
-
+Map* Engine::map = nullptr;
 bool Engine::beenInitialized = false;
 
 void (*Engine::render)(SDL_Renderer &, std::vector<GameObject *> &, Map &, int, int) = nullptr;
@@ -85,7 +85,7 @@ void Engine::startNextScene(SDL_Renderer &renderer){
         uiComponents.push_back(uiComponent);
     }
 
-    Map* map = &scene->getMap();
+    map = &scene->getMap();
 
     bool tagFound = true;
     switch (scene->getRenderTag()) {
@@ -149,7 +149,7 @@ void Engine::startGameLoop(SDL_Renderer &renderer, Map &map) {
             handleEvent(e);
         }
 
-        checkCollisions(map);
+        updateObjects();
 
         renderScene(renderer, map);
 
@@ -158,26 +158,6 @@ void Engine::startGameLoop(SDL_Renderer &renderer, Map &map) {
         //Works for now.
         Time::setDeltaTime(deltaTime);
         startTime = SDL_GetTicks();
-    }
-}
-
-void Engine::checkCollisions(Map &map) {
-    for (const auto &gameObject: gameObjects) {
-        gameObject->updateObject();
-
-        GameObject* collisionObject = map.getObjectAt(gameObject->getPosition());
-        gameObject->onCollision(*collisionObject);
-        if(!map.isEmptyAt(gameObject->getPosition())){
-            gameObject->resetPosition();
-        }
-
-        for(const auto &other : gameObjects){
-            if(gameObject != other){
-                if(gameObject->intersects(*other)){
-                    gameObject->onCollision(*other);
-                }
-            }
-        }
     }
 }
 
@@ -230,4 +210,34 @@ void Engine::instantiate(UIComponent *uiComponent) {
 
 void Engine::swapTexture(GameObject *gameObject, std::string path) {
     gameObject->setTexture(*renderer, path);
+}
+
+void Engine::updateObjects() {
+    for (GameObject *gameObject : gameObjects) {
+        gameObject->updateObject();
+
+        GameObject* collisionObject = map->getObjectAt(gameObject->getPosition());
+        if(collisionObject != nullptr && gameObject->getTag() != "Wall"){
+            gameObject->onCollision(*collisionObject);
+        }
+
+        if(map->collidesWithWall(gameObject)){
+            gameObject->resetPosition();
+        }
+
+        for(const auto &other : gameObjects){
+            if(gameObject != other){
+                if(gameObject->intersects(*other)){
+                    if(!gameObject->isTrigger()){
+                        gameObject->resetPosition();
+                    }
+                    gameObject->onCollision(*other);
+                }
+            }
+        }
+    }
+
+
+
+
 }

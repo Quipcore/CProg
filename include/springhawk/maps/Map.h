@@ -34,6 +34,8 @@ public:
     virtual char getValueAt(Vector2) = 0;
     virtual bool isEmptyAt(Vector2&) = 0;
     virtual GameObject* getObjectAt(Vector2 &vector2) = 0;
+
+    virtual bool collidesWithWall(GameObject *pObject) = 0;
 };
 
 

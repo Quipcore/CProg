@@ -35,6 +35,8 @@ public:
 
     bool intersects(GameObject& other);
 
+    bool isTrigger() const;
+
 protected:
     std::string tag = "GameObject";
     std::string texturePath = "";
@@ -42,6 +44,7 @@ protected:
     Vector2 oldPosition = position;
     Color color = {255,255,255,255};
     double angle = 0;
+    bool objectIsTrigger = false;
 private:
     SDL_Texture* texture{};
 };

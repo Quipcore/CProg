@@ -33,6 +33,7 @@ namespace springhawk {
                     objects.push_back((T*)gameObject);
                 }
             }
+
             return objects;
         }
 
@@ -55,6 +56,8 @@ namespace springhawk {
         static SDL_Renderer *renderer;
         static SDL_Window *window;
 
+        static Map* map;
+
         static bool beenInitialized;
 
         //Might causes performance issues
@@ -70,6 +73,8 @@ namespace springhawk {
         static void renderScene(SDL_Renderer&, Map&);
 
         static void checkCollisions(Map &map);
+
+        static void updateObjects();
     };
 }
 

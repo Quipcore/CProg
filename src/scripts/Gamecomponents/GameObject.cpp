@@ -71,3 +71,7 @@ bool GameObject::intersects(GameObject &other) {
         return false;
     });
 }
+
+bool GameObject::isTrigger() const {
+    return objectIsTrigger;
+}
