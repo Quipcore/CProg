@@ -33,6 +33,8 @@ public:
     void resetPosition();
     std::string getTexturePath() const{ return texturePath; };
 
+    bool intersects(GameObject& other);
+
 protected:
     std::string tag = "GameObject";
     std::string texturePath = "";
@@ -40,6 +42,7 @@ protected:
     Vector2 oldPosition = position;
     Color color = {255,255,255,255};
     double angle = 0;
+private:
     SDL_Texture* texture{};
 };
 

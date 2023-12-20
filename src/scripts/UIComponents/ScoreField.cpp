@@ -75,3 +75,7 @@ std::string ScoreField::getFontName() {
 void ScoreField::setFontName(std::string fontName) {
     this->fontName = fontName;
 }
+
+void ScoreField::setScore(int score) {
+    this->score = score;
+}

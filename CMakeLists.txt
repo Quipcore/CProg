@@ -41,6 +41,8 @@ SET(SOURCE_FILES
         include/components/uiComponents/ScoreField.h
         src/scripts/Gamecomponents/Blinky.cpp
         include/components/gamecomponents/Blinky.h
+        src/springhawk/TextureManager.cpp
+        include/springhawk/TextureManager.h
 )
 
 include_directories(include)

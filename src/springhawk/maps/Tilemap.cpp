@@ -110,8 +110,8 @@ void springhawk::Tilemap::loadTextures(SDL_Renderer& renderer) {
 
     for(const std::vector<Tile*>& row : tiles){
         for(Tile* tile : row){
-            SDL_Texture* c = texturesMap[tile->getId()].second;
-            tile->setTexture(*c);
+            SDL_Texture* texture = texturesMap[tile->getId()].second;
+            tile->setTexture(texture);
             setTagAt(tile->getPosition(), tile->getId());
         }
     }
@@ -138,7 +138,7 @@ void springhawk::Tilemap::generateTiles() {
 void springhawk::Tilemap::setValueAt(Vector2 pos, char value) {
     Tile* tile = getTileAt(pos);
     tile->setId(value);
-    tile->setTexture(*texturesMap[value].second);
+    tile->setTexture(texturesMap[value].second);
 }
 
 char springhawk::Tilemap::getValueAt(Vector2 pos) {

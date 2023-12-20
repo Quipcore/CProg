@@ -149,15 +149,7 @@ void Engine::startGameLoop(SDL_Renderer &renderer, Map &map) {
             handleEvent(e);
         }
 
-        for (const auto &gameObject: gameObjects) {
-            gameObject->updateObject();
-
-            GameObject* collisionObject = map.getObjectAt(gameObject->getPosition());
-            gameObject->onCollision(*collisionObject);
-            if(!map.isEmptyAt(gameObject->getPosition())){
-                gameObject->resetPosition();
-            }
-        }
+        checkCollisions(map);
 
         renderScene(renderer, map);
 
@@ -166,6 +158,26 @@ void Engine::startGameLoop(SDL_Renderer &renderer, Map &map) {
         //Works for now.
         Time::setDeltaTime(deltaTime);
         startTime = SDL_GetTicks();
+    }
+}
+
+void Engine::checkCollisions(Map &map) {
+    for (const auto &gameObject: gameObjects) {
+        gameObject->updateObject();
+
+        GameObject* collisionObject = map.getObjectAt(gameObject->getPosition());
+        gameObject->onCollision(*collisionObject);
+        if(!map.isEmptyAt(gameObject->getPosition())){
+            gameObject->resetPosition();
+        }
+
+        for(const auto &other : gameObjects){
+            if(gameObject != other){
+                if(gameObject->intersects(*other)){
+                    gameObject->onCollision(*other);
+                }
+            }
+        }
     }
 }
 

@@ -61,6 +61,11 @@ void PacmanController::onCollision(GameObject &other) {
             ghost->powerPelletActivated();
         }
     }
+
+    if(other.getTag() == "Blinky"){
+        std::cout << "Pacman collided with ghost" << std::endl;
+        scoreField->setScore(0);
+    }
 }
 
 

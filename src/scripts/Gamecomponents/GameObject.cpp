@@ -50,3 +50,24 @@ SDL_Texture* GameObject::getTexture(){
 void GameObject::resetPosition() {
     setPosition(oldPosition);
 }
+
+bool GameObject::intersects(GameObject &other) {
+
+    int tileSize = 20;
+    Vector2 otherPos = other.getPosition();
+    std::vector<Vector2> otherCorners = {
+            {otherPos.getX(), otherPos.getY()},
+            {otherPos.getX() + tileSize, otherPos.getY()},
+            {otherPos.getX(), otherPos.getY() + tileSize},
+            {otherPos.getX() + tileSize, otherPos.getY() + tileSize}
+    };
+
+    return std::any_of(otherCorners.begin(), otherCorners.end(), [&](Vector2& otherCorner){
+        if(position.getX() <= otherCorner.getX() && position.getX() + tileSize >= otherCorner.getX()){
+            if(position.getY() <= otherCorner.getY() && position.getY() + tileSize >= otherCorner.getY()){
+                return true;
+            }
+        }
+        return false;
+    });
+}

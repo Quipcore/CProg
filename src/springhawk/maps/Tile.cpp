@@ -4,11 +4,7 @@
 Tile::Tile() = default;
 
 Tile::Tile(SDL_Texture &texture) {
-    this->texture = &texture;
-}
-
-void Tile::setTexture(SDL_Texture &texture){
-    this->texture = &texture;
+    GameObject::setTexture(&texture);
 }
 
 char Tile::getId() const {

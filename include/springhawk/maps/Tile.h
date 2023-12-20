@@ -10,7 +10,7 @@ public:
     explicit Tile(SDL_Texture &texture);
 
 
-    void setTexture(SDL_Texture &texture);
+//    void setTexture(SDL_Texture &texture);
 
     char getId() const;
     void setId(char id);

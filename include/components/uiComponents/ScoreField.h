@@ -40,6 +40,8 @@ public:
 
     void incrementScore();
 
+    void setScore(int score);
+
 private:
     ScoreField();
     int score;

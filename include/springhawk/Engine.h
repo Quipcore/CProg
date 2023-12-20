@@ -68,6 +68,8 @@ namespace springhawk {
         static void startNextScene(SDL_Renderer &renderer);
         static void startGameLoop(SDL_Renderer &, Map&);
         static void renderScene(SDL_Renderer&, Map&);
+
+        static void checkCollisions(Map &map);
     };
 }
 
