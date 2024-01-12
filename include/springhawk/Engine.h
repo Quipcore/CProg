@@ -37,9 +37,6 @@ namespace springhawk {
             return objects;
         }
 
-
-
-
         static int run(std::vector<Scene *>& incomingScenes);
         static int initilize();
 

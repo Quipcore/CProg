@@ -1,5 +1,6 @@
 #include <fstream>
 #include "springhawk/SceneBuilder.h"
+#include "springhawk/Audio.h"
 #include <nlohmann/json.hpp>
 #include <iostream>
 
@@ -38,10 +39,15 @@ springhawk::SceneBuilder &springhawk::SceneBuilder::addFromJSON(std::string path
     return *this;
 }
 
+springhawk::SceneBuilder& springhawk::SceneBuilder::addBackgroundMusic(std::string& path, bool loop){
+    currentAudio.push_back(new Audio(path,loop));
+    return *this;
+}
+
 //----------------------------------------------------------------------------------------------------------------------
 
 springhawk::SceneBuilder& springhawk::SceneBuilder::addScene() {
-    scenes.push_back(new Scene(*currentMap, currentGameObjects,currentUIComponents,currentRenderTag));
+    scenes.push_back(new Scene(*currentMap, currentGameObjects,currentUIComponents,currentRenderTag,currentAudio));
     return *this;
 }
 

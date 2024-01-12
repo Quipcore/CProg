@@ -16,6 +16,10 @@ void PacMan::run() {
         new PacmanController(sceneBuilder->getMap()),
         new Blinky(sceneBuilder->getMap()),
     });
+
+    std::string path = constants::audioPath + "pacman_startup.mp3";
+    sceneBuilder->addBackgroundMusic(path, false);
+
     sceneBuilder->addScene();
     std::vector<Scene*> scenes = sceneBuilder->buildScenes();
 

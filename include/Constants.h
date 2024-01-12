@@ -10,6 +10,7 @@ namespace constants
     const std::string mapPath = resourcePath + "maps/";
     const std::string imagePath = resourcePath + "images/";
     const std::string jsonPath = resourcePath + "json/";
+    const std::string audioPath = resourcePath + "audio/";
 }
 
 #endif

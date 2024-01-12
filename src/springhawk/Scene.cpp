@@ -5,11 +5,12 @@
 #include "springhawk/Engine.h"
 
 
-Scene::Scene(Map &incomingMap, std::vector<GameObject *> &gameObjects, std::vector<UIComponent *>, springhawk::RenderTag renderTag) {
+Scene::Scene(Map &incomingMap, std::vector<GameObject *> &gameObjects, std::vector<UIComponent *> uiComponents, springhawk::RenderTag renderTag, std::vector<Audio*> audio) {
     this->map = &incomingMap;
     this->gameObjects = std::move(gameObjects);
     this->uiComponents = std::move(uiComponents);
     this->renderTag = renderTag;
+    this->currentAudio = std::move(audio);
 }
 
 //----------------------------------------------------------------------------------------------------------------------

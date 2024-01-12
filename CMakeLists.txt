@@ -43,6 +43,8 @@ SET(SOURCE_FILES
         include/components/gamecomponents/Blinky.h
         src/springhawk/TextureManager.cpp
         include/springhawk/TextureManager.h
+        src/springhawk/Audio.cpp
+        include/springhawk/Audio.h
 )
 
 include_directories(include)

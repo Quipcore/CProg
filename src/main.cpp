@@ -7,9 +7,9 @@
 int main( int argc, char* args[] )
 {
     std::vector<Game*> games = {
-//            new PacMan(),
-            new Wolfenstein(),
-//            new Tetris()
+            new PacMan(),
+//            new Wolfenstein(),
+
     };
     for(Game* game : games){
         game->run();

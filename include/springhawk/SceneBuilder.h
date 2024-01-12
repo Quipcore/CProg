@@ -9,6 +9,7 @@
 #include <memory>
 #include "springhawk/Scene.h"
 #include "components/gamecomponents/Player.h"
+#include "Audio.h"
 
 
 namespace springhawk{
@@ -34,11 +35,14 @@ namespace springhawk{
         SceneBuilder &addUIComponents(std::vector<UIComponent *> &uiComponents);
         SceneBuilder &addUIComponents(std::initializer_list<UIComponent *> uiComponents);
 
+        SceneBuilder& addBackgroundMusic(std::string&,bool);
         std::vector<Scene*> buildScenes();
 
     private:
         std::vector<Scene*> scenes;
         Map* currentMap;
+
+        std::vector<Audio*> currentAudio;
         std::vector<GameObject*> currentGameObjects;
         std::vector<UIComponent*> currentUIComponents;
         springhawk::RenderTag currentRenderTag;

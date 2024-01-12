@@ -68,6 +68,7 @@ void Engine::quit(SDL_Renderer *renderer, SDL_Window *window) {
 
     TTF_Quit();
     SDL_Quit();
+    Mix_Quit();
 
     beenInitialized = false;
 }
@@ -127,6 +128,14 @@ bool Engine::init() {
         std::cout << "Error SDL_ttf Initialization : " << SDL_GetError();
         return EXIT_FAILURE;
     }
+
+    //Initialize SDL_mixer
+    if(Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 1, 2048 ) < 0 )
+    {
+        std::cout << "Error SDL_Mixer Initialization : " << Mix_GetError();
+        return EXIT_FAILURE;
+    }
+
     beenInitialized = true;
     return EXIT_SUCCESS;
 }
