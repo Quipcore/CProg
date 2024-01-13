@@ -13,7 +13,7 @@
 
 //----------------------------------------------------------------------------------------------------------------------
 
-#define EPSILON 0.05 //Used to shrink hitbox. Used to prevent frustation. set to zero to disable
+#define EPSILON 0.99 //Used to shrink hitbox. Used to prevent frustation. set to zero to disable
 
 //----------------------------------------------------------------------------------------------------------------------
 springhawk::Tilemap::Tilemap(nlohmann::json &mapdata) {
@@ -73,7 +73,7 @@ Vector2 springhawk::Tilemap::getValidPos() {
 
 //TODO: Fix implementation for raycaster
 int springhawk::Tilemap::operator[](Vector2 position) {
-    return -1;
+    return 0;
 }
 
 //----------------------------------------------------------------------------------------------------------------------

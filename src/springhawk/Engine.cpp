@@ -129,8 +129,6 @@ void Engine::startNextScene(SDL_Renderer &renderer){
     if (tagFound) {
         startGameLoop(renderer, *map);
     }
-
-//    scene->destroyTextures();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -181,8 +179,6 @@ void Engine::startGameLoop(SDL_Renderer &renderer, Map &map) {
         renderScene(renderer, map);
 
         float deltaTime = (SDL_GetTicks64() - startTime) / 1000.0f;
-        //Needs to be looked at, dont know if this is the best way to do it. Should probably not use inheritance.
-        //Works for now.
         Time::setDeltaTime(deltaTime);
         startTime = SDL_GetTicks();
     }

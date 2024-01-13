@@ -1,12 +1,9 @@
-#include <iostream>
 #include "springhawk/renderers/PlaneRenderer.h"
 #include "SDL2/SDL.h"
-#include "springhawk/Time.h"
 #include "springhawk/renderers/UIRenderer.h"
 
 void PlaneRenderer::render(SDL_Renderer &renderer, std::vector<GameObject *> &gameObjects, Map &map, int screenWidth, int screenHeight) {
 
-    //TODO: Change to be dynamic with maps tile size
     int rectW = 20;
     int rectH = 20;
     int drawingOffset = (screenWidth-map.getWidth())/2;

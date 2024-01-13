@@ -62,6 +62,11 @@ void PacmanController::update() {
 }
 
 void PacmanController::onCollision(GameObject& other) {
+    if(other.getTag() != "Empty"){
+        std::cout << tag << " Collided with " << other.getTag() << std::endl;
+    }
+
+
     if(other.getTag() == "Pellet"){
         map->setValueAt(other.getPosition(), '_');
         scoreField->incrementScore();

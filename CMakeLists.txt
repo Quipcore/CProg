@@ -36,17 +36,10 @@ SET(SOURCE_FILES
         src/games/Tetris.cpp
         src/games/PacMan.cpp
         src/scripts/UIComponents/UIComponent.cpp
-        include/components/uiComponents/UIComponent.h
         src/scripts/UIComponents/ScoreField.cpp
-        include/components/uiComponents/ScoreField.h
         src/scripts/Gamecomponents/Blinky.cpp
-        include/components/gamecomponents/Blinky.h
-        src/springhawk/TextureManager.cpp
-        include/springhawk/TextureManager.h
         src/springhawk/Audio.cpp
-        include/springhawk/Audio.h
         src/scripts/Gamecomponents/TeleportPad.cpp
-        include/components/gamecomponents/TeleportPad.h
 )
 
 include_directories(include)
