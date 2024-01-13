@@ -21,7 +21,7 @@ namespace springhawk {
 
         //TODO: Implement freeing of textures
         Tilemap() = delete;
-        ~Tilemap() override = default;
+        ~Tilemap() override;;
 
         bool isOutOfBounds(Vector2 &position) override;
         Vector2 getValidPos() override;
@@ -52,13 +52,9 @@ namespace springhawk {
         std::vector<std::string> map;
 
         void generateTiles();
-
-
         void setTagAt(Vector2 pos, char id);
 
         Tile *getTileAt(Vector2 &vector2);
-
-
     };
 }
 

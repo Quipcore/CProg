@@ -4,6 +4,7 @@
 #include "springhawk/Time.h"
 #include "springhawk/Engine.h"
 #include "components/gamecomponents/Blinky.h"
+#include "components/gamecomponents/TeleportPad.h"
 
 PacmanController::PacmanController() {
     this->color = {0,0xcf,0x50,0xff};
@@ -20,10 +21,22 @@ PacmanController::PacmanController() {
     this->scoreField->setFontName("ComicSans/comic.ttf");
     this->scoreField->setFontSize(20);
     springhawk::Engine::instantiate(scoreField);
+
+    int tileSize = 20;
+    auto* leftPad = new TeleportPad(Vector2{28, 15}*tileSize);
+    auto* rightPad = new TeleportPad(Vector2{1, 15}*tileSize);
+
+    leftPad->setAnchor(rightPad, Vector2::right*2*tileSize);
+    rightPad->setAnchor(leftPad, Vector2::left*2*tileSize);
+
+    springhawk::Engine::instantiate(leftPad);
+    springhawk::Engine::instantiate(rightPad);
+
 }
 
 PacmanController::PacmanController(Map* map) : PacmanController(){
     this->map = map;
+
 }
 
 void PacmanController::update() {
@@ -48,7 +61,7 @@ void PacmanController::update() {
     }
 }
 
-void PacmanController::onCollision(GameObject &other) {
+void PacmanController::onCollision(GameObject& other) {
     if(other.getTag() == "Pellet"){
         map->setValueAt(other.getPosition(), '_');
         scoreField->incrementScore();

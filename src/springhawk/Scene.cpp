@@ -37,14 +37,14 @@ void Scene::loadTextures(SDL_Renderer& renderer) {
     map->loadTextures(renderer);
     for(GameObject* gameObject : gameObjects){
         springhawk::Engine::swapTexture(gameObject, gameObject->getTexturePath());
-//        gameObject->setTexture(renderer, gameObject->getTexturePath());
     }
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-
 void Scene::destroyTextures() {
-    //TODO: Destory textures in the same places they were created!
+    for(GameObject* gameObject : gameObjects){
+        SDL_DestroyTexture(gameObject->getTexture());
+    }
 }
 
 std::vector<UIComponent *> Scene::getUIComponents() {

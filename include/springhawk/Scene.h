@@ -20,12 +20,14 @@
 
 class Scene {
 public:
-    ~Scene() = default;
-    Scene()= delete;
+    ~Scene(){
+            for(auto audio: currentAudio){
+                delete audio;
+            }
+    };
+    Scene() = delete;
 
     Scene(Map &incomingMap, std::vector<GameObject *> &gameObjects, std::vector<UIComponent*>, springhawk::RenderTag, std::vector<Audio*>);
-
-
 
     std::vector<GameObject *> getGameObjects();
     std::vector<UIComponent *> getUIComponents();
@@ -38,13 +40,10 @@ public:
 
     void destroyTextures();
 
-
-
 private:
 
 
     Map* map;
-
     std::vector<GameObject*> gameObjects;
     std::vector<UIComponent*> uiComponents;
     std::vector<Audio*> currentAudio;

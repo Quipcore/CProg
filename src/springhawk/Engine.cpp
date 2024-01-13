@@ -62,13 +62,30 @@ int Engine::run(std::vector<Scene *>& incomingScenes) {
     return EXIT_SUCCESS;
 }
 
+//TODO:Fix cleanup
 void Engine::quit(SDL_Renderer *renderer, SDL_Window *window) {
+    for(auto gameObject : gameObjects){
+        delete gameObject;
+    }
+    gameObjects.clear();
+
+    for(auto uiComponent : uiComponents){
+        delete uiComponent;
+    }
+    uiComponents.clear();
+
+    for(auto scene : *scenes){
+        delete scene;
+    }
+    scenes = {};
+    delete map;
+
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
 
+    Mix_Quit();
     TTF_Quit();
     SDL_Quit();
-    Mix_Quit();
 
     beenInitialized = false;
 }
@@ -113,7 +130,7 @@ void Engine::startNextScene(SDL_Renderer &renderer){
         startGameLoop(renderer, *map);
     }
 
-    scene->destroyTextures();
+//    scene->destroyTextures();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -200,6 +217,9 @@ void Engine::sleep(int duration_ms) {
 //----------------------------------------------------------------------------------------------------------------------
 
 void Engine::instantiate(GameObject *gameObject) {
+    if(gameObject->getTexture() == nullptr){
+        swapTexture(gameObject, gameObject->getTexturePath());
+    }
     gameObjects.push_back(gameObject);
 }
 

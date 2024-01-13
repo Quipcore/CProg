@@ -13,7 +13,7 @@
 
 //----------------------------------------------------------------------------------------------------------------------
 
-#define EPSILON 0.0001 //Used to shrink hitbox. Used to prevent frustation. set to zero to disable
+#define EPSILON 0.05 //Used to shrink hitbox. Used to prevent frustation. set to zero to disable
 
 //----------------------------------------------------------------------------------------------------------------------
 springhawk::Tilemap::Tilemap(nlohmann::json &mapdata) {
@@ -71,9 +71,9 @@ Vector2 springhawk::Tilemap::getValidPos() {
 
 //----------------------------------------------------------------------------------------------------------------------
 
+//TODO: Fix implementation for raycaster
 int springhawk::Tilemap::operator[](Vector2 position) {
-    //TODO: Implement!
-    return 0;
+    return -1;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -97,7 +97,6 @@ SDL_Texture* springhawk::Tilemap::getTextureAt(Vector2 position){
 //----------------------------------------------------------------------------------------------------------------------
 
 void springhawk::Tilemap::loadTextures(SDL_Renderer& renderer) {
-    //TODO: Create Textures with renderer and texturePaths
     std::string path = constants::imagePath;
 
     for(const auto& [key, pair] : texturesMap){
@@ -191,4 +190,16 @@ void springhawk::Tilemap::setTagAt(Vector2 pos, char id) {
 
 bool springhawk::Tilemap::collidesWithWall(GameObject *pObject) {
     return !isEmptyAt(pObject->getPosition());
+}
+
+springhawk::Tilemap::~Tilemap() {
+    for(const auto& vec : tiles){
+        for(auto tile: vec){
+            delete tile;
+        }
+    }
+
+    for(const auto& p1 : texturesMap){
+        SDL_DestroyTexture(p1.second.second);
+    }
 }

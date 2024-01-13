@@ -45,6 +45,8 @@ SET(SOURCE_FILES
         include/springhawk/TextureManager.h
         src/springhawk/Audio.cpp
         include/springhawk/Audio.h
+        src/scripts/Gamecomponents/TeleportPad.cpp
+        include/components/gamecomponents/TeleportPad.h
 )
 
 include_directories(include)

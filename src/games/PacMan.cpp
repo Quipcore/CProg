@@ -12,10 +12,12 @@ void PacMan::run() {
     auto* sceneBuilder = new springhawk::SceneBuilder();
     sceneBuilder->addFromJSON(constants::jsonPath + "pacman.json");
 
-    sceneBuilder->addGameObjects({
-        new PacmanController(sceneBuilder->getMap()),
-        new Blinky(sceneBuilder->getMap()),
-    });
+    std::vector<GameObject*> gameObjects = {
+            new PacmanController(sceneBuilder->getMap()),
+            new Blinky(sceneBuilder->getMap()),
+    };
+
+    sceneBuilder->addGameObjects(gameObjects);
 
     std::string path = constants::audioPath + "pacman_startup.mp3";
     sceneBuilder->addBackgroundMusic(path, false);
@@ -24,4 +26,6 @@ void PacMan::run() {
     std::vector<Scene*> scenes = sceneBuilder->buildScenes();
 
     springhawk::Engine::run(scenes);
+
+    delete sceneBuilder;
 }

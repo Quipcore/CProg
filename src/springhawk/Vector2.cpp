@@ -66,6 +66,12 @@ Vector2 Vector2::operator*(const double &rhs) const {
 
 //----------------------------------------------------------------------------------------------------------------------
 
+Vector2 Vector2::operator/(const double &rhs) const {
+    return {x/rhs,y/rhs};
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
 Vector2 Vector2::operator+=(const Vector2& rhs){
     x += rhs.getX();
     y += rhs.getY();

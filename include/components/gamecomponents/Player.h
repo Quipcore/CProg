@@ -11,6 +11,7 @@ public:
     Player();
     Player(const Player&);
     explicit Player(Map *map);
+    ~Player() override = default;
 
     void update() override;
     int getLineCount() const;

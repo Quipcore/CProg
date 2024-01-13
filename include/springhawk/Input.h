@@ -1,7 +1,3 @@
-//
-// Created by felix on 2023-11-11.
-//
-
 #ifndef CPROG_PROJECT_INPUT_H
 #define CPROG_PROJECT_INPUT_H
 

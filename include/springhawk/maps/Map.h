@@ -15,7 +15,7 @@
 class Map {
 
 public:
-    virtual ~Map() = default;
+    virtual ~Map()= default;
 
     virtual bool isOutOfBounds(Vector2 &position) = 0;
     virtual Vector2 getValidPos() = 0;

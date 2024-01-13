@@ -1,7 +1,3 @@
-//
-// Created by felix on 2023-11-26.
-//
-
 #ifndef PLAY_PACMAN_H
 #define PLAY_PACMAN_H
 
@@ -11,7 +7,7 @@ class PacMan : public Game {
 
 public:
     PacMan() = default;
-    ~PacMan() = default;
+    ~PacMan() override = default;
 
     void run() override;
 };

@@ -10,7 +10,7 @@
 class Wolfenstein : public Game{
 public:
     Wolfenstein() = default;
-    ~Wolfenstein() = default;
+    ~Wolfenstein() override = default;
 
     void run() override;
 };

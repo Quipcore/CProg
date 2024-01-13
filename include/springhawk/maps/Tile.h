@@ -8,7 +8,7 @@ class Tile : public GameObject{
 public:
     Tile();
     explicit Tile(SDL_Texture &texture);
-
+    ~Tile() override = default;
 
 //    void setTexture(SDL_Texture &texture);
 

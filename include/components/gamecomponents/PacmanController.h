@@ -6,17 +6,16 @@
 #include "springhawk/maps/Map.h"
 #include "components/uiComponents/UIComponent.h"
 #include "components/uiComponents/ScoreField.h"
+#include "Blinky.h"
 
 
 class PacmanController : public GameObject{
 public:
     PacmanController();
-    ~PacmanController() = default;
+    ~PacmanController() override= default;
     PacmanController(const PacmanController&) = default;
 
     explicit PacmanController(Map* map);
-
-
 
     void update() override;
     void onCollision(GameObject& other) override;

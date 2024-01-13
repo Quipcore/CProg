@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <memory>
+#include <iostream>
 #include "springhawk/Scene.h"
 #include "components/gamecomponents/Player.h"
 #include "Audio.h"
@@ -18,7 +19,9 @@ namespace springhawk{
 
         SceneBuilder() = default;
         SceneBuilder(const SceneBuilder&) = default;
-        ~SceneBuilder() = default;
+        ~SceneBuilder(){
+                std::cout << "Deleting SB" << std::endl;
+        };
 
         SceneBuilder& addScene();
 

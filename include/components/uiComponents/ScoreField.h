@@ -14,7 +14,9 @@
 class ScoreField : public UIComponent{
 
 public:
-    ~ScoreField() override = default;
+    ~ScoreField() override{
+        TTF_CloseFont(font);
+    };
     explicit ScoreField(const std::string& leadText);
 
     Vector2 getPosition() override;
@@ -45,7 +47,6 @@ public:
 private:
     ScoreField();
     int score;
-
 };
 
 

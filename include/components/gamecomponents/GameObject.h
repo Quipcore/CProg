@@ -1,7 +1,3 @@
-//
-// Created by felix on 2023-11-11.
-//
-
 #ifndef CPROG_PROJECT_GAMEOBJECT_H
 #define CPROG_PROJECT_GAMEOBJECT_H
 
@@ -12,7 +8,7 @@
 class GameObject {
 public:
     GameObject() = default;
-    ~GameObject() = default;
+    virtual ~GameObject() = default;
 
     void updateObject();
     virtual void update(){};

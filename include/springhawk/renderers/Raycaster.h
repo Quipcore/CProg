@@ -37,8 +37,6 @@ namespace springhawk {
         static Vector2 getIntersectionPoint(Vector2 &position, double angle);
 
         static Vector2 findMapPoint(Vector2 vector2);
-
-
     };
 }
 

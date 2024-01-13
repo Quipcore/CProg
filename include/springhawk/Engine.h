@@ -16,11 +16,6 @@ namespace springhawk {
         static void instantiate(GameObject* gameObject);
         static void instantiate(UIComponent* uiComponent);
 
-        template<typename Base, typename T>
-        static bool instanceof(const T *ptr) {
-            return dynamic_cast<const Base*>(ptr) != nullptr;
-        }
-
         template<typename T>
         static std::vector<T*> getObjects(){
             if(!beenInitialized){
@@ -43,6 +38,12 @@ namespace springhawk {
         static void swapTexture(GameObject* gameObject, std::string path);
 
     private:
+
+        template<typename Base, typename T>
+        static bool instanceof(const T *ptr) {
+            return dynamic_cast<const Base*>(ptr) != nullptr;
+        }
+
         static const int SCREEN_WIDTH = 1500;
         static const int SCREEN_HEIGHT = 680;
 
@@ -68,8 +69,6 @@ namespace springhawk {
         static void startNextScene(SDL_Renderer &renderer);
         static void startGameLoop(SDL_Renderer &, Map&);
         static void renderScene(SDL_Renderer&, Map&);
-
-        static void checkCollisions(Map &map);
 
         static void updateObjects();
     };

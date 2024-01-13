@@ -12,15 +12,14 @@
 class Blinky : public GameObject{
 public:
     explicit Blinky(Map *map);
+    ~Blinky() override = default;
 
     void update() override;
     void powerPelletActivated();
 
 private:
     Blinky();
-
     Map* map;
-
 };
 
 

@@ -14,6 +14,8 @@ public:
     Vector2(const Vector2& rhs);
     Vector2();
 
+    ~Vector2() = default;
+
     /**
      * Shorhand for Vector2(0,0)
      */
@@ -59,11 +61,13 @@ public:
     Vector2 operator+(const Vector2& rhs) const;
     Vector2 operator-(const Vector2& rhs) const;
     Vector2 operator*(const double& rhs) const;
+    Vector2 operator/(const double& rhs) const;
     Vector2 operator+=(const Vector2& rhs);
     Vector2 operator-=(const Vector2& rhs);
     Vector2 operator*=(const double& rhs);
     Vector2& operator=(const Vector2& rhs);
     bool operator==(const Vector2& rhs) const;
+
 
     friend std::ostream& operator<<(std::ostream& os, const Vector2& dt);
 

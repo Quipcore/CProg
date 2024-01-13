@@ -1,7 +1,6 @@
 #include "springhawk/Audio.h"
 #include "algorithm"
 #include "Constants.h"
-#include <limits>
 
 
 std::vector<Audio*> Audio::audioDrivers = {};
@@ -33,6 +32,8 @@ Audio::~Audio() {
         }
     }
 
+    auto a = std::remove(audioDrivers.begin(), audioDrivers.end(),this);
+    audioDrivers.erase(a,audioDrivers.end());
 }
 
 bool Audio::contains(Mix_Chunk *pChunk) {

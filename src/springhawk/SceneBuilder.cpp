@@ -8,7 +8,7 @@ springhawk::SceneBuilder &springhawk::SceneBuilder::addFromJSON(std::string path
 
     std::ifstream file(path);
     nlohmann::json data = nlohmann::json::parse(file);
-
+    file.close();
     //Properties
     nlohmann::json properties = data["properties"];
     std::map<std::string,RenderTag> renderTags{
@@ -29,12 +29,6 @@ springhawk::SceneBuilder &springhawk::SceneBuilder::addFromJSON(std::string path
     auto* tilemap = new Tilemap(map);
     setMap(tilemap);
 
-
-//    //Add gameobjects
-//    auto gameObjects = new std::vector<GameObject*>{
-//        new Player(tilemap)
-//    };
-//    addGameObjects(*gameObjects);
 
     return *this;
 }
