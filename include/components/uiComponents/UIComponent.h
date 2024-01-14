@@ -1,7 +1,7 @@
 #ifndef CPROG_PROJECT_UICOMPONENT_H
 #define CPROG_PROJECT_UICOMPONENT_H
 
-#include <SDL_ttf.h>
+#include <SDL2/SDL_ttf.h>
 #include "springhawk/Vector2.h"
 #include "springhawk/Color.h"
 

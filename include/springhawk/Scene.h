@@ -15,7 +15,7 @@
 #include "springhawk/maps/Tilemap.h"
 #include "Audio.h"
 #include <vector>
-#include <SDL_mixer.h>
+#include <SDL2/SDL_mixer.h>
 
 
 class Scene {
